@@ -57,31 +57,38 @@
           },
 	    {
 		    "id": "btn_browse", 
-		    "type": "ClutterText", 
-		    "text": "Browse", 
-		    "font-name" : "Sans 20px",
-		    "x": 80, 
-		    "y": 20	
+		    "type": "MxButton", 
+		    "label": "Browse", 
+            "style-class": "main",
+            "is-toggle" : true, 
+            "toggled" : false,
+		    "x": 60, 
+		    "y": 15	
 	    },
 	    {
 		    "id": "btn_prepare", 
-		    "type": "ClutterText", 
-		    "text": "Prepare", 
-		    "font-name" : "Sans 20px",
-		    "x": 200, 
-		    "y": 20	
+		    "type": "MxButton", 
+		    "label": "Prepare", 
+            "style-class": "main",
+            "is-toggle" : true, 
+            "toggled" : true,
+		    "x": 185, 
+		    "y": 15	
 	    },
 	    {
 		    "id": "btn_operate", 
-		    "type": "ClutterText", 
-		    "text": "Operate", 
-		    "x": 350, 
-		    "y": 20	
+		    "type": "MxButton", 
+		    "label": "Operate", 
+            "style-class": "main",
+            "is-toggle" : true, 
+            "toggled" : false,
+		    "x": 330, 
+		    "y": 15	
 	    }, 
 	    {
 		    "id": "btn_place", 
 		    "type": "MxButton", 
-            	    "label": "Place",
+            "label": "Place",
 		    "x": 480, 
 		    "y": 40	
 	    },
@@ -105,7 +112,47 @@
 		    "label": "Print",
 		    "x": 700, 
 		    "y": 40	
-	    }
+	    }, 
+        {
+            "id": "btn_top_view", 
+            "type": "MxButton",
+            "label": "top View", 
+            "is-toggle" : true, 
+            "toggled" : true,
+            "style-class": "toggle",
+            "x": 480, 
+            "y": 390
+        },
+        {
+            "id": "btn_side_view", 
+            "type": "MxButton",
+            "label": "side View", 
+            "is-toggle" : true, 
+            "toggled" : false,
+            "style-class": "toggle",
+            "x": 600, 
+            "y": 390
+        },
+        {
+            "id": "btn_auto_place", 
+            "type": "MxButton",
+            "label": "auto place", 
+            "is-toggle" : true, 
+            "toggled" : false,
+            "style-class": "toggle",
+            "x": 480, 
+            "y": 430
+        },
+        {
+            "id": "btn-snap-to-grid", 
+            "type": "MxButton",
+            "label": "snap to grid", 
+            "is-toggle" : true, 
+            "toggled" : true,
+            "style-class": "toggle",
+            "x": 600, 
+            "y": 430
+        }
     ]
   }
  

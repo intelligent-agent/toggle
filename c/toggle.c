@@ -19,8 +19,15 @@ int main(int argc, char *argv[]) {
 	ClutterActor *box;
 	MashLightSet *light_set;
 	ClutterActor *light_point, *light_directional, *light_spot;
+	MxStyle *style;
 
         ret = clutter_init(&argc, &argv);
+
+	style = mx_style_get_default ();
+	if (!mx_style_load_from_file (style, "../etc/style.css", &err)){
+      		g_warning ("Error setting style: %s", err->message);
+      		g_clear_error (&err);
+    	}
 
 	gchar *filename = "ui.json";
 	const gchar *paths[] = { "/usr/src/toggle/etc" };
