@@ -76,21 +76,21 @@
 		    "id": "btn_place", 
 		    "type": "MxButton", 
             	    "label": "Place",
-		    "x": 450, 
+		    "x": 480, 
 		    "y": 40	
 	    },
 	    {
 		    "id": "btn_rig", 
 		    "type": "MxButton", 
             	    "label": "Rig",
-		    "x": 500, 
+		    "x": 560, 
 		    "y": 40	
 	    },
 	    {
 		    "id": "btn_slice", 
 		    "type": "MxButton", 
             	    "label": "Slice",
-		    "x": 550, 
+		    "x": 630, 
 		    "y": 40	
 	    },
 	    {

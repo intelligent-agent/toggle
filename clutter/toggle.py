@@ -7,22 +7,20 @@ from star_actor_1 import StarActor
 
 if __name__ == '__main__':
     Clutter.init(None)
- 
+
+    # Load a dummy Mx Widget so that buttons can be loaded via clutterscript
     mxDummy = Mx.Button()
 
     _script = Clutter.Script()
     _script.load_from_file("ui.json")
     stage = _script.get_object("stage")
     _script.connect_signals(stage)
- 
-    star_actor = StarActor()
-    star_actor.set_size(100, 100)
 
-    model = Mash.Model.new_from_file(Mash.DataFlags.NONE, "/usr/src/snuff/mash/examples/suzanne.ply")
-    model.set_size(300, 300)
+    # Load a model from file  
+    model = Mash.Model.new_from_file(Mash.DataFlags.NONE, "./suzanne.ply")
+    model.set_size(200, 200)
 
     color = Clutter.Color.from_string("#0c0")[1]
-    star_actor.set_color(color)
 
     model.set_background_color(color)
     model.set_x(100)
@@ -30,24 +28,14 @@ if __name__ == '__main__':
 
     #mat = Cogl.Material()
 
-
     view = _script.get_object("3d-stage")
-    #view.add_actor(star_actor)
-    star_actor.set_position(20, 50)
     view.add_actor(model)
-
-    star_actor.set_reactive(True)
-    star_actor.set_easing_duration(1000)
-    star_actor.set_easing_mode(Clutter.AnimationMode.LINEAR)
-    star_actor.set_x(280)
-
-    #stage.set_fullscreen(True)
 
     stage.show()
 
-
+    # Rotate the stage 
     box = _script.get_object("box")
-    box.set_easing_duration(1000)
+    box.set_easing_duration(2000)
     box.set_rotation( Clutter.RotateAxis.Z_AXIS, -90, 0, 0, 0)
     box.set_position(0, 800)
 
