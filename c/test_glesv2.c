@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stddef.h>
+#include <bcm_host.h>
 
 const char vertex_src [] =
 "                                        \
@@ -99,6 +100,8 @@ int main(int argc, char **argv)
         EGLContext context;
 
         EGLBoolean rv;
+        
+        bcm_host_init();
 
         display = eglGetDisplay(NULL);
         assert(eglGetError() == EGL_SUCCESS);
@@ -113,7 +116,12 @@ int main(int argc, char **argv)
         assert(rv == EGL_TRUE);
 
         surface = eglCreateWindowSurface((EGLDisplay) display, ecfg, (EGLNativeWindowType)NULL, NULL);
-        assert(eglGetError() == EGL_SUCCESS);
+        
+        int code = eglGetError();
+        if (code != EGL_SUCCESS)
+    		fprintf(stderr, "Error code: %4X\n", code);
+        assert(code == EGL_SUCCESS);
+        
         assert(surface != EGL_NO_SURFACE);
 
         context = eglCreateContext((EGLDisplay) display, ecfg, EGL_NO_CONTEXT, ctxattr);

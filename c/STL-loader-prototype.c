@@ -16,14 +16,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include <assert.h>
 #include "esUtil.h"
-#include "esShader.h"
 
-#define DEBUG 1
-#define debug_print(fmt, ...) \
-        do { if (DEBUG) fprintf(stderr, "%s:%d:%s(): " fmt, __FILE__, \
-                                __LINE__, __func__, __VA_ARGS__); } while (0)
 typedef struct
 {
     float x, y, z;
@@ -57,6 +51,9 @@ typedef struct
 
    // Rotation angle
    GLfloat   angle;
+   GLfloat   xrot;
+   GLfloat   yrot;
+   GLfloat   zrot;
 
    // MVP matrix
    ESMatrix  mvpMatrix;
@@ -94,38 +91,31 @@ int loadBinarySTL (char * filename, GLfloat scale, GLfloat **points, GLfloat **v
     int numVertices;
     int numIndices;
     int numPoints;
-    long fileSize;
-    char *mBuffer;
-    unsigned int i;
-	unsigned char* sz;
     GLfloat *triangle_normals;
+    
     FILE *fp;
+    long fileSize;
+    unsigned char *mBuffer;
+    unsigned char* sz;
 
-	debug_print("%s\n", "opening file");
     fp = fopen ( filename , "rb" );
     if( !fp ) {
         perror(filename);
         exit(1);
     }
 
-	debug_print("%s\n", "fseeking");
     fseek( fp , 0L , SEEK_END);
     fileSize = ftell( fp );
     rewind( fp );
 
-	debug_print("callocing %ld bytes \n", fileSize);
-
     /* allocate memory for entire content */
+    //mBuffer = calloc( 1, fileSize+1 );
     mBuffer = (char*) calloc(fileSize+1, sizeof(char));
-    if( mBuffer == NULL ) {
+    if( !mBuffer ) {
         fclose(fp);
         fprintf(stderr, "memory alloc fails");
         exit(1);
     }
-
-	debug_print("*(mBuffer+100) = %d\n", *(mBuffer+100));	
-
-	debug_print("%s\n", "Copying file to buffer");
 
     /* copy the file into the buffer */
     if( 1!=fread( mBuffer , fileSize, 1 , fp) ) {
@@ -134,8 +124,6 @@ int loadBinarySTL (char * filename, GLfloat scale, GLfloat **points, GLfloat **v
       fprintf(stderr, "entire read fails");
       exit(1);
     }
-
-	debug_print("%s\n", "closing file");
 
     /* Close the file */
     fclose(fp);    
@@ -147,13 +135,15 @@ int loadBinarySTL (char * filename, GLfloat scale, GLfloat **points, GLfloat **v
 	}
 
 	// skip the first 80 bytes
-	sz = (unsigned char*)mBuffer + 80;
+	//const unsigned char* sz = (const unsigned char*)mBuffer + 80;
+	//sz = (unsigned char*)mBuffer + 80;
+	sz = mBuffer + 80;
 
 	// Read the number of facets
 	numFacets = *((unsigned int*)sz);
 	sz += 4;
 
-	if (fileSize < 84 + numFacets*12*sizeof(GLfloat)) {
+	if (fileSize < 84 + numFacets*50) {
 		fprintf(stderr, "STL: file is too small to hold all facets");
 	    exit(-1);	
 	}
@@ -164,49 +154,42 @@ int loadBinarySTL (char * filename, GLfloat scale, GLfloat **points, GLfloat **v
 
     numVertices = numFacets*3;
     numPoints = numVertices*3;
-    numIndices = numFacets*3;  // 
-
-	debug_print("%s\n", "Creating array");    
-
+    numIndices = numFacets*3;
+    
     //Create arrays
-    *points             = malloc ( sizeof(GLfloat) * 3 * numPoints );       // All the points/positions
-    *vertex_normals     = malloc ( sizeof(GLfloat) * 3 * numVertices ); 	// The vertex normals (3 floats per vertex)
-    *colors             = malloc ( sizeof(GLfloat) * 9 * numVertices ); 	// The colors (Red, green, blue for each vertex)
-    *indices            = malloc ( sizeof(GLuint) * 3 * numIndices );       // Indices saying which vertices are together
+    *points             = malloc ( sizeof(GLfloat) * numPoints );       // All the points/positions
+    *vertex_normals     = malloc ( sizeof(GLfloat) * 3 * numVertices ); // The vertex normals (3 floats per vertex)
+    *colors             = malloc ( sizeof(GLfloat) * 3 * numVertices ); // The colors (Red, green, blue for each vertex)
+    *indices            = malloc ( sizeof(GLuint) * numIndices );       // Indices saying which vertices are together
 
-    triangle_normals    = malloc ( sizeof(GLfloat) * 3 * numFacets );   	// The triangle normals (3 floats per facet/triangle)
+    triangle_normals    = malloc ( sizeof(GLfloat) * 3 * numFacets );   // The triangle normals (3 floats per facet/triangle)
 
-	debug_print("Traversing %d facets. sz=%p\n", numFacets, sz);  
-	debug_print("*points has addr %p \n", *points);  
-
+    unsigned int i;
 	for (i = 0; i < numFacets;++i)	{
-		debug_print("Facet %d: sz=%p\n", i, sz);  
-	
 	    //Indices
 	    (*indices)[3*i+0] = 3*i+0;
 	    (*indices)[3*i+1] = 3*i+1;
 	    (*indices)[3*i+2] = 3*i+2;
 
 	    //Color Vertex 1
-	    (*colors)[9*i+0] = 255.0;
+	    (*colors)[9*i+0] = 1.0;
 	    (*colors)[9*i+1] = 0.0;
 	    (*colors)[9*i+2] = 0.0;
 
 	    //Color Vertex 2
-	    (*colors)[9*i+3] = 255.0;
+	    (*colors)[9*i+3] = 1.0;
 	    (*colors)[9*i+4] = 0.0;
 	    (*colors)[9*i+5] = 0.0;
 
 	    //Color Vertex 3
-	    (*colors)[9*i+6] = 255.0;
+	    (*colors)[9*i+6] = 1.0;
 	    (*colors)[9*i+7] = 0.0;
-	    (*colors)[9*i+8] = 0.0;
+	    (*colors)[9*i+8] = 0.0;    
 	    
-        //Ignore normal vector
-		//sz += sizeof(GLfloat)*3;		
-
-	    debug_print("Making Triangles, sz is %p\n", sz);  	    
-        
+	    
+	    
+	    
+	    
         //Get Normal vector for triangle
 		triangle_normals[3*i+0] = *((GLfloat*)sz);
 		sz += sizeof(GLfloat);
@@ -217,31 +200,30 @@ int loadBinarySTL (char * filename, GLfloat scale, GLfloat **points, GLfloat **v
 		
 
         //Get Vertex 1
-		//debug_print("Setting point %d to %d\n", 9*i+0, *((GLfloat*)sz) * scale);  	 
-		(*points)[9*i+0] = ((GLfloat)*sz) * scale;
+		(*points)[9*i+0] = *((GLfloat*)sz) * scale;
 		sz += sizeof(GLfloat);
-		(*points)[9*i+1] = ((GLfloat)*sz) * scale;
+		(*points)[9*i+1] = *((GLfloat*)sz) * scale;		
 		sz += sizeof(GLfloat);
-		(*points)[9*i+2] = ((GLfloat)*sz) * scale;
+		(*points)[9*i+2] = *((GLfloat*)sz) * scale;
 		sz += sizeof(GLfloat);
 		
         //Get Vertex 2
-		(*points)[9*i+3] = ((GLfloat)*sz) * scale;
+		(*points)[9*i+3] = *((GLfloat*)sz) * scale;
 		sz += sizeof(GLfloat);
-		(*points)[9*i+4] = ((GLfloat)*sz) * scale;
+		(*points)[9*i+4] = *((GLfloat*)sz) * scale;
 		sz += sizeof(GLfloat);
-		(*points)[9*i+5] = ((GLfloat)*sz) * scale;
+		(*points)[9*i+5] = *((GLfloat*)sz) * scale;
 		sz += sizeof(GLfloat);
 		
         //Get Vertex 3
-		(*points)[9*i+6] = ((GLfloat)*sz) * scale;
+		(*points)[9*i+6] = *((GLfloat*)sz) * scale;
 		sz += sizeof(GLfloat);
-		(*points)[9*i+7] = ((GLfloat)*sz) * scale;
+		(*points)[9*i+7] = *((GLfloat*)sz) * scale;
 		sz += sizeof(GLfloat);
-		(*points)[9*i+8] = ((GLfloat)*sz) * scale;
+		(*points)[9*i+8] = *((GLfloat*)sz) * scale;
 		sz += sizeof(GLfloat);
 		
-		printf("Vertex 3: (%f, %f, %f)\n", (*points)[3*i+6], (*points)[3*i+7], (*points)[3*i+8]);
+		//printf("Vertex 3: (%f, %f, %f)\n", (*points)[3*i+6], (*points)[3*i+7], (*points)[3*i+8]);
 
         //If no normal vector was provided, calculate it:
         if (triangle_normals[3*i+0] + triangle_normals[3*i+1] + triangle_normals[3*i+2] == 0.0) 
@@ -263,19 +245,18 @@ int loadBinarySTL (char * filename, GLfloat scale, GLfloat **points, GLfloat **v
             //Set Normal.x to (multiply U.y by V.z) minus (multiply U.z by V.y)
 		    n.x = (U.y * V.z) - (U.z * V.y);
             //Set Normal.y to (multiply U.z by V.x) minus (multiply U.x by V.z)
-		    n.y = ( (U.z * V.x) - (U.x * V.z) );
+		    n.y = (U.z * V.x) - (U.x * V.z);
             //Set Normal.z to (multiply U.x by V.y) minus (multiply U.y by V.x)
 		    n.z = (U.x * V.y) - (U.y * V.x);
 		    
 		    //Normalize vector
 		    n = normalize_vector(n);
-		    triangle_normals[3*i+0] = -n.x;
-		    triangle_normals[3*i+1] = -n.y;
-		    triangle_normals[3*i+2] = -n.z;
+		    triangle_normals[3*i+0] = n.x;
+		    triangle_normals[3*i+1] = n.y;
+		    triangle_normals[3*i+2] = n.z;
 		     
     		//printf("Normal: (%f, %f, %f)\n", triangle_normals[3*i+0], triangle_normals[3*i+1], triangle_normals[3*i+2]);        
         }
-
 		
 		//Ignore color info
 		//uint16_t color = *((uint16_t*)sz);
@@ -283,7 +264,7 @@ int loadBinarySTL (char * filename, GLfloat scale, GLfloat **points, GLfloat **v
 
     }
     
-    debug_print("%s\n", "Creating array");  
+    
 
 
     //Compute per-vertex normals
@@ -389,12 +370,27 @@ int loadBinarySTL (char * filename, GLfloat scale, GLfloat **points, GLfloat **v
         
     }*/
         
+/*
+    for (i = 0; i < numFacets;++i)	{
+	    printf("Facet: (%.1f, %.1f, %.1f) (%.1f, %.1f, %.1f), (%.1f, %.1f, %.1f)\n", 
+	                (*points)[9*i+0], (*points)[9*i+1], (*points)[9*i+2],
+	                (*points)[9*i+3], (*points)[9*i+4], (*points)[9*i+5],
+	                (*points)[9*i+6], (*points)[9*i+7], (*points)[9*i+8]);
+	                
+	    printf("Normals: (%.1f, %.1f, %.1f) (%.1f, %.1f, %.1f), (%.1f, %.1f, %.1f)\n", 
+	                (*vertex_normals)[9*i+0], (*vertex_normals)[9*i+1], (*vertex_normals)[9*i+2],
+	                (*vertex_normals)[9*i+3], (*vertex_normals)[9*i+4], (*vertex_normals)[9*i+5],
+	                (*vertex_normals)[9*i+6], (*vertex_normals)[9*i+7], (*vertex_normals)[9*i+8]); 
+	                
+        printf("\n");
+	}
+*/
     
 	//Free buffers that are no longer used
     free(mBuffer);
     free(triangle_normals);
     
-    printf("Facets: %d\n", numFacets);
+    //printf("Facets: %d\n", numFacets);
     return numIndices;
 }
 
@@ -407,21 +403,12 @@ int loadBinarySTL (char * filename, GLfloat scale, GLfloat **points, GLfloat **v
 int Init ( ESContext *esContext )
 {
     esContext->userData = malloc(sizeof(UserData));
-	
     UserData *userData = esContext->userData;
-/*   GLbyte vShaderStr[] =  
-      "uniform mat4 u_mvpMatrix;                   \n"
-      "attribute vec4 a_position;                  \n"
-      "void main()                                 \n"
-      "{                                           \n"
-      "   gl_Position = u_mvpMatrix * a_position;  \n"
-      "}                                           \n";
-*/
 
     GLbyte vShaderStr[] =
         "uniform mat4 u_MVPMatrix;      \n"     // A constant representing the combined model/view/projection matrix.
         "uniform mat4 u_MVMatrix;       \n"     // A constant representing the combined model/view matrix.
-        //"uniform vec3 u_LightPos;       \n"     // The position of the light in eye space.
+        "uniform vec3 u_LightPos;       \n"     // The position of the light in eye space.
      
         "attribute vec4 a_Position;     \n"     // Per-vertex position information we will pass in.
         "attribute vec4 a_Color;        \n"     // Per-vertex color information we will pass in.
@@ -431,37 +418,20 @@ int Init ( ESContext *esContext )
      
         "void main()                    \n"     // The entry point for our vertex shader.
         "{                              \n"
-        "   vec3 u_LightPos = vec3(-50, -50, -50);                                     \n"
+        "   vec3 modelViewVertex = vec3(u_MVMatrix * a_Position);              \n" // Transform the vertex into world view.
+        "   vec3 modelViewNormal = vec3(u_MVMatrix * vec4(a_Normal, 0.0));     \n" // Transform the normal's orientation into world view.
         
-        //"   vec3 modelViewVertex = vec3(u_MVMatrix * a_Position);              \n" // Transform the vertex into eye space.
-        //"   vec3 modelViewNormal = vec3(u_MVMatrix * vec4(a_Normal, 0.0));     \n" // Transform the normal's orientation into eye space.
-        
-        //"   float distance = length(u_LightPos - modelViewVertex);             \n" // Will be used for attenuation.
-        "   float distance = length(vec4(u_LightPos, 0.0) - a_Position);             \n"
-        
-        //"   vec3 lightVector = normalize(u_LightPos - modelViewVertex);        \n" // Get a lighting direction vector from the light to the vertex.
-        
-        "   float diffuse = max(dot(a_Normal, u_LightPos)*1.0, 0.1);            \n"
-        
-        //"   float diffuse = max(dot(modelViewNormal, lightVector)*1.0, 0.1);       \n" // Calculate the dot product of the light vector and vertex normal. If the normal and light vector are pointing in the same direction then it will get max illumination.
+        "   float distance = length(u_LightPos - modelViewVertex);             \n" // Will be used for attenuation
+        "   vec3 lightVector = normalize(u_LightPos - modelViewVertex);        \n" // Get a lighting direction vector from the light to the vertex.
+        "   float diffuse = max(dot(modelViewNormal, lightVector), 0.1);       \n" // Calculate the dot product of the light vector and vertex normal. If the normal and light vector are pointing in the same direction then it will get max illumination.
         "   diffuse = diffuse * (1.0 / (1.0 + (0.25 * distance * distance)));  \n" // Attenuate the light based on distance.
-        "   float ambient_light = 0.0010;                                         \n" // Ambient light
-        "   v_Color = a_Color * diffuse;                                       \n" // Multiply the color by the illumination level. It will be interpolated across the triangle.        
-        //"   v_Color = a_Color * (ambient_light + diffuse);                                       \n"
-        //"   v_Color = a_Color * min((diffuse+ambient_light), 1.0);             \n" // Multiply the color by the illumination level. It will be interpolated across the triangle.
-        //"   v_Color = a_Color;                                                \n"
+        "   diffuse = diffuse * 400.0; \n"
+        "   float amb_light = 0.10;                                             \n"
+        "   v_Color = a_Color * max(diffuse, amb_light);                       \n" // Multiply the color by the illumination level. It will be interpolated across the triangle.        
+        //"   v_Color = a_Color;                       \n"
         "   gl_Position = u_MVPMatrix * a_Position;                            \n" // gl_Position is a special variable used to store the final position. Multiply the vertex by the matrix to get the final point in normalized screen coordinates.
         "}                                                                     \n";
 
-   
-/*    GLbyte fShaderStr[] =  
-        "precision mediump float;                            \n"
-        "void main()                                         \n"
-        "{                                                   \n"
-        "  gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );        \n"
-        "}                                                   \n";
-
-*/
     GLbyte fShaderStr[] =  
         "precision mediump float;       \n"     // Set the default precision to medium. We don't need as high of a
                                                 // precision in the fragment shader.
@@ -469,7 +439,7 @@ int Init ( ESContext *esContext )
                                                 // triangle per fragment.
         "void main()                    \n"     // The entry point for our fragment shader.
         "{                              \n"
-        "   gl_FragColor = v_Color;     \n"     // Pass the color directly through the pipeline.
+        "   gl_FragColor = vec4(v_Color[0], v_Color[1], v_Color[2], 1.0);     \n"     // Pass the color directly through the pipeline.
         "}";    
 
 
@@ -484,27 +454,32 @@ int Init ( ESContext *esContext )
     // Get the uniform locations
     userData->mvpLoc = glGetUniformLocation( userData->programObject, "u_MVPMatrix" );
     userData->mvLoc = glGetUniformLocation( userData->programObject, "u_MVMatrix" );
-    //userData->lightLoc = glGetUniformLocation( userData->programObject, "u_LightPos" );
+    userData->lightLoc = glGetUniformLocation( userData->programObject, "u_LightPos" );
 
     //Create diffuse light position
-    //userData->lightPos = (GLuint*) malloc( sizeof(GLuint) * 3 );
-    //userData->lightPos[0] = 0;
-    //userData->lightPos[1] = 0;
-    //userData->lightPos[2] = 200;
+    userData->lightPos = (GLuint*) malloc( sizeof(GLuint) * 3 );
+    userData->lightPos[0] = -10;
+    userData->lightPos[1] = -10;
+    userData->lightPos[2] = 0;
 
     // Generate the vertex data
     //userData->numIndices = esGenCube( 1.0, &userData->points, NULL, NULL, &userData->indices );
-    userData->numIndices = loadBinarySTL("0.4mm-thin-wall.stl", 0.5, &userData->points, &userData->vertex_normals, &userData->colors, &userData->indices);
+    userData->numIndices = loadBinarySTL("Moose_thin.stl", 0.4, &userData->points, &userData->vertex_normals, &userData->colors, &userData->indices);
 
     // Starting rotation angle for the cube
     userData->angle = 45.0f;
 
+    //Enable depth buffer
+    glEnable (GL_DEPTH_TEST);
+    glClearDepthf(1.0f);
+    glDepthFunc( GL_LEQUAL );
+    glDepthMask(GL_TRUE);
+    
+    //Set clear color to black
     glClearColor ( 0.0f, 0.0f, 0.0f, 1.0f );
     
     //glEnable(GL_CULL_FACE);
     //glCullFace(GL_BACK);
-
-	debug_print("Init OK %d\n", 1);  	    
     
     return GL_TRUE;
 }
@@ -519,9 +494,10 @@ void Update ( ESContext *esContext, float deltaTime )
    ESMatrix perspective;
    ESMatrix modelview;
    float    aspect;
+   int i, u;
    
    // Compute a rotation angle based on time to rotate the cube
-   userData->angle += ( deltaTime * 40.0f );
+   //userData->angle += ( deltaTime * 40.0f );
    if( userData->angle >= 360.0f )
       userData->angle -= 360.0f;
 
@@ -540,13 +516,19 @@ void Update ( ESContext *esContext, float deltaTime )
 
    // Rotate the cube
    esRotate( &modelview, userData->angle, 1.0, 0.0, 1.0 );
+   esRotate( &modelview, userData->xrot, 1.0, 0.0, 0.0 );
+   esRotate( &modelview, userData->yrot, 0.0, 1.0, 0.0 );
+   esRotate( &modelview, userData->zrot, 0.0, 0.0, 1.0 );
    
    // Compute the final MVP by multiplying the 
    // modevleiw and perspective matrices together
    esMatrixMultiply( &userData->mvpMatrix, &modelview, &perspective );
    
-   //Copy the ModelView Matrix into userData
-   userData->mvMatrix = modelview;
+   //Copy the modelView Matrix into userData
+    for (i=0; i<4; i++)
+        for (u=0; u<4; u++)
+            userData->mvMatrix.m[i][u] = modelview.m[i][u];     
+  
 }
 
 ///
@@ -560,30 +542,29 @@ void Draw ( ESContext *esContext )
     glViewport ( 0, 0, esContext->width, esContext->height );
 
 
-    // Clear the color buffer
-    glClear ( GL_COLOR_BUFFER_BIT );
+    // Clear the color and depth buffer
+    glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Use the program object
     glUseProgram ( userData->programObject );
 
     // Load the vertex position, color and normal
     glVertexAttribPointer ( userData->positionLoc, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), userData->points );
-    glVertexAttribPointer ( userData->normalLoc, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), userData->vertex_normals );
-    glVertexAttribPointer ( userData->colorLoc, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), userData->colors );                           
-                              
     glEnableVertexAttribArray ( userData->positionLoc );
+    glVertexAttribPointer ( userData->normalLoc, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), userData->vertex_normals );
     glEnableVertexAttribArray ( userData->normalLoc );
+    glVertexAttribPointer ( userData->colorLoc, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), userData->colors );                               
     glEnableVertexAttribArray ( userData->colorLoc );
 
 
     // Load the MVP matrix
     glUniformMatrix4fv( userData->mvpLoc, 1, GL_FALSE, (GLfloat*) &userData->mvpMatrix.m[0][0] );
     
-    // Load the MVP matrix
+    // Load the modelview matrix
     glUniformMatrix4fv( userData->mvLoc, 1, GL_FALSE, (GLfloat*) &userData->mvMatrix.m[0][0] );
-    
+            
     //Load the Light position
-    //glUniform3iv(userData->lightLoc, 1, userData->lightPos);
+    glUniform3iv(userData->lightLoc, 1, userData->lightPos);
 
     // Draw the cube
     glDrawElements ( GL_TRIANGLES, userData->numIndices, GL_UNSIGNED_INT, userData->indices );
@@ -624,29 +605,58 @@ void ShutDown ( ESContext *esContext )
    free(userData);
 }
 
+void Keypress(ESContext* esContext, unsigned char key, int tmp1, int tmp2 )
+{
+    UserData *userData = esContext->userData;
+    
+    //printf ("Key pressed: %d\n", key);
+    
+    // A
+    if (key == 0x61)
+        userData->xrot += 5.0f;
+    // D
+    else if (key == 0x64)
+        userData->xrot -= 5.0f;
+    // S
+    else if (key == 0x73)
+        userData->yrot += 5.0f;
+    // W
+    else if (key == 0x77)
+        userData->yrot -= 5.0f;
+    else
+        printf ("Unknown key\n");
+    
+    if( userData->angle >= 360.0f )
+        userData->angle -= 360.0f;
+    if( userData->xrot >= 360.0f )
+        userData->xrot -= 360.0f;
+    if( userData->yrot >= 360.0f )
+        userData->yrot -= 360.0f;        
+}
 
-int main ( int argc, char *argv[] ){
 
+int main ( int argc, char *argv[] )
+{
     ESContext esContext;
     UserData  userData;
 
     esInitContext ( &esContext );
     esContext.userData = &userData;
 
-    esCreateWindow ( &esContext, "STL Viewer", 500, 500, ES_WINDOW_RGB );
+    //esCreateWindow ( &esContext, "STL Viewer", 500, 500, ES_WINDOW_RGB );
+    esCreateWindow ( &esContext, "STL Viewer", 500, 500, ES_WINDOW_DEPTH );
 
     if ( !Init ( &esContext ) )
         return 0;
 
     esRegisterDrawFunc ( &esContext, Draw );
     esRegisterUpdateFunc ( &esContext, Update );
+    
+    esRegisterKeyFunc ( &esContext, Keypress );
 
-	debug_print("Entering main loop %d\n", 1);
     esMainLoop ( &esContext );
 
     ShutDown ( &esContext );
-
-	return 0;
 }
 
 
