@@ -16,7 +16,9 @@
     "type" : "ClutterBox",
     "width" : 800,
     "height" : 480,
- 
+    "rotation" : [
+        { "z-axis" : 45}
+    ],
     "layout-manager" : {
       "type" : "ClutterFixedLayout"
     },
