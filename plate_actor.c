@@ -111,46 +111,6 @@ my_actor_paint_node (ClutterActor     *actor,
     clutter_paint_node_unref (node);
 }
 
-static void
-clutter_plate_set_property (GObject      *object,
-				guint         prop_id,
-				const GValue *value,
-				GParamSpec   *pspec)
-{
-  ClutterPlate *plate = CLUTTER_PLATE(object);
-
-  switch (prop_id)
-    {
-    case PROP_MATRIX:
-      clutter_plate_set_matrix (plate, g_value_get_boxed (value));
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
-  }
-}
-
-static void
-clutter_plate_get_property (GObject    *object,
-				guint       prop_id,
-				GValue     *value,
-				GParamSpec *pspec)
-{
-  ClutterPlate *plate = CLUTTER_PLATE(object);
-  ClutterMatrix     matrix;
-
-  switch (prop_id)
-    {
-    case PROP_MATRIX:
-      clutter_plate_get_matrix (plate, &matrix);
-      g_value_set_boxed (value, &matrix);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
-    }
-}
-
 
 static void
 clutter_plate_finalize (GObject *object)
@@ -176,8 +136,8 @@ clutter_plate_class_init (ClutterPlateClass *klass)
 
   gobject_class->finalize     = clutter_plate_finalize;
   gobject_class->dispose      = clutter_plate_dispose;
-  gobject_class->set_property = clutter_plate_set_property;
-  gobject_class->get_property = clutter_plate_get_property;
+  //gobject_class->set_property = clutter_plate_set_property;
+  //gobject_class->get_property = clutter_plate_get_property;
 
   /**
    * ClutterPlate:cogl-matrix:
