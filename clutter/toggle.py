@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 #! -*- coding: utf-8 -*-
  
-from gi.repository import Clutter, Mx
+from gi.repository import Clutter, Mx, Mash, Cogl
  
 from star_actor_1 import StarActor
 
@@ -18,12 +18,23 @@ if __name__ == '__main__':
     star_actor = StarActor()
     star_actor.set_size(100, 100)
 
+    model = Mash.Model.new_from_file(Mash.DataFlags.NONE, "/usr/src/snuff/mash/examples/suzanne.ply")
+    model.set_size(300, 300)
+
     color = Clutter.Color.from_string("#0c0")[1]
     star_actor.set_color(color)
 
+    model.set_background_color(color)
+    model.set_x(100)
+    model.set_y(100)
+
+    #mat = Cogl.Material()
+
+
     view = _script.get_object("3d-stage")
-    view.add_actor(star_actor)
+    #view.add_actor(star_actor)
     star_actor.set_position(20, 50)
+    view.add_actor(model)
 
     star_actor.set_reactive(True)
     star_actor.set_easing_duration(1000)
