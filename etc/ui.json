@@ -45,7 +45,14 @@
                     "color" : "#FFFFFF",
                     "border-color": "#000",
                     "border-width": 2
-                }
+                }, 
+ 	        {
+                    "id": "light_point",
+                    "type": "MashPointLight",
+		    "constant-attenuation": 0.5,
+                    "x": 80,
+                    "y": 20
+           	}
             ]
           },
 	    {
@@ -68,7 +75,6 @@
 		    "id": "btn_operate", 
 		    "type": "ClutterText", 
 		    "text": "Operate", 
-		    "font-name" : "Sans 20px",
 		    "x": 350, 
 		    "y": 20	
 	    }, 
