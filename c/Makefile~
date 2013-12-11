@@ -1,0 +1,14 @@
+
+
+
+BIN=toggle
+LDFLAGS=-lEGL -l GLESv2 -lm -lX11
+CFLAGS=-Wall
+SRC=esShader.c esShapes.c esTransform.c esUtil.c STL-loader-prototype.c
+
+all:
+	gcc $(CFLAGS) -o $(BIN) $(SRC)  $(LDFLAGS)
+
+
+clean: 
+	rm -rf toggle
