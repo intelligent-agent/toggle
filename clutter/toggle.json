@@ -1,0 +1,77 @@
+[
+  {
+    "id" : "stage",
+    "type" : "ClutterStage",
+    "width" : 800,
+    "height" : 480,
+    "color" : "#FFFFFF",
+    "children" : [ "box" ],
+    "signals" : [
+      { "name" : "destroy", "handler" : "clutter_main_quit" }
+    ]
+  },
+ 
+  {
+    "id" : "box",
+    "type" : "ClutterBox",
+    "width" : 800,
+    "height" : 480,
+ 
+    "layout-manager" : {
+      "type" : "ClutterFixedLayout"
+    },
+ 
+    "children" : [
+        {
+            "id" : "3d-stage",
+            "type" : "ClutterBox",
+            "width" : 400,
+            "height" : 400,
+		    "x": 40, 
+		    "y": 60,
+            "color" : "#FFFFFF", 
+		    "layout-manager" : {
+              "type" : "ClutterFixedLayout"
+            }, 
+            "children": [
+                {
+                    "id" : "3d-stage-bg",
+                    "type" : "ClutterRectangle",
+                    "width" : 400,
+                    "height" : 400,
+		            "x": 0, 
+		            "y": 0,
+                    "color" : "#FFFFFF",
+                    "border-color": "#000",
+                    "border-width": 2
+                }
+            ]
+          },
+	    {
+		    "id": "btn_browse", 
+		    "type": "ClutterText", 
+		    "text": "Browse", 
+		    "font-name" : "Sans 20px",
+		    "x": 80, 
+		    "y": 20	
+	    },
+	    {
+		    "id": "btn_prepare", 
+		    "type": "ClutterText", 
+		    "text": "Prepare", 
+		    "font-name" : "Sans 20px",
+		    "x": 200, 
+		    "y": 20	
+	    },
+	    {
+		    "id": "btn_operate", 
+		    "type": "ClutterText", 
+		    "text": "Operate", 
+		    "font-name" : "Sans 20px",
+		    "x": 350, 
+		    "y": 20	
+	    }	
+    ]
+  }
+ 
+]
