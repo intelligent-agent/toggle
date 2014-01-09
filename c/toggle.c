@@ -2,6 +2,7 @@
 #include <mx/mx.h>
 #include <mash/mash.h>
 #include <stdlib.h>
+#include "plate_actor.h"
 
 ClutterActor *model;
 gdouble rotation = 0;
@@ -21,7 +22,9 @@ int main(int argc, char *argv[]) {
 	ClutterActor *light_point, *light_directional, *light_spot;
 	MxStyle *style;
 
-        ret = clutter_init(&argc, &argv);
+    ret = clutter_init(&argc, &argv);
+
+    ClutterActor* plate2 = clutter_plate_new();
 
 	style = mx_style_get_default ();
 	if (!mx_style_load_from_file (style, "../etc/style.css", &err)){

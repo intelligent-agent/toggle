@@ -25,35 +25,11 @@
     "children" : [
         {
             "id" : "3d-stage",
-            "type" : "ClutterBox",
+            "type" : "ClutterPlate",
             "width" : 400,
             "height" : 400,
 		    "x": 40, 
-		    "y": 60,
-            "color" : "#FFFFFF", 
-		    "layout-manager" : {
-              "type" : "ClutterFixedLayout"
-            }, 
-            "children": [
-                {
-                    "id" : "3d-stage-bg",
-                    "type" : "ClutterRectangle",
-                    "width" : 400,
-                    "height" : 400,
-		            "x": 0, 
-		            "y": 0,
-                    "color" : "#FFFFFF",
-                    "border-color": "#000",
-                    "border-width": 2
-                }, 
- 	        {
-                    "id": "light_point",
-                    "type": "MashPointLight",
-		    "constant-attenuation": 0.5,
-                    "x": 80,
-                    "y": 20
-           	}
-            ]
+		    "y": 60
           },
 	    {
 		    "id": "btn_browse", 
