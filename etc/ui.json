@@ -4,32 +4,52 @@
     "type" : "ClutterStage",
     "color" : "#CCC",
     "children" : [ "box" ],
-    "signals" : [
-      { "name" : "destroy", "handler" : "clutter_main_quit" }
-    ]
+    "signals" : []
   },
- 
   {
     "id" : "box",
     "type" : "ClutterBox",
     "width" : 800,
     "height" : 480,
 	"color": "#FFF",
-    "rotation" : [
-        { "z-axis" : 45}
-    ],
-    "layout-manager" : {
-      "type" : "ClutterFixedLayout"
-    },
- 
-    "children" : [
+    "rotation" : [  { "z-axis" : -90.0}],
+    "layout-manager" : { "type" : "ClutterFixedLayout" },
+    "children" : 
+    [
         {
-            "id" : "3d-stage",
-            "type" : "ClutterPlate",
+            "id": "volume-viewport",     
+            "type" : "ClutterActor",
+            "background-color" : "#000",
             "width" : 400,
             "height" : 400,
-		    "x": 40, 
-		    "y": 60
+            "x": 40, 
+            "y": 60, 
+            "layout-manager" : { "type" : "ClutterFixedLayout" },
+            "children" : 
+            [
+                {
+                    "id" : "volume-stage",
+                    "type" : "ClutterBox",
+                    "width": 400, 
+                    "height": 400,
+                    "z-position": -200,
+                    "rotation" : [ { "x-axis" : 180.0} ],
+                    "children" : 
+                    [
+                        {
+                            "id": "plate", 
+                            "type" : "ClutterPlate",                    
+                            "scale-x": 200.0,
+                            "scale-y": 200.0,
+                            "scale-z": 200.0,
+		                    "x": 200,
+		                    "y": 200,
+                            "width": 1, 
+                            "height": 1
+                        }    
+                    ]
+                }
+            ]       
           },
 	    {
 		    "id": "btn_browse", 
@@ -65,20 +85,29 @@
 		    "id": "btn_place", 
 		    "type": "MxButton", 
             "label": "Place",
+            "style-class": "context",
+            "is-toggle" : true, 
+            "toggled" : true,
 		    "x": 480, 
 		    "y": 40	
 	    },
 	    {
 		    "id": "btn_rig", 
 		    "type": "MxButton", 
-            	    "label": "Rig",
+            "label": "Rig",
+            "style-class": "context",
+            "is-toggle" : true, 
+            "toggled" : false,
 		    "x": 560, 
 		    "y": 40	
 	    },
 	    {
 		    "id": "btn_slice", 
 		    "type": "MxButton", 
-            	    "label": "Slice",
+            "label": "Slice",
+            "style-class": "context",
+            "is-toggle" : true, 
+            "toggled" : false,
 		    "x": 630, 
 		    "y": 40	
 	    },
@@ -86,6 +115,9 @@
 		    "id": "btn_print", 
 		    "type": "MxButton", 
 		    "label": "Print",
+            "style-class": "context",
+            "is-toggle" : true, 
+            "toggled" : false,
 		    "x": 700, 
 		    "y": 40	
 	    }, 
@@ -131,5 +163,4 @@
         }
     ]
   }
- 
 ]

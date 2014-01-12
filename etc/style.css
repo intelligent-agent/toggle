@@ -4,11 +4,10 @@
   font-size: 20px;
 }
 
-MxButton{
+MxButton, MxButton:checked{
   padding: 7 13 7 13;
   border-image: none;
 }
-
 
 MxButton.toggle{
     padding: 10 13 10 13;
@@ -30,4 +29,9 @@ MxButton.main:checked{
     font-size: 24px;
     color: #0C0;
 }
+
+MxButton.context:checked{
+    color: #0C0;
+}
+
 
