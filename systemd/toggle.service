@@ -1,0 +1,13 @@
+[Unit]
+Description=Toggle is the Replicape user interface
+
+[Service]
+RemainAfterExit=yes
+Type=simple
+ExecStart=/lib/systemd/system/toggle.d/toggle.sh start
+ExecStop=/lib/systemd/system/toggle.d/toggle.sh stop
+Restart=always
+
+[Install]
+WantedBy=basic.target
+
