@@ -3,7 +3,6 @@
 #include <mash/mash.h>
 #include <stdlib.h>
 #include "plate_actor.h"
-#include "clutter-volume-stage.h"
 
 ClutterActor *model, *plate, *volume_stage, *volume_viewport;
 ClutterMatrix mat;
@@ -14,24 +13,15 @@ gfloat start_x, start_y;
 gfloat current_x, current_y;
 gfloat delta_x, delta_y;
 
-void on_timeline_new_frame(ClutterTimeline *timeline, gint frame_num, gpointer data) {
-    if(!touching){
-        rotation += 0.3;
-        clutter_actor_set_rotation_angle(volume_stage, CLUTTER_Y_AXIS, rotation );
-    }
-}
-
 void
 on_enter_volume_viewport(ClutterActor *actor,
                ClutterEvent *event){
-    fprintf(stderr, "enter-viewport\n");
     touching = TRUE;
     clutter_event_get_coords(event, &start_x, &start_y);
 }
 void
 on_leave_stage(ClutterActor *actor,
                ClutterEvent *event){
-    fprintf(stderr, "leave-stage\n");
     if(touching){
         touching = FALSE;
     }
@@ -40,7 +30,6 @@ void
 on_motion_event(ClutterActor *actor,
                 ClutterEvent *event){
     clutter_event_get_coords(event, &port_x, &port_y);
-    fprintf(stderr, "motion-stage %f, %f\n", port_x, port_y);
     if(touching){
         delta_x = (port_x-start_x);
         delta_y = (port_y-start_y);
@@ -79,19 +68,18 @@ int main(int argc, char *argv[]) {
     // Dummy call to make sure it gets loaded
     clutter_plate_new();
 
-	const gchar *paths[] = { "/usr/src/toggle/etc" };
+	const gchar *paths[] = { "/etc/toggle/", "/etc/toggle/style/" };
 
 	style = mx_style_get_default ();
-	if (!mx_style_load_from_file (style, "../etc/style.css", &err)){
+	if (!mx_style_load_from_file (style, "/etc/toggle/style/style.css", &err)){
       		g_warning ("Error setting style: %s", err->message);
       		g_clear_error (&err);
     }
 
     // Load the scene using clutterscript
-	gchar *filename = "ui.json";
 	ClutterScript *ui = clutter_script_new();
 	clutter_script_add_search_paths (ui, paths, 1);
-	clutter_script_load_from_file(ui, "../etc/ui.json", &err);
+	clutter_script_load_from_file(ui, "ui.json", &err);
 
     clutter_script_get_objects (ui,"stage", &stage, NULL);
     clutter_script_connect_signals (ui, ui);
@@ -145,22 +133,13 @@ int main(int argc, char *argv[]) {
 	cogl_material_set_diffuse(material, 0.5, 0.5, 0.5, 0.5);
 	mash_model_set_material (MASH_MODEL (model), material);
 
-
-
 	// Position and size the model
 	//clutter_actor_set_pivot_point (model, 0.5, 0.5);
 	//clutter_actor_set_position(model, clutter_actor_get_width(plate)/2.0, clutter_actor_get_height(plate)/2.0);
 	//clutter_actor_set_rotation_angle(model, CLUTTER_X_AXIS, 180.0);
     clutter_actor_add_child(volume_stage, model);
-
-    
+   
     clutter_actor_set_pivot_point (volume_stage, 0.5, 0.5);
-
-	// Make the model spin
-    ClutterTimeline *timeline = clutter_timeline_new(60);
-    g_signal_connect(timeline, "new-frame", G_CALLBACK(on_timeline_new_frame), NULL);
-    clutter_timeline_set_repeat_count(timeline, -1);
-    clutter_timeline_start(timeline);
 
     //g_signal_connect (stage, "touch-event", G_CALLBACK (on_touch_event), NULL);
     //g_signal_connect (stage, "event", G_CALLBACK (on_event), NULL);

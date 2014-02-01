@@ -47,9 +47,6 @@ struct _ClutterPlateClass
 
 GType clutter_plate_get_type (void) G_GNUC_CONST;
 ClutterActor *clutter_plate_new (void);
-void clutter_plate_get_matrix (ClutterPlate *plate, const ClutterMatrix *matrix);
-void clutter_plate_set_matrix (ClutterPlate *plate, const ClutterMatrix *matrix);
-
 
 G_END_DECLS
 

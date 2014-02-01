@@ -216,40 +216,6 @@ clutter_plate_init (ClutterPlate *self){
     priv->prim = cogl_primitive_new_p3t2 (ctx, COGL_VERTICES_MODE_LINES,
                                        G_N_ELEMENTS (vertices),
                                        vertices);
-    // Make a new blank texture
-    //priv->texture = cogl_texture_new_with_size (width, height,
-    //                                             COGL_TEXTURE_NONE,
-    //                                             COGL_PIXEL_FORMAT_RGB_888);
-
-    // Init the Offscreen buffer from the texture
-    //offscreen = cogl_offscreen_new_with_texture (priv->texture);
-    //priv->fb = COGL_FRAMEBUFFER (offscreen);
-    
-    //cogl_framebuffer_set_viewport (priv->fb,
-    //                             0, 0,
-    //                             width,
-    //                             height);
-
-    //fovy = 60; /* y-axis field of view */
-    //aspect = width/height;
-    //z_near = 0.1; /* distance to near clipping plane */
-    //z_2d = 1000; /* position to 2d plane */
-    //z_far = 2000; /* distance to far clipping plane */
-
-    /*
-    cogl_framebuffer_perspective (priv->fb, fovy, aspect, z_near, z_far);
-
-    cogl_matrix_init_identity (&view);
-    cogl_matrix_view_2d_in_perspective (&view, fovy, aspect, z_near, z_2d,
-                                      width,
-                                      height);
-    */
-    //cogl_framebuffer_set_modelview_matrix (priv->fb, &view);
-
-    //cogl_matrix_init_identity (&priv->matrix); 
-    //cogl_matrix_translate(&priv->matrix,  width/2, height/2, 0);
-    //cogl_matrix_scale (&priv->matrix, 100, 100, 100);
-    //cogl_matrix_rotate(&priv->matrix, 45, 0, 1, 0);
 }
 
 /**
@@ -264,51 +230,3 @@ clutter_plate_new (void){
   return g_object_new (CLUTTER_TYPE_PLATE, NULL);
 }
 
-
-/**
- * clutter_plate_get_matrix:
- * @plate: a #ClutterPlate
- * @matrix: return location for a #ClutterMatrix
- *
- * Retrieves the matrix of @plate.
- */
-void 
-clutter_plate_get_matrix (ClutterPlate *plate, 
-                          const ClutterMatrix *matrix){
-    ClutterPlatePrivate *priv;
-
-    g_return_if_fail (CLUTTER_IS_PLATE (plate));
-    g_return_if_fail (matrix != NULL);
-
-    priv = plate->priv;
-
-    memcpy((void *)matrix, &priv->matrix, sizeof(CoglMatrix));
-}
-
-/**
- * clutter_plate_set_matrix:
- * @plate: a #ClutterPlate
- * @matrix: a #CoglMatrix
- *
- * Sets the matrix of @plate.
- */
-void
-clutter_plate_set_matrix (ClutterPlate   *plate,
-			     const ClutterMatrix *matrix){
-    ClutterPlatePrivate *priv;
-
-    g_return_if_fail (CLUTTER_IS_PLATE (plate));
-    g_return_if_fail (matrix != NULL);
-
-    g_object_ref (plate);
-
-    priv = plate->priv;
-
-    memcpy(&priv->matrix, matrix, sizeof(CoglMatrix));
-
-    if (CLUTTER_ACTOR_IS_VISIBLE (CLUTTER_ACTOR (plate)))
-        clutter_actor_queue_redraw (CLUTTER_ACTOR (plate));
-
-    g_object_notify (G_OBJECT (plate), "matrix");
-    g_object_unref (plate);
-}
