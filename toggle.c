@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
     clutter_script_get_objects(ui, "plate", &plate, NULL);
 
 	if (err != NULL){
-		g_critical ("Error loading ClutterScript file %s\n%s", filename, err->message);
+		g_critical ("Error loading ClutterScript file %s\n%s", "ui.json", err->message);
       		g_error_free (err);
       		exit (EXIT_FAILURE);
     }
