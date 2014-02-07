@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
     // Load the scene using clutterscript
 	ClutterScript *ui = clutter_script_new();
 	clutter_script_add_search_paths (ui, paths, 1);
-	clutter_script_load_from_file(ui, "ui.json", &err);
+	clutter_script_load_from_file(ui, "/etc/toggle/style/ui.json", &err);
 
     clutter_script_get_objects (ui,"stage", &stage, NULL);
     clutter_script_connect_signals (ui, ui);
@@ -96,7 +96,7 @@ int main(int argc, char *argv[]) {
     }
 
 	if ((model = mash_model_new_from_file (MASH_DATA_NONE, 
-                                            "../models/teapot.ply", &err)) == NULL){
+                "/usr/share/models/treefrog.ply", &err)) == NULL){
       		g_warning ("Failed to load model: %s\n", err->message);
       		g_clear_error (&err);
     }
@@ -130,7 +130,7 @@ int main(int argc, char *argv[]) {
 	cogl_material_set_layer_combine_constant (material, 0, model_color);
 	cogl_material_set_layer_combine (material, 0, "RGBA = MODULATE(CONSTANT, PRIMARY)", NULL);
 	cogl_material_set_shininess(material, 128.0);
-	cogl_material_set_diffuse(material, 0.5, 0.5, 0.5, 0.5);
+	//cogl_material_set_diffuse(material, 0.5, 0.5, 0.5, 0.5);
 	mash_model_set_material (MASH_MODEL (model), material);
 
 	// Position and size the model
