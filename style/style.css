@@ -11,12 +11,12 @@ MxButton, MxButton:checked{
 
 MxButton.toggle{
     padding: 10 13 10 13;
-    border-image: url("../etc/style/button.png") 11 5 13 5;
+    border-image: url("/etc/toggle/style/button.png") 11 5 13 5;
     font-size: 12px;
 }
 
 MxButton.toggle:checked{
-    border-image: url("../etc/style/button-checked.png") 11 5 13 5;
+    border-image: url("/etc/toggle/style/button-checked.png") 11 5 13 5;
 }
 
 MxButton.main{

@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
     // Load the scene using clutterscript
 	ClutterScript *ui = clutter_script_new();
 	clutter_script_add_search_paths (ui, paths, 1);
-	clutter_script_load_from_file(ui, "/etc/toggle/style/ui.json", &err);
+	clutter_script_load_from_file(ui, "/etc/toggle/ui.json", &err);
 
     clutter_script_get_objects (ui,"stage", &stage, NULL);
     clutter_script_connect_signals (ui, ui);
