@@ -11,8 +11,7 @@
 */
 G_DEFINE_TYPE (TogglePlate, toggle_plate, CLUTTER_TYPE_ACTOR);
 
-#define TOGGLE_PLATE_GET_PRIVATE(obj) \
-(G_TYPE_INSTANCE_GET_PRIVATE ((obj), TOGGLE_TYPE_PLATE, TogglePlatePrivate))
+#define TOGGLE_PLATE_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), TOGGLE_TYPE_PLATE, TogglePlatePrivate))
 
 struct _TogglePlatePrivate{
     CoglPipeline    *pipeline;
@@ -105,7 +104,7 @@ my_actor_paint_node (ClutterActor     *actor,
     CoglMatrix          transform;
 
     CoglFramebuffer     *screen; 
-    screen = cogl_get_draw_framebuffer ();
+    screen = (CoglFramebuffer *) cogl_get_draw_framebuffer ();
     
     plate = TOGGLE_PLATE(actor);
     priv = plate->priv;

@@ -6,6 +6,8 @@
 
 G_BEGIN_DECLS
 
+GType toggle_plate_get_type (void);
+
 #define TOGGLE_TYPE_PLATE toggle_plate_get_type()
 
 #define TOGGLE_PLATE(obj) \
@@ -45,7 +47,6 @@ struct _TogglePlateClass
   ClutterActorClass parent_class;
 };
 
-GType toggle_plate_get_type (void) G_GNUC_CONST;
 ClutterActor *toggle_plate_new ();
 
 G_END_DECLS

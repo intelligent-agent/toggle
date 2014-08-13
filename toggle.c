@@ -2,7 +2,8 @@
 #include <mx/mx.h>
 #include <mash/mash.h>
 #include <stdlib.h>
-#include "plate-actor.h"
+#include "toggle/toggle-model.h"
+#include "toggle/toggle-plate.h"
 
 ClutterActor *model, *plate, *volume_stage, *volume_viewport;
 ClutterMatrix mat;
@@ -59,14 +60,8 @@ int main(int argc, char *argv[]) {
 
     ret = clutter_init(&argc, &argv);
 
-    // Make a transformation matrix and apply it to the plate
-    cogl_matrix_init_identity(&mat);    
-    cogl_matrix_translate(&mat,  200, 200, 0);
-    cogl_matrix_scale (&mat, 100, 100, 100);
-    cogl_matrix_rotate(&mat, 180, 0, 0, 1);
-
     // Dummy call to make sure it gets loaded
-    clutter_plate_new();
+    toggle_plate_new();
 
 	const gchar *paths[] = { "/etc/toggle/", "/etc/toggle/style/" };
 
@@ -79,7 +74,7 @@ int main(int argc, char *argv[]) {
     // Load the scene using clutterscript
 	ClutterScript *ui = clutter_script_new();
 	clutter_script_add_search_paths (ui, paths, 1);
-	clutter_script_load_from_file(ui, "/etc/toggle/ui.json", &err);
+	clutter_script_load_from_file(ui, "ui.json", &err);
 
     clutter_script_get_objects (ui,"stage", &stage, NULL);
     clutter_script_connect_signals (ui, ui);
@@ -95,21 +90,18 @@ int main(int argc, char *argv[]) {
       		exit (EXIT_FAILURE);
     }
 
-	if ((model = mash_model_new_from_file (MASH_DATA_NONE, 
-                "/usr/share/models/treefrog.ply", &err)) == NULL){
+
+    if ((model = toggle_model_new_from_file(0, "/usr/share/models/treefrog.ply", &err)) == NULL){
       		g_warning ("Failed to load model: %s\n", err->message);
       		g_clear_error (&err);
-    }
+	}
+
 
 	// Set up the light
 	light_set = mash_light_set_new ();
 	light_point = mash_point_light_new();
 	light_directional = mash_directional_light_new();
 	light_spot = mash_spot_light_new();
-
-	ClutterColor ambient  = { 128, 128, 128, 128 };
-	ClutterColor diffuse  = { 128, 128, 128, 128 };
-	ClutterColor specular = { 128, 128, 128, 128 };
 
     mash_light_set_add_light (light_set, MASH_LIGHT (light_point));
     mash_light_set_add_light (light_set, MASH_LIGHT (light_directional));
@@ -121,22 +113,8 @@ int main(int argc, char *argv[]) {
 	clutter_actor_add_child(volume_viewport, light_point);
 	clutter_actor_add_child(volume_viewport, light_directional);
 	clutter_actor_add_child(volume_viewport, light_spot);
-
-	// Make a new material for the model
-	CoglMaterial *material = (CoglMaterial *) cogl_material_new();
-	CoglColor *model_color = cogl_color_new();
-	cogl_color_init_from_4f(model_color, 0.0, 1.0, 0.0, 1.0);
-
-	cogl_material_set_layer_combine_constant (material, 0, model_color);
-	cogl_material_set_layer_combine (material, 0, "RGBA = MODULATE(CONSTANT, PRIMARY)", NULL);
-	cogl_material_set_shininess(material, 128.0);
-	//cogl_material_set_diffuse(material, 0.5, 0.5, 0.5, 0.5);
-	mash_model_set_material (MASH_MODEL (model), material);
-
+    
 	// Position and size the model
-	//clutter_actor_set_pivot_point (model, 0.5, 0.5);
-	//clutter_actor_set_position(model, clutter_actor_get_width(plate)/2.0, clutter_actor_get_height(plate)/2.0);
-	//clutter_actor_set_rotation_angle(model, CLUTTER_X_AXIS, 180.0);
     clutter_actor_add_child(volume_stage, model);
    
     clutter_actor_set_pivot_point (volume_stage, 0.5, 0.5);
@@ -150,9 +128,9 @@ int main(int argc, char *argv[]) {
     
 
 	/* Rotate the display/stage */
-    clutter_script_get_objects(ui, "box", &box, NULL);
-    clutter_actor_set_rotation_angle (box, CLUTTER_Z_AXIS, -90.0f);
-    clutter_actor_set_position(box, 0, 800);
+    //clutter_script_get_objects(ui, "box", &box, NULL);
+    //clutter_actor_set_rotation_angle (box, CLUTTER_Z_AXIS, -90.0f);
+    //clutter_actor_set_position(box, 0, 800);
 
     clutter_main();
 
