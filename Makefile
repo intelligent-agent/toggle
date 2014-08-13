@@ -1,12 +1,9 @@
-SRC=toggle.c
-CC ?= gcc
-CFLAGS+=`pkg-config --cflags --libs clutter-1.0  mash-0.2 pango cairo mx-2.0`
+SRC=toggle.c plate_actor.c
+CC?=cc
+CFLAGS+=
 
-all: toggle.o toggle-plate
-	$(CC)  $(CFLAGS) toggle.o -o toggle $(LDFLAGS) 
-
-toggle.o:
-	$(CC)  $(CFLAGS) toggle.c -o toggle.o
+all:
+	$(CC)  $(CFLAGS) $(SRC) -o toggle $(LDFLAGS) `pkg-config --cflags --libs clutter-1.0  mash-0.2 pango cairo mx-2.0`
 
 install: 
 	mkdir -p /etc/toggle/style
@@ -14,6 +11,7 @@ install:
 	cp ui.json /etc/toggle/
 	mkdir -p /usr/share/models/
 	cp models/*.ply /usr/share/models
+	cp toggle /usr/bin
 
 clean: 
 	rm -rf toggle
