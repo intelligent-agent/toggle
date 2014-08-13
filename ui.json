@@ -29,7 +29,7 @@
             [
                 {
                     "id" : "volume-stage",
-                    "type" : "ClutterBox",
+                    "type" : "ClutterPlate",
                     "width": 400, 
                     "height": 400,
                     "z-position": -200,

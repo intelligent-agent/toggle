@@ -1,9 +1,12 @@
-SRC=toggle.c plate_actor.c
+SRC=toggle.c
 CC ?= gcc
-CFLAGS+= -DCOGL_ENABLE_EXPERIMENTAL_2_0_API
+CFLAGS+=`pkg-config --cflags --libs clutter-1.0  mash-0.2 pango cairo mx-2.0`
 
-all:
-	$(CC)  $(CFLAGS) $(SRC) -o toggle $(LDFLAGS) `pkg-config --cflags --libs clutter-1.0  mash-0.2 pango cairo mx-1.0`
+all: toggle.o toggle-plate
+	$(CC)  $(CFLAGS) toggle.o -o toggle $(LDFLAGS) 
+
+toggle.o:
+	$(CC)  $(CFLAGS) toggle.c -o toggle.o
 
 install: 
 	mkdir -p /etc/toggle/style

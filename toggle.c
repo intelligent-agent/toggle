@@ -2,7 +2,7 @@
 #include <mx/mx.h>
 #include <mash/mash.h>
 #include <stdlib.h>
-#include "plate_actor.h"
+#include "plate-actor.h"
 
 ClutterActor *model, *plate, *volume_stage, *volume_viewport;
 ClutterMatrix mat;
