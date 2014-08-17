@@ -49,6 +49,8 @@ struct _TogglePlateClass
 
 ClutterActor *toggle_plate_new ();
 
+void toggle_plate_set_color (TogglePlate *self, const ClutterColor *color);
+
 G_END_DECLS
 
 #endif

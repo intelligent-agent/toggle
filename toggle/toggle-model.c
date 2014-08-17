@@ -34,13 +34,13 @@ toggle_model_init (ToggleModel *self){
     priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
 
   	// Make a new material for the model
-	priv->material  = (CoglMaterial *) cogl_material_new();
+    priv->material = mash_model_get_material (MASH_MODEL (&self->parent));
+	//priv->material  = (CoglMaterial *) cogl_material_new();
 	priv->color     = cogl_color_new();
-	cogl_color_init_from_4f(priv->color, 0.0, 1.0, 0.0, 1.0);
+	cogl_color_init_from_4f(priv->color, 1.0, 1.0, 1.0, 1.0);
 
 	cogl_material_set_layer_combine_constant (priv->material, 0, priv->color);
 	cogl_material_set_layer_combine (priv->material, 0, "RGBA = MODULATE(CONSTANT, PRIMARY)", NULL);
-	cogl_material_set_shininess(priv->material, 128.0);
 	mash_model_set_material (MASH_MODEL(&self->parent), priv->material);
     fprintf(stderr, "Material set!\n");
 }
@@ -55,7 +55,6 @@ toggle_model_init (ToggleModel *self){
  */
 ClutterActor *
 toggle_model_new (void){
-    fprintf(stderr, "New model\n");
     return g_object_new (TOGGLE_TYPE_MODEL, NULL);
 }
 
@@ -85,7 +84,6 @@ toggle_model_new_from_file (MashDataFlags flags, const gchar *filename, GError *
         mash_model_set_data (MASH_MODEL (model), data);
     }
     g_object_unref (data);    
-    fprintf(stderr, "new from file!\n");
     return model;
 }
 
@@ -110,6 +108,32 @@ toggle_model_load_from_file(ToggleModel *self, MashDataFlags flags, const gchar 
         mash_model_set_data (MASH_MODEL (&self->parent), data);
     }
     g_object_unref (data);    
-    fprintf(stderr, "load from file!\n");
 }
+
+/**
+ * toggle_model_set_color:
+ * @self: a #ToggleModel
+ * @color: the #ClutterColor to use as the color for the button text
+ *
+ * Set the color of the text on the button
+ */
+void
+toggle_model_set_color (ToggleModel *self, const ClutterColor *color){
+    ToggleModelPrivate *priv;
+
+    g_return_if_fail (TOGGLE_IS_MODEL (self));
+
+    priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
+
+    priv->material = mash_model_get_material (MASH_MODEL (&self->parent));
+	priv->color     = cogl_color_new();
+    fprintf(stderr, "r: %d, g: %d, b: %d, a: %d\n", color->red, color->green, color->blue, color->alpha);
+	cogl_color_init_from_4f(priv->color, color->red/255.0, color->green/255.0, color->blue/255.0, color->alpha/255.0);
+
+	cogl_material_set_layer_combine_constant (priv->material, 0, priv->color);
+	cogl_material_set_layer_combine (priv->material, 0, "RGBA = MODULATE(CONSTANT, PRIMARY)", NULL);
+	mash_model_set_material (MASH_MODEL(&self->parent), priv->material);
+    fprintf(stderr, "New color set!\n");
+}
+
 

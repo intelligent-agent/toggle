@@ -2,10 +2,8 @@
   {
     "id" : "stage",
     "type" : "ClutterStage",
-    "color" : "#CCC",
     "width" : 800,
     "height" : 480,
-    "x": 100,
     "children" : [ "box" ],
     "signals" : []
   },
@@ -22,7 +20,7 @@
         {
             "id": "volume-viewport",     
             "type" : "ClutterActor",
-            "background-color" : "#000",
+            "background-color" : "#FFF",
             "width" : 800,
             "height" : 420,
             "x": 0, 
@@ -32,148 +30,80 @@
             [
                 {
                     "id" : "volume-stage",
-                    "type" : "ClutterBox",
-                    "width": 600, 
-                    "height": 400,
-                    "z-position": -100,
-                    "rotation" : [ { "x-axis" : 180.0} ],
+                    "type" : "ClutterActor",
+                    "width": 800, 
+                    "height": 420,
                     "children" : 
                     [
                         {
                             "id": "plate", 
-                            "type" : "TogglePlate",                    
-                            "scale-x": 200.0,
-                            "scale-y": 200.0,
-                            "scale-z": 200.0,
-		                    "x": 400,
-		                    "y": 200,
+                            "type" : "ToggleModel",    
+                            "scale-x": 400.0,
+                            "scale-y": 400.0,
+                            "scale-z": 400.0,   
+                            "rotation-angle-x": 90.0,
+                            "rotation-angle-y": -90.0,
+                            "pivot-point": [0.5, 0.5],
+                            "pivot-point-z": 0.5,
+                            "x": 400,
                             "width": 1, 
-                            "height": 1
+                            "height": 1,
+                            "depth": 1
+                        }, 
+                        {
+                            "id": "model", 
+                            "type" : "ToggleModel",    
+                            "scale-x": 80.0,
+                            "scale-y": 80.0,
+                            "scale-z": 80.0,   
+                            "width": 1, 
+                            "rotation-angle-x": 90.0,
+                            "rotation-angle-y": 180.0,
+                            "pivot-point": [0.5, 0.5],
+                            "pivot-point-z": 0.5,
+                            "x": 400,
+                            "y": 212,
+                            "height": 1,
+                            "depth": 1
                         }    
-                    ]
+                    ]    
                 }
             ]       
           },
 	    {
-		    "id": "btn_browse", 
-		    "type": "MxButton", 
-		    "label": "Browse", 
-            "style-class": "main",
-            "is-toggle" : true, 
-            "toggled" : false,
-		    "x": 60, 
-		    "y": 15	
-	    },
-	    {
-		    "id": "btn_prepare", 
-		    "type": "MxButton", 
-		    "label": "Prepare", 
-            "style-class": "main",
-            "is-toggle" : true, 
-            "toggled" : true,
-		    "x": 185, 
-		    "y": 15	
-	    },
-	    {
-		    "id": "btn_operate", 
-		    "type": "MxButton", 
-		    "label": "Operate", 
-            "style-class": "main",
-            "is-toggle" : true, 
-            "toggled" : false,
-		    "x": 330, 
-		    "y": 15	
-	    }, 
-	    {
-		    "id": "btn_place", 
-		    "type": "MxButton", 
-            "label": "Place",
-            "style-class": "context",
-            "is-toggle" : true, 
-            "toggled" : true,
-		    "x": 480, 
-		    "y": 15	
-	    },
-	    {
-		    "id": "btn_rig", 
-		    "type": "MxButton", 
-            "label": "Rig",
-            "style-class": "context",
-            "is-toggle" : true, 
-            "toggled" : false,
-		    "x": 560, 
-		    "y": 15	
-	    },
-	    {
-		    "id": "btn_slice", 
-		    "type": "MxButton", 
-            "label": "Slice",
-            "style-class": "context",
-            "is-toggle" : true, 
-            "toggled" : false,
-		    "x": 630, 
-		    "y": 15	
-	    },
-	    {
-		    "id": "btn_print", 
+		    "id": "btn-print", 
 		    "type": "MxButton", 
 		    "label": "Print",
-            "style-class": "context",
-            "is-toggle" : true, 
-            "toggled" : false,
+            "style-class": "main",
 		    "x": 700, 
 		    "y": 15	
 	    }, 
         {
-            "id": "btn_top_view", 
-            "type": "MxButton",
-            "label": "top View", 
-            "is-toggle" : true, 
-            "toggled" : true,
-            "style-class": "toggle",
-            "x": 480, 
-            "y": 390
-        },
-        {
-            "id": "btn_side_view", 
-            "type": "MxButton",
-            "label": "side View", 
-            "is-toggle" : true, 
-            "toggled" : false,
-            "style-class": "toggle",
-            "x": 600, 
-            "y": 390
-        },
-        {
-            "id": "btn_auto_place", 
-            "type": "MxButton",
-            "label": "auto place", 
-            "is-toggle" : true, 
-            "toggled" : false,
-            "style-class": "toggle",
-            "x": 480, 
-            "y": 430
-        },
-        {
-            "id": "btn-snap-to-grid", 
-            "type": "MxButton",
-            "label": "snap to grid", 
-            "is-toggle" : true, 
-            "toggled" : true,
-            "style-class": "toggle",
-            "x": 600, 
-            "y": 430
-        }, 
-        {
             "id": "btn-load", 
             "type": "MxButton",
             "label": "Load", 
-            "toggled" : true,
-            "color": "#FFF",
             "style-class": "main",
-            "width": "200",
-            "x": 500, 
-            "y": 130
+            "x": 20, 
+            "y": 15
+        }
+        {
+            "id": "msg", 
+            "type" : "ClutterBox",
+            "width" : 800,
+            "height" : 280,
+            "color": "#000",
+            "x": 0, 
+            "y": 100,
+            "opacity" : 0,
+            "layout-manager" : { "type" : "ClutterFixedLayout" }, 
+            "children" : [ {
+                "id": "txt", 
+                "type": "ClutterText",
+                "font-description": "Sans 48",
+                "color": "#FFF",
+                "height": 280, 
+                "y": 100
+            } ]
         }
     ]
   }

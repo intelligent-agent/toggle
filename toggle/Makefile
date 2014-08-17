@@ -40,3 +40,4 @@ install:
 	cp $(TYPELIB_FILE) /usr/lib/girepository-1.0/
 	cp $(GIR_FILE) /usr/share/gir-1.0/
 	cp .libs/*.so* /usr/lib/
+	cp .libs/*.so* /usr/lib/x86_64-linux-gnu/

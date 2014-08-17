@@ -18,6 +18,7 @@ struct _TogglePlatePrivate{
     CoglFramebuffer *fb;
     CoglPrimitive   *prim;    
     CoglTexture     *texture;
+    ClutterColor    *color;
 
     CoglMatrix matrix;
     int width; 
@@ -37,61 +38,61 @@ static GParamSpec *obj_properties[N_PROPERTIES] = { NULL, };
 static CoglVertexP3T2 vertices[] =
 {
   /* Front face */
-  { /* pos = */ -1.0f, -1.0f,  1.0f, /* tex coords = */ 0.0f, 1.0f},
-  { /* pos = */  1.0f, -1.0f,  1.0f, /* tex coords = */ 1.0f, 1.0f},
+  { /* pos = */  0.0f,  0.0f,  1.0f, /* tex coords = */ 0.0f, 1.0f},
+  { /* pos = */  1.0f,  0.0f,  1.0f, /* tex coords = */ 1.0f, 1.0f},
   { /* pos = */  1.0f,  1.0f,  1.0f, /* tex coords = */ 1.0f, 0.0f},
-  { /* pos = */ -1.0f,  1.0f,  1.0f, /* tex coords = */ 0.0f, 0.0f},
-  { /* pos = */ -1.0f, -1.0f,  1.0f, /* tex coords = */ 0.0f, 1.0f},
+  { /* pos = */  0.0f,  1.0f,  1.0f, /* tex coords = */ 0.0f, 0.0f},
+  { /* pos = */  0.0f,  0.0f,  1.0f, /* tex coords = */ 0.0f, 1.0f},
 
   /* Back face */
-  { /* pos = */ -1.0f, -1.0f, -1.0f, /* tex coords = */ 1.0f, 0.0f},
-  { /* pos = */ -1.0f,  1.0f, -1.0f, /* tex coords = */ 1.0f, 1.0f},
-  { /* pos = */  1.0f,  1.0f, -1.0f, /* tex coords = */ 0.0f, 1.0f},
-  { /* pos = */  1.0f, -1.0f, -1.0f, /* tex coords = */ 0.0f, 0.0f},
-  { /* pos = */ -1.0f, -1.0f, -1.0f, /* tex coords = */ 1.0f, 0.0f},
+  { /* pos = */  0.0f,  0.0f,  0.0f, /* tex coords = */ 1.0f, 0.0f},
+  { /* pos = */  0.0f,  1.0f,  0.0f, /* tex coords = */ 1.0f, 1.0f},
+  { /* pos = */  1.0f,  1.0f,  0.0f, /* tex coords = */ 0.0f, 1.0f},
+  { /* pos = */  1.0f,  0.0f,  0.0f, /* tex coords = */ 0.0f, 0.0f},
+  { /* pos = */  0.0f,  0.0f,  0.0f, /* tex coords = */ 1.0f, 0.0f},
 
   /* Top face */
-  { /* pos = */ -1.0f,  1.0f, -1.0f, /* tex coords = */ 0.0f, 1.0f},
-  { /* pos = */ -1.0f,  1.0f,  1.0f, /* tex coords = */ 0.0f, 0.0f},
+  { /* pos = */  0.0f,  1.0f,  0.0f, /* tex coords = */ 0.0f, 1.0f},
+  { /* pos = */  0.0f,  1.0f,  1.0f, /* tex coords = */ 0.0f, 0.0f},
   { /* pos = */  1.0f,  1.0f,  1.0f, /* tex coords = */ 1.0f, 0.0f},
-  { /* pos = */  1.0f,  1.0f, -1.0f, /* tex coords = */ 1.0f, 1.0f},
-  { /* pos = */ -1.0f,  1.0f, -1.0f, /* tex coords = */ 0.0f, 1.0f},
+  { /* pos = */  1.0f,  1.0f,  0.0f, /* tex coords = */ 1.0f, 1.0f},
+  { /* pos = */  0.0f,  1.0f,  0.0f, /* tex coords = */ 0.0f, 1.0f},
 
   /* Bottom face */
-  { /* pos = */ -1.0f, -1.0f, -1.0f, /* tex coords = */ 1.0f, 1.0f},
-  { /* pos = */  1.0f, -1.0f, -1.0f, /* tex coords = */ 0.0f, 1.0f},
-  { /* pos = */  1.0f, -1.0f,  1.0f, /* tex coords = */ 0.0f, 0.0f},
-  { /* pos = */ -1.0f, -1.0f,  1.0f, /* tex coords = */ 1.0f, 0.0f},
-  { /* pos = */ -1.0f, -1.0f, -1.0f, /* tex coords = */ 1.0f, 1.0f},
+  { /* pos = */  0.0f,  0.0f,  0.0f, /* tex coords = */ 1.0f, 1.0f},
+  { /* pos = */  1.0f,  0.0f,  0.0f, /* tex coords = */ 0.0f, 1.0f},
+  { /* pos = */  1.0f,  0.0f,  1.0f, /* tex coords = */ 0.0f, 0.0f},
+  { /* pos = */  0.0f,  0.0f,  1.0f, /* tex coords = */ 1.0f, 0.0f},
+  { /* pos = */  0.0f,  0.0f,  0.0f, /* tex coords = */ 1.0f, 1.0f},
 
   /* Bottom grid */
-  { /* pos = */  -1.0f, -1.0f, -0.5f, /* tex coords = */ 0.0f, 1.0f},
-  { /* pos = */   1.0f, -1.0f, -0.5f, /* tex coords = */ 0.0f, 1.0f},
-  { /* pos = */  -1.0f, -1.0f,  0.0f, /* tex coords = */ 0.0f, 1.0f},
-  { /* pos = */   1.0f, -1.0f,  0.0f, /* tex coords = */ 0.0f, 1.0f},
-  { /* pos = */  -1.0f, -1.0f,  0.5f, /* tex coords = */ 0.0f, 1.0f},
-  { /* pos = */   1.0f, -1.0f,  0.5f, /* tex coords = */ 0.0f, 1.0f},
+  { /* pos = */   0.0f,  0.0f, 0.25f, /* tex coords = */ 0.0f, 1.0f},
+  { /* pos = */   1.0f,  0.0f, 0.25f, /* tex coords = */ 0.0f, 1.0f},
+  { /* pos = */   0.0f,  0.0f,  0.0f, /* tex coords = */ 0.0f, 1.0f},
+  { /* pos = */   1.0f,  0.0f,  0.0f, /* tex coords = */ 0.0f, 1.0f},
+  { /* pos = */   0.0f,  0.0f,  0.75f, /* tex coords = */ 0.0f, 1.0f},
+  { /* pos = */   1.0f,  0.0f,  0.75f, /* tex coords = */ 0.0f, 1.0f},
 
-  { /* pos = */   0.5f, -1.0f, -1.0f, /* tex coords = */ 0.0f, 1.0f},
-  { /* pos = */   0.5f, -1.0f,  1.0f, /* tex coords = */ 0.0f, 0.0f},
-  { /* pos = */   0.0f, -1.0f, -1.0f, /* tex coords = */ 0.0f, 1.0f},
-  { /* pos = */   0.0f, -1.0f,  1.0f, /* tex coords = */ 0.0f, 0.0f},
-  { /* pos = */  -0.5f, -1.0f, -1.0f, /* tex coords = */ 0.0f, 1.0f},
-  { /* pos = */  -0.5f, -1.0f,  1.0f, /* tex coords = */ 0.0f, 0.0f},
+  { /* pos = */   0.75f,  0.0f,  0.0f, /* tex coords = */ 0.0f, 1.0f},
+  { /* pos = */   0.75f,  0.0f,  1.0f, /* tex coords = */ 0.0f, 0.0f},
+  { /* pos = */   0.0f,  0.0f,  0.0f, /* tex coords = */ 0.0f, 1.0f},
+  { /* pos = */   0.0f,  0.0f,  1.0f, /* tex coords = */ 0.0f, 0.0f},
+  { /* pos = */  0.25f,  0.0f,  0.0f, /* tex coords = */ 0.0f, 1.0f},
+  { /* pos = */  0.25f,  0.0f,  1.0f, /* tex coords = */ 0.0f, 0.0f},
 
   /* Right face */
-  { /* pos = */ 1.0f, -1.0f, -1.0f, /* tex coords = */ 1.0f, 0.0f},
-  { /* pos = */ 1.0f,  1.0f, -1.0f, /* tex coords = */ 1.0f, 1.0f},
+  { /* pos = */ 1.0f,  0.0f,  0.0f, /* tex coords = */ 1.0f, 0.0f},
+  { /* pos = */ 1.0f,  1.0f,  0.0f, /* tex coords = */ 1.0f, 1.0f},
   { /* pos = */ 1.0f,  1.0f,  1.0f, /* tex coords = */ 0.0f, 1.0f},
-  { /* pos = */ 1.0f, -1.0f,  1.0f, /* tex coords = */ 0.0f, 0.0f},
-  { /* pos = */ 1.0f, -1.0f, -1.0f, /* tex coords = */ 1.0f, 0.0f},
+  { /* pos = */ 1.0f,  0.0f,  1.0f, /* tex coords = */ 0.0f, 0.0f},
+  { /* pos = */ 1.0f,  0.0f,  0.0f, /* tex coords = */ 1.0f, 0.0f},
 
   /* Left face */
-  { /* pos = */ -1.0f, -1.0f, -1.0f, /* tex coords = */ 0.0f, 0.0f},
-  { /* pos = */ -1.0f, -1.0f,  1.0f, /* tex coords = */ 1.0f, 0.0f},
-  { /* pos = */ -1.0f,  1.0f,  1.0f, /* tex coords = */ 1.0f, 1.0f},
-  { /* pos = */ -1.0f,  1.0f, -1.0f, /* tex coords = */ 0.0f, 1.0f},
-  { /* pos = */ -1.0f, -1.0f, -1.0f, /* tex coords = */ 0.0f, 0.0f}
+  { /* pos = */  0.0f,  0.0f,  0.0f, /* tex coords = */ 0.0f, 0.0f},
+  { /* pos = */  0.0f,  0.0f,  1.0f, /* tex coords = */ 1.0f, 0.0f},
+  { /* pos = */  0.0f,  1.0f,  1.0f, /* tex coords = */ 1.0f, 1.0f},
+  { /* pos = */  0.0f,  1.0f,  0.0f, /* tex coords = */ 0.0f, 1.0f},
+  { /* pos = */  0.0f,  0.0f,  0.0f, /* tex coords = */ 0.0f, 0.0f}
 };
 
 static void
@@ -109,8 +110,7 @@ my_actor_paint_node (ClutterActor     *actor,
     plate = TOGGLE_PLATE(actor);
     priv = plate->priv;
 
-    node = clutter_color_node_new(CLUTTER_COLOR_White);
-
+    node = clutter_color_node_new(priv->color);
     clutter_paint_node_add_primitive(node, priv->prim);
 
     /* add the node, and transfer ownership */
@@ -222,6 +222,8 @@ toggle_plate_init (TogglePlate *self){
     self->priv       = priv = TOGGLE_PLATE_GET_PRIVATE (self);
     priv->pipeline   = cogl_pipeline_new(ctx);
 
+    self->priv->color = CLUTTER_COLOR_Red;
+
     priv->width = width = 400;
     priv->height = height = 400;
 
@@ -242,4 +244,18 @@ ClutterActor*
 toggle_plate_new (){
     return g_object_new (TOGGLE_TYPE_PLATE, NULL);
 }
+
+/**
+ * toggle_plate_set_color:
+ * @self: a #TogglePlate
+ * @color: the #ClutterColor to use as the color for the button text
+ *
+ * Set the color of the text on the button
+ */
+void
+toggle_plate_set_color (TogglePlate *self, const ClutterColor *color){
+    g_return_if_fail (TOGGLE_IS_PLATE (self));
+    self->priv->color = color;
+}
+
 
