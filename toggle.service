@@ -1,0 +1,11 @@
+[Unit]
+Description=The Redeem/Replicape user interface
+After=pvr.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python /usr/src/toggle/Toggle.py
+
+[Install]
+WantedBy=basic.target
+
