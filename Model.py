@@ -35,7 +35,6 @@ class Model(Toggle.Model):
         self.last_y = 0
 
     def click(self, actor, event):
-        print "model clicked"
         self.last_x = event.x
         self.last_y = event.y
         self.clicked = True
@@ -44,7 +43,6 @@ class Model(Toggle.Model):
         self.clicked = False
 
     def move(self, actor, event):
-        print "model move"
         delta_x = event.x-self.last_x
         delta_y = self.last_y-event.y
         self.last_x = event.x
@@ -53,8 +51,3 @@ class Model(Toggle.Model):
             self.move_by(delta_x, 0)
             self.set_z_position(100+delta_y)
 
-    def save(self):
-        """ Save file """
-        
-
-    
