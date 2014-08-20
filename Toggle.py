@@ -81,7 +81,7 @@ class Toggle:
         # Flip and move the stage to the right location
         kernel_version = subprocess.check_output(["uname", "-r"]).strip()
         if kernel_version == "3.14.14":
-            box = toggle.ui.get_object("box")
+            box = self.ui.get_object("box")
             box.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, -90.0)
             box.set_position(0, 800)
 
