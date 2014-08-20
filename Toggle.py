@@ -40,10 +40,10 @@ class Toggle:
 
     def __init__(self):
         self.style = Mx.Style.get_default ()
-        self.style.load_from_file("style/style.css")
+        self.style.load_from_file("/etc/toggle/style/style.css")
 
         self.ui = Clutter.Script()
-        self.ui.load_from_file("ui.json")
+        self.ui.load_from_file("/etc/toggle/ui.json")
 
         self.stage = self.ui.get_object("stage")
         self.stage.connect("destroy", lambda w: Clutter.main_quit() )

@@ -8,7 +8,7 @@ class Plate(Toggle.Plate):
         self.ui = ui
         # I want to subclass this, but I'm uncertain how to..
         self.p = ui.get_object("plate")
-        self.p.load_from_file(0, "platforms/thing.ply")
+        self.p.load_from_file(0, "/etc/toggle/platforms/thing.ply")
         self.p.set_color(Clutter.Color.from_string("#555A")[1])
         self.p.set_reactive(True)
         #ui.get_object("stage").connect("motion-event", self.move)
