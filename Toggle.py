@@ -39,6 +39,7 @@ logging.basicConfig(level=logging.DEBUG,
 class Toggle:    
 
     def __init__(self):
+        Clutter.init(None)
         self.style = Mx.Style.get_default ()
         self.style.load_from_file("/etc/toggle/style/style.css")
 
@@ -59,13 +60,11 @@ class Toggle:
         self.plate = Plate(self.ui)
 
         # Set up message system
-        self.message_listener = MessageListener(self.ui)
-
-        self.stage.show()
+        self.message_listener = MessageListener(self.ui)        
 
         self.models = []
-
-        #self.load_model(0, 0)
+        
+        self.stage.show()
 
     def load_model(self, actor, event):
         model = Model(self.ui)
@@ -75,15 +74,20 @@ class Toggle:
         pass
 
 
+    def run(self):
+        """ Start the program. Can be called from 
+        this file or from a start-up script."""               
+
+        # Flip and move the stage to the right location
+        kernel_version = subprocess.check_output(["uname", "-r"]).strip()
+        if kernel_version == "3.14.14":
+            box = toggle.ui.get_object("box")
+            box.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, -90.0)
+            box.set_position(0, 800)
+
+        Clutter.main()
+
 if __name__ == "__main__":
-    Clutter.init(None)
     toggle = Toggle()
+    toggle.run()
 
-    # Flip and move the stage to the right location
-    kernel_version = subprocess.check_output(["uname", "-r"]).strip()
-    if kernel_version == "3.14.14":
-        box = toggle.ui.get_object("box")
-        box.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, -90.0)
-        box.set_position(0, 800)
-
-    Clutter.main()

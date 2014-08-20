@@ -6,7 +6,7 @@ class Model(Toggle.Model):
     def __init__(self, ui):   
         super(Model, self).__init__()    
         model = ui.get_object("model")
-        model.load_from_file(0, "models/treefrog.ply")
+        model.load_from_file(0, "/usr/share/models/ply/treefrog.ply")
         model.set_color(Clutter.Color.from_string("#55A94BFF")[1])
 
         #Set up the light

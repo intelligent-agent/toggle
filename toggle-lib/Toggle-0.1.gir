@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<!-- This file was automatically generated from C sources - DO NOT EDIT!
+To affect the contents of this file, edit the original C definitions,
+and/or use gtk-doc annotations.  -->
+<repository version="1.2"
+            xmlns="http://www.gtk.org/introspection/core/1.0"
+            xmlns:c="http://www.gtk.org/introspection/c/1.0"
+            xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <include name="Clutter" version="1.0"/>
+  <include name="GObject" version="2.0"/>
+  <include name="Mash" version="0.2"/>
+  <namespace name="Toggle"
+             version="0.1"
+             shared-library="libtoggle.so.0"
+             c:identifier-prefixes="Toggle"
+             c:symbol-prefixes="toggle">
+    <class name="Model"
+           c:symbol-prefix="model"
+           c:type="ToggleModel"
+           parent="Mash.Model"
+           glib:type-name="ToggleModel"
+           glib:get-type="toggle_model_get_type"
+           glib:type-struct="ModelClass">
+      <implements name="Atk.ImplementorIface"/>
+      <implements name="Clutter.Animatable"/>
+      <implements name="Clutter.Container"/>
+      <implements name="Clutter.Scriptable"/>
+      <constructor name="new" c:identifier="toggle_model_new">
+        <doc xml:space="preserve">Creates a new #ToggleModel instance</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">a new #ToggleModel</doc>
+          <type name="Clutter.Actor" c:type="ClutterActor*"/>
+        </return-value>
+      </constructor>
+      <constructor name="new_from_file"
+                   c:identifier="toggle_model_new_from_file"
+                   throws="1">
+        <doc xml:space="preserve">This is a convenience function that creates a new #MashData
+and immediately loads the data in @filename. If the load succeeds a
+new #MashModel will be created for the data. The model has a
+default white material so that if vertices of the model have any
+color attributes they will be used directly. The material does not
+have textures by default so if you want the model to be textured
+you will need to modify the material.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">a new #ToggleModel or %NULL if the load failed.</doc>
+          <type name="Clutter.Actor" c:type="ClutterActor*"/>
+        </return-value>
+        <parameters>
+          <parameter name="flags" transfer-ownership="none">
+            <doc xml:space="preserve">Flags for loading the data.</doc>
+            <type name="Mash.DataFlags" c:type="MashDataFlags"/>
+          </parameter>
+          <parameter name="filename" transfer-ownership="none">
+            <doc xml:space="preserve">The name of a PLY file to load.</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="load_from_file"
+              c:identifier="toggle_model_load_from_file"
+              throws="1">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve">A #ToggleModel instance</doc>
+            <type name="Model" c:type="ToggleModel*"/>
+          </instance-parameter>
+          <parameter name="flags" transfer-ownership="none">
+            <doc xml:space="preserve">Flags for loading the data.</doc>
+            <type name="Mash.DataFlags" c:type="MashDataFlags"/>
+          </parameter>
+          <parameter name="filename" transfer-ownership="none">
+            <doc xml:space="preserve">The name of a PLY file to load.</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_color" c:identifier="toggle_model_set_color">
+        <doc xml:space="preserve">Set the color of the text on the button</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve">a #ToggleModel</doc>
+            <type name="Model" c:type="ToggleModel*"/>
+          </instance-parameter>
+          <parameter name="color" transfer-ownership="none">
+            <doc xml:space="preserve">the #ClutterColor to use as the color for the button text</doc>
+            <type name="Clutter.Color" c:type="const ClutterColor*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent">
+        <type name="Mash.Model" c:type="MashModel"/>
+      </field>
+      <field name="priv">
+        <type name="ModelPrivate" c:type="ToggleModelPrivate*"/>
+      </field>
+    </class>
+    <record name="ModelClass"
+            c:type="ToggleModelClass"
+            glib:is-gtype-struct-for="Model">
+      <field name="parent">
+        <type name="Mash.ModelClass" c:type="MashModelClass"/>
+      </field>
+    </record>
+    <record name="ModelPrivate" c:type="ToggleModelPrivate" disguised="1">
+    </record>
+    <class name="Plate"
+           c:symbol-prefix="plate"
+           c:type="TogglePlate"
+           parent="Clutter.Actor"
+           glib:type-name="TogglePlate"
+           glib:get-type="toggle_plate_get_type"
+           glib:type-struct="PlateClass">
+      <implements name="Atk.ImplementorIface"/>
+      <implements name="Clutter.Animatable"/>
+      <implements name="Clutter.Container"/>
+      <implements name="Clutter.Scriptable"/>
+      <constructor name="new" c:identifier="toggle_plate_new">
+        <return-value transfer-ownership="none">
+          <type name="Clutter.Actor" c:type="ClutterActor*"/>
+        </return-value>
+      </constructor>
+      <method name="set_color" c:identifier="toggle_plate_set_color">
+        <doc xml:space="preserve">Set the color of the text on the button</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve">a #TogglePlate</doc>
+            <type name="Plate" c:type="TogglePlate*"/>
+          </instance-parameter>
+          <parameter name="color" transfer-ownership="none">
+            <doc xml:space="preserve">the #ClutterColor to use as the color for the button text</doc>
+            <type name="Clutter.Color" c:type="const ClutterColor*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <property name="matrix"
+                introspectable="0"
+                writable="1"
+                transfer-ownership="none">
+        <type/>
+      </property>
+      <field name="parent">
+        <type name="Clutter.Actor" c:type="ClutterActor"/>
+      </field>
+      <field name="priv" readable="0" private="1">
+        <type name="PlatePrivate" c:type="TogglePlatePrivate*"/>
+      </field>
+    </class>
+    <record name="PlateClass"
+            c:type="TogglePlateClass"
+            glib:is-gtype-struct-for="Plate">
+      <field name="parent_class">
+        <type name="Clutter.ActorClass" c:type="ClutterActorClass"/>
+      </field>
+    </record>
+    <record name="PlatePrivate" c:type="TogglePlatePrivate" disguised="1">
+    </record>
+  </namespace>
+</repository>
