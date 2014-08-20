@@ -19,7 +19,7 @@ class VolumeStage(Clutter.Actor):
     def clicked(self, actor, event):
         self.last_x = event.x
         self.last_y = event.y
-        self.start_x = self.p.get_rotation_angle(Clutter.RotateAxis.Z_AXIS)
+        self.start_x = self.p.get_rotation_angle(Clutter.RotateAxis.Y_AXIS)
         self.start_y = self.p.get_rotation_angle(Clutter.RotateAxis.X_AXIS)
         self.clicked = True
 
@@ -32,6 +32,6 @@ class VolumeStage(Clutter.Actor):
             dmy = event.y-self.last_y
             rot_x = self.start_x+dmx
             rot_y = self.start_y+dmy
-            self.p.set_rotation_angle(Clutter.RotateAxis.X_AXIS, rot_y)
-            self.p.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, rot_x)
+            self.p.set_rotation_angle(Clutter.RotateAxis.X_AXIS, -rot_y)
+            self.p.set_rotation_angle(Clutter.RotateAxis.Y_AXIS, rot_x)
 
