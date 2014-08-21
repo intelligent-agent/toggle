@@ -1,7 +1,7 @@
 CC?=gcc
 C_INCLUDES=`pkg-config --cflags gobject-2.0 glib-2.0 clutter-1.0 mash-0.2 pango cairo mx-2.0`
 CFLAGS+=$(C_INCLUDES) -g
-LIBS=`pkg-config --libs gobject-2.0 glib-2.0 clutter-1.0 mash-0.2 pango cairo mx-2.0` -L/lib -L/usr/local/lib
+LIBS=`pkg-config --libs gobject-2.0 glib-2.0 clutter-1.0 mash-0.2 pango cairo mx-2.0` -L/lib
 LIBDIR=/usr/lib
 LIBTOOL?=libtool
 
