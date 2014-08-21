@@ -4,7 +4,7 @@ After=pvr.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python /usr/src/toggle/Toggle.py
+ExecStart=/usr/bin/toggle
 
 [Install]
 WantedBy=basic.target
