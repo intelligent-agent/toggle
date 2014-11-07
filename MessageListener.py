@@ -37,3 +37,7 @@ class MessageListener:
                 return message;
             message = message + cur_char
 
+
+    def send(self, message):
+        ''' Send a message through the pipe. '''
+        os.write(message)

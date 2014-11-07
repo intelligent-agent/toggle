@@ -30,6 +30,8 @@ from Model import Model
 from Plate import Plate 
 from VolumeStage import VolumeStage
 from MessageListener import MessageListener
+from ModelLoader import ModelLoader
+from Printer import Printer
 
 # TODO: Set logging level according to configuration file
 logging.basicConfig(level=logging.DEBUG,
@@ -49,9 +51,6 @@ class Toggle:
         self.stage = self.ui.get_object("stage")
         self.stage.connect("destroy", lambda w: Clutter.main_quit() )
 
-        btn_load = self.ui.get_object("btn-load")
-        btn_load.connect("button-press-event", self.load_model)
-
         self.volume_stage = VolumeStage(self.ui)
         self.plate = Plate(self.ui)
 
@@ -62,17 +61,25 @@ class Toggle:
         # Set up message system
         self.message_listener = MessageListener(self.ui)        
 
-        self.models = []
-        
+        # Make model loader
+        self.loader = ModelLoader(self.ui)
+
+        # Make printer 
+        self.printer = Printer(self.message_listener)
+
+        # Set up print button
+        btn_print = self.ui.get_object("btn-print")
+        btn_print.connect("touch-event", self.print_model) # Touch
+        btn_print.connect("button-press-event", self.print_model) # Mouse
+
         self.stage.show()
 
-    def load_model(self, actor, event):
-        model = Model(self.ui)
-        #self.models.append(model)
-
-    def print_model(self):
-        pass
-
+    def print_model(self, actor, action):
+        model = self.loader.get_model()
+        #self.stl_filename = model.filename+".stl"
+        #self.slicer = Slicer(self.stl_filename)
+        self.printer.gcode_filename = model+".gcode"
+        self.printer.run()
 
     def run(self):
         """ Start the program. Can be called from 
@@ -80,10 +87,10 @@ class Toggle:
 
         # Flip and move the stage to the right location
         kernel_version = subprocess.check_output(["uname", "-r"]).strip()
-        if kernel_version == "3.14.14":
+        if kernel_version == "3.14.19":
             box = self.ui.get_object("box")
-            box.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, -90.0)
-            box.set_position(0, 800)
+            box.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 90.0)
+            box.set_position(480, 0)
 
         Clutter.main()
 

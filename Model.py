@@ -3,10 +3,11 @@
 from gi.repository import Clutter, Mx, Mash, Toggle
 
 class Model(Toggle.Model):
-    def __init__(self, ui):   
+    def __init__(self, ui, filename):   
         super(Model, self).__init__()    
         model = ui.get_object("model")
-        model.load_from_file(0, "/usr/share/models/ply/treefrog.ply")
+        self.filename = filename
+        model.load_from_file(0, "/usr/share/models/ply/"+filename+".ply")
         model.set_color(Clutter.Color.from_string("#55A94BFF")[1])
 
         #Set up the light

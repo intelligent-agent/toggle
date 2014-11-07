@@ -75,13 +75,22 @@
 		    "type": "MxButton", 
 		    "label": "Print",
             "style-class": "main",
+		    "x": 350, 
+		    "y": 15	
+	    }, 
+
+	    {
+		    "id": "btn-next", 
+		    "type": "MxButton", 
+		    "label": ">>",
+            "style-class": "main",
 		    "x": 700, 
 		    "y": 15	
 	    }, 
         {
-            "id": "btn-load", 
+            "id": "btn-prev", 
             "type": "MxButton",
-            "label": "Load", 
+            "label": "<<", 
             "style-class": "main",
             "x": 20, 
             "y": 15
