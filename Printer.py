@@ -16,7 +16,7 @@ class Printer:
             self.thread = threading.Thread(target=_loop)
         else:
             logging.warning("Tried to start printing a non existing file: "+
-                str(self.gcode_filename))
+                str(self.path))
 
     def stop(self):
         self.running = False
