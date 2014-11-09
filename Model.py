@@ -7,7 +7,7 @@ class Model(Toggle.Model):
         super(Model, self).__init__()    
         model = ui.get_object("model")
         self.filename = filename
-        model.load_from_file(0, "/usr/share/models/ply/"+filename+".ply")
+        model.load_from_file(0, "/usr/share/models/"+filename+".stl")
         model.set_color(Clutter.Color.from_string("#55A94BFF")[1])
 
         #Set up the light
