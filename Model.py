@@ -1,13 +1,13 @@
 # Model
 
-from gi.repository import Clutter, Mx, Mash, Toggle
+from gi.repository import Clutter, Mx, Mash, Toggle, Cogl
 
 class Model(Toggle.Model):
     def __init__(self, ui, filename):   
         super(Model, self).__init__()    
         model = ui.get_object("model")
         self.filename = filename
-        model.load_from_file(0, "/usr/share/models/"+filename+".stl")
+        model.load_from_file(0, "/usr/share/models/"+filename)
         model.set_color(Clutter.Color.from_string("#55A94BFF")[1])
 
         #Set up the light
@@ -16,6 +16,10 @@ class Model(Toggle.Model):
         light_directional = Mash.DirectionalLight()
         light_spot = Mash.SpotLight()
     
+        #c = Cogl.Color()
+        #c.init_from_4f(0, 0, 0, 0)
+        #light_point.set_ambient(c)
+
         self.light_set.add_light(light_point)
         self.light_set.add_light(light_directional)
         self.light_set.add_light(light_spot)

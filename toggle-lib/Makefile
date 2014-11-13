@@ -42,5 +42,13 @@ clean:
 install:
 	cp $(TYPELIB_FILE) /usr/lib/girepository-1.0/
 	cp $(GIR_FILE) /usr/share/gir-1.0/
-	cp .libs/*.so* /usr/lib/
-	cp .libs/*.so* /usr/lib/x86_64-linux-gnu/
+	cp .libs/*.so.0.0.0 /usr/lib/	
+	rm -f /usr/lib/libtoggle.so
+	rm -f /usr/lib/libtoggle.so.0
+	ln -s /usr/lib/libtoggle.so.0.0.0 /usr/lib/libtoggle.so.0
+	ln -s /usr/lib/libtoggle.so.0 /usr/lib/libtoggle.so
+	cp .libs/*.so.0.0.0 /usr/lib/x86_64-linux-gnu/
+	rm -f /usr/lib/x86_64-linux-gnu/libtoggle.so
+	rm -f /usr/lib/x86_64-linux-gnu/libtoggle.so.0
+	ln -s /usr/lib/x86_64-linux-gnu/libtoggle.so.0.0.0 /usr/lib/x86_64-linux-gnu/libtoggle.so.0
+	ln -s /usr/lib/x86_64-linux-gnu/libtoggle.so.0 /usr/lib/x86_64-linux-gnu/libtoggle.so 

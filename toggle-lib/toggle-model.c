@@ -129,6 +129,7 @@ toggle_model_set_color (ToggleModel *self, const ClutterColor *color){
 
 	cogl_material_set_layer_combine_constant (priv->material, 0, priv->color);
 	cogl_material_set_layer_combine (priv->material, 0, "RGBA = MODULATE(CONSTANT, PRIMARY)", NULL);
+
 	mash_model_set_material (MASH_MODEL(&self->parent), priv->material);
 }
 
