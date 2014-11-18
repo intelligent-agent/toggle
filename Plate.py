@@ -14,15 +14,15 @@ class Plate(Toggle.Plate):
         #ui.get_object("stage").connect("motion-event", self.move)
 
         #Set up the light
-        #light_set = Mash.LightSet()
-        #light_point = Mash.PointLight()
-        #light_directional = Mash.DirectionalLight()
-        #light_spot = Mash.SpotLight()
+        light_set = Mash.LightSet()
+        light_point = Mash.PointLight()
+        light_directional = Mash.DirectionalLight()
+        light_spot = Mash.SpotLight()
 
         # Add the model the lights to the volume viewport
-        #self.p.add_child(light_point);
-        #self.p.add_child(light_directional);
-        #self.p.add_child(light_spot);
+        self.p.add_child(light_point);
+        self.p.add_child(light_directional);
+        self.p.add_child(light_spot);
 
     def click(self):
         print "Plate clicked"

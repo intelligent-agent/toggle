@@ -14,7 +14,7 @@ G_DEFINE_TYPE (ToggleModel, toggle_model, MASH_TYPE_MODEL);
 #define TOGGLE_MODEL_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), TOGGLE_TYPE_MODEL, ToggleModelPrivate))
 
 struct _ToggleModelPrivate{
-    CoglMaterial *material;
+    CoglPipeline *pipeline;
     CoglColor *color;
 };
 
@@ -33,14 +33,8 @@ toggle_model_init (ToggleModel *self){
     ToggleModelPrivate *priv;
     priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
 
-  	// Make a new material for the model
-    priv->material = mash_model_get_material (MASH_MODEL (&self->parent));
-	priv->color     = cogl_color_new();
-	cogl_color_init_from_4f(priv->color, 1.0, 1.0, 1.0, 1.0);
-
-	cogl_material_set_layer_combine_constant (priv->material, 0, priv->color);
-	cogl_material_set_layer_combine (priv->material, 0, "RGBA = MODULATE(CONSTANT, PRIMARY)", NULL);
-	mash_model_set_material (MASH_MODEL(&self->parent), priv->material);
+    priv->pipeline = mash_model_get_material (MASH_MODEL (&self->parent));
+    cogl_material_set_layer_combine (priv->pipeline, 0, "RGBA = MODULATE(CONSTANT, PRIMARY)", NULL);
 }
 
 
@@ -108,6 +102,9 @@ toggle_model_load_from_file(ToggleModel *self, MashDataFlags flags, const gchar 
     g_object_unref (data);    
 }
 
+
+
+
 /**
  * toggle_model_set_color:
  * @self: a #ToggleModel
@@ -123,14 +120,15 @@ toggle_model_set_color (ToggleModel *self, const ClutterColor *color){
 
     priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
 
-    priv->material = mash_model_get_material (MASH_MODEL (&self->parent));
+    priv->pipeline = mash_model_get_material (MASH_MODEL (&self->parent));
 	priv->color     = cogl_color_new();
-	cogl_color_init_from_4f(priv->color, color->red/255.0, color->green/255.0, color->blue/255.0, color->alpha/255.0);
+    cogl_color_set_from_4ub(priv->color, color->red, color->green, color->blue, color->alpha);
+	
 
-	cogl_material_set_layer_combine_constant (priv->material, 0, priv->color);
-	cogl_material_set_layer_combine (priv->material, 0, "RGBA = MODULATE(CONSTANT, PRIMARY)", NULL);
+	cogl_material_set_layer_combine_constant (priv->pipeline, 0, priv->color);
+	//cogl_material_set_layer_combine (priv->material, 0, "RGBA = ADD(CONSTANT, PRIMARY)", NULL);
+    cogl_material_set_layer_combine (priv->pipeline, 0, "RGBA = MODULATE(CONSTANT, PRIMARY)", NULL);
 
-	mash_model_set_material (MASH_MODEL(&self->parent), priv->material);
 }
 
 

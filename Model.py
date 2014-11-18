@@ -9,6 +9,7 @@ class Model(Toggle.Model):
         self.filename = filename
         model.load_from_file(0, "/usr/share/models/"+filename)
         model.set_color(Clutter.Color.from_string("#55A94BFF")[1])
+        #model.set_color(Clutter.Color.from_string("#000000FF")[1])
 
         #Set up the light
         self.light_set = Mash.LightSet()
@@ -16,9 +17,6 @@ class Model(Toggle.Model):
         light_directional = Mash.DirectionalLight()
         light_spot = Mash.SpotLight()
     
-        #c = Cogl.Color()
-        #c.init_from_4f(0, 0, 0, 0)
-        #light_point.set_ambient(c)
 
         self.light_set.add_light(light_point)
         self.light_set.add_light(light_directional)

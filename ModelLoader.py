@@ -15,7 +15,7 @@ class ModelLoader(Clutter.Actor):
     def __init__(self, ui):
         self.ui = ui
         path = "/usr/share/models/"
-        self.models = bidirectional_cycle([ f for f in listdir(path) if isfile(join(path,f))])
+        self.models = bidirectional_cycle([ f for f in listdir(path) if isfile(join(path,f)) and ".stl" in f])
 
         btn_next = self.ui.get_object("btn-next")
         btn_next.connect("touch-event", self.next) # Touch
