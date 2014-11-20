@@ -33,8 +33,8 @@ toggle_model_init (ToggleModel *self){
     ToggleModelPrivate *priv;
     priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
 
-    priv->pipeline = mash_model_get_material (MASH_MODEL (&self->parent));
-    cogl_material_set_layer_combine (priv->pipeline, 0, "RGBA = MODULATE(CONSTANT, PRIMARY)", NULL);
+    priv->pipeline = (CoglPipeline*) mash_model_get_material (MASH_MODEL (&self->parent));
+    cogl_pipeline_set_layer_combine (priv->pipeline, 0, "RGBA = MODULATE(CONSTANT, PRIMARY)", NULL);
 }
 
 
@@ -120,15 +120,24 @@ toggle_model_set_color (ToggleModel *self, const ClutterColor *color){
 
     priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
 
-    priv->pipeline = mash_model_get_material (MASH_MODEL (&self->parent));
+    priv->pipeline = (CoglPipeline*) mash_model_get_material (MASH_MODEL (&self->parent));
 	priv->color     = cogl_color_new();
-    cogl_color_set_from_4ub(priv->color, color->red, color->green, color->blue, color->alpha);
+    cogl_color_init_from_4ub(priv->color, color->red, color->green, color->blue, color->alpha);
 	
 
-	cogl_material_set_layer_combine_constant (priv->pipeline, 0, priv->color);
-	//cogl_material_set_layer_combine (priv->material, 0, "RGBA = ADD(CONSTANT, PRIMARY)", NULL);
-    cogl_material_set_layer_combine (priv->pipeline, 0, "RGBA = MODULATE(CONSTANT, PRIMARY)", NULL);
+    CoglColor* color1 = cogl_color_new();
+    cogl_pipeline_get_emission(priv->pipeline, color1);
+    fprintf(stderr, "rgb=(%f, %f, %f)\n", cogl_color_get_red(color1), cogl_color_get_green(color1), cogl_color_get_blue(color1));
+    cogl_pipeline_get_ambient(priv->pipeline, color1);
+    fprintf(stderr, "rgb=(%f, %f, %f)\n", cogl_color_get_red(color1), cogl_color_get_green(color1), cogl_color_get_blue(color1));
+    
+    //cogl_pipeline_set_color4f(priv->pipeline, 0, 0, 0, 1);
 
+    cogl_pipeline_set_cull_face_mode (priv->pipeline, 1);
+	cogl_pipeline_set_layer_combine_constant (priv->pipeline, 0, priv->color);
+    //cogl_pipeline_set_layer_combine (priv->pipeline, 0, "RGBA = ADD(CONSTANT, PRIMARY)", NULL);
+    //cogl_pipeline_set_layer_combine (priv->pipeline, 0, "RGBA = REPLACE(CONSTANT)", NULL);
+    cogl_pipeline_set_layer_combine (priv->pipeline, 0, "RGBA = MODULATE (CONSTANT, PRIMARY)", NULL);
 }
 
 

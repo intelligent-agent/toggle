@@ -7,14 +7,14 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(name='Toggle',
-      version='0.2.0.dev1',
+      version='0.3.0.dev1',
       description='Embedded UI for 3D printers',
       author='Elias Bakken',
       author_email='elias@iagent.no',
       url='http://www.thing-printer.com',
       license = "CC-BY-SA-2.0",
       long_description=read('README.md'),
-      py_modules=['Toggle', 'Message', 'MessageListener', 'Plate', 'Model', 'VolumeStage'],
+      py_modules=['Toggle', 'Message', 'MessageListener', 'Plate', 'Model', 'VolumeStage', 'ModelLoader', 'Printer'],
       classifiers=[
         "Development Status :: 3 - Alpha",
         "Topic :: Program",
