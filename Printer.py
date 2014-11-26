@@ -5,12 +5,24 @@ import os.path
 
 class Printer:
 
-    def __init__(self, pipe):
-        self.pipe = pipe    
+    def __init__(self, config):
+        self.config = config
+        self.pipe = config.message_listener
+
+        # Set up print button
+        btn_print = self.config.ui.get_object("btn-print")
+        btn_print.connect("touch-event", self.print_model) # Touch
+        btn_print.connect("button-press-event", self.print_model) # Mouse    
+
         self.gcode_filename = None
     
+    def print_model(self, actor, action):
+        filename = self.config.loader.get_model_filename()
+        self.gcode_filename = filename.replace(".stl", ".gcode")
+        self.run()
+
     def run(self):
-        self.path = "/usr/share/models/"+self.gcode_filename
+        self.path = self.config.get("System", "model_folder")+self.gcode_filename
         if os.path.exists(self.path):
             self.running = True
             self.thread = threading.Thread(target=_loop)

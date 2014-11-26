@@ -24,7 +24,7 @@ License: GNU GPL v3: http://www.gnu.org/copyleft/gpl.html
 
 import subprocess
 import logging
-from gi.repository import Clutter, Mx, Mash, Toggle
+from gi.repository import Clutter, Mx, Mash, Toggle, Cogl
 
 from Model import Model
 from Plate import Plate 
@@ -32,8 +32,9 @@ from VolumeStage import VolumeStage
 from MessageListener import MessageListener
 from ModelLoader import ModelLoader
 from Printer import Printer
+from CascadingConfigParser import CascadingConfigParser
 
-# TODO: Set logging level according to configuration file
+# Set up logging
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                     datefmt='%m-%d %H:%M')
@@ -41,45 +42,33 @@ logging.basicConfig(level=logging.DEBUG,
 class Toggle:    
 
     def __init__(self):
+        # Parse the config files. 
+        config = CascadingConfigParser(['/etc/toggle/default.cfg'])
+
+        # Get loglevel from the Config file
+        level = config.getint('System', 'loglevel')
+        if level > 0:
+            logging.getLogger().setLevel(level)
+
         Clutter.init(None)
-        self.style = Mx.Style.get_default ()
-        self.style.load_from_file("/etc/toggle/style/style.css")
+        
+        style = Mx.Style.get_default ()
+        style.load_from_file(config.get("System", "stylesheet"))
 
-        self.ui = Clutter.Script()
-        self.ui.load_from_file("/etc/toggle/ui.json")
+        config.ui = Clutter.Script()
+        config.ui.load_from_file(config.get("System", "ui"))
 
-        self.stage = self.ui.get_object("stage")
-        self.stage.connect("destroy", lambda w: Clutter.main_quit() )
+        config.stage = config.ui.get_object("stage")
+        config.stage.connect("destroy", lambda w: Clutter.main_quit() )
 
-        self.volume_stage = VolumeStage(self.ui)
-        self.plate = Plate(self.ui)
+        volume_stage = VolumeStage(config)
+        plate = Plate(config)
+        config.message_listener = MessageListener(config)        
+        config.loader = ModelLoader(config)
+        printer = Printer(config)
 
-        self.volume_viewport = self.ui.get_object("volume-viewport")
+        config.stage.show()
 
-        self.plate = Plate(self.ui)
-
-        # Set up message system
-        self.message_listener = MessageListener(self.ui)        
-
-        # Make model loader
-        self.loader = ModelLoader(self.ui)
-
-        # Make printer 
-        self.printer = Printer(self.message_listener)
-
-        # Set up print button
-        btn_print = self.ui.get_object("btn-print")
-        btn_print.connect("touch-event", self.print_model) # Touch
-        btn_print.connect("button-press-event", self.print_model) # Mouse
-
-        self.stage.show()
-
-    def print_model(self, actor, action):
-        model = self.loader.get_model()
-        #self.stl_filename = model.filename+".stl"
-        #self.slicer = Slicer(self.stl_filename)
-        self.printer.gcode_filename = model+".gcode"
-        self.printer.run()
 
     def run(self):
         """ Start the program. Can be called from 
@@ -91,6 +80,7 @@ class Toggle:
             box = self.ui.get_object("box")
             box.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 90.0)
             box.set_position(480, 0)
+            self.stage.add_filter(self.filter_events)
 
         Clutter.main()
 

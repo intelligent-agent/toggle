@@ -3,19 +3,20 @@ import logging
 from gi.repository import Clutter, Mx, Mash, Toggle
 
 class VolumeStage(Clutter.Actor):
-    def __init__(self, ui):
+    def __init__(self, config):
         super(VolumeStage, self).__init__()
-        self.ui = ui
-        self.p = self.ui.get_object("volume-stage")
+        self.ui = config.ui
+        self.p = self.ui.get_object("volume-wrapper")
         self.p.set_pivot_point (0.5, 0.5)
         self.p.set_pivot_point_z(0.5)
-        self.p.set_reactive (True)
 
-        self.stage = self.ui.get_object("stage")
-        self.stage.connect("button-press-event", self.click)
-        self.stage.connect("button-release-event", self.release)
-        self.stage.connect("motion-event", self.move)
-        self.stage.connect("touch-event", self.touch)
+        # Set up touch events linked to the viewport
+        self.vp = self.ui.get_object("volume-viewport")
+        self.vp.set_reactive(True)
+        self.vp.connect("button-press-event", self.click)
+        self.vp.connect("button-release-event", self.release)
+        self.vp.connect("motion-event", self.move)
+        self.vp.connect("touch-event", self.touch)
         self.clicked = False
 
         self.last_x = 0
@@ -39,8 +40,8 @@ class VolumeStage(Clutter.Actor):
             dmy = event.y-self.last_y
             rot_x = self.start_x+dmx
             rot_y = self.start_y+dmy
-            self.p.set_rotation_angle(Clutter.RotateAxis.X_AXIS, rot_x)
-            self.p.set_rotation_angle(Clutter.RotateAxis.Y_AXIS, rot_y)
+            self.p.set_rotation_angle(Clutter.RotateAxis.X_AXIS, rot_y)
+            self.p.set_rotation_angle(Clutter.RotateAxis.Y_AXIS, rot_x)
 
     def touch(self, actor, event):
         (x, y) = event.get_coords()

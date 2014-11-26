@@ -12,29 +12,29 @@ Class that loads all models in a directory
 and makes next and prev buttons change the loaded model 
 """
 class ModelLoader(Clutter.Actor):
-    def __init__(self, ui):
-        self.ui = ui
-        path = "/usr/share/models/"
+    def __init__(self, config):
+        self.config = config
+        path = config.get("System", "model_folder")
         self.models = bidirectional_cycle([ f for f in listdir(path) if isfile(join(path,f)) and ".stl" in f])
 
-        btn_next = self.ui.get_object("btn-next")
+        btn_next = config.ui.get_object("btn-next")
         btn_next.connect("touch-event", self.next) # Touch
         btn_next.connect("button-press-event", self.next) # Mouse
 
-        btn_prev = self.ui.get_object("btn-prev")
+        btn_prev = config.ui.get_object("btn-prev")
         btn_prev.connect("touch-event", self.prev) # Touch
         btn_prev.connect("button-press-event", self.prev) # Mouse
         
-        self.model = Model(self.ui, self.models.next()) # Load the first model
+        # Load the first model
+        self.model = Model(self.config, self.models.next()) 
 
     def next(self, actor, event):
-        self.model = Model(self.ui, self.models.next())
-    
+        self.model = Model(self.config, self.models.next())    
 
     def prev(self, actor, event):
-        self.model = Model(self.ui, self.models.prev())
+        self.model = Model(self.config, self.models.prev())
 
-    def get_model(self):
+    def get_model_filename(self):
         return self.models.cur()
 
 """ 

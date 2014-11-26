@@ -3,13 +3,19 @@
 from gi.repository import Clutter, Mx, Mash, Toggle, Cogl
 
 class Model(Toggle.Model):
-    def __init__(self, ui, filename):   
+    def __init__(self, config, filename):   
         super(Model, self).__init__()    
-        model = ui.get_object("model")
+
+        self.config = config        
+        model = config.ui.get_object("model")
         self.filename = filename
-        model.load_from_file(0, "/usr/share/models/"+filename)
+        model.load_from_file(0, config.get("System", "model_folder")+filename)
         model.set_color(Clutter.Color.from_string("#55A94BFF")[1])
-        #model.set_color(Clutter.Color.from_string("#000000FF")[1])
+        (width, height) = model.get_size()
+        depth = model.get_model_depth() # Custom method
+        model.set_y(depth/2.0)
+        model.set_x(-width/2.0)
+        model.set_z_position(height/2.0)
 
         #Set up the light
         self.light_set = Mash.LightSet()
@@ -23,14 +29,16 @@ class Model(Toggle.Model):
         self.light_set.add_light(light_spot)
 
         # Add the model the lights to the volume viewport
-        ui.get_object("volume-viewport").add_child(light_point);
-        ui.get_object("volume-viewport").add_child(light_directional);
-        ui.get_object("volume-viewport").add_child(light_spot);
+        vp = config.ui.get_object("volume-viewport")
+        vp.add_child(light_point);
+        vp.add_child(light_directional);
+        vp.add_child(light_spot);
 
         model.set_light_set(self.light_set)
+
         model.set_reactive(True)
         model.connect("button-press-event", self.click)
-        stage = ui.get_object("stage")
+        stage = config.stage
         stage.connect("motion-event", self.move)
         stage.connect("button-release-event", self.release)
         self.clicked = False

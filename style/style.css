@@ -18,7 +18,7 @@ MxButton.toggle:checked{
 }
 
 MxButton.main{
-    border-image:none;
+    border-image: url("/etc/toggle/style/button.png") 11 5 13 5;
     font-size: 24px;
 }
 

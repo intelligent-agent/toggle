@@ -9,10 +9,9 @@
   },
   {
     "id" : "box",
-    "type" : "ClutterBox",
+    "type" : "ToggleBox",
     "width" : 800,
     "height" : 480,
-	"color": "#FFF",
 
     "layout-manager" : { "type" : "ClutterFixedLayout" },
     "children" : 
@@ -20,56 +19,47 @@
         {
             "id": "volume-viewport",     
             "type" : "ClutterActor",
-            "background-color" : "#FFF",
             "width" : 800,
             "height" : 420,
-            "x": 0, 
             "y": 60, 
             "layout-manager" : { "type" : "ClutterFixedLayout" },
             "children" : 
             [
                 {
-                    "id" : "volume-stage",
-                    "type" : "ClutterActor",
-                    "width": 800, 
-                    "height": 420,
-                    "children" : 
+                    "id": "volume-wrapper", 
+                    "type": "ClutterActor", 
+                    "x": 400, 
+                    "y": 300, 
+                    "pivot-point": [0.5, 0.5],
+                    "pivot-point-z": 0.5,
+                    "width": 1, 
+                    "height": 1,
+                    "depth": 1,
+                    "rotation-angle-x": 180.0,
+                    "scale-x": 1.2, 
+                    "scale-y": 1.2, 
+                    "scale-z": 1.2,
+                    "children": 
                     [
-                        {
+                         {
                             "id": "plate", 
-                            "type" : "ToggleModel",    
-                            "scale-x": 400.0,
-                            "scale-y": 400.0,
-                            "scale-z": 400.0,   
-                            "rotation-angle-x": 90.0,
-                            "rotation-angle-y": -90.0,
-                            "pivot-point": [0.5, 0.5],
-                            "pivot-point-z": 0.5,
-                            "x": 400,
-                            "width": 1, 
-                            "height": 1,
-                            "depth": 1
-                        }, 
-                        {
+                            "type" : "ToggleModel",
+                            "x": -100.0, 
+                            "z-position": 0, 
+                            "y": 0, 
+                            "scale-x": 200.0, 
+                            "scale-y": 200.0, 
+                            "scale-z": 200.0
+                        
+                        },{
                             "id": "model", 
-                            "type" : "ToggleModel",    
-                            "scale-x": 80.0,
-                            "scale-y": 80.0,
-                            "scale-z": 80.0,   
-                            "width": 1, 
-                            "rotation-angle-x": 90.0,
-                            "rotation-angle-y": 180.0,
-                            "pivot-point": [0.5, 0.5],
-                            "pivot-point-z": 0.5,
-                            "x": 400,
-                            "y": 212,
-                            "height": 1,
-                            "depth": 1
-                        }    
+                            "type" : "ToggleModel", 
+                            "rotation-angle-x": -90.0
+                        }                
                     ]    
-                }
-            ]       
-          },
+                 } 
+            ]            
+        },
 	    {
 		    "id": "btn-print", 
 		    "type": "MxButton", 
@@ -78,7 +68,6 @@
 		    "x": 350, 
 		    "y": 15	
 	    }, 
-
 	    {
 		    "id": "btn-next", 
 		    "type": "MxButton", 

@@ -40,4 +40,6 @@ ClutterActor *toggle_model_new (void);
 ClutterActor *toggle_model_new_from_file (MashDataFlags flags, const gchar *filename, GError **error);
 void toggle_model_load_from_file(ToggleModel *self, MashDataFlags flags, const gchar *filename, GError **error);
 void toggle_model_set_color (ToggleModel *self, const ClutterColor *color);
+void toggle_model_set_specular (ToggleModel *self, const ClutterColor *color);
+gfloat toggle_model_get_model_depth (ToggleModel *self);
 #endif /* __TOGGLE_MODEL_H__ */

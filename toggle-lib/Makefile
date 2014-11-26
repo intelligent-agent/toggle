@@ -9,8 +9,8 @@ GIR_SCANNER_ARGS=
 
 LALIB=libtoggle.la
 
-OBJECTS=toggle-model.lo toggle-plate.lo
-SOURCES=toggle-plate.c toggle-model.c toggle-plate.h toggle-model.h
+OBJECTS=toggle-model.lo toggle-box.lo
+SOURCES=toggle-model.h toggle-model.c toggle-box.c toggle-box.h
 
 NAMESPACE=Toggle
 NSVERSION=0.1
@@ -28,7 +28,7 @@ $(TYPELIB_FILE): $(GIR_FILE)
 $(GIR_FILE): $(SOURCES)
 	g-ir-scanner --warn-all $^ --library=$(LALIB) $(C_INCLUDES) $(GIR_SCANNER_ARGS) --include=GObject-2.0 --include=Clutter-1.0 --include=Mash-0.2 --namespace=$(NAMESPACE) --nsversion=$(NSVERSION) --output=$@
 
-toggle-plate.lo: toggle-plate.c toggle-plate.h
+toggle-box.lo: toggle-box.c toggle-box.h
 	$(LIBTOOL) compile --tag=CC $(CC) $(CFLAGS) -c $< -o $@
 
 toggle-model.lo: toggle-model.c toggle-model.h
