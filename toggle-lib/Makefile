@@ -1,7 +1,7 @@
 CC?=gcc
 C_INCLUDES=`pkg-config --cflags gobject-2.0 glib-2.0 clutter-1.0 mash-0.2 pango cairo mx-2.0`
 CFLAGS+=$(C_INCLUDES) -g
-LIBS=`pkg-config --libs gobject-2.0 glib-2.0 clutter-1.0 mash-0.2 pango cairo mx-2.0` -L/lib
+LIBS=`pkg-config --libs gobject-2.0 glib-2.0 clutter-1.0 mash-0.2 pango cairo mx-2.0` -L/lib -L./.libs
 LIBDIR=/usr/lib
 LIBTOOL?=libtool
 
@@ -13,7 +13,7 @@ OBJECTS=toggle-model.lo toggle-box.lo
 SOURCES=toggle-model.h toggle-model.c toggle-box.c toggle-box.h
 
 NAMESPACE=Toggle
-NSVERSION=0.1
+NSVERSION?=0.4
 GIR_FILE=$(NAMESPACE)-$(NSVERSION).gir
 TYPELIB_FILE=$(NAMESPACE)-$(NSVERSION).typelib
 
