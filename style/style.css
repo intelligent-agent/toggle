@@ -10,11 +10,13 @@ MxButton, MxButton:checked{
 }
 
 MxButton.toggle{
+    border-image: url("/etc/toggle/style/button.png") 11 5 13 5;
     padding: 10 13 10 13;    
-    font-size: 12px;
+    font-size: 24px;
 }
 
 MxButton.toggle:checked{
+    border-image: url("/etc/toggle/style/button-checked.png") 11 5 13 5;
 }
 
 MxButton.main{
@@ -23,7 +25,7 @@ MxButton.main{
 }
 
 MxButton.main:checked{
-    border-image:none;
+    border-image: url("/etc/toggle/style/button-checked.png") 11 5 13 5;
     font-size: 24px;
     color: #0C0;
 }

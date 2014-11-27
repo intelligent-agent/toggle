@@ -1,35 +1,34 @@
-[
-  {
+[{
     "id" : "stage",
     "type" : "ClutterStage",
     "width" : 800,
     "height" : 480,
-    "children" : [ "box" ],
-    "signals" : []
-  },
-  {
-    "id" : "box",
-    "type" : "ToggleBox",
-    "width" : 800,
-    "height" : 480,
-
-    "layout-manager" : { "type" : "ClutterFixedLayout" },
-    "children" : 
-    [
-        {
+    "signals" : [],
+    "children" : [{
+        "id" : "box",
+        "type" : "ToggleBox",
+        "width" : 800,
+        "height" : 480,
+        "layout-manager" : { "type" : "ClutterFixedLayout" },
+        "children" : [{
             "id": "volume-viewport",     
             "type" : "ClutterActor",
             "width" : 800,
             "height" : 420,
             "y": 60, 
             "layout-manager" : { "type" : "ClutterFixedLayout" },
-            "children" : 
-            [
-                {
+            "children" : [{
+                "id": "spinner",
+                "type" : "ClutterActor",
+                "x": 400, 
+                "y": 300, 
+                "z-position": 150,
+                "width": 1, 
+                "height": 1,
+                "depth": 1,
+                "children": [{
                     "id": "volume-wrapper", 
                     "type": "ClutterActor", 
-                    "x": 400, 
-                    "y": 300, 
                     "pivot-point": [0.5, 0.5],
                     "pivot-point-z": 0.5,
                     "width": 1, 
@@ -39,9 +38,8 @@
                     "scale-x": 1.2, 
                     "scale-y": 1.2, 
                     "scale-z": 1.2,
-                    "children": 
-                    [
-                         {
+                    "children": [
+                        {
                             "id": "plate", 
                             "type" : "ToggleModel",
                             "x": -100.0, 
@@ -50,40 +48,55 @@
                             "scale-x": 200.0, 
                             "scale-y": 200.0, 
                             "scale-z": 200.0
-                        
                         },{
                             "id": "model", 
                             "type" : "ToggleModel", 
                             "rotation-angle-x": -90.0
-                        }                
+                        }
                     ]    
-                 } 
-            ]            
+                }] 
+            }]            
         },
-	    {
-		    "id": "btn-print", 
-		    "type": "MxButton", 
-		    "label": "Print",
-            "style-class": "main",
-		    "x": 350, 
-		    "y": 15	
-	    }, 
-	    {
-		    "id": "btn-next", 
-		    "type": "MxButton", 
-		    "label": ">>",
-            "style-class": "main",
-		    "x": 700, 
-		    "y": 15	
-	    }, 
         {
-            "id": "btn-prev", 
-            "type": "MxButton",
-            "label": "<<", 
-            "style-class": "main",
-            "x": 20, 
-            "y": 15
-        }
+            "id": "btn-bar", 
+            "type": "ClutterActor", 
+            "background-color": "#FFF",
+            "children": [
+                {
+                    "id": "btn-prev", 
+                    "type": "MxButton",
+                    "label": "<<", 
+                    "style-class": "main",
+                    "x": 20, 
+                    "y": 15
+                },
+                {
+	                "id": "btn-heat", 
+	                "type": "MxButton", 
+	                "label": "Preheat",
+                    "style-class": "main",
+                    "is_toggle": true, 
+	                "x": 228, 
+	                "y": 15	
+                }, 
+                {
+	                "id": "btn-print", 
+	                "type": "MxButton", 
+	                "label": "Print",
+                    "style-class": "main",
+	                "x": 490, 
+	                "y": 15
+                }, 
+                {
+	                "id": "btn-next", 
+	                "type": "MxButton", 
+	                "label": ">>",
+                    "style-class": "main",
+	                "x": 700, 
+	                "y": 15	
+                }
+            ]
+        },
         {
             "id": "msg", 
             "type" : "ClutterBox",
@@ -101,9 +114,8 @@
                 "color": "#FFF",
                 "height": 280, 
                 "y": 100
-            } ]
-        }
-    ]
-  }
-]
+            }]
+        }]
+    }]
+}]
 

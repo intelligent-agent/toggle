@@ -1,6 +1,7 @@
 [Unit]
 Description=The Redeem/Replicape user interface
-After=pvr.service
+Requires=pvr.service redeem.service
+After=pvr.service redeem.service toggle.path
 
 [Service]
 Type=simple

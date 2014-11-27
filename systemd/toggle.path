@@ -1,0 +1,9 @@
+[Unit]
+Description=trigger for toggle pipe present
+
+[Path]
+PathExists=/dev/toggle_1
+
+[Install]
+WantedBy=multi-user.target
+

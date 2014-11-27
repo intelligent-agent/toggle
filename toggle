@@ -1,5 +1,0 @@
-#!/usr/bin/python
-from Toggle import Toggle
-
-t = Toggle()
-t.run()

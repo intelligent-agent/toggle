@@ -1,0 +1,6 @@
+include configs/*.cfg
+include README.md
+include models/*
+include models/platforms/*
+include style/*
+include systemd/*
