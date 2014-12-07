@@ -60,7 +60,6 @@
         {
             "id": "btn-bar", 
             "type": "ClutterActor", 
-            "background-color": "#FFF",
             "children": [
                 {
                     "id": "btn-prev", 
@@ -80,11 +79,18 @@
 	                "y": 15	
                 }, 
                 {
+	                "id": "lbl-stat", 
+	                "type": "MxLabel", 
+	                "x": 360, 
+	                "y": 30
+                }, 
+                {
 	                "id": "btn-print", 
 	                "type": "MxButton", 
 	                "label": "Print",
                     "style-class": "main",
-	                "x": 490, 
+                    "is_toggle": true, 
+                    "x": 490, 
 	                "y": 15
                 }, 
                 {
@@ -104,7 +110,8 @@
             "height" : 280,
             "color": "#000",
             "x": 0, 
-            "y": 100,
+            "y": 100,            
+            "z-position": 300,
             "opacity" : 0,
             "layout-manager" : { "type" : "ClutterFixedLayout" }, 
             "children" : [ {
