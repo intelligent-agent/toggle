@@ -23,7 +23,7 @@ Right now, this is more of a demo/proof of concept, so help is welcome : )
 Here is the wiki page: http://wiki.thing-printer.com/index.php?title=Toggle
 
 Installation on Angstrom: 
-opkg install toggle
+`opkg install toggle`
 
 Installation on debian:  
 ** NOTE: Work in progress **
