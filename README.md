@@ -166,3 +166,19 @@ make install
 systemctl stop lightdm.service
 toggle
 ```
+** Making Toggle start by default **
+```
+cd /usr/src/toggle/
+cp systemd/toggle.service /etc/systemd/system
+systemctl enable toggle.service
+systemctl mask lightdm.service
+```
+The library path needs to be set on scriopt startup, so edit the systemd script:
+```
+nano /etc/systemd/system/toggle.service
+```
+Add:
+```
+Environment="LD_LIBRARY_PATH=/usr/lib"
+```
+to the service section
