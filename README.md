@@ -23,17 +23,18 @@ Right now, this is more of a demo/proof of concept, so help is welcome : )
 Here is the wiki page: http://wiki.thing-printer.com/index.php?title=Toggle
 
 Installation on Angstrom: 
-`opkg install toggle`
+```opkg install toggle```
 
 Installation on debian:  
 ** NOTE: Work in progress **
 The clutter version (1.10) in Sqeeze is outdated, so a lot needs compilation from source. 
-
-  sudo apt-get install gnome-common gtk-doc-tools libffi-dev python-dev
+```sudo apt-get install gnome-common gtk-doc-tools libffi-dev python-dev```
 
 ** New Kernel and SGX modules **
-  sudo apt-get install ti-sgx-es8-modules-3.18.0-rc7-bone1 
-  sudo apt-get install libgles2-mesa-dev
+```
+sudo apt-get install ti-sgx-es8-modules-3.18.0-rc7-bone1
+sudo apt-get install libgles2-mesa-dev
+```
 
 **glib 2.42.1:**
   cd /usr/src
