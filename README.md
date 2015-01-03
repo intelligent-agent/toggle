@@ -65,7 +65,7 @@ mv /usr/lib/arm-linux-gnueabihf/libgobject-2.0.so /usr/lib/arm-linux-gnueabihf/l
 
 
 #gobject-introspection-1.42.0:
-cd /usr/bin
+```cd /usr/bin
 ln -s python2.7-config python-config
 cd /usr/src
 wget ...
@@ -76,18 +76,39 @@ export LD_LIBRARY_PATH=/usr/lib
 export PATH=/usr/bin:$PATH
 ./configure --prefix=/usr PKG_CONFIG_PATH=/usr/lib/pkgconfig/ LIBS="-L/usr/lib"
 make
-#make install 
-
+make install 
+```
 
 **cogl 1.18.2:**
+```
 ./configure --prefix=/usr --enable-introspection --disable-gles1 --disable-cairo --disable-gl --enable-gles2 --enable-null-egl-platform --enable-cogl-pango
 make 
 make install 
-OK
+```
 
 ** Atk-2.14.0 **
-wget ftp://ftp.gnome.org/pub/gnome/sources/atk/2.14/atk-2.14.0.tar.xz
+```wget ftp://ftp.gnome.org/pub/gnome/sources/atk/2.14/atk-2.14.0.tar.xz
 tar xf atk-2.14.0.tar.xz
+...
+```
+**mtdev and udev**
+```sudo apt-get install libmtdev-dev
+sudo apt-get install libudev-dev
+sudo apt-get install libgudev-1.0-dev
+```
+
+**xkbcommon-0.5.0**
+```wget http://xkbcommon.org/download/libxkbcommon-0.5.0.tar.xz
+tar xf libxkbcommon-0.5.0.tar.xz
+./configure --prefix=/usr --disable-x11
+make
+make install
+```
+
+**libinput-0.7.0**
+wget http://www.freedesktop.org/software/libinput/libinput-0.7.0.tar.xz
+./configure --prefix=/usr
+make
 
 
 **clutter 1.21:**
@@ -97,7 +118,7 @@ make
 make install
 
 
-sudo apt-get install libclutter-1.0-dev gir1.2-clutter-1.0 libmx-1.0-2 gir1.2-mx-1.0 gobject-introspection
+sudo apt-get install gir1.2-clutter-1.0 gir1.2-mx-1.0 gobject-introspection
 
 **Mash **
 git clone https://github.com/eliasbakken/mash.git /usr/src/mash
