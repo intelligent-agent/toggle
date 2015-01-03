@@ -41,7 +41,15 @@ sudo apt-get install libgles2-mesa-dev
 ```
 
 ** SGX SDK **
-
+```
+cd /usr/src
+wget https://bitbucket.org/intelligentagent/toggle/downloads/GFX_5.01.01.01.tar.gz
+tar xfv GFX_5.01.01.01.tar.gz -C /
+cd /opt/gfxinstall
+./sgx-install.sh
+sync
+reboot
+```
 
 **glib 2.42.1:**
 ```
