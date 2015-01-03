@@ -23,12 +23,13 @@ Right now, this is more of a demo/proof of concept, so help is welcome : )
 
 Here is the wiki page: http://wiki.thing-printer.com/index.php?title=Toggle
 
-#3 Installation on Angstrom:  
+## Installation on Angstrom:  
 ```
 opkg install toggle
 ```
+It comes pre-installed on the [Thing image](http://wiki.thing-printer.com/index.php?title=Thing_image)
 
-#3 Installation on debian:  
+## Installation on debian:  
 ** NOTE: Work in progress **
 The clutter version (1.10) in Sqeeze is outdated, so a lot needs compilation from source. 
 ```sudo apt-get install gnome-common gtk-doc-tools libffi-dev python-dev```
