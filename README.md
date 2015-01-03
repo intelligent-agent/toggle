@@ -37,6 +37,7 @@ sudo apt-get install libgles2-mesa-dev
 ```
 
 **glib 2.42.1:**
+```
   cd /usr/src
   wget  http://ftp.gnome.org/pub/gnome/sources/glib/2.42/glib-2.42.1.tar.xz
   tar xf glib-2.42.1.tar.xz
@@ -44,25 +45,14 @@ sudo apt-get install libgles2-mesa-dev
   ./configure --prefix=/usr
   make
   make install
-OK
-
-**glib 2.34.3:**
- ./configure --prefix=/usr PKG_CONFIG_PATH=/usr/lib/pkgconfig/
-make
-make install
-OK 
-
-**gobject-introspection-1.34.2:**
-./configure --prefix=/usr PKG_CONFIG_PATH=/usr/lib/pkgconfig/
-make
-FAILS with undefined reference to `g_time_zone_get_type'
-
-# This list is not complete! And it is probably the wrong way to do it, but I have not found a better way!
+```
+ This list is not complete! And it is probably the wrong way to do it, but I have not found a better way!
+```
 mv /usr/lib/arm-linux-gnueabihf/libgmodule-2.0.a /usr/lib/arm-linux-gnueabihf/libgmodule-2.0.a.old
 mv /usr/lib/arm-linux-gnueabihf/pkgconfig/glib-2.0.pc /usr/lib/arm-linux-gnueabihf/pkgconfig/glib-2.0.pc.old
 mv /usr/lib/arm-linux-gnueabihf/libgobject-2.0.a /usr/lib/arm-linux-gnueabihf/libgobject-2.0.a.old
 mv /usr/lib/arm-linux-gnueabihf/libgobject-2.0.so /usr/lib/arm-linux-gnueabihf/libgobject-2.0.so.old
-
+```
 
 #gobject-introspection-1.42.0:
 ```cd /usr/bin
