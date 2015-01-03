@@ -30,9 +30,11 @@ opkg install toggle
 It comes pre-installed on the [Thing image](http://wiki.thing-printer.com/index.php?title=Thing_image)
 
 ## Installation on debian:  
-** NOTE: Work in progress **
-The clutter version (1.10) in Sqeeze is outdated, so a lot needs compilation from source. 
-```sudo apt-get install gnome-common gtk-doc-tools libffi-dev python-dev```
+** NOTE: Work in progress **  
+The clutter version (1.10) in Sqeeze is outdated, so a lot needs compilation from source.   
+```
+sudo apt-get install gnome-common gtk-doc-tools libffi-dev python-dev
+```
 
 ** New Kernel and SGX modules **
 ```
@@ -75,7 +77,7 @@ export LD_LIBRARY_PATH=/usr/lib
 export PATH=/usr/bin:$PATH
 ```
 
-gobject-introspection-1.42.0:
+**gobject-introspection-1.42.0:**
 ```
 cd /usr/bin
 ln -s python2.7-config python-config
