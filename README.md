@@ -54,8 +54,9 @@ mv /usr/lib/arm-linux-gnueabihf/libgobject-2.0.a /usr/lib/arm-linux-gnueabihf/li
 mv /usr/lib/arm-linux-gnueabihf/libgobject-2.0.so /usr/lib/arm-linux-gnueabihf/libgobject-2.0.so.old
 ```
 
-#gobject-introspection-1.42.0:
-```cd /usr/bin
+gobject-introspection-1.42.0:
+```
+cd /usr/bin
 ln -s python2.7-config python-config
 cd /usr/src
 wget ...
@@ -77,7 +78,8 @@ make install
 ```
 
 ** Atk-2.14.0 **
-```wget ftp://ftp.gnome.org/pub/gnome/sources/atk/2.14/atk-2.14.0.tar.xz
+```
+wget ftp://ftp.gnome.org/pub/gnome/sources/atk/2.14/atk-2.14.0.tar.xz
 tar xf atk-2.14.0.tar.xz
 ...
 ```
