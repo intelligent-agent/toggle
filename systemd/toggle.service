@@ -1,11 +1,9 @@
 [Unit]
 Description=The Redeem/Replicape user interface
-Requires=pvr.service redeem.service
-After=pvr.service redeem.service toggle.path
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/toggle
+ExecStart=/usr/local/bin/toggle
 
 [Install]
 WantedBy=basic.target
