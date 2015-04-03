@@ -81,7 +81,7 @@ class Toggle:
         config.message_listener = MessageListener(config)        
         config.loader = ModelLoader(config)
         config.printer = Printer(config)
-        config.ntty = Ntty(config)
+        #config.ntty = Ntty(config)
 
         self.config = config 
 
