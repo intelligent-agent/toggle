@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Enable redeem.service
+systemctl enable redeem.service

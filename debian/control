@@ -1,0 +1,17 @@
+Source: toggle
+Maintainer: Elias Bakken <elias@iagent.no>
+Section: misc
+Priority: optional
+Standards-Version: 0.4.0
+Build-Depends: build-essential, debhelper (>= 9), python, dh-python, python-dev, libclutter-1.0-dev
+X-Python-Version: 2.7
+
+Package: toggle
+Architecture: armhf
+Depends: python, clutter, libtoggle
+Description: Toggle software package is a graphical front end for use with Replicape.
+
+Package: libtoggle
+Architecture: armhf
+Description: This is the GIR integration package for Toggle. 
+
