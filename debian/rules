@@ -1,11 +1,19 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
+
 #export DH_VERBOSE=1
 export PYBUILD_NAME=toggle
 
 %:
 	dh $@ --with python2 --buildsystem=pybuild
+
+
+configure:
+	cd toggle-lib && ./autogen.sh --prefix=/usr --enable-introspection
+
+build:
+	make -C toggle-lib
 
 clean::
 	rm -rf build build-stamp configure-stamp 

@@ -49,6 +49,7 @@ Toggle-@TOGGLE_API_VERSION@.gir: $(INTROSPECTION_SCANNER) libtoggle-@TOGGLE_API_
 		$(json_gir_include_path) \
 		--c-include='toggle/toggle.h' \
 		--include=Clutter-1.0 \
+		--include=Mash-0.2 \
 		--output $@ \
 		--library=toggle-@TOGGLE_API_VERSION@ \
 		$(libtoggle_@TOGGLE_API_VERSION@_la_SOURCES)

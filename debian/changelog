@@ -1,4 +1,4 @@
-redeem (0.4.0) UNRELEASED; urgency=low
+toggle (0.4.0) UNRELEASED; urgency=low
 
   * Initial release. Initial debian package creation
 
