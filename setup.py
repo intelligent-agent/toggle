@@ -14,7 +14,7 @@ def read(fname):
 #                        'toggle-lib/toggle-model.c', 
 #                        'toggle-lib/toggle-box.c'])
 
-setup(name='Toggle',
+setup(name='toggle',
       version='0.4.0',
       description='Embedded UI for 3D printers',
       author='Elias Bakken',
@@ -40,16 +40,3 @@ setup(name='Toggle',
         },
       #ext_modules = [toggle_lib]
      )
-
-'''
-      py_modules=[
-            'toggle/Toggle', 
-            'toggle/Message', 
-            'toggle/MessageListener', 
-            'toggle/Plate', 
-            'toggle/Model', 
-            'toggle/VolumeStage', 
-            'toggle/ModelLoader', 
-            'toggle/Printer', 
-            'toggle/CascadingConfigParser'],
-'''

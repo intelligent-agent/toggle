@@ -14,6 +14,9 @@ all:
 	@echo "make builddeb - Generate a deb package"
 	@echo "make clean - Get rid of scratch and byte files"
 
+configure:
+	cd toggle-lib && ./autogen.sh --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf
+
 source:
 	$(PYTHON) setup.py sdist $(COMPILE)
 
@@ -37,3 +40,7 @@ clean:
 	rm -rf build/ MANIFEST
 	find . -name '*.pyc' -delete
 	make -C toggle-lib clean
+	rm -rf toggle-lib/debian
+	rm -rf toggle-lib/usr
+	rm -rf usr
+	rm -rf debian/python-toggle

@@ -1,6 +1,7 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
+install_dir=debian/toggle
 
 #export DH_VERBOSE=1
 export PYBUILD_NAME=toggle
@@ -10,12 +11,19 @@ export PYBUILD_NAME=toggle
 
 
 configure:
-	cd toggle-lib && ./autogen.sh --prefix=/usr --enable-introspection
+	cd toggle-lib && ./autogen.sh --prefix=$(shell pwd)/usr --enable-introspection --libdir=$(shell pwd)/usr/lib/arm-linux-gnueabihf
 
 build:
 	make -C toggle-lib
 
+install:
+	make -C toggle-lib install 
+
 clean::
 	rm -rf build build-stamp configure-stamp 
+	rm -rf toggle-lib/debian
 	dh_clean
+	
 
+override_dh_shlibdeps:
+	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info

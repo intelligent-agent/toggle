@@ -8,16 +8,16 @@ X-Python-Version: 2.7
 
 Package: toggle
 Architecture: armhf
-Depends: python, clutter, libtoggle-0.4
+Depends: python, clutter, libtoggle
 Description: Toggle software package is a graphical front end for use with Replicape.
 
-Package: libtoggle-0.4
+Package: libtoggle
 Section: libs
 Architecture: armhf
-Depends: libclutter-1.0, libmash-0.2, libmx-2.0
+Depends: libclutter-1.0, libmx-2.0
 Description: This is the GIR integration package for Toggle. 
 
-Package: gir1.2-toggle-0.4
+Package: gir1.2-toggle
 Architecture: any
 Section: introspection
 Depends:

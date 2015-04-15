@@ -1,3 +1,5 @@
 configs/* etc/toggle/
 systemd/toggle.service lib/systemd/system/
 systemd/toggle.path lib/systemd/system/
+debian/python-toggle/usr/lib/python2.7/dist-packages/toggle/*.py* usr/lib/python2.7/dist-packages/toggle
+debian/python-toggle/usr/lib/python2.7/dist-packages/toggle-0.4.0.egg-info usr/lib/python2.7/dist-packages/
