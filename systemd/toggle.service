@@ -3,7 +3,7 @@ Description=The Redeem/Replicape user interface
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/toggle
+ExecStart=/usr/bin/toggle
 
 [Install]
 WantedBy=basic.target
