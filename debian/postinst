@@ -1,4 +1,5 @@
 #!/bin/sh
 
-# Enable redeem.service
-systemctl enable redeem.service
+# Enable toggle.service
+systemctl enable toggle.service
+systemctl start toggle.service
