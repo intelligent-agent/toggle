@@ -14,7 +14,7 @@ def read(fname):
 #                        'toggle-lib/toggle-model.c', 
 #                        'toggle-lib/toggle-box.c'])
 
-setup(name='toggle',
+setup(name='Toggle',
       version='0.4.0',
       description='Embedded UI for 3D printers',
       author='Elias Bakken',
