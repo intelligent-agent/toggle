@@ -10,8 +10,13 @@ class Model(Toggle.Model):
         self.config = config        
         model = config.ui.get_object("model")
         self.filename = filename
-        model.load_from_file(0, config.get("System", "model_folder")+"/"+filename)
-        model.set_color(Clutter.Color.from_string("#55A94BFF")[1])
+        try:
+            model.load_from_file(0, config.get("System", "model_folder")+"/"+filename)
+            model.set_color(Clutter.Color.from_string("#55A94BFF")[1])  
+        except:
+            logging.warning("Unable to open model "+str(config.get("System", "model_folder")+"/"+filename))
+            raise
+            return    
         (width, height) = model.get_size()
         depth = model.get_model_depth() # Custom method
         model.set_y(depth/2.0)

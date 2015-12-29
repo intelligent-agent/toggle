@@ -1,4 +1,5 @@
 # MessageListener
+# Listens for M117 messages. 
 
 import time
 import os
@@ -25,30 +26,15 @@ class MessageListener:
         self.watch = GLib.io_add_watch(self.file, GLib.IO_IN, self.on_message_received)
         self.message = Message(config)
 
-    def on_message_received(self, actor, event):    
+    def on_message_received(self, actor, event):
         ''' Callback when a message from Redeem is coming in '''
         try: 
             text = self.readline_custom()
             if len(text)>0:      
-                self.process_message(text)          
+                self.message.display(text)
         except Exception as e:
             return False
         return True
-
-    def process_message(self, msg):
-        if msg == "ok":
-            pass
-        elif msg == "Heating done.":
-            self.message.display(msg)
-            self.config.printer.preheat_done()            
-        elif "T:" in msg:
-            m = re.search('^.*(T\:\d+).*(B\:\d+).*', msg) 
-            if m:
-                stat = m.group(1)+"/"+m.group(2)
-                self.config.printer.set_status(stat)
-        else:
-            logging.debug("Got message: "+msg)
-            self.message.display(msg)
 
     def readline_custom(self):
         message = ""
@@ -59,14 +45,3 @@ class MessageListener:
                 return message;
             message = message + cur_char
 
-
-    def send(self, message):
-        ''' Send a message to Redeem '''
-        if self.file:
-            if message[-1] != "\n":
-                message += "\n"
-            logging.debug("Sending: "+message)
-            os.write(self.file, message)
-        else:
-            logging.debug("Discarding: "+message)
-            

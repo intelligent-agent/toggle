@@ -25,6 +25,10 @@ License: GNU GPL v3: http://www.gnu.org/copyleft/gpl.html
 import subprocess
 import logging
 from gi.repository import Clutter, Mx, Mash, Toggle, Cogl, GObject
+from threading import Thread
+from multiprocessing import JoinableQueue
+import Queue
+
 
 from Model import Model
 from Plate import Plate 
@@ -33,6 +37,11 @@ from MessageListener import MessageListener
 from ModelLoader import ModelLoader
 from Printer import Printer
 from CascadingConfigParser import CascadingConfigParser
+from SocksClient import SocksClient
+from RestClient import RestClient
+from Event import Event
+from Message import Message
+
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG,
@@ -45,11 +54,18 @@ class LoggerWriter:
     def __init__(self, logger, level):
         self.logger = logger
         self.level = level
+        self.screen_log = config.getboolean("System", "screen_debug")
 
     def write(self, message):
         if message != '\n':
             self.logger.log(self.level, message)
+            if self.screen_log:
+                self.log_to_screen(message)
+                
 
+    def log_to_screen(self, message):
+        pass
+        
 
 class Toggle:    
 
@@ -78,11 +94,18 @@ class Toggle:
 
         volume_stage = VolumeStage(config)
         plate = Plate(config)
+        config.message = Message(config)
         config.message_listener = MessageListener(config)        
         config.loader = ModelLoader(config)
         config.printer = Printer(config)
         #config.ntty = Ntty(config)
 
+        config.socks_client = SocksClient(config)
+        config.socks_client.connect()
+
+        config.events = JoinableQueue(10)
+        config.rest_client = RestClient(config)
+        
         self.config = config 
 
         GObject.threads_init()
@@ -109,7 +132,32 @@ class Toggle:
         elif self.config.get("System", "rotation") == "180":
             self.box.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 180.0)
 
+        """ Start the processes """
+        self.running = True
+        # Start the processes
+        p0 = Thread(target=self.loop,
+                    args=(self.config.events, "events"))
+        p0.daemon = True
+        p0.start()
+
+        # Signal everything ready
+        logging.info("Toggle ready")
+
         Clutter.main()
+
+    def loop(self, queue, name):
+        """ When a new event comes in, execute it """
+        try:
+            while self.running:
+                try:
+                    evt = queue.get(block=True, timeout=1)
+                except Queue.Empty:
+                    continue
+                logging.debug("Executing "+evt.evt_type+" from "+name)
+                evt.execute(self.config)
+                queue.task_done()
+        except Exception:
+            logging.exception("Exception in {} loop: ".format(name))
 
     def stop(self, w):
         logging.debug("Stop")

@@ -16,8 +16,9 @@ class ModelLoader(Clutter.Actor):
         self.config = config
         self.path = config.get("System", "model_folder")
         self.models = bidirectional_cycle(
-		    [ f for f in listdir(self.path) if isfile(join(self.path,f)) and ".stl" in f])
-        
+		    [ f for f in listdir(self.path) if isfile(join(self.path,f)) and (".stl" in f or ".STL" in f)])
+        logging.debug(self.models.collection)
+
         # Load the first model
         if self.models.count() > 0:
     	    logging.debug("Found "+str(self.models.count())+" models in "+self.path)
@@ -47,6 +48,13 @@ class ModelLoader(Clutter.Actor):
     def get_model_filename(self):
         return self.models.cur()
 
+    def select_model(self, filename):
+        if self.models.has(filename):
+            logging.debug("Selecting "+filename)
+            self.model = Model(self.config, self.models.select(filename))    
+        else:
+            logging.warning("Missing STL: "+filename)
+
 """ 
 Helper class for cycling through a list by 
 calling next and prev 
@@ -72,6 +80,13 @@ class bidirectional_cycle(object):
 
     def count(self):
         return len(self.collection)
+
+    def has(self, filename):
+        return (filename in self.collection)
+
+    def select(self, filename):
+        self.index = self.collection.index(filename)        
+        return filename
 
     def __iter__(self):
         return self

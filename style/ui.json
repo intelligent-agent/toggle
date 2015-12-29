@@ -81,8 +81,8 @@
                 {
 	                "id": "lbl-stat", 
 	                "type": "MxLabel", 
-	                "x": 360, 
-	                "y": 30
+	                "x": 20, 
+	                "y": 430
                 }, 
                 {
 	                "id": "btn-print", 
@@ -102,12 +102,12 @@
 	                "y": 15	
                 },
                 {
-	                "id": "btn-ntty", 
+	                "id": "btn-config", 
 	                "type": "MxButton", 
-	                "label": "Update",
+	                "label": "Config",
                     "style-class": "main",
-	                "x": 700, 
-	                "y": 400	
+	                "x": 680, 
+	                "y": 420	
                 }
             ]
         },
