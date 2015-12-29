@@ -51,7 +51,7 @@ logging.basicConfig(level=logging.DEBUG,
 import sys
 
 class LoggerWriter:
-    def __init__(self, logger, level):
+    def __init__(self, config, logger, level):
         self.logger = logger
         self.level = level
         self.screen_log = config.getboolean("System", "screen_debug")
@@ -79,8 +79,8 @@ class Toggle:
         if level > 0:
             logging.getLogger().setLevel(level)
 
-        sys.stdout = LoggerWriter(logging, 20)
-        sys.stderr = LoggerWriter(logging, 50)
+        sys.stdout = LoggerWriter(config, logging, 20)
+        sys.stderr = LoggerWriter(config, logging, 50)
 
         Clutter.init(None)
         

@@ -5,5 +5,5 @@ models/*.stl /usr/share/models
 systemd/toggle.service lib/systemd/system
 systemd/toggle.path lib/systemd/system
 debian/python-toggle/usr/lib/python2.7/dist-packages/toggle/*.py* usr/lib/python2.7/dist-packages/toggle
-debian/python-toggle/usr/lib/python2.7/dist-packages/Toggle-0.4.0.egg-info usr/lib/python2.7/dist-packages
+debian/python-toggle/usr/lib/python2.7/dist-packages/Toggle-0.5.0.egg-info usr/lib/python2.7/dist-packages
 debian/python-toggle/usr/bin/toggle usr/bin
