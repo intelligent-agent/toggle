@@ -1,9 +1,13 @@
 [Unit]
 Description=The Redeem/Replicape user interface
+After=redeem.service octoprint.service
+Requires=redeem.service octoprint.service
 
 [Service]
 Type=simple
+ExecStartPre=/bin/systemctl stop getty@tty1.service
 ExecStart=/usr/bin/toggle
+ExecStopPost=/bin/systemctl start getty@tty1.service
 
 [Install]
 WantedBy=basic.target

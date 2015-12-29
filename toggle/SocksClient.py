@@ -94,6 +94,8 @@ class SocksClient(Thread):
             conn.request('GET', '/sockjs/info')
             response = conn.getresponse()
             logging.info(str(response.status)+" "+response.reason+" "+response.read())
+	except Exception as e:
+	    logging.warning("Unable to get socket info "+str(e))
         finally:
             if not conn: conn.close()
 
