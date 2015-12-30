@@ -36,7 +36,7 @@ class Printer:
 
     def print_model(self, btn_print):
         """ Slices if necessary and starts the print loop """
-        self.config.rest_client.start_print()
+        self.config.rest_client.start_job()
 
     def set_print_status(self):
         #self.btn_print.set_toggled(True)

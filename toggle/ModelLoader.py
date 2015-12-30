@@ -39,11 +39,11 @@ class ModelLoader(Clutter.Actor):
 
     def tap_next(self, action, actor, user_data):
         logging.debug("Next")
-        self.model = Model(self.config, self.models.next())    
+        self.select_model(self.models.next())    
 
     def tap_prev(self, action, actor, user_data):
         logging.debug("Prev")
-        self.model = Model(self.config, self.models.prev())
+        self.select_model(self.models.prev())    
         
     def get_model_filename(self):
         return self.models.cur()
@@ -51,7 +51,9 @@ class ModelLoader(Clutter.Actor):
     def select_model(self, filename):
         if self.models.has(filename):
             logging.debug("Selecting "+filename)
-            self.model = Model(self.config, self.models.select(filename))    
+            self.model = Model(self.config, self.models.select(filename))
+            filename = filename.replace(".stl", ".gco")  
+            self.config.rest_client.select_file(filename)  
         else:
             logging.warning("Missing STL: "+filename)
 

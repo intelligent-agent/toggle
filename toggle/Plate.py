@@ -12,6 +12,14 @@ class Plate(Toggle.Model):
         self.plate.set_specular(Clutter.Color.from_string("#0000")[1])
         self.plate.set_color(Clutter.Color.from_string("#555F")[1])
 
+        # Position it
+        (width, height) = self.plate.get_size()
+        depth = self.plate.get_model_depth() # Custom method
+        self.plate.set_y(depth/2.0)
+        self.plate.set_x(-width/2.0)
+        self.plate.set_z_position(height/2.0)
+
+
          #Set up the light
         self.light_set = Mash.LightSet()
         light_point = Mash.PointLight()

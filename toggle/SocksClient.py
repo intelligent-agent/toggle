@@ -38,11 +38,15 @@ class SocksClient(Thread):
         self._r1 = str(random.randint(0, 1000))
         self._conn_id = self.random_str(8)
         url = '/'.join([self._prefix, self._r1, self._conn_id, 'xhr_streaming'])
-        conn.request('POST', url)
-        response = conn.getresponse()
-        sock = socket.fromfd(response.fileno(), socket.AF_INET, socket.SOCK_STREAM)
-        data = 1
-        msgs = self.linesplit(sock)
+        try:
+            conn.request('POST', url)
+            response = conn.getresponse()
+            sock = socket.fromfd(response.fileno(), socket.AF_INET, socket.SOCK_STREAM)
+            data = 1
+            msgs = self.linesplit(sock)
+        except Exception as e:
+            logging.warning("Unable to post request "+str(e))
+            return
         while 1: 
             msg =  msgs.next()
             if len(msg) == 0:
@@ -94,10 +98,11 @@ class SocksClient(Thread):
             conn.request('GET', '/sockjs/info')
             response = conn.getresponse()
             logging.info(str(response.status)+" "+response.reason+" "+response.read())
-	except Exception as e:
-	    logging.warning("Unable to get socket info "+str(e))
+        except Exception as e:
+            logging.warning("Unable to get socket info "+str(e))
         finally:
-            if not conn: conn.close()
+            if not conn: 
+                conn.close()
 
     def send(self, message):
         conn = httplib.HTTPConnection(self._host, self._port)

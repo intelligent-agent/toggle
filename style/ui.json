@@ -42,12 +42,7 @@
                         {
                             "id": "plate", 
                             "type" : "ToggleModel",
-                            "x": -100.0, 
-                            "z-position": 0, 
-                            "y": 0, 
-                            "scale-x": 200.0, 
-                            "scale-y": 200.0, 
-                            "scale-z": 200.0
+                            "rotation-angle-x": -90.0
                         },{
                             "id": "model", 
                             "type" : "ToggleModel", 

@@ -72,7 +72,10 @@ class Toggle:
     def __init__(self):
 	logging.info("Starting Toggle 0.5.0")
         # Parse the config files. 
-        config = CascadingConfigParser(['/etc/toggle/default.cfg', '/etc/toggle/local.cfg'])
+        config = CascadingConfigParser([
+            '/etc/toggle/default.cfg',
+            '/etc/toggle/printer.cfg',    
+            '/etc/toggle/local.cfg'])
 
         # Get loglevel from the Config file
         level = config.getint('System', 'loglevel')
@@ -136,10 +139,10 @@ class Toggle:
         """ Start the processes """
         self.running = True
         # Start the processes
-        p0 = Thread(target=self.loop,
+        self.p0 = Thread(target=self.loop,
                     args=(self.config.events, "events"))
-        p0.daemon = True
-        p0.start()
+        #p0.daemon = True
+        self.p0.start()
 
         # Signal everything ready
         logging.info("Toggle ready")
@@ -162,8 +165,8 @@ class Toggle:
 
     def stop(self, w):
         logging.debug("Stop")
-        self.config.printer.stop_temp_loop()
-        self.config.printer.stop_print_loop()
+        self.running = False
+        self.p0.join()
         Clutter.main_quit()
         
 
