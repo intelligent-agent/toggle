@@ -120,10 +120,10 @@
             "children" : [ {
                 "id": "txt", 
                 "type": "ClutterText",
-                "font-description": "Sans 48",
+                "font-description": "Sans 36",
                 "color": "#FFF",
                 "height": 280, 
-                "y": 100
+                "y": 115
             }]
         }]
     }]

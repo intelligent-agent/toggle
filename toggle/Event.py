@@ -9,9 +9,12 @@ class Event:
         self.payload = payload    
 
     def execute(self, config):
-        logging.info("Executing event "+str(self.evt_type))
+        logging.info("Executing event '"+str(self.evt_type)+"'")
         if self.evt_type == "FileSelected":
             filename = os.path.splitext(self.payload["filename"])[0]+".stl"
             config.loader.select_model(filename)
-                    
+        elif self.evt_type == "Upload":
+            logging.info("Upload evt")
+            config.loader.load_models()
+            
 

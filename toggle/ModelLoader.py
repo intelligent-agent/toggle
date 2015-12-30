@@ -15,6 +15,9 @@ class ModelLoader(Clutter.Actor):
     def __init__(self, config):
         self.config = config
         self.path = config.get("System", "model_folder")
+        self.load_models()
+
+    def load_models(self):
         self.models = bidirectional_cycle(
 		    [ f for f in listdir(self.path) if isfile(join(self.path,f)) and (".stl" in f or ".STL" in f)])
         logging.debug(self.models.collection)
@@ -22,20 +25,19 @@ class ModelLoader(Clutter.Actor):
         # Load the first model
         if self.models.count() > 0:
     	    logging.debug("Found "+str(self.models.count())+" models in "+self.path)
-            btn_next = config.ui.get_object("btn-next")
+            btn_next = self.config.ui.get_object("btn-next")
             tap_next = Clutter.TapAction()
             btn_next.add_action(tap_next)
             tap_next.connect("tap", self.tap_next, None)
 
-            btn_prev = config.ui.get_object("btn-prev")
+            btn_prev = self.config.ui.get_object("btn-prev")
             tap_prev = Clutter.TapAction()
             btn_prev.add_action(tap_prev)
             tap_prev.connect("tap", self.tap_prev, None)
 
-
             self.model = Model(self.config, self.models.next()) 
         else:
-            logging.warning("No models in "+self.path)
+            logging.warning("No models in "+self.path)        
 
     def tap_next(self, action, actor, user_data):
         logging.debug("Next")
