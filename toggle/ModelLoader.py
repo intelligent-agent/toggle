@@ -4,6 +4,7 @@ from gi.repository import Clutter, Mx, Mash, Toggle
 from os import listdir
 from os.path import isfile, join
 from itertools import cycle
+import re
 
 from Model import Model
 
@@ -35,27 +36,33 @@ class ModelLoader(Clutter.Actor):
             btn_prev.add_action(tap_prev)
             tap_prev.connect("tap", self.tap_prev, None)
 
-            self.model = Model(self.config, self.models.next()) 
+            self.model = Model(self.config, self.models.cur()) 
         else:
             logging.warning("No models in "+self.path)        
 
     def tap_next(self, action, actor, user_data):
         logging.debug("Next")
-        self.select_model(self.models.next())    
+        self.tap(self.models.next())    
 
     def tap_prev(self, action, actor, user_data):
         logging.debug("Prev")
-        self.select_model(self.models.prev())    
+        self.tap(self.models.prev())    
         
     def get_model_filename(self):
         return self.models.cur()
 
+    def tap(self, filename):
+        self.select_model(filename)
+        filename = re.sub(".stl", ".gco", filename, flags=re.I)
+        logging.debug("Selecting "+filename  )
+        self.config.rest_client.select_file(filename)  
+
     def select_model(self, filename):
+        print "showing "+filename
         if self.models.has(filename):
-            logging.debug("Selecting "+filename)
-            self.model = Model(self.config, self.models.select(filename))
-            filename = filename.replace(".stl", ".gco")  
-            self.config.rest_client.select_file(filename)  
+            filename = self.models.select(filename)
+            print "got "+filename
+            self.model = Model(self.config, filename)
         else:
             logging.warning("Missing STL: "+filename)
 
@@ -66,6 +73,7 @@ calling next and prev
 class bidirectional_cycle(object):
     def __init__(self, collection):
         self.collection = collection
+        self.lower = [name.lower() for name in self.collection]
         self.index = 0
 
     def next(self):
@@ -86,11 +94,11 @@ class bidirectional_cycle(object):
         return len(self.collection)
 
     def has(self, filename):
-        return (filename in self.collection)
+        return (filename.lower() in self.lower)
 
     def select(self, filename):
-        self.index = self.collection.index(filename)        
-        return filename
+        self.index = self.lower.index(filename.lower())        
+        return self.collection[self.index]
 
     def __iter__(self):
         return self

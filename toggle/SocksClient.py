@@ -24,14 +24,16 @@ class SocksClient(Thread):
         self._prefix = prefix
         self._host = host
         self._port = port
+        self.running = False
         Thread.__init__(self)
 
     def connect(self):
         self.get_socket_info()
+        self.running = True
         self.start()
 
     def disconnect(self):
-        pass
+        self.running = False
 
     def run(self):
         conn = httplib.HTTPConnection(self._host, self._port)
@@ -47,7 +49,7 @@ class SocksClient(Thread):
         except Exception as e:
             logging.warning("Unable to post request "+str(e))
             return
-        while 1: 
+        while self.running: 
             msg =  msgs.next()
             if len(msg) == 0:
                 continue
@@ -56,9 +58,13 @@ class SocksClient(Thread):
             if data == 'o':
                 logging.info("Socket connected")
             elif data == 'c':
-                logging.info("Socket disconnected, reason: "+str(payload))
-                return
+                if "[" in payload and "]" in payload:
+                    logging.info("Socket disconnected, reason: "+str(payload))
+                    return
+                else:
+                    logging.warning("Corrupt close frame: "+str(msg))
             elif data == 'h':
+                #logging.info("Heartbeat "+str(msg))
                 pass
             elif data == 'a':
                 if "[" in payload and "]" in payload:
@@ -68,7 +74,7 @@ class SocksClient(Thread):
             elif data == 'm':
                 print "m: "+payload
             else:
-                #1print "Got garbled char "+str(data)
+                #print "Got garbled char "+str(msg)+" hex: "+str(int(msg, 16))
                 pass
         time.sleep(0)
         logging.info("server disconnected")
@@ -76,6 +82,7 @@ class SocksClient(Thread):
     def linesplit(self, socket):
         # H/T to Aaron Watters for this!
         # stackoverflow.com/questions/822001/python-sockets-buffering
+        #socket.settimeout(1.0)
         buffer = socket.recv(4096)
         buffering = True
         while buffering:
@@ -116,7 +123,7 @@ class SocksClient(Thread):
             data = json.loads(msg)
             for etype in data:
                 if "connected" in etype: 
-                    print "Got connected"
+                    #print "Got connected"
                     self.config.connected = etype["connected"]
                     #logging.info("Data is "+str(self.config.connected))
                 elif "current" in etype: 
@@ -124,21 +131,23 @@ class SocksClient(Thread):
                     self.config.printer.update_printer_state(etype["current"]["state"])
                     self.config.printer.update_temperatures(etype["current"]["temps"])
                 elif "history" in etype:
-                    print "Got history"
+                    #print "Got history"
                     self.config.history = etype["history"]
                     #logging.info("History is "+str(self.config.history))
                 elif "event" in etype:
-                    print "got event"
+                    #print "got event"
                     evt_type = etype["event"]["type"]
                     payload = etype["event"]["payload"]
                     e = Event(evt_type, payload)
                     self.config.events.put(e)
                 elif "slicingProgress" in etype:
-                    print "got slicing progress "+str(etype["slicingProgress"])
+                    #print "got slicing progress "+str(etype["slicingProgress"])
+                    pass
                 elif "state" in etype: 
                     print "got state"
                 elif "timelapse" in etype: 
-                    print "got timelapse"
+                    #print "got timelapse"
+                    pass
                 else:
                     print "Unknown event type "+str(etype)
         except:

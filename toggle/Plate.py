@@ -19,7 +19,6 @@ class Plate(Toggle.Model):
         self.plate.set_x(-width/2.0)
         self.plate.set_z_position(height/2.0)
 
-
          #Set up the light
         self.light_set = Mash.LightSet()
         light_point = Mash.PointLight()

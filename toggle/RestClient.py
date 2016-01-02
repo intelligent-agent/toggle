@@ -28,25 +28,36 @@ class RestClient:
         r = requests.post(url, data, headers = self._headers)
         print r.json
     
-
     def start_preheat(self):
         logging.debug("Starting preheat")
-        bed_temp = 0
-        tool_0 = 100
-        tool_1 = 0
+        bed_temp = self.config.get("Preheat", "bed_temp")
+        tool_0 = self.config.get("Preheat", "t0_temp")
+        tool_1 = self.config.get("Preheat", "t1_temp")
+        self.set_bed_temp(bed_temp)
+        self.set_tool_temp(0, tool_0)
+        self.set_tool_temp(1, tool_1)
+
+    def stop_preheat(self):
+        logging.debug("Stopping preheat")
+        self.set_bed_temp(0)
+        self.set_tool_temp(0, 0)
+        self.set_tool_temp(1, 0)
+
+    def set_bed_temp(self, temp):
         url = "http://"+self._host+":"+str(self._port)+"/api/printer/bed"
         data = json.dumps({
             'command':'target', 
-            'target': str(bed_temp)
+            'target': int(float(temp))
         }) 
         r = requests.post(url, data, headers = self._headers)
         print r.json
+        
+    def set_tool_temp(self, tool_nr, temp):
         url = "http://"+self._host+":"+str(self._port)+"/api/printer/tool"
         data = json.dumps({
             'command':'target', 
             'targets': {
-                'tool0': str(tool_0), 
-                'tool1': str(tool_1)
+                'tool'+str(tool_nr): int(float(temp))
             }
         }) 
         r = requests.post(url, data, headers = self._headers)
@@ -57,9 +68,4 @@ class RestClient:
         data = json.dumps({'command':'select'})
         r = requests.post(url, data, headers = self._headers)
         print r.json
-
-if __name__ == "__main__":
-    key = "934A6B7A51B34445A6A5A51DA96713A3"
-    client = RestClient(key)
-    client.select_file("Tension.gco")
 

@@ -70,7 +70,7 @@ class LoggerWriter:
 class Toggle:    
 
     def __init__(self):
-        logging.info("Starting Toggle 0.5.0-")
+        logging.info("Starting Toggle 0.5.0--")
         # Parse the config files. 
         config = CascadingConfigParser([
             '/etc/toggle/default.cfg',
@@ -104,7 +104,8 @@ class Toggle:
         config.printer = Printer(config)
         #config.ntty = Ntty(config)
 
-        config.socks_client = SocksClient(config)
+        host = config.get("Rest", "hostname")
+        config.socks_client = SocksClient(config, host=host)
         config.socks_client.connect()
 
         config.events = JoinableQueue(10)
@@ -167,6 +168,7 @@ class Toggle:
         logging.debug("Stop")
         self.running = False
         self.p0.join()
+        self.config.socks_client.disconnect()
         Clutter.main_quit()
         
 

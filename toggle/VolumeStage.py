@@ -19,10 +19,6 @@ class VolumeStage(Clutter.Actor):
         self.vp.connect("scroll-event", self.scroll)
 
         self.rotation = config.getint("System", "rotation")
-        if self.rotation not in [0, 90, 180, 270]:
-            logging.warning("Wrong rotation in config. Use 0, 90, 180 or 270")
-        else:
-            self.rotation = {0: 0, 90: 1, 180: 2, 270: 3}[self.rotation]
 
         self.angle_max = config.getfloat("System", "angle_max")
         self.angle_min = config.getfloat("System", "angle_min")
@@ -40,10 +36,8 @@ class VolumeStage(Clutter.Actor):
         action.connect ("gesture-begin", self.on_gesture_begin, None);
         action.connect ("gesture-end", self.on_gesture_end, None);
 
-
         self.last_x = 0
         self.last_y = 0
-
 
     def on_gesture_begin(self, gesture, actor, other):
         #print "begin ", gesture, actor, other
@@ -75,7 +69,15 @@ class VolumeStage(Clutter.Actor):
                 rot_y = max(min(rot_y, self.angle_max), self.angle_min)
                 self.spinner.set_rotation_angle(Clutter.RotateAxis.X_AXIS, rot_y)
                 self.p.set_rotation_angle(Clutter.RotateAxis.Y_AXIS, rot_x)
-            elif self.rotation == 1: # 90 deg
+            elif self.rotation == 90: 
+                rot_x = max(min(rot_x, self.angle_max), self.angle_min)
+                self.spinner.set_rotation_angle(Clutter.RotateAxis.X_AXIS, rot_x)
+                self.p.set_rotation_angle(Clutter.RotateAxis.Y_AXIS, rot_y)
+            elif self.rotation == 180: #TODO: Fix this 
+                rot_y = max(min(rot_y, self.angle_max), self.angle_min)
+                self.spinner.set_rotation_angle(Clutter.RotateAxis.X_AXIS, rot_y)
+                self.p.set_rotation_angle(Clutter.RotateAxis.Y_AXIS, rot_x)
+            elif self.rotation == 270: #TODO: Fix this
                 rot_x = max(min(rot_x, self.angle_max), self.angle_min)
                 self.spinner.set_rotation_angle(Clutter.RotateAxis.X_AXIS, rot_x)
                 self.p.set_rotation_angle(Clutter.RotateAxis.Y_AXIS, rot_y)
@@ -84,6 +86,7 @@ class VolumeStage(Clutter.Actor):
         (x, y) = event.get_coords()
         event.x = x
         event.y = y
+        logging.debug(str(x)+" "+str(y))
         if event.type() == Clutter.EventType.TOUCH_UPDATE:
             self.move(actor, event)
         elif event.type() == Clutter.EventType.TOUCH_BEGIN:

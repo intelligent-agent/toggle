@@ -1,5 +1,5 @@
 # Model
-
+import os.path
 import logging
 from gi.repository import Clutter, Mx, Mash, Toggle, Cogl
 
@@ -10,11 +10,15 @@ class Model(Toggle.Model):
         self.config = config        
         model = config.ui.get_object("model")
         self.filename = filename
+        path = config.get("System", "model_folder")+"/"+filename
+        if not os.path.isfile(path):
+            logging.warning(path+" is not a file") 
+
         try:
-            model.load_from_file(0, config.get("System", "model_folder")+"/"+filename)
+            model.load_from_file(0, path)
             model.set_color(Clutter.Color.from_string("#55A94BFF")[1])  
         except:
-            logging.warning("Unable to open model "+str(config.get("System", "model_folder")+"/"+filename))
+            logging.warning("Unable to open model "+path)
             raise
             return    
         (width, height) = model.get_size()
@@ -42,29 +46,29 @@ class Model(Toggle.Model):
 
         model.set_light_set(self.light_set)
 
-        model.set_reactive(True)
-        model.connect("button-press-event", self.click)
-        stage = config.stage
-        stage.connect("motion-event", self.move)
-        stage.connect("button-release-event", self.release)
-        self.clicked = False
-        self.last_x = 0
-        self.last_y = 0
+        #model.set_reactive(True)
+        #model.connect("button-press-event", self.click)
+        #stage = config.stage
+        #stage.connect("motion-event", self.move)
+        #stage.connect("button-release-event", self.release)
+        #self.clicked = False
+        #self.last_x = 0
+        #self.last_y = 0
 
-    def click(self, actor, event):
-        self.last_x = event.x
-        self.last_y = event.y
-        self.clicked = True
+    #def click(self, actor, event):
+    #    self.last_x = event.x
+    #    self.last_y = event.y
+    #    self.clicked = True
 
-    def release(self, actor, event):
-        self.clicked = False
+    #def release(self, actor, event):
+    #    self.clicked = False
 
-    def move(self, actor, event):
-        delta_x = event.x-self.last_x
-        delta_y = self.last_y-event.y
-        self.last_x = event.x
-        #self.last_y = event.y
-        if self.clicked:
-            self.move_by(delta_x, 0)
-            self.set_z_position(100+delta_y)
+    #def move(self, actor, event):
+    #    delta_x = event.x-self.last_x
+    #    delta_y = self.last_y-event.y
+    #    self.last_x = event.x
+    #    #self.last_y = event.y
+    #    if self.clicked:
+    #        self.move_by(delta_x, 0)
+    #        self.set_z_position(100+delta_y)
 

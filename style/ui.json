@@ -35,6 +35,7 @@
                     "height": 1,
                     "depth": 1,
                     "rotation-angle-x": 180.0,
+                    "rotation-angle-y": 180.0,
                     "scale-x": 1.2, 
                     "scale-y": 1.2, 
                     "scale-z": 1.2,
@@ -78,6 +79,12 @@
 	                "type": "MxLabel", 
 	                "x": 20, 
 	                "y": 430
+                },
+                {
+	                "id": "lbl-temp", 
+	                "type": "MxLabel", 
+	                "x": 500, 
+	                "y": 430	
                 }, 
                 {
 	                "id": "btn-print", 
@@ -95,14 +102,6 @@
                     "style-class": "main",
 	                "x": 700, 
 	                "y": 15	
-                },
-                {
-	                "id": "btn-config", 
-	                "type": "MxButton", 
-	                "label": "Config",
-                    "style-class": "main",
-	                "x": 680, 
-	                "y": 420	
                 }
             ]
         },
