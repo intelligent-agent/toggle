@@ -70,7 +70,7 @@ class LoggerWriter:
 class Toggle:    
 
     def __init__(self):
-        logging.info("Starting Toggle 0.5.0--")
+        logging.info("Starting Toggle 0.5.0---")
         # Parse the config files. 
         config = CascadingConfigParser([
             '/etc/toggle/default.cfg',
