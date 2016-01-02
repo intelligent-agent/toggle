@@ -100,16 +100,19 @@ class SocksClient(Thread):
 
     def get_socket_info(self):
         conn = 0
-        try:
-            conn = httplib.HTTPConnection(self._host, self._port)
-            conn.request('GET', '/sockjs/info')
-            response = conn.getresponse()
-            logging.info(str(response.status)+" "+response.reason+" "+response.read())
-        except Exception as e:
-            logging.warning("Unable to get socket info "+str(e))
-        finally:
-            if not conn: 
-                conn.close()
+        for i in range(10):
+            try:
+                conn = httplib.HTTPConnection(self._host, self._port)
+                conn.request('GET', '/sockjs/info')
+                response = conn.getresponse()
+                logging.info(str(response.status)+" "+response.reason+" "+response.read())
+                return 
+            except Exception as e:
+                logging.warning("Unable to get socket info "+str(e))
+                time.sleep(3)
+            finally:
+                if not conn: 
+                    conn.close()
 
     def send(self, message):
         conn = httplib.HTTPConnection(self._host, self._port)
