@@ -36,13 +36,12 @@ class SocksClient(Thread):
         self.running = False
 
     def run(self):
-        conn = httplib.HTTPConnection(self._host, self._port)
         self._r1 = str(random.randint(0, 1000))
         self._conn_id = self.random_str(8)
         url = '/'.join([self._prefix, self._r1, self._conn_id, 'xhr_streaming'])
         try:
-            conn.request('POST', url)
-            response = conn.getresponse()
+            self.conn.request('POST', url)
+            response = self.conn.getresponse()
             sock = socket.fromfd(response.fileno(), socket.AF_INET, socket.SOCK_STREAM)
             data = 1
             msgs = self.linesplit(sock)
@@ -99,20 +98,20 @@ class SocksClient(Thread):
             yield buffer
 
     def get_socket_info(self):
-        conn = 0
+        self.conn = 0
         for i in range(10):
             try:
-                conn = httplib.HTTPConnection(self._host, self._port)
-                conn.request('GET', '/sockjs/info')
-                response = conn.getresponse()
+                self.conn = httplib.HTTPConnection(self._host, self._port)
+                self.conn.request('GET', '/sockjs/info')
+                response = self.conn.getresponse()
                 logging.info(str(response.status)+" "+response.reason+" "+response.read())
-                return 
+                return
             except Exception as e:
                 logging.warning("Unable to get socket info "+str(e))
                 time.sleep(3)
             finally:
-                if not conn: 
-                    conn.close()
+                if not self.conn: 
+                    self.conn.close()
 
     def send(self, message):
         conn = httplib.HTTPConnection(self._host, self._port)
