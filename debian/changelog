@@ -1,12 +1,15 @@
-toggle (0.5.0) UNRELEASED; urgency=medium
+toggle (0.5.0-1) UNRELEASED; urgency=medium
 
+  [ Elias ]
   * Non-maintainer upload.
   * Stopping getty on start
   * printing via Octoprint
 
- -- Elias <elias@elias-Aspire>  Tue, 29 Dec 2015 13:09:47 +0200
+  [ root ]
+  * 
+  * 
 
-
+ -- root <root@kamikaze.localdomain>  Mon, 04 Jan 2016 22:38:26 +0000
 
 toggle (0.4.0+nmu3) UNRELEASED; urgency=medium
 
