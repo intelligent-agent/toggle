@@ -5,7 +5,7 @@ dnl 1.0.0 release). The micro is odd numbered between releases. Only
 dnl on the commit that contains a release should it be an even number.
 
 m4_define([toggle_major_version], [0])
-m4_define([toggle_minor_version], [4])
+m4_define([toggle_minor_version], [5])
 m4_define([toggle_micro_version], [0])
 m4_define([toggle_version],
           [toggle_major_version.toggle_minor_version.toggle_micro_version])
