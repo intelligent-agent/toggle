@@ -24,12 +24,12 @@ License: GNU GPL v3: http://www.gnu.org/copyleft/gpl.html
 
 import subprocess
 import logging
-from gi.repository import Clutter, Mx, Mash, Toggle, Cogl, GObject
-from threading import Thread
+from gi.repository import Clutter, Mx, Mash, Toggle, Cogl, GObject, GLib
+from threading import Thread, current_thread
 from multiprocessing import JoinableQueue
 import Queue
 
-
+import time 
 from Model import Model
 from Plate import Plate 
 from VolumeStage import VolumeStage
@@ -37,11 +37,17 @@ from MessageListener import MessageListener
 from ModelLoader import ModelLoader
 from Printer import Printer
 from CascadingConfigParser import CascadingConfigParser
-from SocksClient import SocksClient
+from WebSocksClient import WebSocksClient
 from RestClient import RestClient
 from Event import Event
 from Message import Message
 
+from Graph import Graph, GraphScale, GraphPlot
+
+from tornado import ioloop
+
+
+color_str = lambda string: Clutter.color_from_string(string)[1]  # shortcut
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG,
@@ -70,7 +76,7 @@ class LoggerWriter:
 class Toggle:    
 
     def __init__(self):
-        logging.info("Starting Toggle 0.5.0---")
+        logging.info("Starting Toggle 0.6.0")
         # Parse the config files. 
         config = CascadingConfigParser([
             '/etc/toggle/default.cfg',
@@ -86,7 +92,7 @@ class Toggle:
         sys.stderr = LoggerWriter(config, logging, 50)
 
         Clutter.init(None)
-        
+
         style = Mx.Style.get_default ()
         style.load_from_file(config.get("System", "stylesheet"))
 
@@ -96,55 +102,132 @@ class Toggle:
         config.stage = config.ui.get_object("stage")
         config.stage.connect("destroy", self.stop)
 
+        # Set up temperature graph
+        graph = Graph(800, 480)        
+        temp = config.ui.get_object("temp")
+        temp.add_child(graph)
+
+        config.temp_e   = GraphPlot("E", (1, 0, 0))
+        config.temp_h   = GraphPlot("H", (1, 0.64, 0))
+        config.temp_bed = GraphPlot("BED", (0, 0, 1))
+        graph.add_plot(config.temp_e)                
+        graph.add_plot(config.temp_h)
+        graph.add_plot(config.temp_bed)
+
+        # Add a scale to the plot
+        scale = GraphScale(0, 320, [ 0, 50, 100, 150, 200, 250, 300])
+        graph.add_plot(scale)       
+        config.graph = graph
+
+
+        # Set up Filament sensor graph
+        filament_graph = Graph(800, 480)        
+        filament = config.ui.get_object("filament")
+        filament.add_child(filament_graph)        
+
+        extruders = ["E", "H", "A", "B", "C"]
+        colors    = ["blue", "red", "orange", "cyan", "white"]
+        config.filament_sensors = {}
+        for i in range(5):
+            ext = extruders[i]
+            color = color_str(colors[i])
+            rgb = (color.red, color.green, color.blue)
+            config.filament_sensors[ext] = GraphPlot(ext, rgb, -160, 160)
+            filament_graph.add_plot(config.filament_sensors[ext])                
+        
+        # Add a scale to the plot
+        scale = GraphScale(-160, 160, [ -150, -100, -50,  0, 50, 100, 150])
+        filament_graph.add_plot(scale)       
+        config.filament_graph = filament_graph
+
+        # Add other stuff
         volume_stage = VolumeStage(config)
         plate = Plate(config)
         config.message = Message(config)
-        config.message_listener = MessageListener(config)        
+        #config.message_listener = MessageListener(config)        
         config.loader = ModelLoader(config)
         config.printer = Printer(config)
         #config.ntty = Ntty(config)
 
+        # Set up SockJS client
         host = config.get("Rest", "hostname")
-        config.socks_client = SocksClient(config, host=host)
-        config.socks_client.connect()
+        config.socks_client = WebSocksClient(config, host="ws://"+host+":5000")
 
-        config.events = JoinableQueue(10)
+        config.push_updates = JoinableQueue(10)
+        # Set up REST client
         config.rest_client = RestClient(config)
         
         self.config = config 
 
+        self.config.toggle = self
+
         GObject.threads_init()
 
+        #logging.debug("execute  from "+str(current_thread()))    
+
+        def execute(event):
+            event.execute(self.config)
+        
+
+        def text_thread():
+            while self.running:
+                try:
+                    event = config.push_updates.get(block=True, timeout=1)
+                    GLib.idle_add(execute, event)
+                except Queue.Empty:
+                    continue
+                config.push_updates.task_done()
+
         config.stage.show()
+
+        self.running = True
+        self.thread = Thread(target=text_thread)
+        self.thread.daemon = True
+        self.thread.start()
 
     def filter_events(self):
         pass
 
+
     def run(self):
         """ Start the program. Can be called from 
         this file or from a start-up script."""               
-        self.box = self.config.ui.get_object("box")
+        box      = self.config.ui.get_object("box")
+        temp     = self.config.ui.get_object("temp")
+        filament = self.config.ui.get_object("filament")
+        msg      = self.config.ui.get_object("msg")
+        uis = [box, temp, filament, msg]
         if self.config.getboolean("System", "filter_events"):
             Clutter.Event.add_filter(self.filter_events)
 
         # Flip and move the stage to the right location
+        # This has to be done in the application, since it is a 
+        # fbdev app
         if self.config.get("System", "rotation") == "90":
-            self.box.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 90.0)
-            self.box.set_position(480, 0)
+            for ui in uis:
+                ui.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 90.0)
+                ui.set_position(480, 0)
+            #self.config.graph.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 90.0)
         elif self.config.get("System", "rotation") == "270":
-            self.box.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, -90.0)
-            self.box.set_position(0, 800)
+            for ui in uis:
+                ui.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, -90.0)
+                ui.set_position(0, 800)
         elif self.config.get("System", "rotation") == "180":
-            self.box.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 180.0)
+            for ui in uis:
+                ui.set_pivot_point(0.5, 0.5)
+                ui.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 180)
 
         """ Start the processes """
         self.running = True
         # Start the processes
         self.p0 = Thread(target=self.loop,
-                    args=(self.config.events, "events"))
+                    args=(self.config.push_updates, "Push updates"))
         #p0.daemon = True
-        self.p0.start()
+        #self.p0.start()
 
+        # Stat the Websocks client
+        self.config.socks_client.start()
+        
         # Signal everything ready
         logging.info("Toggle ready")
 
@@ -155,11 +238,10 @@ class Toggle:
         try:
             while self.running:
                 try:
-                    evt = queue.get(block=True, timeout=1)
+                    update = queue.get(block=True, timeout=1)
                 except Queue.Empty:
                     continue
-                logging.debug("Executing "+evt.evt_type+" from "+name)
-                evt.execute(self.config)
+                update.execute(self.config)
                 queue.task_done()
         except Exception:
             logging.exception("Exception in {} loop: ".format(name))
@@ -167,9 +249,17 @@ class Toggle:
     def stop(self, w):
         logging.debug("Stop")
         self.running = False
-        self.p0.join()
-        self.config.socks_client.disconnect()
+        self.thread.join()
+        self.config.socks_client.stop()
+        #self.running = False
+        #self.p0.join()
+        logging.debug("p0 joined")        
+        #self.config.socks_client.disconnect()
+        logging.debug("Stopping the websocks client")
         Clutter.main_quit()
+        logging.debug("Quit")
+            
+    
         
 
 def main():

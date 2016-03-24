@@ -76,15 +76,16 @@
                 }, 
                 {
 	                "id": "lbl-stat", 
-	                "type": "MxLabel", 
+	                "type": "MxButton", 
 	                "x": 20, 
 	                "y": 430
                 },
                 {
 	                "id": "lbl-temp", 
-	                "type": "MxLabel", 
+	                "type": "MxButton", 
 	                "x": 500, 
-	                "y": 430	
+	                "y": 430, 
+                    "x-align": 0
                 }, 
                 {
 	                "id": "btn-print", 
@@ -104,26 +105,52 @@
 	                "y": 15	
                 }
             ]
-        },
+        }] 
+    }, 
+    {
+        "id": "temp", 
+        "type" : "ClutterActor",
+        "layout-manager" : { "type" : "ClutterFixedLayout" }, 
+        "visible": false,
+        "children" : [ 
         {
-            "id": "msg", 
-            "type" : "ClutterBox",
-            "width" : 800,
-            "height" : 280,
-            "color": "#000",
-            "x": 0, 
-            "y": 100,            
-            "z-position": 300,
-            "opacity" : 0,
-            "layout-manager" : { "type" : "ClutterFixedLayout" }, 
-            "children" : [ {
-                "id": "txt", 
-                "type": "ClutterText",
-                "font-description": "Sans 36",
-                "color": "#FFF",
-                "height": 280, 
-                "y": 115
-            }]
+            "id": "temp-bg", 
+            "type": "ClutterActor",
+            "background-color": "#333C",
+            "height": 480, 
+            "width": 800
+        }]
+    },{
+        "id": "filament", 
+        "type" : "ClutterActor",
+        "layout-manager" : { "type" : "ClutterFixedLayout" }, 
+        "visible": false,
+        "children" : [ 
+        {
+            "id": "filament-bg", 
+            "type": "ClutterActor",
+            "background-color": "#333C",
+            "height": 480, 
+            "width": 800
+        }]
+    },{
+        "id": "msg", 
+        "type" : "ClutterBox",
+        "width" : 800,
+        "height" : 480,
+        "color": "#000C",
+        "opacity" : 0,
+        "layout-manager" : { 
+            "type" : "ClutterBinLayout", 
+            "x-align": "center", 
+            "y-align": "center"
+        }, 
+        "children" : [ {
+            "id": "txt", 
+            "type": "ClutterText",
+            "font-description": "Sans 36",
+            "color": "#FFF",
+            "height": 100
         }]
     }]
 }]

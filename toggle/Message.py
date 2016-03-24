@@ -1,8 +1,10 @@
 # Display a message. 
-from gi.repository import Clutter, Mx, Mash, Toggle
-
+from gi.repository import Clutter, Mx, Mash, Toggle, GLib
+import logging
+from threading import current_thread
 class Message:
     def __init__(self, config):
+        self.config = config
         self.ui = config.ui
         self.msg = config.ui.get_object("msg")
         self.msg.save_easing_state()
@@ -13,9 +15,18 @@ class Message:
 
     def display(self, text):
         self.txt.set_text(text)
-        self.txt.set_x(400-self.txt.get_width()/2)
+        #self.txt.set_x(400-self.txt.get_width()/2)
         self.msg.set_opacity(255)
         self.fade.start()
+
+    def update(self, text):
+        if self.msg.get_opacity() == 255:
+            logging.debug("Updating message")
+            self.txt.set_text(text)
+            #self.txt.set_x(400-self.txt.get_width()/2)
+            self.fade.rewind()
+        else:
+            self.display(text)
 
     def remove(self, event):
         self.msg = self.ui.get_object("msg")
