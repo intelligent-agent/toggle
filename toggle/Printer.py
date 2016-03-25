@@ -30,18 +30,6 @@ class Printer:
         self.btn_stat = self.config.ui.get_object("lbl-stat")
         self.btn_temp = self.config.ui.get_object("lbl-temp")
 
-        # Temperature sensor
-        self.btn_temp.connect("clicked", self.show_temp_graph)
-        tap_temp = Clutter.TapAction()
-        self.btn_temp.add_action(tap_temp)
-        tap_temp.connect("tap", self.show_temp_graph, None)
-
-        self.config.graph.connect("button-release-event", self.hide_temp_graph)
-
-        tap_temp_off = Clutter.TapAction()
-        self.config.graph.add_action(tap_temp_off)
-        tap_temp_off.connect("tap", self.hide_temp_graph, None)
-
         # Filament sensor
         self.btn_stat.connect("clicked", self.show_filament_graph)
         tap_stat = Clutter.TapAction()
@@ -95,40 +83,26 @@ class Printer:
     def set_temp(self, temp):
         self.btn_temp.set_label(temp)
 
-    def update_temperatures(self, temps):
-        for temp in temps:
-            #logging.debug(temp)
-            if "bed" in temp:
-                self.bed_temp = temp["bed"]["actual"]
-            if "tool0" in temp:
-                self.t0_temp = temp["tool0"]["actual"]
-            if "tool1" in temp:
-                self.t1_temp = temp["tool1"]["actual"]
-            self.config.temp_e.add_point(temp['time'], self.t0_temp)
-            self.config.temp_h.add_point(temp['time'], self.t1_temp)
-            self.config.temp_bed.add_point(temp['time'], self.bed_temp)
-        self.set_temp("B:{} T0:{} T1:{}".format(self.bed_temp, self.t0_temp, self.t1_temp))
-        self.config.graph.refresh()
-
     def set_printing(self, is_printing):
         if is_printing:
-            logging.debug("Print started, todo: diasable controls")
+            self.btn_print.set_toggled(True)  
+            self.btn_print.set_label("Printing")          
+        else:    
+            self.btn_heat.set_toggled(False)            
+            self.btn_print.set_label("Print")          
 
     def update_printer_state(self, state):
         self.set_status(state["text"])
         self.flags = state["flags"]
-            
-            
-    def show_temp_graph(self, btn, stuff=None, other=None):
-        logging.debug("Show temp graph")
-        self.config.ui.get_object("temp").show()
 
-    def hide_temp_graph(self, btn, action, stuff=None):
-        self.config.ui.get_object("temp").hide()
-        
+    def update_temperatures(self, temp):
+        self.set_temp("B:{} T0:{} T1:{}".format(
+            temp["bed"]["actual"], 
+            temp["tool0"]["actual"], 
+            temp["tool1"]["actual"]))
 
     def show_filament_graph(self, btn, stuff=None, other=None):
-        logging.debug("Show temp graph")
+        logging.debug("Show filament graph")
         self.config.ui.get_object("filament").show()
 
     def hide_filament_graph(self, btn, action, stuff=None):

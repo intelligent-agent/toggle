@@ -1,8 +1,3 @@
-# Temp graph
-
-#from gi.repository import Clutter, Mx, Mash, Toggle
-
-
 #!/usr/bin/env python
 from gi.repository import Clutter, GLib
 import cairo
@@ -12,33 +7,27 @@ import numpy as np
 import threading
 import time 
 import random
-import logging
 
 color = lambda string: Clutter.color_from_string(string)[1]  # shortcut
 
-class GraphPlot():
-    def __init__(self, name, color, scale_min=0.0, scale_max=320.0):
+class Temperature():
+    def __init__(self, name, color):
         self.color = color#1.0, 0.0, 0.0
         self.name = name
         self.line_width = 3
         self.values = []
         self.times = []
         self.cutoff_time = 30*60 #30 minutes
-        self.scale_max = float(scale_max)
-        self.scale_min = float(scale_min)
-        self.scale_tot = float(abs(scale_max-scale_min))
-
 
     def add_point(self, time, value):
-        if value == None:
-            value = 0.0
         self.values.append(value)
         self.times.append(time)
-        if len(self.times) > 30*60/5:
+        if len(self.times) > 10:
             self.times.pop(0)
             self.values.pop(0)
 
-        #logging.debug("add_point: "+str(time)+" "+str(value))
+        print self.times
+        #print "add "+str(value)+" at "+str(time)
 
     def get_start_time(self):
         if len(self.times) == 0:
@@ -51,78 +40,50 @@ class GraphPlot():
         return self.times[-1]        
 
     def get_y_max(self):
-        if max(self.values) == 0:
-            return 1
         return max(self.values)
 
     def draw(self, ctx, width, height):
         if len(self.times) == 0:
             return
         if len(self.times) == 1:
-            x_values = np.array([0, width])
-            y_values = height - (np.array(self.values)-self.scale_min)*( height/self.scale_tot)
+            x_values = np.array([width/(2), width/(2)])
+            y_values = height - (np.array(self.values)*( height/self.get_y_max()))
             y_values = [y_values[0],y_values[0]] 
         else:    
-            pixel_interval = width/float(len(self.times)-1)
+            pixel_interval = width/(len(self.times)-1)
             x_values = np.arange(len(self.times))*pixel_interval
-            y_values = height - (np.array(self.values)-self.scale_min)*( height/self.scale_tot )
+            y_values = height - (np.array(self.values)*( height/self.get_y_max()))
 
+        ctx.move_to(x_values[0], y_values[0])
+    
+        points = zip(x_values, y_values)        
+
+        for point in points[1:]:
+            ctx.line_to(point[0], point[1])
+            #print "line to "+str(point[0])+" "+str(point[1])
         ctx.set_line_width(self.line_width)
         ctx.set_source_rgb(*self.color)
 
-        ctx.move_to(x_values[0], y_values[0])
-        points = zip(x_values, y_values)
-        for point in points[1:]:
-            ctx.line_to(point[0], point[1])
-
-class GraphScale():
-    def __init__(self, scale_min, scale_max, lines):
-        self.scale_max = float(scale_max)
-        self.scale_min = float(scale_min)
-        self.scale_tot = float(abs(scale_max-scale_min))
-        self.y_values = lines
-        self.x_values = []
-        self.color = (0, 0, 0, 128)
-        self.line_width = 1
-        self.title = None
-
-    def set_title(self, title):
-        self.title = title
-
-    def draw(self, ctx, width, height):
-        ctx.set_line_width(self.line_width)
-        ctx.set_source_rgba(*self.color)
-        for y in self.y_values:
-            ctx.move_to(0,      height-(y-self.scale_min)*(height/self.scale_tot))
-            ctx.line_to(width,  height-(y-self.scale_min)*(height/self.scale_tot))
-            ctx.move_to(0,      height-(y-self.scale_min)*(height/self.scale_tot))
-            ctx.show_text(str(y))
-        if self.title:
-            ctx.move_to(width/2.0, 20)
-            ctx.show_text(str(self.title))   
-        
-
-class Graph(Clutter.Actor):
+class GraphActor(Clutter.Actor):
     '''a horizontal item inside a row'''
 
-    def __init__(self, width, height):
-        super(Graph, self).__init__()
-        self.set_size(width-40, height-40)
-        self.set_margin_top(20)
-        self.set_margin_right(20)
-        self.set_margin_bottom(20)
-        self.set_margin_left(20)
+    def __init__(self):
+        super(GraphActor, self).__init__()
+        self.set_background_color(color('white'))
+        self.set_margin_top(50)
+        self.set_margin_right(50)
+        self.set_margin_bottom(50)
+        self.set_margin_left(50)
         self.canvas = Clutter.Canvas()
         self.set_content(self.canvas)
         self.canvas.connect('draw', self.draw)
         self.line_width = 3
         self.refresh_millis = 10
 
-        self.plots = []
+        self.temps = []
 
         self.idle_resize_id = 0
         self.connect('notify::allocation', self.on_allocation)
-        self.set_reactive(True)
 
     def on_allocation(self, *_):
         if self.idle_resize_id == 0:
@@ -134,8 +95,8 @@ class Graph(Clutter.Actor):
         self.idle_resize_id = 0
 
     # Add a datapoint
-    def add_plot(self, plot):
-        self.plots.append(plot)
+    def add_temperature(self, temp):
+        self.temps.append(temp)
 
     def refresh(self):
         self.on_allocation("")
@@ -146,14 +107,16 @@ class Graph(Clutter.Actor):
         ctx.paint()
 
         ctx.set_operator(cairo.OPERATOR_OVER)
-        for plot in self.plots:
+        for temp in self.temps:
             ctx.new_sub_path()
-            plot.draw(ctx, width, height-10)
+            temp.draw(ctx, width, height-10)
             ctx.stroke()
+
+
 
 def add_points(temp1, temp2, graph):
     for i in range(20):
-        temp1.add_point(temp1.get_end_time() + 5, random.random()*200-100)
+        temp1.add_point(temp1.get_end_time() + 5, random.random()*250)
         graph.refresh()
         time.sleep(0.3)
 
@@ -178,25 +141,37 @@ if __name__ == '__main__':
     # close window on escape
     stage.connect('key-press-event', stage_key)
 
-    graph = Graph(800, 500)
-    temp = GraphPlot("E", (1, 0, 0), -100, 100)
-    graph.add_plot(temp)
+    graph = GraphActor()
+    temp = Temperature("E", (1, 0, 0))
+    #temp.add_point(0,  100)
+    #temp.add_point(5,  110)
+    #temp.add_point(10, 90)
+    #temp.add_point(15, 90)
+    graph.add_temperature(temp)
     graph.refresh()
 
-    temp2 = GraphPlot("H", (0, 1, 0))
-    graph.add_plot(temp2)
+    temp2 = Temperature("H", (0, 1, 0))
+    #temp2.add_point(0,  50)
+    #temp2.add_point(5,  60)
+    #temp2.add_point(10, 70)
+    #temp2.add_point(15, 80)
+    graph.add_temperature(temp2)
 
-    scale = GraphScale(-110, 110, [ -100, -50, 0, 50, 100])
-    graph.add_plot(scale)
 
     t = threading.Thread(target=add_points,  args=(temp,temp2, graph))
     t.start() # after 30 seconds, "hello, world" will be printed
 
+
+    #graph.add_point(20, (90, 24)))
+    #graph.add_point(25, (90, 25))
     stage.add_child(graph)
+    #graph.refresh()
 
     # bind the size of cairo_actor to the size of the stage
     graph.add_constraint(Clutter.BindConstraint.new(stage, Clutter.BindCoordinate.SIZE, 0.0))
 
     stage.show()
     Clutter.main()
+
+    
 

@@ -22,25 +22,17 @@ class PushUpdate:
             print "missing function "+str(self.update_type)
 
     def connected(self):
+        self.config.printer.set_status("Connected")
         self.config.connected = self.payload
 
     def history(self):
-        temps = self.payload["temps"]
-        for temp in temps:
-            time = temp["time"]
-            tool_0 = temp["tool0"]["actual"]
-            tool_1 = temp["tool1"]["actual"]
-            bed    = temp["bed"]["actual"]
-            self.config.temp_e.add_point(time, tool_0)
-            self.config.temp_h.add_point(time, tool_1)
-            self.config.temp_bed.add_point(time, bed)
+        for temp in self.payload["temps"]:
+            self.config.temp_graph.update_temperatures(temp)
 
     def timelapse(self):
         pass
 
     def plugin(self):
-        #print "Plugin!"
-        #print self.payload
         plugin_type = self.payload["data"]["type"]
         plugin_data = self.payload["data"]["data"]
         plugin_name = self.payload["plugin"]
@@ -67,7 +59,9 @@ class PushUpdate:
     def current(self):
         self.config.state = self.payload
         self.config.printer.update_printer_state(self.payload["state"])
-        self.config.printer.update_temperatures(self.payload["temps"])
+        for temp in self.payload["temps"]:
+            self.config.temp_graph.update_temperatures(temp)
+            self.config.printer.update_temperatures(temp)
 
     def event(self):
         evt_type = self.payload["type"]
@@ -108,7 +102,7 @@ class Event:
 
     def Upload(self):
         logging.debug("Upload evt")
-        config.loader.load_models()
+        self.config.loader.load_models()
 
     def Disconnected(self):
         logging.debug("Printer Disconnected")
@@ -123,11 +117,21 @@ class Event:
         logging.debug("Client Closed")
 
     def SlicingStarted(self):
-        print self.payload
         self.config.message.display("Starting slicing!")
         
     def SlicingDone(self):
-        print self.payload
         self.config.message.display("Slicing done!")
         
-        
+    def ZChange(self):
+        pass
+    
+    def MetadataStatisticsUpdated(self):
+        pass
+
+    def PrintDone(self):
+        pass
+
+    def PrintStarted(self):
+        pass
+
+

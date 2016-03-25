@@ -43,6 +43,7 @@ from Event import Event
 from Message import Message
 
 from Graph import Graph, GraphScale, GraphPlot
+from TemperatureGraph import TemperatureGraph
 
 from tornado import ioloop
 
@@ -76,7 +77,7 @@ class LoggerWriter:
 class Toggle:    
 
     def __init__(self):
-        logging.info("Starting Toggle 0.6.0")
+        logging.info("Starting Toggle 0.6.2")
         # Parse the config files. 
         config = CascadingConfigParser([
             '/etc/toggle/default.cfg',
@@ -103,22 +104,8 @@ class Toggle:
         config.stage.connect("destroy", self.stop)
 
         # Set up temperature graph
-        graph = Graph(800, 480)        
-        temp = config.ui.get_object("temp")
-        temp.add_child(graph)
-
-        config.temp_e   = GraphPlot("E", (1, 0, 0))
-        config.temp_h   = GraphPlot("H", (1, 0.64, 0))
-        config.temp_bed = GraphPlot("BED", (0, 0, 1))
-        graph.add_plot(config.temp_e)                
-        graph.add_plot(config.temp_h)
-        graph.add_plot(config.temp_bed)
-
-        # Add a scale to the plot
-        scale = GraphScale(0, 320, [ 0, 50, 100, 150, 200, 250, 300])
-        graph.add_plot(scale)       
-        config.graph = graph
-
+        config.temp_graph = TemperatureGraph(config)
+       
 
         # Set up Filament sensor graph
         filament_graph = Graph(800, 480)        

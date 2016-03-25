@@ -45,30 +45,3 @@ class Model(Toggle.Model):
         vp.add_child(light_spot);
 
         model.set_light_set(self.light_set)
-
-        #model.set_reactive(True)
-        #model.connect("button-press-event", self.click)
-        #stage = config.stage
-        #stage.connect("motion-event", self.move)
-        #stage.connect("button-release-event", self.release)
-        #self.clicked = False
-        #self.last_x = 0
-        #self.last_y = 0
-
-    #def click(self, actor, event):
-    #    self.last_x = event.x
-    #    self.last_y = event.y
-    #    self.clicked = True
-
-    #def release(self, actor, event):
-    #    self.clicked = False
-
-    #def move(self, actor, event):
-    #    delta_x = event.x-self.last_x
-    #    delta_y = self.last_y-event.y
-    #    self.last_x = event.x
-    #    #self.last_y = event.y
-    #    if self.clicked:
-    #        self.move_by(delta_x, 0)
-    #        self.set_z_position(100+delta_y)
-
