@@ -8,11 +8,24 @@ logging.basicConfig(level=logging.DEBUG,
                     datefmt='%m-%d %H:%M')
 
 
-Clutter.init(None)
-model = Toggle.Model()
-#print "cube"
-#model.load_from_file(0, "/home/root/.octoprint/uploads/25mm_cube.stl")
-#print "hollow cube"
-#model.load_from_file(0, "/home/root/.octoprint/uploads/20mm_hollow_cube.stl")
-model.load_from_file(0, "/home/root/.octoprint/uploads/reel2.stl")
+
+
+if __name__ == '__main__':
+    Clutter.init( None )
+
+    stage = Clutter.Stage()
+    stage.set_size(800, 500)
+    stage.set_title('Clutter - Cairo content')
+    stage.set_user_resizable(True)
+
+    stage.connect("destroy", lambda w: Clutter.main_quit() )
+
+    model = Toggle.Model()
+    model.load_from_file(0, "/home/root/.octoprint/uploads/reel2.stl")
+    model.set_color(Clutter.Color.from_string("#55A94BFF")[1])  
+    model.set_position(400, 200)
+    stage.add_child(model)
+
+    stage.show_all()
+    Clutter.main()
 

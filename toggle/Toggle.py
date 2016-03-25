@@ -44,6 +44,7 @@ from Message import Message
 
 from Graph import Graph, GraphScale, GraphPlot
 from TemperatureGraph import TemperatureGraph
+from CubeTabs import CubeTabs
 
 from tornado import ioloop
 
@@ -102,6 +103,9 @@ class Toggle:
 
         config.stage = config.ui.get_object("stage")
         config.stage.connect("destroy", self.stop)
+
+        # Set up tabs
+        config.tabs = CubeTabs(config.ui, 4)
 
         # Set up temperature graph
         config.temp_graph = TemperatureGraph(config)
@@ -171,6 +175,8 @@ class Toggle:
         self.thread = Thread(target=text_thread)
         self.thread.daemon = True
         self.thread.start()
+
+        #Cogl.set_backface_culling_enabled (True)
 
     def filter_events(self):
         pass

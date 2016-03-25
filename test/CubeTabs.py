@@ -68,15 +68,3 @@ if __name__ == '__main__':
     _stage.show_all()
     Clutter.main()
 
-
-
-
-
-#            if i == 0:
-#                t = Clutter.PropertyTransition(property_name='opacity')
-#                t.set_from(0)
-#                t.set_to(255)
-#                t.set_animatable(side)
-#                t.set_progress_mode(Clutter.AnimationMode.EASE_IN_OUT_CUBIC)
-#                self.tgs[j].add_transition(t)
-
