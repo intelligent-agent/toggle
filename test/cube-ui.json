@@ -11,7 +11,7 @@
         "height" : 480,
         "layout-manager" : { "type" : "ClutterFixedLayout" },
         "children" : [{
-            "id": "side0",     
+            "id": "side0",
             "type" : "ClutterActor",
             "width" : 800,
             "height" : 480, 
