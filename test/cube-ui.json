@@ -9,12 +9,18 @@
         "type" : "ClutterActor",
         "width" : 800,
         "height" : 480,
+        "pivot-point-z": -400,
+        "pivot-point": [0.5, 0],
+        
         "layout-manager" : { "type" : "ClutterFixedLayout" },
         "children" : [{
             "id": "side0",
             "type" : "ClutterActor",
             "width" : 800,
             "height" : 480, 
+            "pivot-point-z": -400,
+            "pivot-point": [0.5, 0],
+            "rotation-angle-y": 0.0,
             "background-color": "red", 
             "children": [{
                     "id": "side0-btn-prev", 
@@ -43,6 +49,9 @@
             "type" : "ClutterActor",
             "width" : 800,
             "height" : 480,
+            "pivot-point-z": -400,
+            "pivot-point": [0.5, 0],
+            "rotation-angle-y": 90.0,
             "background-color": "yellow", 
             "children": [{
                     "id": "side1-btn-prev", 
@@ -71,6 +80,9 @@
             "type" : "ClutterActor",
             "width" : 800,
             "height" : 480,
+            "pivot-point-z": -400,
+            "pivot-point": [0.5, 0],
+            "rotation-angle-y": 180.0,
             "background-color": "blue", 
             "children": [{
                     "id": "side2-btn-prev", 
@@ -99,6 +111,9 @@
             "type" : "ClutterActor",
             "width" : 800,
             "height" : 480,
+            "pivot-point-z": -400,
+            "pivot-point": [0.5, 0],
+            "rotation-angle-y": 270.0,
             "background-color": "green", 
             "children": [{
                     "id": "side3-btn-prev", 
@@ -124,5 +139,13 @@
             }]
         }]
     }]
+},{
+    "type" : "ClutterTimeline",
+    "duration" : 4000,
+    "markers" : [
+        { "name" : "one",   "time" : 1000 },
+        { "name" : "two",   "time" : 2000 },
+        { "name" : "three", "time" : 3000 }
+    ]
 }]
 

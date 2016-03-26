@@ -7,48 +7,62 @@ class CubeTabs():
         self.ui = ui
         self.num_tabs = num_tabs
         self.duration = 1000
-        self.tgs = []
+        self.tgs = [None]*4
+        self.current_side = 0
+        self.sides = [None]*4
 
-        for j in range(self.num_tabs):
-            tg = Clutter.TransitionGroup()
-            tg.set_duration(self.duration)
-            self.tgs.append(tg)
+        self.box = self.ui.get_object("box")
 
-        for i in range(self.num_tabs):
-            side = self.ui.get_object("side"+str(i))
-            side.set_rotation (Clutter.RotateAxis.Y_AXIS,
-                              i*90,           
-                              400,
-                              0,
-                              -400);
-            #if i != 0:
-            #    side.set_opacity(0)        
-
-            for j in range(self.num_tabs):
-                t = Clutter.PropertyTransition(property_name='rotation-angle-y')
-                t.set_from(i*90+j*90)
-                t.set_to(i*90+j*90+90)
-                t.set_animatable(side)
-                t.set_progress_mode(Clutter.AnimationMode.EASE_IN_OUT_CUBIC)
-                self.tgs[j].add_transition(t)
-        
         for i in range(self.num_tabs):        
+            self.sides[i] = self.ui.get_object("side"+str(i))
             btn_prev = self.ui.get_object("side"+str(i)+"-btn-prev")
-            btn_prev.connect("clicked", self.prev, self.tgs[0 if i == 0 else (self.num_tabs-i)])
+            btn_prev.connect("clicked", self.btn_prev)
             btn_next = self.ui.get_object("side"+str(i)+"-btn-next")
-            btn_next.connect("clicked", self.next, self.tgs[self.num_tabs-i-1])
+            btn_next.connect("clicked", self.btn_next)
 
-    def next(self, btn, tg):
-        tg.set_direction(Clutter.TimelineDirection.BACKWARD)    
-        tg.rewind()
-        tg.start()
+            t = Clutter.PropertyTransition(property_name='rotation-angle-y')
+            t.set_from(i*-90)
+            t.set_to(i*-90-90)
+            t.add_marker("appear", 0.5)
+            t.connect("marker-reached::appear", self.appear)
+            t.connect("completed", self.completed)
+            t.set_duration(self.duration)
+            t.set_animatable(self.ui.get_object("box"))
+            t.set_progress_mode(Clutter.AnimationMode.EASE_IN_OUT_CUBIC)
+            self.tgs[i] = t 
 
-    def prev(self, btn, tg):
-        tg.set_direction(Clutter.TimelineDirection.FORWARD)
-        tg.rewind()
-        tg.start()
+        self.tg = self.tgs[0]
 
+        
+    def btn_prev(self, btn):
+        if self.tg.is_playing():
+            return
+        self.dis = self.sides[self.current_side]
+        self.current_side = 3 if self.current_side == 0 else self.current_side-1
+        self.tg = self.tgs[self.current_side]
+        self.app = self.sides[self.current_side]
 
+        self.tg.set_direction(Clutter.TimelineDirection.BACKWARD)    
+        self.tg.rewind()
+        self.tg.start()
+
+    def btn_next(self, btn):
+        if self.tg.is_playing():
+            return
+        self.dis = self.sides[self.current_side]
+        self.tg = self.tgs[self.current_side]
+        self.current_side = (self.current_side + 1) % 4
+        self.app = self.sides[self.current_side]
+        self.tg.set_direction(Clutter.TimelineDirection.FORWARD)
+        self.tg.rewind()
+        self.tg.start()
+        
+    def appear(self, one, two, three):
+        self.box.set_child_at_index(self.app, 4)
+        self.app.show()
+
+    def completed(self, one):
+        self.dis.hide()
 
 if __name__ == '__main__':
     Clutter.init( sys.argv )
@@ -58,13 +72,8 @@ if __name__ == '__main__':
 
     _stage = ui.get_object("stage")
     _stage.set_title( "Cubic tabs" )
-
     tabs = CubeTabs(ui, 4)
-
-    Cogl.set_backface_culling_enabled (True)
-
     _stage.connect("destroy", lambda w: Clutter.main_quit() )
-
     _stage.show_all()
     Clutter.main()
 

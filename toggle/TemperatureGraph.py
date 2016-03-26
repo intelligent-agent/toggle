@@ -41,22 +41,22 @@ class TemperatureGraph():
         self.graph.add_plot(scale)       
 
         # Temperature sensor
-        self.btn_temp = self.config.ui.get_object("lbl-temp")
-        self.btn_temp.connect("clicked", self.show)
-        tap_temp = Clutter.TapAction()
-        self.btn_temp.add_action(tap_temp)
-        tap_temp.connect("tap", self.show, None)
+        #self.btn_temp = self.config.ui.get_object("lbl-temp")
+        #self.btn_temp.connect("clicked", self.show)
+        #tap_temp = Clutter.TapAction()
+        #self.btn_temp.add_action(tap_temp)
+        #tap_temp.connect("tap", self.show, None)
 
-        self.graph.connect("button-release-event", self.hide)
-        tap_temp_off = Clutter.TapAction()
-        self.graph.add_action(tap_temp_off)
-        tap_temp_off.connect("tap", self.hide, None)
+        #self.graph.connect("button-release-event", self.hide)
+        #tap_temp_off = Clutter.TapAction()
+        #self.graph.add_action(tap_temp_off)
+        #tap_temp_off.connect("tap", self.hide, None)
 
-    def show(self, btn=None, stuff=None, other=None):
-        self.config.ui.get_object("temp").show()
+    #def show(self, btn=None, stuff=None, other=None):
+    #    self.config.ui.get_object("temp").show()
 
-    def hide(self, btn=None, stuff=None, other=None):
-        self.config.ui.get_object("temp").hide()
+    #def hide(self, btn=None, stuff=None, other=None):
+    #    self.config.ui.get_object("temp").hide()
 
 
     def update_temperatures(self, temp):

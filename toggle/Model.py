@@ -27,12 +27,14 @@ class Model(Toggle.Model):
         model.set_x(-width/2.0)
         model.set_z_position(height/2.0)
 
+
         #Set up the light
         self.light_set = Mash.LightSet()
         light_point = Mash.PointLight()
         light_directional = Mash.DirectionalLight()
         light_spot = Mash.SpotLight()
     
+
 
         self.light_set.add_light(light_point)
         self.light_set.add_light(light_directional)

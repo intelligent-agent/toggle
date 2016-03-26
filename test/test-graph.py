@@ -26,9 +26,6 @@ class Temperature():
             self.times.pop(0)
             self.values.pop(0)
 
-        print self.times
-        #print "add "+str(value)+" at "+str(time)
-
     def get_start_time(self):
         if len(self.times) == 0:
             return 0
@@ -143,29 +140,17 @@ if __name__ == '__main__':
 
     graph = GraphActor()
     temp = Temperature("E", (1, 0, 0))
-    #temp.add_point(0,  100)
-    #temp.add_point(5,  110)
-    #temp.add_point(10, 90)
-    #temp.add_point(15, 90)
     graph.add_temperature(temp)
     graph.refresh()
 
     temp2 = Temperature("H", (0, 1, 0))
-    #temp2.add_point(0,  50)
-    #temp2.add_point(5,  60)
-    #temp2.add_point(10, 70)
-    #temp2.add_point(15, 80)
     graph.add_temperature(temp2)
 
 
     t = threading.Thread(target=add_points,  args=(temp,temp2, graph))
     t.start() # after 30 seconds, "hello, world" will be printed
 
-
-    #graph.add_point(20, (90, 24)))
-    #graph.add_point(25, (90, 25))
     stage.add_child(graph)
-    #graph.refresh()
 
     # bind the size of cairo_actor to the size of the stage
     graph.add_constraint(Clutter.BindConstraint.new(stage, Clutter.BindCoordinate.SIZE, 0.0))

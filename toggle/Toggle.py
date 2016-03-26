@@ -135,7 +135,6 @@ class Toggle:
         volume_stage = VolumeStage(config)
         plate = Plate(config)
         config.message = Message(config)
-        #config.message_listener = MessageListener(config)        
         config.loader = ModelLoader(config)
         config.printer = Printer(config)
         #config.ntty = Ntty(config)
