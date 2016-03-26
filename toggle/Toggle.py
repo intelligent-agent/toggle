@@ -44,12 +44,14 @@ from Message import Message
 
 from Graph import Graph, GraphScale, GraphPlot
 from TemperatureGraph import TemperatureGraph
+from FilamentGraph import FilamentGraph
 from CubeTabs import CubeTabs
+from Splash import Splash
+from Jog import Jog
 
-from tornado import ioloop
 
+#from tornado import ioloop
 
-color_str = lambda string: Clutter.color_from_string(string)[1]  # shortcut
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG,
@@ -78,7 +80,8 @@ class LoggerWriter:
 class Toggle:    
 
     def __init__(self):
-        logging.info("Starting Toggle 0.6.2")
+        self.version = "0.6.3"
+        logging.info("Starting Toggle "+self.version)
         # Parse the config files. 
         config = CascadingConfigParser([
             '/etc/toggle/default.cfg',
@@ -104,32 +107,15 @@ class Toggle:
         config.stage = config.ui.get_object("stage")
         config.stage.connect("destroy", self.stop)
 
+        # Set up splash
+        config.splash = Splash(config)
+        config.splash.set_status("Starting Toggle "+self.version+"...")
+
         # Set up tabs
         config.tabs = CubeTabs(config.ui, 4)
-
-        # Set up temperature graph
+        config.jog = Jog(config)
         config.temp_graph = TemperatureGraph(config)
-       
-
-        # Set up Filament sensor graph
-        filament_graph = Graph(800, 480)        
-        filament = config.ui.get_object("filament")
-        filament.add_child(filament_graph)        
-
-        extruders = ["E", "H", "A", "B", "C"]
-        colors    = ["blue", "red", "orange", "cyan", "white"]
-        config.filament_sensors = {}
-        for i in range(5):
-            ext = extruders[i]
-            color = color_str(colors[i])
-            rgb = (color.red, color.green, color.blue)
-            config.filament_sensors[ext] = GraphPlot(ext, rgb, -160, 160)
-            filament_graph.add_plot(config.filament_sensors[ext])                
-        
-        # Add a scale to the plot
-        scale = GraphScale(-160, 160, [ -150, -100, -50,  0, 50, 100, 150])
-        filament_graph.add_plot(scale)       
-        config.filament_graph = filament_graph
+        config.filament_graph = FilamentGraph(config)
 
         # Add other stuff
         volume_stage = VolumeStage(config)
@@ -137,7 +123,6 @@ class Toggle:
         config.message = Message(config)
         config.loader = ModelLoader(config)
         config.printer = Printer(config)
-        #config.ntty = Ntty(config)
 
         # Set up SockJS client
         host = config.get("Rest", "hostname")

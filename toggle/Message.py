@@ -14,6 +14,7 @@ class Message:
         self.fade.connect("completed", self.remove)
 
     def display(self, text):
+        logging.debug("Message: "+text)
         self.txt.set_text(text)
         #self.txt.set_x(400-self.txt.get_width()/2)
         self.msg.set_opacity(255)

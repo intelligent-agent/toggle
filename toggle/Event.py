@@ -16,13 +16,15 @@ class PushUpdate:
     def execute(self, config):
         self.config = config
         if hasattr(self, self.update_type):
-            #logging.debug("Got PushUpdate "+self.update_type+" "+str(current_thread()))
+            #logging.debug("Got PushUpdate "+self.update_type)
             getattr(self, self.update_type)()
         else:
             print "missing function "+str(self.update_type)
 
     def connected(self):
         self.config.printer.set_status("Connected")
+        self.config.splash.set_status("Connected!")
+        self.config.tabs.btn_next()
         self.config.connected = self.payload
 
     def history(self):
@@ -133,5 +135,15 @@ class Event:
 
     def PrintStarted(self):
         pass
+
+    def PrintCancelled(self):
+        pass
+
+    def PrintFailed(self):
+        pass
+
+    def Home(self):
+        pass
+
 
 

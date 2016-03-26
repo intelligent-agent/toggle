@@ -16,32 +16,19 @@ class Printer:
         # Set up UI
         # Print button
         self.btn_print = self.config.ui.get_object("btn-print")
-        self.btn_print.connect("clicked", self.print_model)
+        #self.btn_print.connect("clicked", self.print_model)
         tap_print = Clutter.TapAction()
         self.btn_print.add_action(tap_print)
         tap_print.connect("tap", self.print_model, None)
 
         self.btn_heat = self.config.ui.get_object("btn-heat")
-        self.btn_heat.connect("clicked", self.preheat)
+        #self.btn_heat.connect("clicked", self.preheat)
         tap_heat = Clutter.TapAction()
         self.btn_heat.add_action(tap_heat)
         tap_heat.connect("tap", self.preheat, None)
 
         self.btn_stat = self.config.ui.get_object("lbl-stat")
         self.btn_temp = self.config.ui.get_object("lbl-temp")
-
-        # Filament sensor
-        self.btn_stat.connect("clicked", self.show_filament_graph)
-        tap_stat = Clutter.TapAction()
-        self.btn_stat.add_action(tap_stat)
-        tap_stat.connect("tap", self.show_filament_graph, None)
-
-        self.config.filament_graph.connect("button-release-event", self.hide_filament_graph)
-
-        tap_filament_off = Clutter.TapAction()
-        self.config.filament_graph.add_action(tap_filament_off)
-        tap_filament_off.connect("tap", self.hide_filament_graph, None)
-
 
         self.bed_temp = 0
         self.t0_temp = 0

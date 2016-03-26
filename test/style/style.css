@@ -33,10 +33,18 @@ MxButton.main:checked{
 MxButton.context:checked{
     color: #0C0;
 }
-MxButton.jog_arrow{
+
+MxButton.jog_left{
     background-image: url("/etc/toggle/style/arrow-left.png");
+
 }
 
+MxButton.jog_right{
+    background-image: url("/etc/toggle/style/arrow-right.png");
+    width: 100; 
+    height: 100;
+    
+}
 
 MxButton.jog_home{
     background-image: url("/etc/toggle/style/home.png");

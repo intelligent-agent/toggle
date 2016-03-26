@@ -154,10 +154,13 @@ class WebSocksClient():
         
         for i in range(10):
             if self.running:
-                logging.debug("Websocket connection attempt "+str(i)+" from "+str(threading.current_thread()))
+                self.config.splash.set_status("Connecting to {} ({})".format(self.host, i))
+                logging.debug("Websocket connection attempt "+str(i))
                 self.connect()
                 self.io_loop.start()
                 time.sleep(1)
+        self.config.splash.set_status("Unable to connect to "+self.host)
+        self.config.splash.enable_next()
 
     def start(self):
         self.running = True

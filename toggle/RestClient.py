@@ -69,3 +69,43 @@ class RestClient:
         r = requests.post(url, data, headers = self._headers)
         print r.json
 
+
+    # Jog the printer
+    def jog(self, amount):
+        url = "http://"+self._host+":"+str(self._port)+"/api/printer/printhead"
+        data = json.dumps({
+            'command':'jog', 
+            'x': amount["x"] if "x" in amount else 0, 
+            'y': amount["y"] if "y" in amount else 0,
+            'z': amount["z"] if "z" in amount else 0
+        }) 
+        r = requests.post(url, data, headers = self._headers)
+
+    # Home selected axes
+    def home(self, axes):
+        url = "http://"+self._host+":"+str(self._port)+"/api/printer/printhead"
+        data = json.dumps({
+            'command':'home', 
+            'axes': axes
+        }) 
+        r = requests.post(url, data, headers = self._headers)
+
+
+    # Extrude
+    def extrude(self, amount):
+        url = "http://"+self._host+":"+str(self._port)+"/api/printer/tool"
+        data = json.dumps({
+            'command':'extrude', 
+            'amount': amount
+        }) 
+        r = requests.post(url, data, headers = self._headers)
+
+    # Select Extruder E/H
+    def select_tool(self, tool):
+        url = "http://"+self._host+":"+str(self._port)+"/api/printer/tool"
+        data = json.dumps({
+            'command':'select', 
+            'tool': tool
+        }) 
+        r = requests.post(url, data, headers = self._headers)
+
