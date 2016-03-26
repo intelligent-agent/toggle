@@ -37,10 +37,10 @@ setup(name='Toggle',
                         'style/ui_800x480.json', 
                         'style/button.png', 
                         'style/button-checked.png', 
-                        'style/arrow-right.png'
-                        'style/home.png'
-                        'style/e.png'
-                        'style/h.png'
+                        'style/arrow-right.png',
+                        'style/home.png',
+                        'style/e.png',
+                        'style/h.png',
                         'style/z.png'
                     ]),
                   ('/etc/toggle', ['configs/default.cfg', 'configs/prusa_i3.cfg', 'configs/kossel_mini.cfg', 'configs/makerbot_cupcake.cfg']),
