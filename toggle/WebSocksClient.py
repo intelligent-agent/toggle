@@ -104,7 +104,8 @@ class WebSocksClient():
         elif data == 'c':
             logging.debug("SockJS: Socket disconnected, reason: "+str(payload))
         elif data == 'h':
-            logging.debug("SockJS: Heartbeat "+str(msg))
+            self.config.printer.flash_heartbeat()
+            #logging.debug("SockJS: Heartbeat "+str(msg))
         elif data in ['a', 'm']:
             if self.config:
                 self.parse_msg(payload)
@@ -136,7 +137,6 @@ class WebSocksClient():
 
     def parse_msg(self, msg):
         try:
-            #logging.debug(msg)
             data = json.loads(msg)[0]
             msg_type, payload = data.popitem()
             p = PushUpdate(msg_type, payload)

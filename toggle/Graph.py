@@ -56,6 +56,7 @@ class GraphPlot():
         return max(self.values)
 
     def draw(self, ctx, width, height):
+        width -= 23
         if len(self.times) == 0:
             return
         if len(self.times) == 1:
@@ -64,7 +65,7 @@ class GraphPlot():
             y_values = [y_values[0],y_values[0]] 
         else:    
             pixel_interval = width/float(len(self.times)-1)
-            x_values = np.arange(len(self.times))*pixel_interval
+            x_values = np.arange(len(self.times))*pixel_interval+23
             y_values = height - (np.array(self.values)-self.scale_min)*( height/self.scale_tot )
 
         ctx.set_line_width(self.line_width)
@@ -93,9 +94,9 @@ class GraphScale():
         ctx.set_line_width(self.line_width)
         ctx.set_source_rgba(*self.color)
         for y in self.y_values:
-            ctx.move_to(0,      height-(y-self.scale_min)*(height/self.scale_tot))
+            ctx.move_to(23,      height-(y-self.scale_min)*(height/self.scale_tot))
             ctx.line_to(width,  height-(y-self.scale_min)*(height/self.scale_tot))
-            ctx.move_to(0,      height-(y-self.scale_min)*(height/self.scale_tot))
+            ctx.move_to(0,      height-(y-self.scale_min)*(height/self.scale_tot)+3)
             ctx.show_text(str(y))
         if self.title:
             ctx.move_to(width/2.0, 20)

@@ -9,6 +9,7 @@ class Model(Toggle.Model):
 
         self.config = config        
         model = config.ui.get_object("model")
+        model.hide()
         self.filename = filename
         path = config.get("System", "model_folder")+"/"+filename
         if not os.path.isfile(path):
@@ -47,3 +48,4 @@ class Model(Toggle.Model):
         vp.add_child(light_spot);
 
         model.set_light_set(self.light_set)
+        model.show()

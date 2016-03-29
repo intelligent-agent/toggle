@@ -4,7 +4,7 @@
 The main entry point for Toggle.
 
 Author: Elias Bakken
-email: elias(dot)bakken(at)gmail(dot)com
+email: elias(at)iagent(dot)no
 Website: http://www.thing-printer.com
 License: GNU GPL v3: http://www.gnu.org/copyleft/gpl.html
 
@@ -19,17 +19,19 @@ License: GNU GPL v3: http://www.gnu.org/copyleft/gpl.html
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with Redeem.  If not, see <http://www.gnu.org/licenses/>.
+ along with Toggle.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import subprocess
 import logging
+import time 
+import Queue
+import sys
+
 from gi.repository import Clutter, Mx, Mash, Toggle, Cogl, GObject, GLib
 from threading import Thread, current_thread
 from multiprocessing import JoinableQueue
-import Queue
 
-import time 
 from Model import Model
 from Plate import Plate 
 from VolumeStage import VolumeStage
@@ -41,7 +43,6 @@ from WebSocksClient import WebSocksClient
 from RestClient import RestClient
 from Event import Event
 from Message import Message
-
 from Graph import Graph, GraphScale, GraphPlot
 from TemperatureGraph import TemperatureGraph
 from FilamentGraph import FilamentGraph
@@ -50,15 +51,11 @@ from Splash import Splash
 from Jog import Jog
 
 
-#from tornado import ioloop
-
-
 # Set up logging
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                     datefmt='%m-%d %H:%M')
 
-import sys
 
 class LoggerWriter:
     def __init__(self, config, logger, level):
@@ -72,15 +69,13 @@ class LoggerWriter:
             if self.screen_log:
                 self.log_to_screen(message)
                 
-
     def log_to_screen(self, message):
-        pass
+        pass #TODO: implement this
         
-
 class Toggle:    
 
     def __init__(self):
-        self.version = "0.6.3"
+        self.version = "0.6.4"
         logging.info("Starting Toggle "+self.version)
         # Parse the config files. 
         config = CascadingConfigParser([
@@ -102,112 +97,79 @@ class Toggle:
         style.load_from_file(config.get("System", "stylesheet"))
 
         config.ui = Clutter.Script()
-        config.ui.load_from_file(config.get("System", "ui"))
+        try: 
+            config.ui.load_from_file(config.get("System", "ui"))
+        except:
+            print "Error loading UI"
 
         config.stage = config.ui.get_object("stage")
         config.stage.connect("destroy", self.stop)
 
-        # Set up splash
-        config.splash = Splash(config)
-        config.splash.set_status("Starting Toggle "+self.version+"...")
-
         # Set up tabs
         config.tabs = CubeTabs(config.ui, 4)
+        config.splash = Splash(config)
+        config.splash.set_status("Starting Toggle "+self.version+"...")
         config.jog = Jog(config)
         config.temp_graph = TemperatureGraph(config)
         config.filament_graph = FilamentGraph(config)
+
+        # Set up SockJS and REST clients
+        host = config.get("Rest", "hostname")
+        config.rest_client = RestClient(config)
 
         # Add other stuff
         volume_stage = VolumeStage(config)
         plate = Plate(config)
         config.message = Message(config)
-        config.loader = ModelLoader(config)
         config.printer = Printer(config)
+        config.loader = ModelLoader(config)
 
-        # Set up SockJS client
-        host = config.get("Rest", "hostname")
         config.socks_client = WebSocksClient(config, host="ws://"+host+":5000")
 
         config.push_updates = JoinableQueue(10)
-        # Set up REST client
-        config.rest_client = RestClient(config)
-        
+
         self.config = config 
 
         self.config.toggle = self
 
         GObject.threads_init()
 
-        #logging.debug("execute  from "+str(current_thread()))    
 
+        # UI events needs to happen from within the 
+        # main thread. This was the only way I found that would do that. 
+        # It looks weirdm, but it works. 
         def execute(event):
             event.execute(self.config)
-        
+            #logging.debug("Execute from "+str(current_thread()))
 
-        def text_thread():
-            while self.running:
-                try:
-                    event = config.push_updates.get(block=True, timeout=1)
-                    GLib.idle_add(execute, event)
-                except Queue.Empty:
-                    continue
-                config.push_updates.task_done()
-
+        self.execute = execute
         config.stage.show()
-
-        self.running = True
-        self.thread = Thread(target=text_thread)
-        self.thread.daemon = True
-        self.thread.start()
-
-        #Cogl.set_backface_culling_enabled (True)
-
-    def filter_events(self):
-        pass
-
 
     def run(self):
         """ Start the program. Can be called from 
         this file or from a start-up script."""               
-        box      = self.config.ui.get_object("box")
-        temp     = self.config.ui.get_object("temp")
-        filament = self.config.ui.get_object("filament")
-        msg      = self.config.ui.get_object("msg")
-        uis = [box, temp, filament, msg]
-        if self.config.getboolean("System", "filter_events"):
-            Clutter.Event.add_filter(self.filter_events)
-
         # Flip and move the stage to the right location
         # This has to be done in the application, since it is a 
         # fbdev app
         if self.config.get("System", "rotation") == "90":
-            for ui in uis:
-                ui.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 90.0)
-                ui.set_position(480, 0)
-            #self.config.graph.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 90.0)
+            self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 90.0)
+            self.config.ui.get_object("all").set_position(480, 0)
         elif self.config.get("System", "rotation") == "270":
-            for ui in uis:
-                ui.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, -90.0)
-                ui.set_position(0, 800)
+            self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, -90.0)
+            self.config.ui.get_object("all").set_position(0, 800)
         elif self.config.get("System", "rotation") == "180":
-            for ui in uis:
-                ui.set_pivot_point(0.5, 0.5)
-                ui.set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 180)
+            self.config.ui.get_object("all").set_pivot_point(0.5, 0.5)
+            self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 180.0)
 
-        """ Start the processes """
+        """ Start the process """
         self.running = True
         # Start the processes
         self.p0 = Thread(target=self.loop,
                     args=(self.config.push_updates, "Push updates"))
         #p0.daemon = True
-        #self.p0.start()
-
-        # Stat the Websocks client
+        self.p0.start()
         self.config.socks_client.start()
-        
-        # Signal everything ready
         logging.info("Toggle ready")
-
         Clutter.main()
 
     def loop(self, queue, name):
@@ -218,27 +180,20 @@ class Toggle:
                     update = queue.get(block=True, timeout=1)
                 except Queue.Empty:
                     continue
-                update.execute(self.config)
+                # Must hand it iver to the main thread. 
+                GLib.idle_add(self.execute, update)
                 queue.task_done()
         except Exception:
             logging.exception("Exception in {} loop: ".format(name))
 
     def stop(self, w):
-        logging.debug("Stop")
+        logging.debug("Stopping Toggle")
         self.running = False
-        self.thread.join()
         self.config.socks_client.stop()
-        #self.running = False
-        #self.p0.join()
-        logging.debug("p0 joined")        
-        #self.config.socks_client.disconnect()
-        logging.debug("Stopping the websocks client")
+        self.p0.join()
         Clutter.main_quit()
-        logging.debug("Quit")
+        logging.debug("Done")
             
-    
-        
-
 def main():
     t = Toggle()
     t.run()

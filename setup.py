@@ -15,7 +15,7 @@ def read(fname):
 #                        'toggle-lib/toggle-box.c'])
 
 setup(name='Toggle',
-      version='0.6.3',
+      version='0.6.4',
       description='Embedded UI for 3D printers',
       author='Elias Bakken',
       author_email='elias@iagent.no',
@@ -41,7 +41,8 @@ setup(name='Toggle',
                         'style/home.png',
                         'style/e.png',
                         'style/h.png',
-                        'style/z.png'
+                        'style/z.png', 
+                        'style/Toggle_splash.png'
                     ]),
                   ('/etc/toggle', ['configs/default.cfg', 'configs/prusa_i3.cfg', 'configs/kossel_mini.cfg', 'configs/makerbot_cupcake.cfg']),
                   ('/lib/systemd/system/', ['systemd/toggle.service', 'systemd/toggle.path']), 

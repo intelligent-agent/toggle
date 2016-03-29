@@ -16,7 +16,7 @@ class PushUpdate:
     def execute(self, config):
         self.config = config
         if hasattr(self, self.update_type):
-            #logging.debug("Got PushUpdate "+self.update_type)
+            #logging.debug("Got PushUpdate "+self.update_type+": "+str(self.payload))
             getattr(self, self.update_type)()
         else:
             print "missing function "+str(self.update_type)
@@ -24,12 +24,20 @@ class PushUpdate:
     def connected(self):
         self.config.printer.set_status("Connected")
         self.config.splash.set_status("Connected!")
-        self.config.tabs.btn_next()
-        self.config.connected = self.payload
+        self.config.tabs.to_side_2()
 
     def history(self):
+        #print self.payload
         for temp in self.payload["temps"]:
             self.config.temp_graph.update_temperatures(temp)
+        self.config.printer.update_printer_state(self.payload["state"])
+        filename =  self.payload["job"]["file"]["name"]
+        if filename: 
+            filename = os.path.splitext(filename)[0]+".stl"
+            self.config.loader.select_model(filename)
+
+                
+        #u'job': {u'estimatedPrintTime': 5230, u'lastPrintTime': None, u'averagePrintTime': None, u'file': {u'origin': u'local', u'date': 1459165392, u'name': u'3DBenchy.gco', u'size': 4290101}, u'filament': {u'tool1': {u'volume': 0.0, u'length': 0}, u'tool0': {u'volume': 10.484209397357832, u'length': 4619}}}, u'currentZ': None, u'progress': {u'completion': 0, u'filepos': None, u'printTime': None, u'printTimeLeft': None}}
 
     def timelapse(self):
         pass
@@ -59,7 +67,6 @@ class PushUpdate:
 
 
     def current(self):
-        self.config.state = self.payload
         self.config.printer.update_printer_state(self.payload["state"])
         for temp in self.payload["temps"]:
             self.config.temp_graph.update_temperatures(temp)
@@ -145,5 +152,7 @@ class Event:
     def Home(self):
         pass
 
+    def RegisteredMessageReceived(self):
+        pass
 
 
