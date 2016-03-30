@@ -1,0 +1,155 @@
+[{
+    "id" : "stage",
+    "type" : "ClutterStage",
+    "width" : 800,
+    "height" : 480,
+    "signals" : [],
+    "layout-manager" : { 
+        "type" : "ClutterGridFixedLayout"
+    },
+    "children" : [{
+        "id": "jogger-xy", 
+        "type": "ClutterActor", 
+        "x": 60, 
+        "y": 60,
+        "width": 300, 
+        "height": 300,
+        "children": [{
+            "id": "jog_x_minus", 
+            "type": "MxButton",
+            "background-color": "white",
+            "style-class": "jog_right", 
+            "height": 70, 
+            "width": 70, 
+            "x": 0, 
+            "y": 125,
+            "rotation-angle-z": 180.0, 
+            "pivot-point": [0.5, 0.5]
+        },{
+            "id": "jog_y_plus", 
+            "type": "MxButton",
+            "background-color": "white",
+            "style-class": "jog_right", 
+            "height": 70, 
+            "width": 70, 
+            "x": 120, 
+            "y": 0,  
+            "rotation-angle-z": 270.0, 
+            "pivot-point": [0.5, 0.5]
+        },{
+            "id": "jog_x_plus", 
+            "type": "MxButton",
+            "background-color": "white",
+            "style-class": "jog_right", 
+            "width": 70,
+            "height": 70,  
+            "x": 240,
+            "y": 125,
+            "rotation-angle-z": 0.0, 
+            "pivot-point": [0.5, 0.5]
+        },{
+            "id": "jog_y_minus", 
+            "type": "MxButton",
+            "background-color": "white",
+            "style-class": "jog_right", 
+            "height": 70, 
+            "width": 70,
+            "x": 120,
+            "y": 245, 
+            "rotation-angle-z": 90.0, 
+            "pivot-point": [0.5, 0.5]
+        },{
+            "id": "jog_home", 
+            "type": "MxButton",
+            "background-color": "white",
+            "style-class": "jog_home", 
+            "height": 100, 
+            "width": 100,
+            "x": 105,
+            "y": 110
+            
+        }]
+    },{
+        "id": "jogger-z", 
+        "type": "ClutterActor", 
+        "x": 350, 
+        "y": 60,
+        "width": 70, 
+        "height": 300,
+        "children": [{
+            "id": "jog_z_plus", 
+            "type": "MxButton",
+            "background-color": "white",
+            "style-class": "jog_right", 
+            "height": 70, 
+            "width": 70, 
+            "x": 120, 
+            "y": 0,  
+            "rotation-angle-z": 270.0, 
+            "pivot-point": [0.5, 0.5]
+        }{
+            "id": "jog_z_home", 
+            "type": "MxButton",
+            "background-color": "white",
+            "style-class": "jog_right", 
+            "height": 70, 
+            "width": 70,
+            "x": 120,
+            "y": 245, 
+            "rotation-angle-z": 90.0, 
+            "pivot-point": [0.5, 0.5]
+        },{
+            "id": "jog_z_minus", 
+            "type": "MxButton",
+            "background-color": "white",
+            "style-class": "jog_home_z", 
+            "height": 100, 
+            "width": 100,
+            "x": 105,
+            "y": 110
+            
+        }]
+    },{
+        "id": "jogger-e", 
+        "type": "ClutterActor", 
+        "x": 520, 
+        "y": 60,
+        "width": 70, 
+        "height": 300,
+        "children": [{
+            "id": "jog_e_extrude", 
+            "type": "MxButton",
+            "background-color": "white",
+            "style-class": "jog_right", 
+            "height": 70, 
+            "width": 70, 
+            "x": 120, 
+            "y": 0,  
+            "rotation-angle-z": 270.0, 
+            "pivot-point": [0.5, 0.5]
+        }{
+            "id": "jog_e_retract", 
+            "type": "MxButton",
+            "background-color": "white",
+            "style-class": "jog_right", 
+            "height": 70, 
+            "width": 70,
+            "x": 120,
+            "y": 245, 
+            "rotation-angle-z": 90.0, 
+            "pivot-point": [0.5, 0.5]
+        },{
+            "id": "jog_e_toggle", 
+            "type": "MxButton",
+            "background-color": "white",
+            "style-class": "jog_home_e",
+            "is_toggle": true,
+            "height": 100, 
+            "width": 100,
+            "x": 105,
+            "y": 110
+            
+        }]
+    }]
+}]
+

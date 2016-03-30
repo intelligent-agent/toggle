@@ -1,27 +1,27 @@
 [{
     "id" : "stage",
     "type" : "ClutterStage",
-    "width" : 800,
-    "height" : 480,
+    "width" : 1280,
+    "height" : 1024,
     "signals" : [],
     "children" : [{
         "id" : "box",
         "type" : "ToggleBox",
-        "width" : 800,
-        "height" : 480,
+        "width" : 1280,
+        "height" : 1024,
         "layout-manager" : { "type" : "ClutterFixedLayout" },
         "children" : [{
             "id": "volume-viewport",     
             "type" : "ClutterActor",
-            "width" : 800,
-            "height" : 420,
-            "y": 60, 
+            "width" : 1280,
+            "height" : 1024,
+            "y": 200, 
             "layout-manager" : { "type" : "ClutterFixedLayout" },
             "children" : [{
                 "id": "spinner",
                 "type" : "ClutterActor",
-                "x": 400, 
-                "y": 300, 
+                "x": 620, 
+                "y": 512, 
                 "z-position": 150,
                 "width": 1, 
                 "height": 1,
@@ -36,9 +36,9 @@
                     "depth": 1,
                     "rotation-angle-x": 180.0,
                     "rotation-angle-y": 180.0,
-                    "scale-x": 1.2, 
-                    "scale-y": 1.2, 
-                    "scale-z": 1.2,
+                    "scale-x": 2.2, 
+                    "scale-y": 2.2, 
+                    "scale-z": 2.2,
                     "children": [
                         {
                             "id": "plate", 
@@ -71,21 +71,8 @@
 	                "label": "Preheat",
                     "style-class": "main",
                     "is_toggle": true, 
-	                "x": 228, 
+	                "x": 400, 
 	                "y": 15	
-                }, 
-                {
-	                "id": "lbl-stat", 
-	                "type": "MxButton", 
-	                "x": 20, 
-	                "y": 430
-                },
-                {
-	                "id": "lbl-temp", 
-	                "type": "MxButton", 
-	                "x": 500, 
-	                "y": 430, 
-                    "x-align": 0
                 }, 
                 {
 	                "id": "btn-print", 
@@ -93,7 +80,7 @@
 	                "label": "Print",
                     "style-class": "main",
                     "is_toggle": true, 
-                    "x": 490, 
+                    "x": 800, 
 	                "y": 15
                 }, 
                 {
@@ -101,56 +88,42 @@
 	                "type": "MxButton", 
 	                "label": ">>",
                     "style-class": "main",
-	                "x": 700, 
+	                "x": 1200, 
 	                "y": 15	
-                }
+                },
+                {
+	                "id": "lbl-stat", 
+	                "type": "MxLabel", 
+	                "x": 20, 
+	                "y": 960
+                },
+                {
+	                "id": "lbl-temp", 
+	                "type": "MxLabel", 
+	                "x": 1000, 
+	                "y": 960	
+                } 
             ]
-        }] 
-    }, 
-    {
-        "id": "temp", 
-        "type" : "ClutterActor",
-        "layout-manager" : { "type" : "ClutterFixedLayout" }, 
-        "visible": false,
-        "children" : [ 
+        },
         {
-            "id": "temp-bg", 
-            "type": "ClutterActor",
-            "background-color": "#333C",
-            "height": 480, 
-            "width": 800
-        }]
-    },{
-        "id": "filament", 
-        "type" : "ClutterActor",
-        "layout-manager" : { "type" : "ClutterFixedLayout" }, 
-        "visible": false,
-        "children" : [ 
-        {
-            "id": "filament-bg", 
-            "type": "ClutterActor",
-            "background-color": "#333C",
-            "height": 480, 
-            "width": 800
-        }]
-    },{
-        "id": "msg", 
-        "type" : "ClutterBox",
-        "width" : 800,
-        "height" : 480,
-        "color": "#000C",
-        "opacity" : 0,
-        "layout-manager" : { 
-            "type" : "ClutterBinLayout", 
-            "x-align": "center", 
-            "y-align": "center"
-        }, 
-        "children" : [ {
-            "id": "txt", 
-            "type": "ClutterText",
-            "font-description": "Sans 36",
-            "color": "#FFF",
-            "height": 100
+            "id": "msg", 
+            "type" : "ClutterBox",
+            "width" : 1280,
+            "height" : 280,
+            "color": "#000",
+            "x": 0, 
+            "y": 300,            
+            "z-position": 300,
+            "opacity" : 0,
+            "layout-manager" : { "type" : "ClutterFixedLayout" }, 
+            "children" : [ {
+                "id": "txt", 
+                "type": "ClutterText",
+                "font-description": "Sans 36",
+                "color": "#FFF",
+                "height": 280, 
+                "y": 115
+            }]
         }]
     }]
 }]

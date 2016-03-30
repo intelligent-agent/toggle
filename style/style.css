@@ -33,5 +33,80 @@ MxButton.main:checked{
 MxButton.context:checked{
     color: #0C0;
 }
+MxButton.jog_arrow{
+    background-image: url("/etc/toggle/style/arrow_128.png");
+}
 
+MxButton.jog_home{
+    background-image: url("/etc/toggle/style/home.png");
+}
+
+MxButton.jog_home_z{
+    background-image: url("/etc/toggle/style/z.png");
+}
+
+MxButton.jog_home_e{
+    background-image: url("/etc/toggle/style/e.png");
+}
+
+MxButton.jog_home_e:checked{
+    background-image: url("/etc/toggle/style/h.png");
+}
+
+MxButton.print{
+    background-image: url("/etc/toggle/style/print_128.png");
+}
+
+MxButton.jog{
+    background-image: url("/etc/toggle/style/jog_128.png");
+}
+
+MxButton.temp{
+    background-image: url("/etc/toggle/style/temperature_128.png");
+}
+
+/* Printer operations */
+MxButton.cancel:checked{
+    background-image: url("/etc/toggle/style/cancel_128.png");
+}
+MxButton.cancel{
+    background-image: url("/etc/toggle/style/cancel_disabled_128.png");
+}
+
+MxButton.play:checked{
+    background-image: url("/etc/toggle/style/play_128.png");
+}
+MxButton.play{
+    background-image: url("/etc/toggle/style/play_disabled_128.png");
+}
+
+MxButton.pause:checked{
+    background-image: url("/etc/toggle/style/pause_128.png");
+}
+MxButton.pause{
+    background-image: url("/etc/toggle/style/pause_disabled_128.png");
+}
+
+
+/* Preheat operations */
+MxButton.heat{
+    background-image: url("/etc/toggle/style/heat_128.png");
+}
+MxButton.heating{
+    background-image: url("/etc/toggle/style/heating_128.png");
+}
+MxButton.heated{
+    background-image: url("/etc/toggle/style/heated_128.png");
+}
+
+/* FLAGS */
+
+/* Connection */
+MxButton.connection{        background-image: url("/etc/toggle/style/disconnected_128.png");                        }
+MxButton.connection:checked{background-image: url("/etc/toggle/style/connected_128.png");   }
+MxButton.printing:checked{  background-image: url("/etc/toggle/style/play_128.png");        }
+MxButton.printing{          background-image: none;                                         }
+MxButton.paused:checked{    background-image: url("/etc/toggle/style/pause_128.png");       }
+MxButton.paused{            background-image: none;                                         }
+MxButton.heartbeat{         background-image: url("/etc/toggle/style/heartbeat_128.png");   }
 

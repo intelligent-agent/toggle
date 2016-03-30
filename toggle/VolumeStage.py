@@ -6,6 +6,7 @@ class VolumeStage(Clutter.Actor):
 
     def __init__(self, config):
         super(VolumeStage, self).__init__()
+        self.config = config
         self.ui = config.ui
         self.p = self.ui.get_object("volume-wrapper")
 
@@ -86,7 +87,8 @@ class VolumeStage(Clutter.Actor):
         (x, y) = event.get_coords()
         event.x = x
         event.y = y
-        logging.debug(str(x)+" "+str(y))
+        #logging.debug(str(x)+" "+str(y))
+        self.config.printer.set_temp(str(x)+" "+str(y))
         if event.type() == Clutter.EventType.TOUCH_UPDATE:
             self.move(actor, event)
         elif event.type() == Clutter.EventType.TOUCH_BEGIN:

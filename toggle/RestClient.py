@@ -21,6 +21,13 @@ class RestClient:
         r = requests.post(url, data, headers = self._headers)
         print r.json
 
+    def pause_job(self):
+        logging.debug("Pausing job")
+        url = "http://"+self._host+":"+str(self._port)+"/api/job"
+        data = json.dumps({'command':'pause'}) 
+        r = requests.post(url, data, headers = self._headers)
+        print r.json
+
     def cancel_job(self):
         logging.debug("Cancelling job")
         url = "http://"+self._host+":"+str(self._port)+"/api/job"
@@ -28,6 +35,14 @@ class RestClient:
         r = requests.post(url, data, headers = self._headers)
         print r.json
     
+    def resume_job(self):
+        logging.debug("Resuming job")
+        url = "http://"+self._host+":"+str(self._port)+"/api/job"
+        data = json.dumps({'command':'pause'}) 
+        r = requests.post(url, data, headers = self._headers)
+        print r.json
+
+
     def start_preheat(self):
         logging.debug("Starting preheat")
         bed_temp = self.config.get("Preheat", "bed_temp")
@@ -43,6 +58,7 @@ class RestClient:
         self.set_tool_temp(0, 0)
         self.set_tool_temp(1, 0)
 
+    #
     def set_bed_temp(self, temp):
         url = "http://"+self._host+":"+str(self._port)+"/api/printer/bed"
         data = json.dumps({
@@ -52,6 +68,7 @@ class RestClient:
         r = requests.post(url, data, headers = self._headers)
         print r.json
         
+    #
     def set_tool_temp(self, tool_nr, temp):
         url = "http://"+self._host+":"+str(self._port)+"/api/printer/tool"
         data = json.dumps({
@@ -63,9 +80,63 @@ class RestClient:
         r = requests.post(url, data, headers = self._headers)
         print r.json
 
+    # Select a model
     def select_file(self, filename):
         url = "http://"+self._host+":"+str(self._port)+"/api/files/local/"+filename
         data = json.dumps({'command':'select'})
         r = requests.post(url, data, headers = self._headers)
         print r.json
+
+
+    # Jog the printer
+    def jog(self, amount):
+        url = "http://"+self._host+":"+str(self._port)+"/api/printer/printhead"
+        data = json.dumps({
+            'command':'jog', 
+            'x': amount["x"] if "x" in amount else 0, 
+            'y': amount["y"] if "y" in amount else 0,
+            'z': amount["z"] if "z" in amount else 0
+        }) 
+        r = requests.post(url, data, headers = self._headers)
+
+    # Home selected axes
+    def home(self, axes):
+        url = "http://"+self._host+":"+str(self._port)+"/api/printer/printhead"
+        data = json.dumps({
+            'command':'home', 
+            'axes': axes
+        }) 
+        r = requests.post(url, data, headers = self._headers)
+
+
+    # Extrude
+    def extrude(self, amount):
+        url = "http://"+self._host+":"+str(self._port)+"/api/printer/tool"
+        data = json.dumps({
+            'command':'extrude', 
+            'amount': amount
+        }) 
+        r = requests.post(url, data, headers = self._headers)
+
+    # Select Extruder E/H
+    def select_tool(self, tool):
+        url = "http://"+self._host+":"+str(self._port)+"/api/printer/tool"
+        data = json.dumps({
+            'command':'select', 
+            'tool': tool
+        }) 
+        r = requests.post(url, data, headers = self._headers)
+
+
+    # Get list of files
+    def get_list_of_files(self):
+        url = "http://"+self._host+":"+str(self._port)+"/api/files"
+        data = json.dumps({})
+        try:
+            r = requests.get(url, data, headers = self._headers)
+        except requests.ConnectionError as e:
+            logging.warning("Connection error")
+            return None
+        return r.json()
+
 

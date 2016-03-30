@@ -11,29 +11,56 @@ class Printer:
 
     def __init__(self, config):
         self.config = config
-        self.pipe = config.message_listener
 
         # Set up UI
-        self.btn_print = self.config.ui.get_object("btn-print")
-        self.btn_print.connect("clicked", self.print_model)
+        # Print button
+        self.btn_print  = self.config.ui.get_object("btn-print")
+        self.btn_pause  = self.config.ui.get_object("btn-pause")
+        self.btn_cancel = self.config.ui.get_object("btn-cancel")
+
         tap_print = Clutter.TapAction()
         self.btn_print.add_action(tap_print)
-        tap_print.connect("tap", self.print_model, None)
+        tap_print.connect("tap", self.start_print, None)
 
+        tap_pause = Clutter.TapAction()
+        self.btn_pause.add_action(tap_pause)
+        tap_pause.connect("tap", self.pause_print, None)
+
+        tap_cancel = Clutter.TapAction()
+        self.btn_cancel.add_action(tap_cancel)
+        tap_cancel.connect("tap", self.cancel_print, None)
+
+
+
+        # Preheat
         self.btn_heat = self.config.ui.get_object("btn-heat")
-        self.btn_heat.connect("clicked", self.preheat)
         tap_heat = Clutter.TapAction()
         self.btn_heat.add_action(tap_heat)
         tap_heat.connect("tap", self.preheat, None)
 
-        self.lbl_status = self.config.ui.get_object("lbl-stat")
+        self.lbl_stat = self.config.ui.get_object("lbl-stat")
+        self.lbl_model = self.config.ui.get_object("lbl-model")
         self.lbl_temp = self.config.ui.get_object("lbl-temp")
 
         self.bed_temp = 0
         self.t0_temp = 0
         self.t1_temp = 0
 
-        self.flags = {"printing": False, "Operational": False}
+        self.heartbeat  = self.config.ui.get_object("heartbeat")
+        self.connection = self.config.ui.get_object("connection")
+        self.printing   = self.config.ui.get_object("printing")
+        self.paused     = self.config.ui.get_object("paused")
+        #self.lbl_temp   = self.config.ui.get_object("lbl-temp")
+
+        self.flags = {
+            "operational":   False, 
+            "paused":        False,
+            "printing":      False,
+            "sdReady":       False,
+            "error":         False, 
+            "ready":         False, 
+            "closedOrError": False
+        }
         self.heating = False
 
     def preheat(self, btn, other=None, stuff=None):
@@ -53,40 +80,120 @@ class Printer:
         else:
             btn.set_label("Preheat")
 
-    def print_model(self, btn_print):
+    def start_print(self, btn_print, action=None, stuff=None):
         """ Slices if necessary and starts the print loop """
-        if self.flags["printing"]:
-            self.config.rest_client.cancel_job()
-        else:
+        if self.flags["paused"]:
+            self.config.rest_client.resume_job()
+        elif not self.flags["printing"]:
             self.config.rest_client.start_job()
+   
+    def pause_print(self, btn_print, action=None, stuff=None):
+        if self.flags["printing"]:
+            self.config.rest_client.pause_job()
+   
+    def cancel_print(self, btn_print, action=None, stuff=None):
+        if self.flags["printing"] or self.flags["paused"]:
+            self.config.rest_client.cancel_job()
 
     def preheat_done(self):
         self.btn_heat.set_label("Heated")
     
     def set_status(self, status):
-        self.lbl_status.set_text(status)
+        self.lbl_stat.set_text (status)
+
+    def set_model(self, model):
+        self.lbl_model.set_text (model)
 
     def set_temp(self, temp):
         self.lbl_temp.set_text(temp)
 
-    def update_temperatures(self, temps):
-        for temp in temps:
-            #logging.debug(temp)
-            if "bed" in temp:
-                self.bed_temp = temp["bed"]["actual"]
-            if "tool0" in temp:
-                self.t0_temp = temp["tool0"]["actual"]
-            if "tool1" in temp:
-                self.t1_temp = temp["tool1"]["actual"]
-        self.set_temp("B:{} T0:{} T1:{}".format(self.bed_temp, self.t0_temp, self.t1_temp))
-
     def set_printing(self, is_printing):
         if is_printing:
-            logging.debug("Print started, todo: diasable controls")
+            self.btn_print.set_toggled(True)  
+            self.btn_print.set_label("Printing")          
+        else:    
+            self.btn_heat.set_toggled(False)            
+            self.btn_print.set_label("Print")          
 
+
+    def set_printing_enabled(self, enabled):
+        if enabled:
+            self.btn_print.set_toggled(True)
+        else:
+            self.btn_print.set_toggled(False)
+            
+    def set_pause_enabled(self, enabled):
+        if enabled:
+            self.btn_pause.set_toggled(True)
+            self.btn_cancel.set_toggled(True)
+        else:
+            self.btn_pause.set_toggled(False)
+            self.btn_cancel.set_toggled(False)
+
+
+
+
+    def update_print_button(self):
+        if (self.flags["operational"] and 
+            self.config.loader.model_selected and
+            (not self.flags["printing"] or 
+            self.flags["paused"])):
+            self.btn_print.set_toggled(True)
+        else:
+            self.btn_print.set_toggled(False)
+
+    def update_pause_button(self):
+        if self.flags["printing"]:
+            self.btn_pause.set_toggled(True)
+        else:
+            self.btn_pause.set_toggled(False)
+
+    def update_cancel_button(self):
+        if self.flags["printing"] or self.flags["paused"]:
+            self.btn_cancel.set_toggled(True)
+        else:
+            self.btn_cancel.set_toggled(False)
+
+
+
+
+
+    # Update the current state of the printer. 
+    # This sets the flags shown in the bottom left corner. 
     def update_printer_state(self, state):
+        #logging.debug(state)
+        #print self.config.loader.model_selected
         self.set_status(state["text"])
         self.flags = state["flags"]
-            
-            
+        self.connection.set_toggled(self.flags["operational"]) 
+        self.printing.set_toggled(self.flags["printing"]) 
+        self.paused.set_toggled(self.flags["paused"]) 
+
+        self.update_print_button()
+        self.update_cancel_button()
+        self.update_pause_button()    
+
+        if self.flags["sdReady"]: 
+            pass
+        if self.flags['error']:
+            pass
+        if self.flags["ready"]:
+            pass
+        if self.flags["closedOrError"]:
+            pass
+
+    def update_temperatures(self, temp):
+        self.set_temp("B:{} T0:{} T1:{}".format(
+            temp["bed"]["actual"], 
+            temp["tool0"]["actual"], 
+            temp["tool1"]["actual"]))
+
+    def start_connect_thread(self):
+        pass
+
+    def flash_heartbeat(self):
+        self.heartbeat.set_opacity(255)
+        self.heartbeat.save_easing_state()
+        self.heartbeat.set_easing_duration (1000)
+        self.heartbeat.set_opacity(0)
 

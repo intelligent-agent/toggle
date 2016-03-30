@@ -9,6 +9,7 @@ class Model(Toggle.Model):
 
         self.config = config        
         model = config.ui.get_object("model")
+        model.hide()
         self.filename = filename
         path = config.get("System", "model_folder")+"/"+filename
         if not os.path.isfile(path):
@@ -27,12 +28,14 @@ class Model(Toggle.Model):
         model.set_x(-width/2.0)
         model.set_z_position(height/2.0)
 
+
         #Set up the light
         self.light_set = Mash.LightSet()
         light_point = Mash.PointLight()
         light_directional = Mash.DirectionalLight()
         light_spot = Mash.SpotLight()
     
+
 
         self.light_set.add_light(light_point)
         self.light_set.add_light(light_directional)
@@ -45,30 +48,4 @@ class Model(Toggle.Model):
         vp.add_child(light_spot);
 
         model.set_light_set(self.light_set)
-
-        #model.set_reactive(True)
-        #model.connect("button-press-event", self.click)
-        #stage = config.stage
-        #stage.connect("motion-event", self.move)
-        #stage.connect("button-release-event", self.release)
-        #self.clicked = False
-        #self.last_x = 0
-        #self.last_y = 0
-
-    #def click(self, actor, event):
-    #    self.last_x = event.x
-    #    self.last_y = event.y
-    #    self.clicked = True
-
-    #def release(self, actor, event):
-    #    self.clicked = False
-
-    #def move(self, actor, event):
-    #    delta_x = event.x-self.last_x
-    #    delta_y = self.last_y-event.y
-    #    self.last_x = event.x
-    #    #self.last_y = event.y
-    #    if self.clicked:
-    #        self.move_by(delta_x, 0)
-    #        self.set_z_position(100+delta_y)
-
+        model.show()
