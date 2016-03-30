@@ -10,6 +10,7 @@ class TemperatureGraph():
 
     def __init__(self, config):
         self.config = config
+
         # Set up temperature graph
         self.graph = Graph(800, 380)        
         self.temp = config.ui.get_object("graph")
@@ -40,18 +41,53 @@ class TemperatureGraph():
         #scale.set_title("Temperature")
         self.graph.add_plot(scale)       
 
+        # Preheat
+        self.btn_heat = self.config.ui.get_object("btn-heat")
+        tap_heat = Clutter.TapAction()
+        self.btn_heat.add_action(tap_heat)
+        tap_heat.connect("tap", self.preheat, None)
+
+        self.lbl_temp = self.config.ui.get_object("lbl-temp")
+
+        self.bed_temp = 0
+        self.t0_temp = 0
+        self.t1_temp = 0
+        self.heating = False
 
     def update_temperatures(self, temp):
-        #logging.debug("Temps: "+str(temp))
         time = temp['time']
         for tool in self.graphs:
-            #logging.debug(tool)
             for source in self.graphs[tool]:
                 t = temp[tool][source]
                 plot = self.graphs[tool][source]
-                #logging.debug("T: "+str(t))
                 plot.add_point(time, t)
    
-        #self.set_temp("B:{} T0:{} T1:{}".format(self.bed_temp, self.t0_temp, self.t1_temp))
         self.graph.refresh()
+
+    def update_temperature_status(self, temp):
+        self.lbl_temp.set_text("B:{} T0:{} T1:{}".format(
+            temp["bed"]["actual"], 
+            temp["tool0"]["actual"], 
+            temp["tool1"]["actual"]))
+
+    def preheat(self, btn, other=None, stuff=None):
+        logging.debug("Preheat pressed")
+        if self.heating:
+            self.btn_heat.set_toggled(False)            
+            self.config.rest_client.stop_preheat()
+            self.heating = False
+        else:    
+            self.btn_heat.set_toggled(True)            
+            self.config.rest_client.start_preheat()
+            self.heating = True
+
+    def update_preheat(self):
+        if self.btn_heat.get_toggled():
+            btn.set_label("Heating")
+        else:
+            btn.set_label("Preheat")
+
+    def preheat_done(self):
+        self.btn_heat.set_label("Heated")
+
 

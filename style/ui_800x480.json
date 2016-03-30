@@ -141,43 +141,58 @@
                 "visible": false,
                 "background-color": "white",
                 "children": [{
-                    "id": "volume-viewport",     
-                    "type" : "ClutterActor",
-                    "width" : 800,
-                    "height" : 480,
-                    "layout-manager" : { "type" : "ClutterFixedLayout" },
-                    "children" : [{
-                        "id": "spinner",
+                    "id": "side2-content",
+                    "type": "ClutterActor",
+                    "children": [{
+                        "id": "volume-viewport",     
                         "type" : "ClutterActor",
-                        "x": 400, 
-                        "y": 360, 
-                        "z-position": 150,
-                        "width": 1, 
-                        "height": 1,
-                        "depth": 1,
-                        "children": [{
-                            "id": "volume-wrapper", 
-                            "type": "ClutterActor", 
-                            "pivot-point": [0.5, 0.5],
-                            "pivot-point-z": 0.5,
+                        "width" : 600,
+                        "height" : 400,
+                        "x": 100,
+                        "pivot-point": [0.5, 0.5],
+                        "layout-manager" : { "type" : "ClutterFixedLayout" },
+                        "children" : [{
+                            "id": "spinner",
+                            "type" : "ToggleBox",
+                            "x": 300, 
+                            "y": 360, 
+                            "z-position": 150,
                             "width": 1, 
                             "height": 1,
                             "depth": 1,
-                            "rotation-angle-x": 180.0,
-                            "rotation-angle-y": 180.0,
-                            "scale-x": 1.2, 
-                            "scale-y": 1.2, 
-                            "scale-z": 1.2,
                             "children": [{
-                                "id": "plate", 
-                                "type" : "ToggleModel",
-                                "rotation-angle-x": -90.0
-                            },{
-                                "id": "model", 
-                                "type" : "ToggleModel", 
-                                "rotation-angle-x": -90.0
-                            }]    
-                        }] 
+                                "id": "volume-wrapper", 
+                                "type": "ClutterActor", 
+                                "pivot-point": [0.5, 0.5],
+                                "pivot-point-z": 0.5,
+                                "width": 1, 
+                                "height": 1,
+                                "depth": 1,
+                                "rotation-angle-x": 180.0,
+                                "rotation-angle-y": 180.0,
+                                "scale-x": 1.2, 
+                                "scale-y": 1.2, 
+                                "scale-z": 1.2,
+                                "children": [{
+                                    "id": "plate", 
+                                    "type" : "ToggleModel",
+                                    "rotation-angle-x": -90.0
+                                },{
+                                    "id": "model", 
+                                    "type" : "ToggleModel", 
+                                    "rotation-angle-x": -90.0
+                                }]    
+                            }] 
+                        },{
+                            "id": "loader",     
+                            "type": "ClutterTexture",
+                            "width": 64, 
+                            "height": 64,
+                            "x": 268,
+                            "y": 200, 
+                            "pivot-point": [0.5, 0.5], 
+                            "visible": false
+                        }]    
                     },{
                         "id": "btn-bar", 
                         "type": "ClutterActor", 
@@ -208,6 +223,15 @@
                             "x-expand": true,
                             "line-alignment": 2,
                             "font-description": "Sans 16"
+                        },{
+                            "id": "progress-bar", 
+                            "type": "MxProgressBar", 
+                            "x": 560, 
+                            "y": 410,
+                            "width": 220, 
+                            "height": 25, 
+                            "x-align": 3,
+                            "x-expand": true
                         },{
                             "id": "btn-cancel", 
                             "type": "MxButton", 
@@ -284,7 +308,7 @@
                         "id": "jogger-xy", 
                         "type": "ClutterActor", 
                         "x": 60, 
-                        "y": 60,
+                        "y": 80,
                         "width": 300, 
                         "height": 300,
                         "children": [{
@@ -341,7 +365,7 @@
                         "id": "jogger-z", 
                         "type": "ClutterActor", 
                         "x": 350, 
-                        "y": 60,
+                        "y": 80,
                         "width": 70, 
                         "height": 300,
                         "children": [{
@@ -377,7 +401,7 @@
                         "id": "jogger-e", 
                         "type": "ClutterActor", 
                         "x": 520, 
-                        "y": 60,
+                        "y": 80,
                         "width": 70, 
                         "height": 300,
                         "children": [{

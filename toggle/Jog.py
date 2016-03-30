@@ -56,8 +56,7 @@ class Jog:
         self.config.rest_client.jog({"z": -self.jog_amount})
 
     def jog_z_home(self, btn, etc=None, other=None):
-        print "jog Z home"
-        self.config.rest_client.home(["z"]) 
+       self.config.rest_client.home(["z"]) 
 
     def jog_e_extrude(self, btn, etc=None, other=None):
         self.config.rest_client.extrude(self.extrude_amount)
@@ -67,9 +66,9 @@ class Jog:
 
     def jog_e_toggle(self, tap, btn=None, other=None):
         if btn.get_toggled():
-            self.config.rest_client.select_tool("tool1")
-        else:
             self.config.rest_client.select_tool("tool0")
+        else:
+            self.config.rest_client.select_tool("tool1")
 
 
 

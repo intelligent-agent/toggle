@@ -120,6 +120,7 @@ class RestClient:
 
     # Select Extruder E/H
     def select_tool(self, tool):
+        print "selecting "+tool
         url = "http://"+self._host+":"+str(self._port)+"/api/printer/tool"
         data = json.dumps({
             'command':'select', 
