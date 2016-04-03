@@ -10,31 +10,6 @@ MxButton, MxButton:checked{
   border-image: none;
 }
 
-
-MxButton.toggle{
-    border-image: url("/etc/toggle/style/button.png") 11 5 13 5;
-    padding: 10 13 10 13;    
-    font-size: 24px;
-}
-
-MxButton.toggle:checked{
-    border-image: url("/etc/toggle/style/button-checked.png") 11 5 13 5;
-}
-
-MxButton.main{
-    border-image: url("/etc/toggle/style/button.png") 11 5 13 5;
-    font-size: 24px;
-}
-
-MxButton.main:checked{
-    border-image: url("/etc/toggle/style/button-checked.png") 11 5 13 5;
-    font-size: 24px;
-    color: #0C0;
-}
-
-MxButton.context:checked{
-    color: #0C0;
-}
 MxButton.jog_arrow{
     background-image: url("/etc/toggle/style/arrow_128.png");
     border-image: none;
