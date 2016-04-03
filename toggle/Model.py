@@ -41,6 +41,14 @@ class Model(Toggle.Model):
         vp.add_child(light_spot);
 
         self.model.connect("show", self.model_loaded)
+        cm = Cogl.Matrix()
+        m = Clutter.matrix_init_from_array(cm, [
+             1, 0, 0, 0,   
+             0, 1, 0, 0,
+             0, 0, 1, 0, 
+             0, 0, 0, 1])
+        mf = config.ui.get_object("model-flipper")
+        mf.set_transform(m)
 
         self.model.set_light_set(self.light_set)
 

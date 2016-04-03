@@ -88,6 +88,27 @@ MxButton.heated{
     border-image: none;
 }
 
+/* Jog travel*/
+MxButton.travel_01{
+    background-image: url("/etc/toggle/style/travel_0.1_128.png");
+    border-image: none;
+}
+
+MxButton.travel_1{
+    background-image: url("/etc/toggle/style/travel_1_128.png");
+    border-image: none;
+}
+
+MxButton.travel_10{
+    background-image: url("/etc/toggle/style/travel_10_128.png");
+    border-image: none;
+}
+
+MxButton.travel_100{
+    background-image: url("/etc/toggle/style/travel_100_128.png");
+    border-image: none;
+}
+
 /* FLAGS */
 
 /* Connection */

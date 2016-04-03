@@ -15,7 +15,7 @@
    id="svg15349"
    version="1.1"
    inkscape:version="0.91 r13725"
-   inkscape:export-filename="/home/elias/workspace/toggle/style/icons/heat_128.png"
+   inkscape:export-filename="/home/elias/workspace/toggle/style/icons/heated_128.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90"
    sodipodi:docname="heated.svg">
@@ -29,7 +29,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="4"
-     inkscape:cx="28.778269"
+     inkscape:cx="-13.221731"
      inkscape:cy="75.456923"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
