@@ -69,8 +69,8 @@ class VolumeStage(Clutter.Actor):
             self.start_x -= x
             self.start_y += y
         elif self.rotation == 270: 
-            self.start_x += y
-            self.start_y += x
+            self.start_x -= y
+            self.start_y -= x
         self.spinner.set_rotation_angle(Clutter.RotateAxis.X_AXIS, self.start_y)
         self.p.set_rotation_angle(Clutter.RotateAxis.Y_AXIS, self.start_x)
         return False
