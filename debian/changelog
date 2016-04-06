@@ -1,3 +1,12 @@
+toggle (1.0.0-1) UNRELEASED; urgency=medium
+
+  [ Elias ]
+  * Temperature screen and jog screen
+  * Start, pause stop
+  * Websockets for connecting to OctoPrint
+
+ -- Elias Bakken <elias@iagent.no>  Wed, 06 Apr 2016 17:29:43 -0500
+
 toggle (0.5.0-1) UNRELEASED; urgency=medium
 
   [ Elias ]
