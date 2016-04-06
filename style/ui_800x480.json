@@ -460,7 +460,7 @@
                     },{
                         "id": "travel-length", 
                         "type": "ClutterText", 
-                        "text": "Travel length: 10 mm",
+                        "text": "",
                         "x": 480, 
                         "y": 440,
                         "width": 300, 
@@ -470,7 +470,7 @@
                         "line-alignment": 2,
                         "font-description": "Sans 16"
                     },{
-                        "id": "travel-xy", 
+                        "id": "travel_xy", 
                         "type": "MxButton", 
                         "style-class": "travel_10",
                         "is_toggle": true, 
@@ -479,7 +479,7 @@
                         "width": 64, 
                         "height": 64
                     },{
-                        "id": "travel-z", 
+                        "id": "travel_z", 
                         "type": "MxButton", 
                         "style-class": "travel_10",
                         "is_toggle": true, 
@@ -488,7 +488,7 @@
                         "width": 64, 
                         "height": 64
                     },{
-                        "id": "travel-eh", 
+                        "id": "travel_eh", 
                         "type": "MxButton", 
                         "style-class": "travel_10",
                         "is_toggle": true, 
