@@ -66,7 +66,7 @@ class RestClient:
             'target': int(float(temp))
         }) 
         r = requests.post(url, data, headers = self._headers)
-        print r.json
+        #print r.json
         
     #
     def set_tool_temp(self, tool_nr, temp):
@@ -78,14 +78,14 @@ class RestClient:
             }
         }) 
         r = requests.post(url, data, headers = self._headers)
-        print r.json
+        #print r.json
 
     # Select a model
     def select_file(self, filename):
         url = "http://"+self._host+":"+str(self._port)+"/api/files/local/"+filename
         data = json.dumps({'command':'select'})
         r = requests.post(url, data, headers = self._headers)
-        print r.json
+        #print r.json
 
 
     # Jog the printer
@@ -138,6 +138,9 @@ class RestClient:
         except requests.ConnectionError as e:
             logging.warning("Connection error")
             return None
-        return r.json()
-
+        if r.status_code in [200, 204]:
+            return r.json()
+        
+        logging.warning("Unable to contact OctoPrint by REST. Check your API key (currently '"+self._api_key+"'")
+        return None 
 

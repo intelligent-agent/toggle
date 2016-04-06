@@ -8,7 +8,7 @@ X-Python-Version: 2.7
 
 Package: toggle
 Architecture: armhf
-Depends: python, libtoggle1
+Depends: python, libtoggle1, python-cairo, python-gi-cairo
 Description: Toggle software package is a graphical front end for use with Replicape.
 
 Package: libtoggle1

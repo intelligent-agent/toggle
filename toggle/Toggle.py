@@ -35,7 +35,6 @@ from multiprocessing import JoinableQueue
 from Model import Model
 from Plate import Plate 
 from VolumeStage import VolumeStage
-from MessageListener import MessageListener
 from ModelLoader import ModelLoader
 from Printer import Printer
 from CascadingConfigParser import CascadingConfigParser
