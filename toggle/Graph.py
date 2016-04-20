@@ -38,10 +38,9 @@ class GraphPlot():
             self.times.pop(0)
             self.values.pop(0)
 
-        logging.debug("add_point: "+str(time)+" "+str(value))
+        #logging.debug("add_point: "+str(time)+" "+str(value))
 
     def draw(self, ctx, width, height):
-        logging.debug("draw")
         width -= 23
         if len(self.times) == 0:
             return

@@ -41,13 +41,10 @@ class FilamentGraph():
         self.graph.add_plot(scale)       
 
     def update_filaments(self, message):
-        logging.debug("Filaments: "+str(message))
         time = int(message['time'])
         msg = message['message']
         [tool_name, tool_value] = msg.split(":")
         if tool_name in self.graphs: 
-            logging.debug(tool_name)
-            logging.debug(tool_value)
             plot = self.graphs[tool_name]["actual"]
             plot.add_point(time, float(tool_value))
         else:
