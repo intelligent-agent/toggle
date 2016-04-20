@@ -99,10 +99,7 @@ class TemperatureGraph():
             temp["tool1"]["actual"]))
 
         # Update preheat button states
-        self.update_states()
-        for tool in self.temps: 
-            pass
-        
+        self.update_states()        
 
     # Retrieve the current state of the heating
     # elements

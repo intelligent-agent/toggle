@@ -38,24 +38,10 @@ class GraphPlot():
             self.times.pop(0)
             self.values.pop(0)
 
-        #logging.debug("add_point: "+str(time)+" "+str(value))
-
-    def get_start_time(self):
-        if len(self.times) == 0:
-            return 0
-        return self.times[0]
-
-    def get_end_time(self):
-        if len(self.times) == 0:
-            return 0
-        return self.times[-1]        
-
-    def get_y_max(self):
-        if max(self.values) == 0:
-            return 1
-        return max(self.values)
+        logging.debug("add_point: "+str(time)+" "+str(value))
 
     def draw(self, ctx, width, height):
+        logging.debug("draw")
         width -= 23
         if len(self.times) == 0:
             return

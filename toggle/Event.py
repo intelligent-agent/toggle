@@ -78,16 +78,18 @@ class PushUpdate:
         plugin_data = self.payload["data"]["data"]
         plugin_name = self.payload["plugin"]
         if plugin_type == "filament_sensor":
+            self.config.filament_graph.update_filaments(plugin_data)
+
             #logging.debug("filament sensor data")
-            message = plugin_data["message"]
-            time    = int(plugin_data["time"])
-            [filament_name, filament_value] = message.split(":")
-            if filament_name in self.config.filament_sensors:
-                sensor = self.config.filament_sensors[filament_name]
-                sensor.add_point(time, float(filament_value)) 
-                self.config.filament_graph.refresh()
-            else:
-                logging.info("Unknown extruder: "+str(filament_name))
+            #message = plugin_data["message"]
+            #time    = int(plugin_data["time"])
+            #[filament_name, filament_value] = message.split(":")
+            #if filament_name in self.config.filament_graph.filament_sensors:
+            #    sensor = self.config.filament_sensors[filament_name]
+            #    sensor.add_point(time, float(filament_value)) 
+            #    self.config.filament_graph.refresh()
+            #else:
+            #    logging.info("Unknown extruder: "+str(filament_name))
         elif plugin_type == "alarm_filament_jam":
             self.config.message.display("Alarm: Filament Jam!") 
         elif plugin_type == "display_message":
