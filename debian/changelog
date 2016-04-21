@@ -1,3 +1,10 @@
+toggle (1.0.1-1) UNRELEASED; urgency=medium
+
+  [ Elias ]
+  * Compatible with requests 2.3.0
+
+ -- Elias Bakken <elias@iagent.no>  Wed, 21 Apr 2016 17:29:43 -0500
+
 toggle (1.0.0-1) UNRELEASED; urgency=medium
 
   [ Elias ]

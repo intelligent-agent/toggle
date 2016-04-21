@@ -74,7 +74,7 @@ class LoggerWriter:
 class Toggle:    
 
     def __init__(self):
-        self.version = "1.0.0"
+        self.version = "1.0.1"
         logging.info("Starting Toggle "+self.version)
         # Parse the config files. 
         config = CascadingConfigParser([
