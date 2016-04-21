@@ -1,5 +1,7 @@
+from __future__ import print_function  
 from gi.repository import Clutter, Mx, Cogl
 import sys
+
 
 class CubeTabs():
 
@@ -18,7 +20,12 @@ class CubeTabs():
             btn_prev = self.ui.get_object("side"+str(i)+"-btn-prev")
             tap_prev = Clutter.TapAction()
             btn_prev.add_action(tap_prev)
-            tap_prev.connect("tap", self.btn_prev)       
+            tap_prev.connect("tap", self.btn_prev)     
+
+            #tap_prev.connect("gesture-begin", self.gesture_begin)
+            #tap_prev.connect("gesture-cancel", self.gesture_cancel)  
+            #tap_prev.connect("gesture-progress", self.gesture_progress)  
+            #tap_prev.connect("gesture-end", self.gesture_end)  
 
             btn_next = self.ui.get_object("side"+str(i)+"-btn-next")
             tap_next = Clutter.TapAction()
@@ -49,6 +56,23 @@ class CubeTabs():
         self.t2.set_duration(self.duration)
         self.t2.set_animatable(self.box)
         self.t2.set_progress_mode(Clutter.AnimationMode.EASE_IN_OUT_CUBIC)
+
+    def gesture_begin(self, btn=None, other=None):
+        print("begin")
+        return True
+
+    def gesture_cancel(self, btn=None, other=None):
+        print("cancel")
+        return True
+
+    def gesture_progress(self, btn=None, other=None):
+        print("prgress")
+        return True
+
+    def gesture_end(self, btn=None, other=None):
+        print("end")
+        return True
+        
 
     def btn_prev(self, btn=None, other=None):
         if self.tg.is_playing():

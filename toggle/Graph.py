@@ -84,7 +84,7 @@ class GraphScale():
             ctx.move_to(0,      height-(y-self.scale_min)*(height/self.scale_tot)+3)
             ctx.show_text(str(y))
         if self.title:
-            ctx.move_to(width/2.0, 20)
+            ctx.move_to(width/2.0-20, 10)
             ctx.show_text(str(self.title))   
         
 

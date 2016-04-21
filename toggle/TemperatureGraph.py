@@ -15,6 +15,12 @@ class TemperatureGraph():
         self.graph = Graph(800, 380)        
         self.temp = config.ui.get_object("graph")
         self.temp.add_child(self.graph)
+        self.temp.set_reactive(True)
+
+        tap = Clutter.TapAction()
+        self.temp.add_action(tap)
+        tap.connect("tap", self.change_to_filament)     
+
 
         self.temps = {
             "tool0":{
@@ -69,7 +75,7 @@ class TemperatureGraph():
 
         # Add a scale to the plot
         scale = GraphScale(0, 320, [ 0, 50, 100, 150, 200, 250, 300])
-        #scale.set_title("Temperature")
+        scale.set_title("Temperature")
         self.graph.add_plot(scale)
 
         # set up temp label
@@ -153,5 +159,10 @@ class TemperatureGraph():
             self.temps["bed"]["btn"].set_style_class("heating")
             self.temps["bed"]["heating"] = True
 
+    def change_to_filament(self, button, action):
+        print "Graph tapped"
+        self.graph.hide()
+        self.config.filament_graph.graph.show()
+        #self.config.filament_graph.graph.refresh()
 
 

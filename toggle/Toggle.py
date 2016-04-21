@@ -103,6 +103,7 @@ class Toggle:
 
         config.stage = config.ui.get_object("stage")
         config.stage.connect("destroy", self.stop)
+        config.stage.connect('key-press-event', self.key_press)        
 
         # Set up tabs
         config.tabs = CubeTabs(config.ui, 4)
@@ -192,6 +193,16 @@ class Toggle:
         self.p0.join()
         Clutter.main_quit()
         logging.debug("Done")
+
+    def key_press(self, actor, event):
+        if event.unicode_value == "f":
+            if self.config.stage.get_fullscreen(): 
+                self.config.stage.set_fullscreen(False)
+            else:
+                self.config.stage.set_fullscreen(True)
+        elif event.unicode_value == "q":
+            self.stop(None)
+
             
 def main():
     t = Toggle()

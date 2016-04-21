@@ -19,15 +19,20 @@ class FilamentGraph():
         self.filament.add_child(self.graph)   
         self.graph.hide()
         
+        tap = Clutter.TapAction()
+        self.graph.add_action(tap)
+        tap.connect("tap", self.change_to_temperature)
+        self.graph.set_reactive(True)
+
         self.graphs = {
             "E":{
-                "actual": GraphPlot("E", (1, 0, 0), -160, 160)
+                "actual": GraphPlot("E", (1, 0, 0), -165, 165)
             }, 
             "H":{
-                "actual": GraphPlot("H", (1, 0.64, 0), -160, 160)
+                "actual": GraphPlot("H", (1, 0.64, 0), -165, 165)
             },
             "A"  :{
-                "actual": GraphPlot("A", (0, 0, 1), -160, 160)
+                "actual": GraphPlot("A", (0, 0, 1), -165, 165)
             }
         }
 
@@ -37,7 +42,8 @@ class FilamentGraph():
                 self.graph.add_plot(self.graphs[tool][source])
 
         # Add a scale to the plot
-        scale = GraphScale(-160, 160, [ -150, -100, -50,  0, 50, 100, 150])
+        scale = GraphScale(-165, 165, [ -150, -100, -50,  0, 50, 100, 150])
+        scale.set_title("Filament")
         self.graph.add_plot(scale)       
 
     def update_filaments(self, message):
@@ -50,4 +56,10 @@ class FilamentGraph():
         else:
             logging.warning("Missing extruder name: "+str(tool_name))
         self.graph.refresh()
+
+
+    def change_to_temperature(self, button, action):
+        print "Tap filament"
+        self.graph.hide()
+        self.config.temp_graph.graph.show()
 
