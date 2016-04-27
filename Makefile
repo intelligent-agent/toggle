@@ -14,10 +14,15 @@ all:
 	@echo "make builddeb - Generate a deb package"
 	@echo "make clean - Get rid of scratch and byte files"
 
-libtoggle:
+libtoggle-deb:
 	$(MAKE) -f debian/rules configure
 	$(MAKE) -f debian/rules build
 	$(MAKE) -f debian/rules install
+
+libtoggle:
+	cd toggle-lib && ./autogen.sh --prefix=/usr --enable-introspection --libdir=/usr/lib/arm-linux-gnueabihf
+	cd toggle-lib && make
+	cd toggle-lib && make install
 
 source:
 	$(PYTHON) setup.py sdist $(COMPILE)
