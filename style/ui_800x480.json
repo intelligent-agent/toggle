@@ -400,7 +400,7 @@
                             "y": 0,  
                             "rotation-angle-z": 270.0, 
                             "pivot-point": [0.5, 0.5]
-                        }{
+                        },{
                             "id": "jog_z_minus", 
                             "type": "MxButton",
                             "style-class": "jog_arrow", 
@@ -436,7 +436,7 @@
                             "y": 0,  
                             "rotation-angle-z": 270.0, 
                             "pivot-point": [0.5, 0.5]
-                        }{
+                        },{
                             "id": "jog_e_retract", 
                             "type": "MxButton",
                             "style-class": "jog_arrow", 
@@ -567,6 +567,18 @@
                 "font-description": "Sans 36",
                 "color": "#FFF",
                 "height": 100
+            }]
+        },{
+            "id": "cursor", 
+            "type" : "ClutterActor",
+            "width" : 24,
+            "height" : 24,
+            "children" : [{
+                "id": "pointer", 
+                "type": "MxButton",
+                "height": 24, 
+                "width": 24,
+                "style-class": "mouse"
             }]
         }]
     }]
