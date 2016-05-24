@@ -93,7 +93,7 @@ class VolumeStage(Clutter.Actor):
         self.spinner.set_scale_z(self.scale)
         return False
 
-    def scroll(self, actor, event):       
+    def scroll(self, actor, event):
         if event.direction == Clutter.ScrollDirection.DOWN:
             self.scale -= 0.1
         elif event.direction == Clutter.ScrollDirection.UP:

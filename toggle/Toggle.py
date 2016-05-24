@@ -27,6 +27,7 @@ import logging
 import time 
 import Queue
 import sys
+import os
 
 from gi.repository import Clutter, Mx, Mash, Toggle, Cogl, GObject, GLib
 from threading import Thread, current_thread
@@ -76,6 +77,13 @@ class Toggle:
     def __init__(self):
         self.version = "1.0.1"
         logging.info("Starting Toggle "+self.version)
+
+        file_path = os.path.join("/etc/toggle","local.cfg")
+        if not os.path.exists(file_path):
+            logging.info(file_path + " does not exist, Creating one")
+            os.mknod(file_path)
+            os.chmod(file_path, 0o777)
+
         # Parse the config files. 
         config = CascadingConfigParser([
             '/etc/toggle/default.cfg',

@@ -122,7 +122,6 @@ class TemperatureGraph():
                     self.temps[tool]["btn"].set_style_class("heating")
                 else:
                     self.temps[tool]["state"] = "cooling"
-                    print tool + ": Style cooling"
             else:
                 self.temps[tool]["btn"].set_style_class("heat")
             
