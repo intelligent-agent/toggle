@@ -22,11 +22,12 @@ License: GNU GPL v3: http://www.gnu.org/copyleft/gpl.html
  along with Toggle.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import subprocess
+#import subprocess
 import logging
 import time 
 import Queue
 import sys
+import os
 
 from gi.repository import Clutter, Mx, Mash, Toggle, Cogl, GObject, GLib
 from threading import Thread, current_thread
@@ -35,13 +36,12 @@ from multiprocessing import JoinableQueue
 from Model import Model
 from Plate import Plate 
 from VolumeStage import VolumeStage
-from MessageListener import MessageListener
 from ModelLoader import ModelLoader
 from Printer import Printer
 from CascadingConfigParser import CascadingConfigParser
 from WebSocksClient import WebSocksClient
 from RestClient import RestClient
-from Event import Event
+from Event import Event, PushUpdate, LocalUpdate
 from Message import Message
 from Graph import Graph, GraphScale, GraphPlot
 from TemperatureGraph import TemperatureGraph
@@ -75,8 +75,15 @@ class LoggerWriter:
 class Toggle:    
 
     def __init__(self):
-        self.version = "0.6.4"
+        self.version = "1.0.1"
         logging.info("Starting Toggle "+self.version)
+
+        file_path = os.path.join("/etc/toggle","local.cfg")
+        if not os.path.exists(file_path):
+            logging.info(file_path + " does not exist, Creating one")
+            os.mknod(file_path)
+            os.chmod(file_path, 0o777)
+
         # Parse the config files. 
         config = CascadingConfigParser([
             '/etc/toggle/default.cfg',
@@ -104,6 +111,7 @@ class Toggle:
 
         config.stage = config.ui.get_object("stage")
         config.stage.connect("destroy", self.stop)
+        config.stage.connect('key-press-event', self.key_press)        
 
         # Set up tabs
         config.tabs = CubeTabs(config.ui, 4)
@@ -118,31 +126,16 @@ class Toggle:
         config.rest_client = RestClient(config)
 
         # Add other stuff
-        volume_stage = VolumeStage(config)
-        plate = Plate(config)
-        config.message = Message(config)
-        config.printer = Printer(config)
-        config.loader = ModelLoader(config)
+        config.volume_stage = VolumeStage(config)
+        config.message      = Message(config)
+        config.printer      = Printer(config)
+        config.loader       = ModelLoader(config)
+        config.plate        = Plate(config)
 
         config.socks_client = WebSocksClient(config, host="ws://"+host+":5000")
 
         config.push_updates = JoinableQueue(10)
-
         self.config = config 
-
-        self.config.toggle = self
-
-        GObject.threads_init()
-
-
-        # UI events needs to happen from within the 
-        # main thread. This was the only way I found that would do that. 
-        # It looks weirdm, but it works. 
-        def execute(event):
-            event.execute(self.config)
-            #logging.debug("Execute from "+str(current_thread()))
-
-        self.execute = execute
         config.stage.show()
 
     def run(self):
@@ -166,11 +159,21 @@ class Toggle:
         # Start the processes
         self.p0 = Thread(target=self.loop,
                     args=(self.config.push_updates, "Push updates"))
-        #p0.daemon = True
         self.p0.start()
+        #self.p1 = Thread(target=self.loop,
+        #            args=(self.config.local_updates, "Local updates"))
+        #self.p1.start()
+
         self.config.socks_client.start()
         logging.info("Toggle ready")
         Clutter.main()
+
+    # UI events needs to happen from within the 
+    # main thread. This was the only way I found that would do that. 
+    # It looks weirdm, but it works. 
+    def execute(self, event):
+        event.execute(self.config)
+        #logging.debug("Execute from "+str(current_thread()))
 
     def loop(self, queue, name):
         """ When a new event comes in, execute it """
@@ -180,11 +183,16 @@ class Toggle:
                     update = queue.get(block=True, timeout=1)
                 except Queue.Empty:
                     continue
-                # Must hand it iver to the main thread. 
-                GLib.idle_add(self.execute, update)
+                # Execute any long running operations here, 
+                # to keep the main thread free for animations
+                if update.has_thread_execution:
+                    update.execute_in_thread(self.config)
+                # All UI updates must be handled by the main thread.
+                Clutter.threads_add_idle(0, self.execute, update)
                 queue.task_done()
         except Exception:
             logging.exception("Exception in {} loop: ".format(name))
+
 
     def stop(self, w):
         logging.debug("Stopping Toggle")
@@ -193,6 +201,16 @@ class Toggle:
         self.p0.join()
         Clutter.main_quit()
         logging.debug("Done")
+
+    def key_press(self, actor, event):
+        if event.unicode_value == "f":
+            if self.config.stage.get_fullscreen(): 
+                self.config.stage.set_fullscreen(False)
+            else:
+                self.config.stage.set_fullscreen(True)
+        elif event.unicode_value == "q":
+            self.stop(None)
+
             
 def main():
     t = Toggle()

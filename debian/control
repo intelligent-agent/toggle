@@ -2,13 +2,13 @@ Source: toggle
 Maintainer: Elias Bakken <elias@iagent.no>
 Section: misc
 Priority: optional
-Standards-Version: 0.5.0
-Build-Depends: build-essential, debhelper (>= 9), python, dh-python, python-dev, libclutter-1.0-dev
+Standards-Version: 1.0.1
+Build-Depends: build-essential, debhelper (>= 9), python, dh-python, python-dev, libclutter-1.0-dev, python-cairo, python-gi-cairo
 X-Python-Version: 2.7
 
 Package: toggle
 Architecture: armhf
-Depends: python, libtoggle1
+Depends: python, libtoggle1, python-cairo, python-gi-cairo
 Description: Toggle software package is a graphical front end for use with Replicape.
 
 Package: libtoggle1

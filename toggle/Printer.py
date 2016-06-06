@@ -30,21 +30,10 @@ class Printer:
         self.btn_cancel.add_action(tap_cancel)
         tap_cancel.connect("tap", self.cancel_print, None)
 
-
-
-        # Preheat
-        self.btn_heat = self.config.ui.get_object("btn-heat")
-        tap_heat = Clutter.TapAction()
-        self.btn_heat.add_action(tap_heat)
-        tap_heat.connect("tap", self.preheat, None)
+        self.progress = self.config.ui.get_object("progress-bar")
 
         self.lbl_stat = self.config.ui.get_object("lbl-stat")
         self.lbl_model = self.config.ui.get_object("lbl-model")
-        self.lbl_temp = self.config.ui.get_object("lbl-temp")
-
-        self.bed_temp = 0
-        self.t0_temp = 0
-        self.t1_temp = 0
 
         self.heartbeat  = self.config.ui.get_object("heartbeat")
         self.connection = self.config.ui.get_object("connection")
@@ -61,24 +50,6 @@ class Printer:
             "ready":         False, 
             "closedOrError": False
         }
-        self.heating = False
-
-    def preheat(self, btn, other=None, stuff=None):
-        logging.debug("Preheat pressed")
-        if self.heating:
-            self.btn_heat.set_toggled(False)            
-            self.config.rest_client.stop_preheat()
-            self.heating = False
-        else:    
-            self.btn_heat.set_toggled(True)            
-            self.config.rest_client.start_preheat()
-            self.heating = True
-
-    def update_preheat(self):
-        if self.btn_heat.get_toggled():
-            btn.set_label("Heating")
-        else:
-            btn.set_label("Preheat")
 
     def start_print(self, btn_print, action=None, stuff=None):
         """ Slices if necessary and starts the print loop """
@@ -94,18 +65,12 @@ class Printer:
     def cancel_print(self, btn_print, action=None, stuff=None):
         if self.flags["printing"] or self.flags["paused"]:
             self.config.rest_client.cancel_job()
-
-    def preheat_done(self):
-        self.btn_heat.set_label("Heated")
     
     def set_status(self, status):
         self.lbl_stat.set_text (status)
 
     def set_model(self, model):
         self.lbl_model.set_text (model)
-
-    def set_temp(self, temp):
-        self.lbl_temp.set_text(temp)
 
     def set_printing(self, is_printing):
         if is_printing:
@@ -130,9 +95,6 @@ class Printer:
             self.btn_pause.set_toggled(False)
             self.btn_cancel.set_toggled(False)
 
-
-
-
     def update_print_button(self):
         if (self.flags["operational"] and 
             self.config.loader.model_selected and
@@ -153,10 +115,6 @@ class Printer:
             self.btn_cancel.set_toggled(True)
         else:
             self.btn_cancel.set_toggled(False)
-
-
-
-
 
     # Update the current state of the printer. 
     # This sets the flags shown in the bottom left corner. 
@@ -182,14 +140,13 @@ class Printer:
         if self.flags["closedOrError"]:
             pass
 
-    def update_temperatures(self, temp):
-        self.set_temp("B:{} T0:{} T1:{}".format(
-            temp["bed"]["actual"], 
-            temp["tool0"]["actual"], 
-            temp["tool1"]["actual"]))
+    def update_progress(self, progress):
+        if progress["completion"]:
+            self.progress.set_progress(progress["completion"]/100.0)
 
     def start_connect_thread(self):
         pass
+        #TODO
 
     def flash_heartbeat(self):
         self.heartbeat.set_opacity(255)

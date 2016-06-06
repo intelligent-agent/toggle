@@ -18,28 +18,28 @@ class RestClient:
         logging.debug("Starting job")
         url = "http://"+self._host+":"+str(self._port)+"/api/job"
         data = json.dumps({'command':'start'}) 
-        r = requests.post(url, data, headers = self._headers)
+        r = requests.post(url, data=data, headers=self._headers)
         print r.json
 
     def pause_job(self):
         logging.debug("Pausing job")
         url = "http://"+self._host+":"+str(self._port)+"/api/job"
         data = json.dumps({'command':'pause'}) 
-        r = requests.post(url, data, headers = self._headers)
+        r = requests.post(url, data=data, headers=self._headers)
         print r.json
 
     def cancel_job(self):
         logging.debug("Cancelling job")
         url = "http://"+self._host+":"+str(self._port)+"/api/job"
         data = json.dumps({'command':'cancel'}) 
-        r = requests.post(url, data, headers = self._headers)
+        r = requests.post(url, data=data, headers=self._headers)
         print r.json
     
     def resume_job(self):
         logging.debug("Resuming job")
         url = "http://"+self._host+":"+str(self._port)+"/api/job"
         data = json.dumps({'command':'pause'}) 
-        r = requests.post(url, data, headers = self._headers)
+        r = requests.post(url, data=data, headers=self._headers)
         print r.json
 
 
@@ -65,8 +65,8 @@ class RestClient:
             'command':'target', 
             'target': int(float(temp))
         }) 
-        r = requests.post(url, data, headers = self._headers)
-        print r.json
+        r = requests.post(url, data=data, headers=self._headers)
+        #print r.json
         
     #
     def set_tool_temp(self, tool_nr, temp):
@@ -77,14 +77,15 @@ class RestClient:
                 'tool'+str(tool_nr): int(float(temp))
             }
         }) 
-        r = requests.post(url, data, headers = self._headers)
-        print r.json
+        r = requests.post(url, data=data, headers=self._headers)
+        #print r.json
 
     # Select a model
     def select_file(self, filename):
+        print "Select file"
         url = "http://"+self._host+":"+str(self._port)+"/api/files/local/"+filename
         data = json.dumps({'command':'select'})
-        r = requests.post(url, data, headers = self._headers)
+        r = requests.post(url, data=data, headers=self._headers)
         print r.json
 
 
@@ -97,7 +98,7 @@ class RestClient:
             'y': amount["y"] if "y" in amount else 0,
             'z': amount["z"] if "z" in amount else 0
         }) 
-        r = requests.post(url, data, headers = self._headers)
+        r = requests.post(url, data=data, headers=self._headers)
 
     # Home selected axes
     def home(self, axes):
@@ -106,7 +107,7 @@ class RestClient:
             'command':'home', 
             'axes': axes
         }) 
-        r = requests.post(url, data, headers = self._headers)
+        r = requests.post(url, data=data, headers=self._headers)
 
 
     # Extrude
@@ -116,27 +117,31 @@ class RestClient:
             'command':'extrude', 
             'amount': amount
         }) 
-        r = requests.post(url, data, headers = self._headers)
+        r = requests.post(url, data=data, headers=self._headers)
 
     # Select Extruder E/H
     def select_tool(self, tool):
+        print "selecting "+tool
         url = "http://"+self._host+":"+str(self._port)+"/api/printer/tool"
         data = json.dumps({
             'command':'select', 
             'tool': tool
         }) 
-        r = requests.post(url, data, headers = self._headers)
-
+        r = requests.post(url, data=data, headers=self._headers)
+        print r
 
     # Get list of files
     def get_list_of_files(self):
         url = "http://"+self._host+":"+str(self._port)+"/api/files"
         data = json.dumps({})
         try:
-            r = requests.get(url, data, headers = self._headers)
+            r = requests.get(url, params=data, headers=self._headers)
         except requests.ConnectionError as e:
             logging.warning("Connection error")
             return None
-        return r.json()
-
+        if r.status_code in [200, 204]:
+            return r.json()
+        
+        logging.warning("Unable to contact OctoPrint by REST. Check your API key (currently '"+self._api_key+"'")
+        return None 
 

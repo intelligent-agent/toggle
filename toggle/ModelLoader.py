@@ -11,6 +11,12 @@ from fnmatch import filter
 import requests
 from Model import Model
 
+from Event import PushUpdate, LocalUpdate
+
+
+from threading import Thread
+import time
+
 """
 Class that loads all models in a directory 
 and makes next and prev buttons change the loaded model 
@@ -21,6 +27,8 @@ class ModelLoader(Clutter.Actor):
         self.path = config.get("System", "model_folder")
 
         self.model_selected = False
+
+        self.model = Model(self.config)
 
         self.sync_models()
         self.load_models()
@@ -97,35 +105,37 @@ class ModelLoader(Clutter.Actor):
             logging.error("ModelLoader: Unable to delete file. Check permissions")
 
     def tap_next(self, action, actor, user_data):
-        logging.debug("Next")
         self.tap(self.models.next())    
 
     def tap_prev(self, action, actor, user_data):
-        logging.debug("Prev")
         self.tap(self.models.prev())    
         
     def get_model_filename(self):
         return self.models.cur()
 
     def tap(self, filename):
-        self.select_model(filename)
+        print "show loader"
+        self.model.loader.show()
         filename = re.sub(".stl", ".gco", filename, flags=re.I)
-        logging.debug("Selecting "+filename  )
-        self.config.rest_client.select_file(filename)  
+        logging.debug("Selecting "+filename)
+        p = PushUpdate("select_model", filename)
+        p.has_thread_execution = True
+        self.config.push_updates.put(p)
+        print "LocalUpdate placed"
+        #self.config.rest_client.select_file(filename)  
 
     def select_model(self, filename):
         logging.debug("showing "+filename)
         if self.models.has(filename):
             filename = self.models.select(filename)
-            self.model = Model(self.config, filename)
+            self.model.load_model(filename)
             self.config.printer.set_model(filename)
             self.model_selected = True
         else:
             logging.warning("Missing STL: "+filename)
 
     def select_none(self):
-        model = config.ui.get_object("model")
-        model.hide()
+        self.model.hide()
         self.model_selected = False
         
 

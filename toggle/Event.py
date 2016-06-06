@@ -7,7 +7,11 @@ from gi.repository import GLib
 
 from threading import current_thread
 
-class PushUpdate:
+
+# A Local update, when added to the queue, is executed by adding it
+# with Clutter.threads_add_idle
+# NOTE: NOT IN USE
+class LocalUpdate:
 
     def __init__(self, update_type, payload):
         self.update_type = update_type
@@ -16,10 +20,40 @@ class PushUpdate:
     def execute(self, config):
         self.config = config
         if hasattr(self, self.update_type):
+            #logging.debug("Got LocalUpdate "+self.update_type+": "+str(self.payload))
+            getattr(self, self.update_type)()
+        else:
+            print "missing function "+str(self.update_type)
+
+
+
+# A Local update, when added to the queue, is executed by adding it
+# with GLib.idle_add
+class PushUpdate:
+
+    def __init__(self, update_type, payload):
+        self.update_type = update_type
+        self.payload = payload
+        # Set to True in the instance
+        # to run a function in the queue thread first.  
+        self.has_thread_execution = False 
+
+    def execute(self, config):
+        self.config = config
+        if hasattr(self, self.update_type):
             #logging.debug("Got PushUpdate "+self.update_type+": "+str(self.payload))
             getattr(self, self.update_type)()
         else:
             print "missing function "+str(self.update_type)
+
+    def execute_in_thread(self, config):
+        self.config = config
+        if hasattr(self, "thread_"+self.update_type):
+            #logging.debug("Got PushUpdate with thread exeution "+self.update_type+": "+str(self.payload))
+            getattr(self, "thread_"+self.update_type)()
+        else:
+            print "missing function thread_"+str(self.update_type)
+        
 
     def connected(self):
         self.config.printer.set_status("Connected")
@@ -36,9 +70,6 @@ class PushUpdate:
             filename = os.path.splitext(filename)[0]+".stl"
             self.config.loader.select_model(filename)
 
-                
-        #u'job': {u'estimatedPrintTime': 5230, u'lastPrintTime': None, u'averagePrintTime': None, u'file': {u'origin': u'local', u'date': 1459165392, u'name': u'3DBenchy.gco', u'size': 4290101}, u'filament': {u'tool1': {u'volume': 0.0, u'length': 0}, u'tool0': {u'volume': 10.484209397357832, u'length': 4619}}}, u'currentZ': None, u'progress': {u'completion': 0, u'filepos': None, u'printTime': None, u'printTimeLeft': None}}
-
     def timelapse(self):
         pass
 
@@ -47,16 +78,18 @@ class PushUpdate:
         plugin_data = self.payload["data"]["data"]
         plugin_name = self.payload["plugin"]
         if plugin_type == "filament_sensor":
+            self.config.filament_graph.update_filaments(plugin_data)
+
             #logging.debug("filament sensor data")
-            message = plugin_data["message"]
-            time    = int(plugin_data["time"])
-            [filament_name, filament_value] = message.split(":")
-            if filament_name in self.config.filament_sensors:
-                sensor = self.config.filament_sensors[filament_name]
-                sensor.add_point(time, float(filament_value)) 
-                self.config.filament_graph.refresh()
-            else:
-                logging.info("Unknown extruder: "+str(filament_name))
+            #message = plugin_data["message"]
+            #time    = int(plugin_data["time"])
+            #[filament_name, filament_value] = message.split(":")
+            #if filament_name in self.config.filament_graph.filament_sensors:
+            #    sensor = self.config.filament_sensors[filament_name]
+            #    sensor.add_point(time, float(filament_value)) 
+            #    self.config.filament_graph.refresh()
+            #else:
+            #    logging.info("Unknown extruder: "+str(filament_name))
         elif plugin_type == "alarm_filament_jam":
             self.config.message.display("Alarm: Filament Jam!") 
         elif plugin_type == "display_message":
@@ -70,7 +103,8 @@ class PushUpdate:
         self.config.printer.update_printer_state(self.payload["state"])
         for temp in self.payload["temps"]:
             self.config.temp_graph.update_temperatures(temp)
-            self.config.printer.update_temperatures(temp)
+            self.config.temp_graph.update_temperature_status(temp)
+        self.config.printer.update_progress(self.payload["progress"])
 
     def event(self):
         evt_type = self.payload["type"]
@@ -84,14 +118,20 @@ class PushUpdate:
     def state(self):
         print "Got state!"
 
-
-
+    def select_model(self):
+        pass
+        
+    # Call the rest client function from the queue thread, 
+    # To enable the loading animation.
+    def thread_select_model(self):
+        self.config.rest_client.select_file(self.payload)
+        
 class Event:
 
     def __init__(self, config, evt_type, payload):
         self.config = config
         self.payload = payload
-        #print "Got event"
+        #print "Got event"+str(evt_type)+" "+str(payload)
         if hasattr(self, evt_type):
             getattr(self, evt_type)()
         else:
