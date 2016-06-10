@@ -75,7 +75,7 @@ class LoggerWriter:
 class Toggle:    
 
     def __init__(self):
-        self.version = "1.0.1"
+        self.version = "1.1.1"
         logging.info("Starting Toggle "+self.version)
 
         file_path = os.path.join("/etc/toggle","local.cfg")
@@ -108,7 +108,8 @@ class Toggle:
             config.ui.load_from_file(config.get("System", "ui"))
         except:
             print "Error loading UI"
-
+            import traceback
+            traceback.print_exc()   
         config.stage = config.ui.get_object("stage")
         config.stage.connect("destroy", self.stop)
         config.stage.connect('key-press-event', self.key_press)        
@@ -136,6 +137,9 @@ class Toggle:
 
         config.push_updates = JoinableQueue(10)
         self.config = config 
+        config.plate.make_scale()
+        #config.plate.add_probe_point([30,  50, 0])
+        #config.plate.add_probe_point([10,  50, 1])
         config.stage.show()
 
     def run(self):
@@ -160,9 +164,6 @@ class Toggle:
         self.p0 = Thread(target=self.loop,
                     args=(self.config.push_updates, "Push updates"))
         self.p0.start()
-        #self.p1 = Thread(target=self.loop,
-        #            args=(self.config.local_updates, "Local updates"))
-        #self.p1.start()
 
         self.config.socks_client.start()
         logging.info("Toggle ready")
@@ -203,6 +204,7 @@ class Toggle:
         logging.debug("Done")
 
     def key_press(self, actor, event):
+        ''' Key press events for quick deveopment '''
         if event.unicode_value == "f":
             if self.config.stage.get_fullscreen(): 
                 self.config.stage.set_fullscreen(False)

@@ -82,3 +82,8 @@ class Model(Toggle.Model):
     def model_loaded(self, model):
         self.loader.hide()
 
+    def select_none(self):
+        self.loader.hide()
+        self.model.hide()
+        
+
