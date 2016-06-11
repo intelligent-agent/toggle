@@ -255,6 +255,22 @@
                             "x-align": 3,
                             "x-expand": true
                         },{
+                            "id": "time-gone", 
+                            "type": "ClutterText", 
+                            "x": 560, 
+                            "y": 395,
+                            "width": 220, 
+                            "height": 25
+                        },{
+                            "id": "time-left", 
+                            "type": "ClutterText", 
+                            "x": 560, 
+                            "y": 395,
+                            "width": 220, 
+                            "height": 25, 
+                            "x-align": 3,
+                            "x-expand": true
+                        },{
                             "id": "btn-cancel", 
                             "type": "MxButton", 
                             "style-class": "cancel",

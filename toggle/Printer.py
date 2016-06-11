@@ -31,6 +31,8 @@ class Printer:
         tap_cancel.connect("tap", self.cancel_print, None)
 
         self.progress = self.config.ui.get_object("progress-bar")
+        self.time_gone = self.config.ui.get_object("time-gone")
+        self.time_left = self.config.ui.get_object("time-left")
 
         self.lbl_stat = self.config.ui.get_object("lbl-stat")
         self.lbl_model = self.config.ui.get_object("lbl-model")
@@ -141,8 +143,19 @@ class Printer:
             pass
 
     def update_progress(self, progress):
+        
         if progress["completion"]:
             self.progress.set_progress(progress["completion"]/100.0)
+            left = self.format_time(progress['printTimeLeft'])
+            gone = self.format_time(progress['printTime'])
+            
+            self.time_left.set_text(left)
+            self.time_gone.set_text(gone)
+
+    def format_time(self, seconds):
+        m, s = divmod(seconds, 60)
+        h, m = divmod(m, 60)
+        return "%d:%02d:%02d" % (h, m, s)
 
     def start_connect_thread(self):
         pass
