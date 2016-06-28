@@ -70,8 +70,7 @@ setup(name='Toggle',
                         'configs/kossel_mini.cfg', 
                         'configs/makerbot_cupcake.cfg']),
                   ('/lib/systemd/system/', [
-                        'systemd/toggle.service', 
-                        'systemd/toggle.path']), 
+                        'systemd/toggle.service']), 
         		  ('./', ['README.md'])],
       entry_points = {
             'console_scripts': [
