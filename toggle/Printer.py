@@ -143,19 +143,20 @@ class Printer:
             pass
 
     def update_progress(self, progress):
-        
         if progress["completion"]:
             self.progress.set_progress(progress["completion"]/100.0)
+        if progress['printTimeLeft']:
             left = self.format_time(progress['printTimeLeft'])
-            gone = self.format_time(progress['printTime'])
-            
             self.time_left.set_text(left)
+        if progress['printTime']:
+            gone = self.format_time(progress['printTime'])
             self.time_gone.set_text(gone)
 
     def format_time(self, seconds):
         m, s = divmod(seconds, 60)
         h, m = divmod(m, 60)
         return "%d:%02d:%02d" % (h, m, s)
+
 
     def start_connect_thread(self):
         pass

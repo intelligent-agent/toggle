@@ -38,7 +38,7 @@ class FilamentGraph():
 
         for tool in self.graphs:
             for source in self.graphs[tool]:
-                logging.debug(self.graphs[tool][source])
+                #logging.debug(self.graphs[tool][source])
                 self.graph.add_plot(self.graphs[tool][source])
 
         # Add a scale to the plot

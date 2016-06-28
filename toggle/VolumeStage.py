@@ -1,6 +1,6 @@
 # VolumeStage
 import logging
-from gi.repository import Clutter, Mx, Mash, Toggle
+from gi.repository import Clutter, Mx, Mash, Toggle, Cogl
 
 class VolumeStage(Clutter.Actor):
 
@@ -14,7 +14,6 @@ class VolumeStage(Clutter.Actor):
         self.vp = self.ui.get_object("volume-viewport")
         self.vp.set_reactive(True)
         self.vp.connect("scroll-event", self.scroll)
-
         self.rotation = config.getint("System", "rotation")
 
         self.angle_max = config.getfloat("System", "angle_max")
@@ -25,6 +24,15 @@ class VolumeStage(Clutter.Actor):
         self.spinner = self.ui.get_object("spinner")
         self.clicked = False
         self.scale = 1.2
+
+        
+        cm = Cogl.Matrix()
+        m = Clutter.matrix_init_from_array(cm, [
+             -1, 0, 0, 0,   
+             0, 1, 0, 0,
+             0, 0, -1, 0, 
+             0, 0, 0, 1])
+        self.ui.get_object("content-flip").set_transform(m)
         
         zoom = Clutter.ZoomAction()
         self.vp.add_action(zoom)
@@ -37,6 +45,7 @@ class VolumeStage(Clutter.Actor):
         pan.connect ("pan", self.pan)
         pan.connect ("gesture-begin", self.pan_begin)
         pan.connect ("gesture-end", self.pan_end)
+        pan.connect ("gesture-cancel", self.pan_cancel)
 
         self.zoom_start = self.scale
         self.zooming = False
@@ -49,10 +58,19 @@ class VolumeStage(Clutter.Actor):
         self.panning = True
         self.start_x = self.p.get_rotation_angle(Clutter.RotateAxis.Y_AXIS)
         self.start_y = self.spinner.get_rotation_angle(Clutter.RotateAxis.X_AXIS)
+        #print "pan begin"
         return True
 
     def pan_end(self, action, actor):
         self.panning = False
+        #print "pan end"
+        
+
+    def pan_cancel(self, action, actor):
+        #print "pan cancel"
+        self.panning = False
+        return False
+        
 
     def pan(self, gesture, actor, other=None, stuff=None):
         #print "pan" + str(gesture.get_motion_delta(0))
@@ -61,16 +79,16 @@ class VolumeStage(Clutter.Actor):
         (d, x, y) = gesture.get_motion_delta(0)
         if self.rotation == 0: # Normal
             self.start_x += x
-            self.start_y -= y
+            self.start_y += y
         elif self.rotation == 90: 
             self.start_x += y
-            self.start_y += x
+            self.start_y -= x
         elif self.rotation == 180:
             self.start_x -= x
-            self.start_y += y
+            self.start_y -= y
         elif self.rotation == 270: 
             self.start_x -= y
-            self.start_y -= x
+            self.start_y += x
         self.spinner.set_rotation_angle(Clutter.RotateAxis.X_AXIS, self.start_y)
         self.p.set_rotation_angle(Clutter.RotateAxis.Y_AXIS, self.start_x)
         return False
@@ -80,18 +98,24 @@ class VolumeStage(Clutter.Actor):
     def zoom_begin(self, action, actor):
         self.zoom_start = self.scale
         self.zooming = True
+        #print "zoom_begin"
         return True
 
     def zoom_end(self, action, actor):
         self.zooming = False
-        return True
+        #print "zoom_end"
+        return False
 
     def zoom(self, action, actor, focal_point, factor):        
         self.scale = self.zoom_start*factor
         self.scale = max(min(self.scale, self.scale_max), self.scale_min)
         self.spinner.set_scale(self.scale, self.scale)
         self.spinner.set_scale_z(self.scale)
+        #print "zoom"
         return False
+
+    def zoom_cancel(self, action, actor):
+        print "zoom cancel"
 
     def scroll(self, actor, event):
         if event.direction == Clutter.ScrollDirection.DOWN:

@@ -24,17 +24,22 @@ License: GNU GPL v3: http://www.gnu.org/copyleft/gpl.html
 
 #import subprocess
 import logging
-import time 
+import time
 import Queue
 import sys
 import os
 
+import gi
+gi.require_version('Clutter', '1.0')
+gi.require_version('Mash', '0.2')
+gi.require_version('Toggle', '0.5')
+gi.require_version('Mx', '1.0')
 from gi.repository import Clutter, Mx, Mash, Toggle, Cogl, GObject, GLib
 from threading import Thread, current_thread
 from multiprocessing import JoinableQueue
 
 from Model import Model
-from Plate import Plate 
+from Plate import Plate
 from VolumeStage import VolumeStage
 from ModelLoader import ModelLoader
 from Printer import Printer
@@ -68,11 +73,11 @@ class LoggerWriter:
             self.logger.log(self.level, message)
             if self.screen_log:
                 self.log_to_screen(message)
-                
+
     def log_to_screen(self, message):
         pass #TODO: implement this
-        
-class Toggle:    
+
+class Toggle:
 
     def __init__(self):
         self.version = "1.1.1"
@@ -84,10 +89,10 @@ class Toggle:
             os.mknod(file_path)
             os.chmod(file_path, 0o777)
 
-        # Parse the config files. 
+        # Parse the config files.
         config = CascadingConfigParser([
             '/etc/toggle/default.cfg',
-            '/etc/toggle/printer.cfg',    
+            '/etc/toggle/printer.cfg',
             '/etc/toggle/local.cfg'])
 
         # Get loglevel from the Config file
@@ -104,15 +109,15 @@ class Toggle:
         style.load_from_file(config.get("System", "stylesheet"))
 
         config.ui = Clutter.Script()
-        try: 
+        try:
             config.ui.load_from_file(config.get("System", "ui"))
         except:
             print "Error loading UI"
             import traceback
-            traceback.print_exc()   
+            traceback.print_exc()
         config.stage = config.ui.get_object("stage")
         config.stage.connect("destroy", self.stop)
-        config.stage.connect('key-press-event', self.key_press)        
+        config.stage.connect('key-press-event', self.key_press)
 
         # Set up tabs
         config.tabs = CubeTabs(config.ui, 4)
@@ -136,17 +141,18 @@ class Toggle:
         config.socks_client = WebSocksClient(config, host="ws://"+host+":5000")
 
         config.push_updates = JoinableQueue(10)
-        self.config = config 
+        self.config = config
         config.plate.make_scale()
         #config.plate.add_probe_point([30,  50, 0])
         #config.plate.add_probe_point([10,  50, 1])
+        #config.plate.make_scale()
         config.stage.show()
 
     def run(self):
-        """ Start the program. Can be called from 
-        this file or from a start-up script."""               
+        """ Start the program. Can be called from
+        this file or from a start-up script."""
         # Flip and move the stage to the right location
-        # This has to be done in the application, since it is a 
+        # This has to be done in the application, since it is a
         # fbdev app
         if self.config.get("System", "rotation") == "90":
             self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 90.0)
@@ -169,9 +175,9 @@ class Toggle:
         logging.info("Toggle ready")
         Clutter.main()
 
-    # UI events needs to happen from within the 
-    # main thread. This was the only way I found that would do that. 
-    # It looks weirdm, but it works. 
+    # UI events needs to happen from within the
+    # main thread. This was the only way I found that would do that.
+    # It looks weirdm, but it works.
     def execute(self, event):
         event.execute(self.config)
         #logging.debug("Execute from "+str(current_thread()))
@@ -184,7 +190,7 @@ class Toggle:
                     update = queue.get(block=True, timeout=1)
                 except Queue.Empty:
                     continue
-                # Execute any long running operations here, 
+                # Execute any long running operations here,
                 # to keep the main thread free for animations
                 if update.has_thread_execution:
                     update.execute_in_thread(self.config)
@@ -206,19 +212,17 @@ class Toggle:
     def key_press(self, actor, event):
         ''' Key press events for quick deveopment '''
         if event.unicode_value == "f":
-            if self.config.stage.get_fullscreen(): 
+            if self.config.stage.get_fullscreen():
                 self.config.stage.set_fullscreen(False)
             else:
                 self.config.stage.set_fullscreen(True)
         elif event.unicode_value == "q":
             self.stop(None)
 
-            
+
 def main():
     t = Toggle()
     t.run()
 
 if __name__ == '__main__':
     main()
-
-

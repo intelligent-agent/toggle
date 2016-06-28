@@ -10,7 +10,7 @@ class Plate(Toggle.Model):
         super(Plate, self).__init__()
         self.config = config
         # I want to subclass this, but I'm uncertain how to..
-        self.plate = self.config.ui.get_object("plate")        
+        self.plate = self.config.ui.get_object("plate")
         self.plate.load_from_file(0, config.get("System", "plate"))
         self.plate.set_specular(Clutter.Color.from_string("#0000")[1])
         self.plate.set_color(Clutter.Color.from_string("#555F")[1])
@@ -27,10 +27,10 @@ class Plate(Toggle.Model):
         self.probe_points = []
         self.scale_points = []
 
-    
+
     def add_probe_point(self, point):
         self.point = self.add_point_to_bed(point)
-        self.recalculate_scale()        
+        self.recalculate_scale()
         self.recolor_points_to_scale()
 
 
@@ -64,12 +64,12 @@ class Plate(Toggle.Model):
         probe.set_y(point[1])
 
         probe.set_rotation_angle(Clutter.RotateAxis.X_AXIS, 90.0)
-        self.config.ui.get_object("volume-viewport").insert_child_above(probe)
-        
+        self.config.ui.get_object("side2-content").insert_child_above(probe)
+
         text = Clutter.Text.new_with_text("Sans 10", str(point[2]))
         text.set_x(point[0]-50)
         text.set_y(point[1]-10)
-        self.config.ui.get_object("volume-viewport").insert_child_above(text)
+        self.config.ui.get_object("side2-content").insert_child_above(text)
         probe.text = text
         text.hide()
 
@@ -82,7 +82,7 @@ class Plate(Toggle.Model):
         for point in self.probe_points:
             color = self.float_rgb(point.z, self.cmin, self.cmax)
             point.set_color(Clutter.Color.from_string(color)[1])
-            
+
     def remove_probe_points(self):
         ''' Remove all probe points '''
         for point in self.probe_points:
@@ -97,20 +97,20 @@ class Plate(Toggle.Model):
         """ Return a tuple of floats between 0 and 1 for R, G, and B. """
         """ Taken from https://www.safaribooksonline.com/library/view/python-cookbook/0596001673/ch09s11.html """
         # Normalize to 0-1
-        try: 
+        try:
             x = self.rescale(float(mag), cmin, cmax, 0.0, 1.0)#float(mag-cmin)/(cmax-cmin)
-        except ZeroDivisionError: 
+        except ZeroDivisionError:
             x = 0.5 # cmax == cmin
         blue = max(0, (1.0 - 2*x))*0xFF
         red =  max(0, (2*x - 1.0))*0xFF
         green = 0xFF - blue - red
-        color = "#%02x%02x%02xFF" % (red, green, blue) 
+        color = "#%02x%02x%02xFF" % (red, green, blue)
         return color
 
 
     def make_scale(self):
         for z in range(11):
-            self.add_point_to_scale([50, z*20+150, 0])
+            self.add_point_to_scale([150, z*20+150, 0])
 
     def recalculate_scale(self):
         cmax = max(self.probe_points, key=attrgetter('z')).z
@@ -126,5 +126,3 @@ class Plate(Toggle.Model):
 
     def rescale(self, val, in_min, in_max, out_min, out_max):
         return out_min + (val - in_min) * ((out_max - out_min) / (in_max - in_min))
-
-
