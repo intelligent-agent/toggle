@@ -29,7 +29,7 @@ source:
 
 install:
 	$(PYTHON) setup.py install --single-version-externally-managed --root $(DESTDIR) $(COMPILE) 
-    cp configs/*.cfg /etc/toggle/
+	cp configs/*.cfg /etc/toggle/
 
 buildrpm:
 	$(PYTHON) setup.py bdist_rpm --post-install=rpm/postinstall --pre-uninstall=rpm/preuninstall
