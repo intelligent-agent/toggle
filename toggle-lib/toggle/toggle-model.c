@@ -137,14 +137,8 @@ toggle_model_set_color (ToggleModel *self, const ClutterColor *color){
 void
 toggle_model_set_culling (ToggleModel *self, int culling){
     ToggleModelPrivate *priv;
-    fprintf(stderr, "Setting culling\n");
     g_return_if_fail (TOGGLE_IS_MODEL (self));
     priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
-    fprintf(stderr, "Setting culling to %i\n", culling);
-
-    //priv->pipeline = (CoglPipeline*) mash_model_get_material (MASH_MODEL (&self->parent));
-    //priv->color     = cogl_color_new();
-    //cogl_color_init_from_4ub(priv->color, color->red, color->green, color->blue, color->alpha);
 
     cogl_pipeline_set_cull_face_mode (priv->pipeline, culling);
     cogl_pipeline_set_layer_combine_constant (priv->pipeline, 0, priv->color);

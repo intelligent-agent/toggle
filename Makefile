@@ -20,7 +20,7 @@ libtoggle-deb:
 	$(MAKE) -f debian/rules install
 
 libtoggle:
-	cd toggle-lib && ./autogen.sh --prefix=/usr --enable-introspection --libdir=/usr/lib/arm-linux-gnueabihf
+	cd toggle-lib && ./autogen.sh --enable-introspection --libdir=/usr/lib/arm-linux-gnueabihf
 	cd toggle-lib && make
 	cd toggle-lib && make install
 
@@ -29,6 +29,7 @@ source:
 
 install:
 	$(PYTHON) setup.py install --single-version-externally-managed --root $(DESTDIR) $(COMPILE) 
+    cp configs/*.cfg /etc/toggle/
 
 buildrpm:
 	$(PYTHON) setup.py bdist_rpm --post-install=rpm/postinstall --pre-uninstall=rpm/preuninstall
