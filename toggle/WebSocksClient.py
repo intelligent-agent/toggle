@@ -132,7 +132,7 @@ class WebSocksClient():
         """
         self.state = WebSocksClient.FAILED
         self.io_loop.stop()
-        logging.warning('Websocket connection error: %s', exception)
+        logging.debug('Websocket connection error: %s', exception)
 
 
     def parse_msg(self, msg):
