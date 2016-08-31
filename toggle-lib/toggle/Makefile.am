@@ -9,12 +9,10 @@ AM_CPPFLAGS = \
 	@MASH_CFLAGS@
 
 source_h = \
-	$(srcdir)/toggle-box.h \
 	$(srcdir)/toggle-model.h
 
 libtoggle_@TOGGLE_API_VERSION@_la_SOURCES = \
 	$(source_h) \
-	$(srcdir)/toggle-box.c \
 	$(srcdir)/toggle-model.c
 
 nodist_libtoggle_@TOGGLE_API_VERSION@_la_SOURCES =

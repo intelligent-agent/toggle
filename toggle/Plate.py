@@ -26,7 +26,8 @@ class Plate(Toggle.Model):
 
         self.probe_points = []
         self.scale_points = []
-
+        #self.plate.set_progress(100.0)
+        self.plate.set_culling(1)
 
     def add_probe_point(self, point):
         self.point = self.add_point_to_bed(point)
@@ -109,8 +110,9 @@ class Plate(Toggle.Model):
 
 
     def make_scale(self):
-        for z in range(11):
-            self.add_point_to_scale([150, z*20+150, 0])
+        pass
+        #for z in range(11):
+        #    self.add_point_to_scale([150, z*20+150, 0])
 
     def recalculate_scale(self):
         cmax = max(self.probe_points, key=attrgetter('z')).z

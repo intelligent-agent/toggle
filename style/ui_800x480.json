@@ -179,7 +179,7 @@
                             "layout-manager" : { "type" : "ClutterFixedLayout" },
                             "children" : [{
                                 "id": "spinner",
-                                "type" : "ToggleBox",
+                                "type" : "ClutterActor",
                                 "x": 300, 
                                 "y": 360, 
                                 "z-position": 150,

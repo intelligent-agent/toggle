@@ -7,6 +7,10 @@ so we make the model like we want in C and instrospect that! */
 #include <clutter/clutter.h>
 #include <mash/mash.h>
 
+#define CLUTTER_ENABLE_EXPERIMENTAL_API
+#define COGL_ENABLE_EXPERIMENTAL_API
+
+
 GType toggle_model_get_type (void);
 
 /* GObject type macros */
@@ -42,5 +46,8 @@ void toggle_model_load_from_file(ToggleModel *self, MashDataFlags flags, const g
 void toggle_model_set_color (ToggleModel *self, const ClutterColor *color);
 void toggle_model_set_culling (ToggleModel *self, int culling);
 void toggle_model_set_specular (ToggleModel *self, const ClutterColor *color);
+void toggle_model_set_progress (ToggleModel *self, float progress);
+static void toggle_model_paint_node (ClutterActor *self);
+
 gfloat toggle_model_get_model_depth (ToggleModel *self);
 #endif /* __TOGGLE_MODEL_H__ */

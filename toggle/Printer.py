@@ -142,9 +142,10 @@ class Printer:
         if self.flags["closedOrError"]:
             pass
 
-    def update_progress(self, progress):
+    def update_progress(self, progress):        
         if progress["completion"]:
             self.progress.set_progress(progress["completion"]/100.0)
+            self.config.loader.model.set_progress(progress["completion"]/100.0)
         if progress['printTimeLeft']:
             left = self.format_time(progress['printTimeLeft'])
             self.time_left.set_text(left)

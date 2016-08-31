@@ -11,8 +11,8 @@ class Model(Toggle.Model):
         self.model = config.ui.get_object("model")
         color_str = config.get("System", "model-color")
         self.color = Clutter.Color.from_string(color_str)[1]
-        self.model.set_color(self.color)
-        self.model.set_culling(0)
+        
+        
         self.loader = config.ui.get_object("loader")
         self.loader.set_from_file(config.get("System", "loader"))
 
@@ -51,6 +51,9 @@ class Model(Toggle.Model):
         self.model.connect("show", self.model_loaded)
 
         self.model.set_light_set(self.light_set)
+        self.model.set_color(self.color)
+        #self.model.set_culling(1)
+        
 
     # Load model is a fairly CPU intensive
     # operation on complex models. On BBB it can take several seconds to load
@@ -66,18 +69,20 @@ class Model(Toggle.Model):
             logging.warning(path+" is not a file")
         try:
             self.model.load_from_file(0, path)
-            self.model.set_color(self.color)
-            self.model.set_culling(0)
+            #self.model.set_color(self.color)
+            #self.model.set_culling(0)
         except:
             logging.warning("Unable to open model "+path)
             raise
             return
         (width, height) = self.model.get_size()
+        self.height = height
         depth = self.model.get_model_depth() # Custom method
         self.model.set_y(-depth/2.0)
         self.model.set_x(-width/2.0)
         self.model.set_z_position(-height/2.0)
         self.model.show()
+        self.model.set_progress(30)
 
     # Hide the spinner/loader when done.
     def model_loaded(self, model):
@@ -86,3 +91,6 @@ class Model(Toggle.Model):
     def select_none(self):
         self.loader.hide()
         self.model.hide()
+
+    def set_progress(self, progress):
+        self.model.set_progress(self.height*progress)

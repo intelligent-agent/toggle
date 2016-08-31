@@ -20,7 +20,10 @@ libtoggle-deb:
 	$(MAKE) -f debian/rules install
 
 libtoggle:
-	cd toggle-lib && ./autogen.sh --enable-introspection --libdir=/usr/lib/arm-linux-gnueabihf
+	# Use the following on your desktop
+	cd toggle-lib && ./autogen.sh --enable-introspection --prefix=/usr
+	# Use the following on the BeagleBone
+	# cd toggle-lib && ./autogen.sh --enable-introspection --libdir=/usr/lib/arm-linux-gnueabihf
 	cd toggle-lib && make
 	cd toggle-lib && make install
 

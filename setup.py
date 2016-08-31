@@ -15,7 +15,7 @@ def read(fname):
 #                        'toggle-lib/toggle-box.c'])
 
 setup(name='Toggle',
-      version='1.1.2',
+      version='1.2.0',
       description='Embedded UI for 3D printers',
       author='Elias Bakken',
       author_email='elias@iagent.no',
