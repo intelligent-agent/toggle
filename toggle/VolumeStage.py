@@ -47,6 +47,8 @@ class VolumeStage(Clutter.Actor):
         pan.connect ("gesture-end", self.pan_end)
         pan.connect ("gesture-cancel", self.pan_cancel)
 
+        #self.config.stage.connect("motion-event", self.motion)
+
         self.zoom_start = self.scale
         self.zooming = False
         self.last_x = 0
@@ -125,4 +127,10 @@ class VolumeStage(Clutter.Actor):
         self.scale = max(min(self.scale, self.scale_max), self.scale_min)
         self.spinner.set_scale(self.scale, self.scale)
         self.spinner.set_scale_z(self.scale)
+
+
+    def motion(self, actor, event):
+        print (event.x,event.y)
+        self.config.loader.model.light_point.set_x(event.x)
+        self.config.loader.model.light_point.set_y(event.y)
 

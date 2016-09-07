@@ -7,6 +7,6 @@ requires=clutter-1.0
 Name: Toggle
 Description: Toggle is a 3D-printer front end for use with embedded devices
 Version: @TOGGLE_VERSION@
-Libs: -L${libdir} -ltoggle-@MASH_API_VERSION@
-Cflags: -I${includedir}/toggle-@MASH_API_VERSION@
+Libs: -L${libdir} -ltoggle-@TOGGLE_API_VERSION@
+Cflags: -I${includedir}/toggle-@TOGGLE_API_VERSION@
 Requires: ${requires}

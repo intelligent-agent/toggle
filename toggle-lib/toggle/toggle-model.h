@@ -50,4 +50,6 @@ void toggle_model_set_progress (ToggleModel *self, float progress);
 static void toggle_model_paint_node (ClutterActor *self);
 
 gfloat toggle_model_get_model_depth (ToggleModel *self);
+gfloat toggle_model_get_model_z_min (ToggleModel *self);
+gfloat toggle_model_get_model_z_max (ToggleModel *self);
 #endif /* __TOGGLE_MODEL_H__ */

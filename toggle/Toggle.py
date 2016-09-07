@@ -22,6 +22,14 @@ License: GNU GPL v3: http://www.gnu.org/copyleft/gpl.html
  along with Toggle.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import gi
+gi.require_version('Mash', '0.3')
+gi.require_version('Cogl', '1.0')
+gi.require_version('Clutter', '1.0')
+gi.require_version('Toggle', '0.6')
+gi.require_version('Mx', '1.0')
+from gi.repository import Clutter, Mx, Toggle, Cogl, Mash
+
 #import subprocess
 import logging
 import time
@@ -29,12 +37,7 @@ import Queue
 import sys
 import os
 
-import gi
-gi.require_version('Clutter', '1.0')
-gi.require_version('Mash', '0.2')
-gi.require_version('Toggle', '0.6')
-gi.require_version('Mx', '1.0')
-from gi.repository import Clutter, Mx, Mash, Toggle, Cogl, GObject, GLib
+#from gi.repository import Clutter, Mx,  Toggle, Cogl, GObject, GLib
 from threading import Thread, current_thread
 from multiprocessing import JoinableQueue
 
@@ -143,9 +146,6 @@ class Toggle:
         config.push_updates = JoinableQueue(10)
         self.config = config
         config.plate.make_scale()
-        #config.plate.add_probe_point([30,  50, 0])
-        #config.plate.add_probe_point([10,  50, 1])
-        #config.plate.make_scale()
         config.stage.show()
 
     def run(self):

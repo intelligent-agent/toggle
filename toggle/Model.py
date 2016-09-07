@@ -1,7 +1,7 @@
 # Model
 import os.path
 import logging
-from gi.repository import Clutter, Mx, Mash, Toggle, Cogl
+from gi.repository import Clutter, Mx, Toggle, Cogl, Mash
 
 class Model(Toggle.Model):
     def __init__(self, config):
@@ -11,8 +11,6 @@ class Model(Toggle.Model):
         self.model = config.ui.get_object("model")
         color_str = config.get("System", "model-color")
         self.color = Clutter.Color.from_string(color_str)[1]
-        
-        
         self.loader = config.ui.get_object("loader")
         self.loader.set_from_file(config.get("System", "loader"))
 
@@ -27,18 +25,25 @@ class Model(Toggle.Model):
         #Set up the light
         self.light_set = Mash.LightSet()
         light_point = Mash.PointLight()
+        light_point.set_constant_attenuation(0.1)
+        light_point.set_quadratic_attenuation(0.1)
+        light_point.set_linear_attenuation(0.1)      
+        light_point.set_x(200)
+        light_point.set_y(300)
         light_directional = Mash.DirectionalLight()
-        light_spot = Mash.SpotLight()
+        
+        self.light_point = light_point
+        #light_spot = Mash.SpotLight()
 
         self.light_set.add_light(light_point)
         self.light_set.add_light(light_directional)
-        self.light_set.add_light(light_spot)
+        #self.light_set.add_light(light_spot)
 
         # Add the model the lights to the volume viewport
         vp = config.ui.get_object("volume-viewport")
         vp.add_child(light_point);
         vp.add_child(light_directional);
-        vp.add_child(light_spot);
+        #vp.add_child(light_spot);
 
         cm = Cogl.Matrix()
         m = Clutter.matrix_init_from_array(cm, [
@@ -52,7 +57,6 @@ class Model(Toggle.Model):
 
         self.model.set_light_set(self.light_set)
         self.model.set_color(self.color)
-        #self.model.set_culling(1)
         
 
     # Load model is a fairly CPU intensive
@@ -75,14 +79,13 @@ class Model(Toggle.Model):
             logging.warning("Unable to open model "+path)
             raise
             return
-        (width, height) = self.model.get_size()
-        self.height = height
-        depth = self.model.get_model_depth() # Custom method
-        self.model.set_y(-depth/2.0)
-        self.model.set_x(-width/2.0)
-        self.model.set_z_position(-height/2.0)
+        (self.width, self.height) = self.model.get_size()
+        self.depth = self.model.get_model_depth() # Custom method
+        self.model.set_y(-self.depth/2.0)
+        self.model.set_x(-self.width/2.0)
+        self.model.set_z_position(-self.height/2.0)
+        self.model.set_progress(0)
         self.model.show()
-        self.model.set_progress(30)
 
     # Hide the spinner/loader when done.
     def model_loaded(self, model):
@@ -93,4 +96,16 @@ class Model(Toggle.Model):
         self.model.hide()
 
     def set_progress(self, progress):
-        self.model.set_progress(self.height*progress)
+        # TODO: progress now assumes that the model starts
+        # at a distance of 0 above origin in z-direction. 
+        # This should be removed from the depth. 
+        height_above_platform = self.model.get_model_z_min()
+        self.model.set_progress(self.depth*progress+height_above_platform)
+
+
+    def set_slicing_progress(self, progress):
+        # TODO: Change color showing the progress of the 
+        # slicing. 
+        pass
+
+

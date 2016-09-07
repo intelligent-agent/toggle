@@ -169,6 +169,9 @@ toggle_model_set_progress (ToggleModel *self, float progress){
     priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
 
     if(priv->progress == -1){
+        int prog = cogl_pipeline_get_uniform_location (priv->pipeline, "progress");
+        //fprintf(stderr, "Progress: %i\n", prog);
+
         CoglSnippet *snippet_v; 
         snippet_v = cogl_snippet_new (COGL_SNIPPET_HOOK_VERTEX_GLOBALS,                    
                          "varying vec4 vertex_pos;\n",
@@ -268,4 +271,40 @@ toggle_model_get_model_depth (ToggleModel *self){
     priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
 
     return (gfloat) mash_model_get_model_depth( (ClutterActor*) self);
+}
+
+
+
+/**
+ * toggle_model_get_model_z_min:
+ * @self: a #ToggleModel
+ *
+ * Return value: the z min of the actor, in pixels
+ */
+gfloat
+toggle_model_get_model_z_min (ToggleModel *self){
+    ToggleModelPrivate *priv;
+
+    if(!TOGGLE_IS_MODEL (self))
+        return -1.0;
+    priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
+
+    return (gfloat) mash_model_get_model_z_min( (ClutterActor*) self);
+}
+
+/**
+ * toggle_model_get_model_z_max:
+ * @self: a #ToggleModel
+ *
+ * Return value: the z max of the actor, in pixels
+ */
+gfloat
+toggle_model_get_model_z_max (ToggleModel *self){
+    ToggleModelPrivate *priv;
+
+    if(!TOGGLE_IS_MODEL (self))
+        return -1.0;
+    priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
+
+    return (gfloat) mash_model_get_model_z_max( (ClutterActor*) self);
 }

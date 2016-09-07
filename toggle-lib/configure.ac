@@ -29,13 +29,13 @@ m4_define([toggle_lt_current], 0)
 m4_define([toggle_lt_revision], 0)
 m4_define([toggle_lt_age], 0)
 
-AC_INIT([toggle], [toggle_version])
+AC_INIT([toggle], [toggle_version], [1.9])
 
-dnl AC_CONFIG_SRCDIR([toggle.h])
+AC_CONFIG_SRCDIR([toggle/toggle-model.h])
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
-AM_INIT_AUTOMAKE([1.9])
+AM_INIT_AUTOMAKE
 
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
@@ -70,7 +70,7 @@ PKG_PROG_PKG_CONFIG
 PKG_CHECK_MODULES(GLIB, [glib-2.0 >= 2.16 gobject-2.0 >= 2.16])
 PKG_CHECK_MODULES(CLUTTER, [clutter-1.0 >= 1.5.10])
 PKG_CHECK_MODULES(MX, [mx-1.0 >= 1.1.0])
-PKG_CHECK_MODULES(MASH, [mash-0.2 >= 0.2.1])
+PKG_CHECK_MODULES(MASH, [mash-0.3 >= 0.3.1])
 
 AC_SUBST([MASH_CFLAGS])
 AC_SUBST([MASH_LIBS])

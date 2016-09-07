@@ -108,13 +108,18 @@ class CubeTabs():
     def completed(self, one):
         self.dis.hide()
 
+    # Animation to run as soon as a connection 
     def to_side_2(self):
         self.current_side = 2
         self.app = self.sides[2]
         self.dis = self.sides[0]
-        self.app.set_opacity(0)
+        self.app.connect("show", self.side_two_loaded)
+        self.app.set_opacity(1)
         self.app.show()
-        self.t2.start()
+
+    # Start animation only when side two has loaded
+    def side_two_loaded(self, something):
+        self.t2.start()        
 
 if __name__ == '__main__':
     Clutter.init( sys.argv )

@@ -1,4 +1,4 @@
-# Plate
+# Plate.py is the buildplate that the model is loaded on to. 
 
 from gi.repository import Clutter, Mx, Mash, Toggle
 import logging

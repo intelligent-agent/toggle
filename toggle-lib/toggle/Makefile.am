@@ -1,7 +1,6 @@
 lib_LTLIBRARIES = libtoggle-@TOGGLE_API_VERSION@.la
 
-INCLUDES = \
-	-I$(top_srcdir)
+INCLUDE=-I$(top_srcdir)
 
 AM_CPPFLAGS = \
 	-DTOGGLE_COMPILATION=1 \
@@ -20,9 +19,9 @@ nodist_libtoggle_@TOGGLE_API_VERSION@_la_SOURCES =
 
 toggledir = $(includedir)/toggle-@TOGGLE_API_VERSION@/toggle
 
-toggle_HEADERS = 
+toggle_HEADERS =
 
-nodist_toggle_HEADERS = 
+nodist_toggle_HEADERS =
 
 libtoggle_@TOGGLE_API_VERSION@_la_LDFLAGS = \
 	-version-info "@TOGGLE_LT_CURRENT@:@TOGGLE_LT_REVISION@:@TOGGLE_LT_AGE@"
@@ -45,9 +44,8 @@ Toggle-@TOGGLE_API_VERSION@.gir: $(INTROSPECTION_SCANNER) libtoggle-@TOGGLE_API_
 		-L`pwd`/.libs\
 		$(AM_CPPFLAGS) \
 		$(json_gir_include_path) \
-		--c-include='toggle/toggle.h' \
 		--include=Clutter-1.0 \
-		--include=Mash-0.2 \
+		--include=Mash-0.3 \
 		--output $@ \
 		--library=toggle-@TOGGLE_API_VERSION@ \
 		$(libtoggle_@TOGGLE_API_VERSION@_la_SOURCES)
