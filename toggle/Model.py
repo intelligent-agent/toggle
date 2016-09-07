@@ -28,8 +28,8 @@ class Model(Toggle.Model):
         light_point.set_constant_attenuation(0.1)
         light_point.set_quadratic_attenuation(0.1)
         light_point.set_linear_attenuation(0.1)      
-        light_point.set_x(200)
-        light_point.set_y(300)
+        #light_point.set_x(200)
+        #light_point.set_y(300)
         light_directional = Mash.DirectionalLight()
         
         self.light_point = light_point
@@ -84,7 +84,7 @@ class Model(Toggle.Model):
         self.model.set_y(-self.depth/2.0)
         self.model.set_x(-self.width/2.0)
         self.model.set_z_position(-self.height/2.0)
-        self.model.set_progress(0)
+        self.set_progress(0)
         self.model.show()
 
     # Hide the spinner/loader when done.
@@ -100,6 +100,8 @@ class Model(Toggle.Model):
         # at a distance of 0 above origin in z-direction. 
         # This should be removed from the depth. 
         height_above_platform = self.model.get_model_z_min()
+        print("Height above "+str(height_above_platform))
+        print("Depth "+str(self.depth))
         self.model.set_progress(self.depth*progress+height_above_platform)
 
 

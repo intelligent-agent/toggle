@@ -57,6 +57,9 @@ class CubeTabs():
         self.t2.set_animatable(self.box)
         self.t2.set_progress_mode(Clutter.AnimationMode.EASE_IN_OUT_CUBIC)
 
+        self.preload = Clutter.Timeline.new(500)
+        self.preload.connect("completed", self.preload_complete)
+
     def gesture_begin(self, btn=None, other=None):
         print("begin")
         return True
@@ -113,12 +116,13 @@ class CubeTabs():
         self.current_side = 2
         self.app = self.sides[2]
         self.dis = self.sides[0]
-        self.app.connect("show", self.side_two_loaded)
+        self.box.set_child_at_index(self.dis, 4)
         self.app.set_opacity(1)
         self.app.show()
+        self.preload.start()
 
     # Start animation only when side two has loaded
-    def side_two_loaded(self, something):
+    def preload_complete(self, something):
         self.t2.start()        
 
 if __name__ == '__main__':

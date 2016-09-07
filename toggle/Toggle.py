@@ -83,7 +83,7 @@ class LoggerWriter:
 class Toggle:
 
     def __init__(self):
-        self.version = "1.1.2"
+        self.version = "1.2.0"
         logging.info("Starting Toggle "+self.version)
 
         file_path = os.path.join("/etc/toggle","local.cfg")

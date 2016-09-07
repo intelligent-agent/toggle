@@ -35,7 +35,13 @@ toggle_model_init (ToggleModel *self){
     ToggleModelPrivate *priv;
     priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
 
+
     priv->pipeline = (CoglPipeline*) mash_model_get_material (MASH_MODEL (&self->parent));
+
+    priv->color     = cogl_color_new();
+    cogl_color_init_from_4ub(priv->color, 255, 255, 255, 255);
+    cogl_pipeline_set_layer_combine_constant (priv->pipeline, 0, priv->color);
+
     cogl_pipeline_set_layer_combine (priv->pipeline, 0, "RGBA = MODULATE (CONSTANT, PRIMARY)", NULL);
 
     priv->progress = -1;
@@ -47,26 +53,6 @@ toggle_model_init (ToggleModel *self){
                          G_CALLBACK (cogl_set_depth_test_enabled),
                          GINT_TO_POINTER (FALSE), NULL,
                          G_CONNECT_AFTER | G_CONNECT_SWAPPED);
-    g_signal_connect (self, "paint",
-                  G_CALLBACK (toggle_model_paint_node),
-                  NULL);
-
-}
-
-static void
-toggle_model_paint_node (ClutterActor *self){
-    ToggleModelPrivate *priv;
-    g_return_if_fail (TOGGLE_IS_MODEL (self));
-    priv = TOGGLE_MODEL_GET_PRIVATE (self);
-
-
-
-
-    //fprintf(stderr, "Toggle model paint, progress is %f\n", priv->progress);
-      /* Update the custom uniform on the pipeline */
-    //int prog = cogl_pipeline_get_uniform_location (priv->pipeline, "progress");
-    //cogl_pipeline_set_uniform_1f (priv->pipeline, prog, priv->progress);
-    //fprintf(stderr, "prog1 var has value %i\n", prog1);
 }
 
 /**
@@ -147,9 +133,9 @@ toggle_model_set_color (ToggleModel *self, const ClutterColor *color){
     g_return_if_fail (TOGGLE_IS_MODEL (self));
 
     priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
-
-	priv->color     = cogl_color_new();
-    cogl_color_init_from_4ub(priv->color, color->red, color->green, color->blue, color->alpha);
+    cogl_color_set_red_byte(priv->color, color->red);
+    cogl_color_set_green_byte(priv->color, color->green);
+    cogl_color_set_blue_byte(priv->color, color->blue);
 
 	cogl_pipeline_set_layer_combine_constant (priv->pipeline, 0, priv->color);
 }
