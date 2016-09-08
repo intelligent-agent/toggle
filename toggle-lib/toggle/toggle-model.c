@@ -36,7 +36,7 @@ toggle_model_init (ToggleModel *self){
     priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
 
 
-    priv->pipeline = (CoglPipeline*) mash_model_get_material (MASH_MODEL (&self->parent));
+    priv->pipeline = (CoglPipeline*) mash_model_get_pipeline (MASH_MODEL (&self->parent));
 
     priv->color     = cogl_color_new();
     cogl_color_init_from_4ub(priv->color, 255, 255, 255, 255);
@@ -235,7 +235,7 @@ toggle_model_set_specular (ToggleModel *self, const ClutterColor *color){
 
     priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
 
-    priv->pipeline = (CoglPipeline*) mash_model_get_material (MASH_MODEL (&self->parent));
+    priv->pipeline = (CoglPipeline*) mash_model_get_pipeline (MASH_MODEL (&self->parent));
 	CoglColor* color1   = cogl_color_new();
     cogl_color_init_from_4ub(color1, color->red, color->green, color->blue, color->alpha);
 
@@ -269,13 +269,11 @@ toggle_model_get_model_depth (ToggleModel *self){
  */
 gfloat
 toggle_model_get_model_z_min (ToggleModel *self){
-    ToggleModelPrivate *priv;
-
     if(!TOGGLE_IS_MODEL (self))
-        return -1.0;
-    priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
-
-    return (gfloat) mash_model_get_model_z_min( (ClutterActor*) self);
+        return -1.0;    
+    gfloat f = mash_model_get_model_z_min((ClutterActor*) self);
+    fprintf(stderr, "F from toggle model: %f\n", f);
+    return f;
 }
 
 /**
@@ -292,5 +290,5 @@ toggle_model_get_model_z_max (ToggleModel *self){
         return -1.0;
     priv = self->priv = TOGGLE_MODEL_GET_PRIVATE (self);
 
-    return (gfloat) mash_model_get_model_z_max( (ClutterActor*) self);
+    return 13.0; //(gfloat) mash_model_get_model_z_max( (ClutterActor*) self);
 }
