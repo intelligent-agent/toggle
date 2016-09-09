@@ -1,23 +1,28 @@
 # Plate.py is the buildplate that the model is loaded on to. 
 
-from gi.repository import Clutter, Mx, Mash, Toggle
+from gi.repository import Clutter, Mx, Mash
 import logging
 import math
 from operator import attrgetter
 
-class Plate(Toggle.Model):
+class Plate(Mash.Model):
     def __init__(self, config):
         super(Plate, self).__init__()
         self.config = config
         # I want to subclass this, but I'm uncertain how to..
         self.plate = self.config.ui.get_object("plate")
-        self.plate.load_from_file(0, config.get("System", "plate"))
-        self.plate.set_specular(Clutter.Color.from_string("#0000")[1])
+        self.plate_data = Mash.Data()
+        self.plate_data.load(0, config.get("System", "plate"))
+        self.plate.set_data(self.plate_data)
+        #self.plate.set_specular(Clutter.Color.from_string("#0000")[1])
         self.plate.set_color(Clutter.Color.from_string("#555F")[1])
 
         # Position it
         (width, height) = self.plate.get_size()
-        depth = self.plate.get_model_depth() # Custom method
+        v_min = Clutter.Vertex()
+        v_max = Clutter.Vertex()
+        self.plate_data.get_extents(v_min, v_max)
+        depth = v_max.z - v_min.z
         self.plate.set_y(depth/2.0)
         self.plate.set_x(-width/2.0)
         self.plate.set_z_position(height/2.0)

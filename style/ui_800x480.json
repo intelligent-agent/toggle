@@ -201,14 +201,14 @@
                                     "scale-z": 1.2,
                                     "children": [{
                                         "id": "plate", 
-                                        "type" : "ToggleModel",
+                                        "type" : "MashModel",
                                         "rotation-angle-x": -90.0
                                     },{
                                         "id": "model-flipper", 
                                         "type": "ClutterActor", 
                                         "children":[{
                                             "id": "model", 
-                                            "type" : "ToggleModel",
+                                            "type" : "MashModel",
                                              "rotation-angle-x": 90.0,
                                              "rotation-angle-y": 0.0, 
                                              "rotation-angle-z": 0.0 

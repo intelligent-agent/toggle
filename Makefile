@@ -5,7 +5,7 @@ PYTHON=`which python`
 DESTDIR=/
 BUILDIR=$(CURDIR)/debian/redeem
 PROJECT=toggle
-VERSION=0.5.0
+VERSION=0.7.0
 
 all:
 	@echo "make source - Create source package"
@@ -18,14 +18,6 @@ libtoggle-deb:
 	$(MAKE) -f debian/rules configure
 	$(MAKE) -f debian/rules build
 	$(MAKE) -f debian/rules install
-
-libtoggle:
-	# Use the following on your desktop
-	cd toggle-lib && ./autogen.sh --enable-introspection --prefix=/usr
-	# Use the following on the BeagleBone
-	# cd toggle-lib && ./autogen.sh --enable-introspection --libdir=/usr/lib/arm-linux-gnueabihf
-	cd toggle-lib && make
-	cd toggle-lib && make install
 
 source:
 	$(PYTHON) setup.py sdist $(COMPILE)
@@ -50,8 +42,5 @@ clean:
 	$(MAKE) -f $(CURDIR)/debian/rules clean
 	rm -rf build/ MANIFEST
 	find . -name '*.pyc' -delete
-	make -C toggle-lib clean
-	rm -rf toggle-lib/debian
-	rm -rf toggle-lib/usr
 	rm -rf usr
 	rm -rf debian/python-toggle

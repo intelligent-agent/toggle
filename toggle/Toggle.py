@@ -26,9 +26,8 @@ import gi
 gi.require_version('Mash', '0.3')
 gi.require_version('Cogl', '1.0')
 gi.require_version('Clutter', '1.0')
-gi.require_version('Toggle', '0.6')
 gi.require_version('Mx', '1.0')
-from gi.repository import Clutter, Mx, Toggle, Cogl, Mash
+from gi.repository import Clutter, Mx, Cogl, Mash
 
 #import subprocess
 import logging

@@ -1,9 +1,9 @@
 # Model
 import os.path
 import logging
-from gi.repository import Clutter, Mx, Toggle, Cogl, Mash
+from gi.repository import Clutter, Mx, Cogl, Mash
 
-class Model(Toggle.Model):
+class Model(Mash.Model):
     def __init__(self, config):
         super(Model, self).__init__()
 
@@ -13,6 +13,11 @@ class Model(Toggle.Model):
         self.color = Clutter.Color.from_string(color_str)[1]
         self.loader = config.ui.get_object("loader")
         self.loader.set_from_file(config.get("System", "loader"))
+
+        self.model_data = Mash.Data()
+        self.model.set_data(self.model_data)
+        self.v_min = Clutter.Vertex()
+        self.v_max = Clutter.Vertex()
 
         self.t = Clutter.PropertyTransition(property_name='rotation-angle-z')
         self.t.set_from(0)
@@ -72,15 +77,16 @@ class Model(Toggle.Model):
         if not os.path.isfile(path):
             logging.warning(path+" is not a file")
         try:
-            self.model.load_from_file(0, path)
-            #self.model.set_color(self.color)
-            #self.model.set_culling(0)
+            self.model_data.load(0, path)
+            #self.model.load_from_file(0, path)
+            self.model.set_data(self.model_data)
         except:
             logging.warning("Unable to open model "+path)
             raise
             return
+        self.model_data.get_extents(self.v_min, self.v_max)
         (self.width, self.height) = self.model.get_size()
-        self.depth = self.model.get_model_depth() # Custom method
+        self.depth = self.v_max.z-self.v_min.z
         self.model.set_y(-self.depth/2.0)
         self.model.set_x(-self.width/2.0)
         self.model.set_z_position(-self.height/2.0)
@@ -99,7 +105,7 @@ class Model(Toggle.Model):
         # TODO: progress now assumes that the model starts
         # at a distance of 0 above origin in z-direction. 
         # This should be removed from the depth. 
-        height_above_platform = self.model.get_model_z_min()
+        height_above_platform = self.v_min.z
         print("Height above "+str(height_above_platform))
         print("Depth "+str(self.depth))
         self.model.set_progress(self.depth*progress+height_above_platform)
