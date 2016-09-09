@@ -141,6 +141,16 @@ class Toggle:
         config.plate        = Plate(config)
 
         config.socks_client = WebSocksClient(config, host="ws://"+host+":5000")
+        
+        # mouse
+        use_mouse = int(config.get('System', 'mouse'))
+        self.cursor = config.ui.get_object("cursor")
+        if use_mouse:
+            config.stage.connect("motion-event", self.mouse_move)
+            logging.info("Mouse is active")
+        else:
+            logging.info("Mouse is not active")
+            self.cursor.set_opacity(0)
 
         config.push_updates = JoinableQueue(10)
         self.config = config
@@ -217,6 +227,9 @@ class Toggle:
                 self.config.stage.set_fullscreen(True)
         elif event.unicode_value == "q":
             self.stop(None)
+            
+    def mouse_move(self, actor, event):
+        self.cursor.set_position(event.x, event.y)
 
 
 def main():
