@@ -597,6 +597,18 @@
                 "color": "#FFF",
                 "height": 100
             }]
+        },{
+            "id": "cursor", 
+            "type" : "ClutterActor",
+            "width" : 24,
+            "height" : 24,
+            "children" : [{
+                "id": "pointer", 
+                "type": "MxButton",
+                "height": 24, 
+                "width": 24,
+                "style-class": "mouse"
+            }]
         }]
     }]
 }]
