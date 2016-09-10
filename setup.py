@@ -63,7 +63,8 @@ setup(name='Toggle',
                         'style/travel_1_128.png', 
                         'style/travel_10_128.png', 
                         'style/travel_100_128.png', 
-                        'style/Toggle_splash.png'
+                        'style/Toggle_splash.png',
+                        'style/pointer.png'
                     ]),
                   ('/etc/toggle', [
                         'configs/default.cfg', 

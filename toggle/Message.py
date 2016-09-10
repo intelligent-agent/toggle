@@ -10,7 +10,7 @@ class Message:
         self.msg.save_easing_state()
         self.msg.set_easing_duration (500)
         self.txt = config.ui.get_object("txt")
-        self.fade = Clutter.Timeline.new(3000)
+        self.fade = Clutter.Timeline.new(2000)
         self.fade.connect("completed", self.remove)
 
     def display(self, text):

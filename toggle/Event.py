@@ -121,7 +121,7 @@ class PushUpdate:
 
     def slicingProgress(self):
         prog = self.payload["progress"]
-        self.config.message.display("Slicing progress: {}%".format(prog))
+        self.config.message.update("Slicing progress: {}%".format(prog))
 
     def state(self):
         print "Got state!"
