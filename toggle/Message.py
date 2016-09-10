@@ -1,5 +1,5 @@
 # Display a message. 
-from gi.repository import Clutter, Mx, Mash, Toggle, GLib
+from gi.repository import Clutter, Mx, Mash
 import logging
 from threading import current_thread
 class Message:
@@ -10,7 +10,7 @@ class Message:
         self.msg.save_easing_state()
         self.msg.set_easing_duration (500)
         self.txt = config.ui.get_object("txt")
-        self.fade = Clutter.Timeline.new(2000)
+        self.fade = Clutter.Timeline.new(3000)
         self.fade.connect("completed", self.remove)
 
     def display(self, text):
@@ -24,7 +24,6 @@ class Message:
         if self.msg.get_opacity() == 255:
             logging.debug("Updating message")
             self.txt.set_text(text)
-            #self.txt.set_x(400-self.txt.get_width()/2)
             self.fade.rewind()
         else:
             self.display(text)

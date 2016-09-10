@@ -2,7 +2,7 @@
 # Loads the models and sets up a cycling display. 
 
 import logging
-from gi.repository import Clutter, Mx, Mash, Toggle
+from gi.repository import Clutter, Mx, Mash
 from os import listdir, remove
 from os.path import isfile, join
 from itertools import cycle
@@ -104,11 +104,13 @@ class ModelLoader(Clutter.Actor):
         except OSError as e:
             logging.error("ModelLoader: Unable to delete file. Check permissions")
 
-    def tap_next(self, action, actor, user_data):
-        self.tap(self.models.next())    
+    def tap_next(self, action, button, user_data):
+        if not button.get_toggled():
+            self.tap(self.models.next())
 
-    def tap_prev(self, action, actor, user_data):
-        self.tap(self.models.prev())    
+    def tap_prev(self, action, button, user_data):
+        if not button.get_toggled():
+            self.tap(self.models.prev())    
         
     def get_model_filename(self):
         return self.models.cur()

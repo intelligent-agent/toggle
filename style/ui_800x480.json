@@ -136,6 +136,7 @@
                     "id": "side1-btn-prev", 
                     "type": "MxButton",
                     "style-class": "main",
+                    "is_toggle": true, 
                     "x": 20, 
                     "y": 15, 
                     "visible": false
@@ -143,6 +144,7 @@
                     "id": "side1-btn-next", 
                     "type": "MxButton", 
                     "style-class": "print",
+                    "is_toggle": true, 
                     "x": 716, 
                     "y": 15,	
                     "height": 64, 

@@ -1,7 +1,7 @@
 
 from Graph import Graph, GraphScale, GraphPlot
 
-from gi.repository import Clutter, Mx, Mash, Toggle
+from gi.repository import Clutter, Mx, Mash
 
 import logging
 

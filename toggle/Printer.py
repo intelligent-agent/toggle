@@ -3,7 +3,7 @@
 import logging
 import os.path
 import threading
-from gi.repository import Clutter, Mx, Mash, Toggle
+from gi.repository import Clutter, Mx, Mash
 import time
 import sys 
 
@@ -17,6 +17,9 @@ class Printer:
         self.btn_print  = self.config.ui.get_object("btn-print")
         self.btn_pause  = self.config.ui.get_object("btn-pause")
         self.btn_cancel = self.config.ui.get_object("btn-cancel")
+
+        self.btn_next   = self.config.ui.get_object("btn-next")
+        self.btn_prev   = self.config.ui.get_object("btn-prev")
 
         tap_print = Clutter.TapAction()
         self.btn_print.add_action(tap_print)
@@ -82,7 +85,6 @@ class Printer:
             self.btn_heat.set_toggled(False)            
             self.btn_print.set_label("Print")          
 
-
     def set_printing_enabled(self, enabled):
         if enabled:
             self.btn_print.set_toggled(True)
@@ -118,6 +120,18 @@ class Printer:
         else:
             self.btn_cancel.set_toggled(False)
 
+    def update_next_buttons(self):
+        if self.flags["operational"]:
+            if self.flags["printing"]:
+                self.btn_next.set_toggled(True)
+                self.btn_prev.set_toggled(True)
+            else:
+                self.btn_next.set_toggled(False)
+                self.btn_prev.set_toggled(False)                
+        else:
+            self.btn_next.set_toggled(True)
+            self.btn_prev.set_toggled(True)
+
     # Update the current state of the printer. 
     # This sets the flags shown in the bottom left corner. 
     def update_printer_state(self, state):
@@ -126,12 +140,13 @@ class Printer:
         self.set_status(state["text"])
         self.flags = state["flags"]
         self.connection.set_toggled(self.flags["operational"]) 
-        self.printing.set_toggled(self.flags["printing"]) 
+        self.printing.set_toggled(self.flags["printing"])
         self.paused.set_toggled(self.flags["paused"]) 
 
         self.update_print_button()
         self.update_cancel_button()
         self.update_pause_button()    
+        self.update_next_buttons()
 
         if self.flags["sdReady"]: 
             pass

@@ -29,26 +29,32 @@ class Model(Mash.Model):
 
         #Set up the light
         self.light_set = Mash.LightSet()
-        light_point = Mash.PointLight()
-        light_point.set_constant_attenuation(0.1)
-        light_point.set_quadratic_attenuation(0.1)
-        light_point.set_linear_attenuation(0.1)      
+        vp = config.ui.get_object("volume-viewport")
+
+        # Directional
+        self.light_directional = Mash.DirectionalLight()
+        self.light_set.add_light(self.light_directional)
+
+        # Point light
+        self.light_point = Mash.PointLight()
+        #self.light_point.set_constant_attenuation(0.1)
+        #self.light_point.set_quadratic_attenuation(0.1)
+        #self.light_point.set_linear_attenuation(0.1)      
         #light_point.set_x(200)
         #light_point.set_y(300)
-        light_directional = Mash.DirectionalLight()
+        self.light_set.add_light(self.light_point)
         
-        self.light_point = light_point
-        #light_spot = Mash.SpotLight()
+        # Spot light
+        # Disable spot light for now. 
+        self.light_spot = Mash.SpotLight()
+        #self.light_set.add_light(self.light_spot)
 
-        self.light_set.add_light(light_point)
-        self.light_set.add_light(light_directional)
-        #self.light_set.add_light(light_spot)
+        
 
         # Add the model the lights to the volume viewport
-        vp = config.ui.get_object("volume-viewport")
-        vp.add_child(light_point);
-        vp.add_child(light_directional);
-        #vp.add_child(light_spot);
+        vp.add_child(self.light_directional);
+        vp.add_child(self.light_spot);
+        vp.add_child(self.light_point);
 
         cm = Cogl.Matrix()
         m = Clutter.matrix_init_from_array(cm, [
@@ -106,8 +112,8 @@ class Model(Mash.Model):
         # at a distance of 0 above origin in z-direction. 
         # This should be removed from the depth. 
         height_above_platform = self.v_min.z
-        print("Height above "+str(height_above_platform))
-        print("Depth "+str(self.depth))
+        #print("Height above "+str(height_above_platform))
+        #print("Depth "+str(self.depth))
         self.model.set_progress(self.depth*progress+height_above_platform)
 
 

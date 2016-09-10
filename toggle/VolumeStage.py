@@ -1,6 +1,6 @@
 # VolumeStage
 import logging
-from gi.repository import Clutter, Mx, Mash, Toggle, Cogl
+from gi.repository import Clutter, Mx, Mash, Cogl
 
 class VolumeStage(Clutter.Actor):
 
