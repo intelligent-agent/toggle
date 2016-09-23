@@ -9,7 +9,7 @@ def read(fname):
 
 
 setup(name='Toggle',
-      version='1.2.0',
+      version='1.2.1',
       description='Embedded UI for 3D printers',
       author='Elias Bakken',
       author_email='elias@iagent.no',
