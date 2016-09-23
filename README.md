@@ -117,26 +117,16 @@ cd /usr/src/
 git clone https://github.com/eliasbakken/mash.git
 cd /usr/src/mash
 ./autogen.sh --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --enable-introspection
-sed -i 's/SUBDIRS = mash examples docs/SUBDIRS = mash docs/' Makefile
-sed -i 's/--library=libmash-@MASH_API_VERSION@.la/--library=mash-@MASH_API_VERSION@/ --library-path=/usr/src/mash/mash/.libs/' mash/Makefile.am
+sed -i 's/--library=mash-@MASH_API_VERSION@/--library=mash-@MASH_API_VERSION@/ --library-path=/usr/src/mash/mash/.libs/' mash/Makefile.am
 make
 make install
 ```
 
 **Toggle**
-Note: On Debian Jessie, the only way I could compile the gir/typelib was to link to the library 
-by full path. Adding this to the /usr/src/toggle/toggle-lib/Makefile:
--L /usr/src/toggle/toggle-lib/.libs
-in the target for $(GIR_FILE)
 ```
 cd /usr/src
 git clone https://intelligentagent@bitbucket.org/intelligentagent/toggle.git
 cd toggle
-python setup.py install 
-cd toggle-lib
-sed -i 's:LIBTOOL?=libtool:LIBTOOL?=/usr/src/mash/libtool:' Makefile
-sed -i 's:--library=$(LALIB):--library=toggle -L/usr/src/toggle/toggle-lib/.libs:' Makefile
-make 
 make install
 ```
 

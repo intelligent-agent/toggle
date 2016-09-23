@@ -3,16 +3,10 @@
 
 from setuptools import setup, find_packages, Extension
 import os
-#from distutils.core import setup, Extension
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
-
-#toggle_lib = Extension('toggl_lib',
-#                    sources = [
-#                        'toggle-lib/toggle-model.c', 
-#                        'toggle-lib/toggle-box.c'])
 
 setup(name='Toggle',
       version='1.2.0',
@@ -80,5 +74,4 @@ setup(name='Toggle',
                 'toggle = toggle.Toggle:main'
             ]
         },
-      #ext_modules = [toggle_lib]
      )
