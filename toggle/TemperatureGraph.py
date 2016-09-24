@@ -159,7 +159,6 @@ class TemperatureGraph():
             self.temps["bed"]["heating"] = True
 
     def change_to_filament(self, button, action):
-        print "Graph tapped"
         if self.config.getboolean('System', 'use-filament-graph'):
             self.graph.hide()
             self.config.filament_graph.graph.show()
