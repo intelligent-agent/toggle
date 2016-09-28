@@ -14,7 +14,6 @@ class Plate(Mash.Model):
         self.plate_data = Mash.Data()
         self.plate_data.load(0, config.get("System", "plate"))
         self.plate.set_data(self.plate_data)
-        #self.plate.set_specular(Clutter.Color.from_string("#0000")[1])
         self.plate.set_color(Clutter.Color.from_string("#555F")[1])
 
         # Position it
@@ -31,7 +30,6 @@ class Plate(Mash.Model):
 
         self.probe_points = []
         self.scale_points = []
-        #self.plate.set_progress(100.0)
         self.plate.set_culling(1)
 
     def add_probe_point(self, point):
@@ -41,30 +39,32 @@ class Plate(Mash.Model):
 
 
     def add_point_to_bed(self, point):
-        probe = Toggle.Model()
-        probe.load_from_file(0, self.config.get("System", "probe-point"))
-
+        probe = Mash.Model.new_from_file(0, self.config.get("System", "probe-point"))
         probe.set_size(10, 10)
         (width, height) = probe.get_size()
-        depth = probe.get_model_depth() # Custom method
+        v_min = Clutter.Vertex()
+        v_max = Clutter.Vertex()
+        data = probe.get_property("data")
+        data.get_extents(v_min, v_max)
+        depth = v_max.z - v_min.z
 
-        probe.set_y(depth/2.0-point[2])
-        probe.set_x(-width/2.0+point[0])
-        probe.set_z_position(height/2.0+point[1])
+        probe.set_y(-depth/2.0-point[2])
+        probe.set_x(-width/2.0-point[0])
+        probe.set_z_position(-height/2.0+point[1])
         probe.z = point[2] # Store z-value for rescaling
 
         probe.set_light_set(self.config.loader.model.light_set)
-        probe.set_rotation_angle(Clutter.RotateAxis.X_AXIS, -90.0)
+        probe.set_rotation_angle(Clutter.RotateAxis.X_AXIS, 90.0)
         self.config.ui.get_object("model-flipper").add_actor(probe)
         self.probe_points.append(probe)
 
 
     def add_point_to_scale(self, point):
         #logging.debug("Adding point to scale")
-        probe = Toggle.Model()
-        probe.load_from_file(0, self.config.get("System", "probe-point"))
+        probe = Mash.Model.new_from_file(0, self.config.get("System", "probe-point"))
+        #probe.load_from_file(0, )
         probe.z = point[2]
-
+        
         probe.set_size(30, 30)
         probe.set_x(point[0])
         probe.set_y(point[1])
@@ -104,7 +104,7 @@ class Plate(Mash.Model):
         """ Taken from https://www.safaribooksonline.com/library/view/python-cookbook/0596001673/ch09s11.html """
         # Normalize to 0-1
         try:
-            x = self.rescale(float(mag), cmin, cmax, 0.0, 1.0)#float(mag-cmin)/(cmax-cmin)
+            x = self.rescale(float(mag), cmin, cmax, 0.0, 1.0)
         except ZeroDivisionError:
             x = 0.5 # cmax == cmin
         blue = max(0, (1.0 - 2*x))*0xFF
@@ -115,9 +115,8 @@ class Plate(Mash.Model):
 
 
     def make_scale(self):
-        pass
-        #for z in range(11):
-        #    self.add_point_to_scale([150, z*20+150, 0])
+        for z in range(11):
+            self.add_point_to_scale([150, z*20+150, 0])
 
     def recalculate_scale(self):
         cmax = max(self.probe_points, key=attrgetter('z')).z
