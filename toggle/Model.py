@@ -18,6 +18,7 @@ class Model(Mash.Model):
         self.model.set_data(self.model_data)
         self.v_min = Clutter.Vertex()
         self.v_max = Clutter.Vertex()
+        self.depth = 0
 
         self.t = Clutter.PropertyTransition(property_name='rotation-angle-z')
         self.t.set_from(0)
@@ -37,23 +38,10 @@ class Model(Mash.Model):
 
         # Point light
         self.light_point = Mash.PointLight()
-        #self.light_point.set_constant_attenuation(0.1)
-        #self.light_point.set_quadratic_attenuation(0.1)
-        #self.light_point.set_linear_attenuation(0.1)      
-        #light_point.set_x(200)
-        #light_point.set_y(300)
         self.light_set.add_light(self.light_point)
         
-        # Spot light
-        # Disable spot light for now. 
-        self.light_spot = Mash.SpotLight()
-        #self.light_set.add_light(self.light_spot)
-
-        
-
         # Add the model the lights to the volume viewport
         vp.add_child(self.light_directional);
-        vp.add_child(self.light_spot);
         vp.add_child(self.light_point);
 
         cm = Cogl.Matrix()
@@ -112,8 +100,6 @@ class Model(Mash.Model):
         # at a distance of 0 above origin in z-direction. 
         # This should be removed from the depth. 
         height_above_platform = self.v_min.z
-        #print("Height above "+str(height_above_platform))
-        #print("Depth "+str(self.depth))
         self.model.set_progress(self.depth*progress+height_above_platform)
 
 
