@@ -3,7 +3,7 @@
 import logging
 import os.path
 import threading
-from gi.repository import Clutter, Mx, Mash, Toggle
+from gi.repository import Clutter, Mx, Mash
 import time
 import sys 
 
@@ -18,6 +18,9 @@ class Printer:
         self.btn_pause  = self.config.ui.get_object("btn-pause")
         self.btn_cancel = self.config.ui.get_object("btn-cancel")
 
+        self.btn_next   = self.config.ui.get_object("btn-next")
+        self.btn_prev   = self.config.ui.get_object("btn-prev")
+
         tap_print = Clutter.TapAction()
         self.btn_print.add_action(tap_print)
         tap_print.connect("tap", self.start_print, None)
@@ -31,6 +34,8 @@ class Printer:
         tap_cancel.connect("tap", self.cancel_print, None)
 
         self.progress = self.config.ui.get_object("progress-bar")
+        self.time_gone = self.config.ui.get_object("time-gone")
+        self.time_left = self.config.ui.get_object("time-left")
 
         self.lbl_stat = self.config.ui.get_object("lbl-stat")
         self.lbl_model = self.config.ui.get_object("lbl-model")
@@ -80,7 +85,6 @@ class Printer:
             self.btn_heat.set_toggled(False)            
             self.btn_print.set_label("Print")          
 
-
     def set_printing_enabled(self, enabled):
         if enabled:
             self.btn_print.set_toggled(True)
@@ -116,6 +120,18 @@ class Printer:
         else:
             self.btn_cancel.set_toggled(False)
 
+    def update_next_buttons(self):
+        if self.flags["operational"]:
+            if self.flags["printing"]:
+                self.btn_next.set_toggled(True)
+                self.btn_prev.set_toggled(True)
+            else:
+                self.btn_next.set_toggled(False)
+                self.btn_prev.set_toggled(False)                
+        else:
+            self.btn_next.set_toggled(True)
+            self.btn_prev.set_toggled(True)
+
     # Update the current state of the printer. 
     # This sets the flags shown in the bottom left corner. 
     def update_printer_state(self, state):
@@ -124,12 +140,13 @@ class Printer:
         self.set_status(state["text"])
         self.flags = state["flags"]
         self.connection.set_toggled(self.flags["operational"]) 
-        self.printing.set_toggled(self.flags["printing"]) 
+        self.printing.set_toggled(self.flags["printing"])
         self.paused.set_toggled(self.flags["paused"]) 
 
         self.update_print_button()
         self.update_cancel_button()
         self.update_pause_button()    
+        self.update_next_buttons()
 
         if self.flags["sdReady"]: 
             pass
@@ -140,9 +157,22 @@ class Printer:
         if self.flags["closedOrError"]:
             pass
 
-    def update_progress(self, progress):
+    def update_progress(self, progress):        
         if progress["completion"]:
             self.progress.set_progress(progress["completion"]/100.0)
+            self.config.loader.model.set_progress(progress["completion"]/100.0)
+        if progress['printTimeLeft']:
+            left = self.format_time(progress['printTimeLeft'])
+            self.time_left.set_text(left)
+        if progress['printTime']:
+            gone = self.format_time(progress['printTime'])
+            self.time_gone.set_text(gone)
+
+    def format_time(self, seconds):
+        m, s = divmod(seconds, 60)
+        h, m = divmod(m, 60)
+        return "%d:%02d:%02d" % (h, m, s)
+
 
     def start_connect_thread(self):
         pass

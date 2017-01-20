@@ -2,7 +2,7 @@
 # Loads the models and sets up a cycling display. 
 
 import logging
-from gi.repository import Clutter, Mx, Mash, Toggle
+from gi.repository import Clutter, Mx, Mash
 from os import listdir, remove
 from os.path import isfile, join
 from itertools import cycle
@@ -104,38 +104,42 @@ class ModelLoader(Clutter.Actor):
         except OSError as e:
             logging.error("ModelLoader: Unable to delete file. Check permissions")
 
-    def tap_next(self, action, actor, user_data):
-        self.tap(self.models.next())    
+    def tap_next(self, action, button, user_data):
+        if not button.get_toggled():
+            self.tap(self.models.next())
 
-    def tap_prev(self, action, actor, user_data):
-        self.tap(self.models.prev())    
+    def tap_prev(self, action, button, user_data):
+        if not button.get_toggled():
+            self.tap(self.models.prev())    
         
     def get_model_filename(self):
         return self.models.cur()
 
     def tap(self, filename):
-        print "show loader"
         self.model.loader.show()
         filename = re.sub(".stl", ".gco", filename, flags=re.I)
         logging.debug("Selecting "+filename)
         p = PushUpdate("select_model", filename)
         p.has_thread_execution = True
         self.config.push_updates.put(p)
-        print "LocalUpdate placed"
-        #self.config.rest_client.select_file(filename)  
 
     def select_model(self, filename):
-        logging.debug("showing "+filename)
+        self.config.plate.remove_probe_points()
         if self.models.has(filename):
+            logging.debug("showing "+filename)
             filename = self.models.select(filename)
             self.model.load_model(filename)
-            self.config.printer.set_model(filename)
+            self.config.printer.set_model(filename.replace(".stl", ""))
             self.model_selected = True
         else:
+            self.config.printer.set_model(filename.replace(".stl", ""))
+            self.model_selected = True
+            self.model.select_none()
             logging.warning("Missing STL: "+filename)
 
     def select_none(self):
-        self.model.hide()
+        #logging.debug("Selecting none")
+        self.model.model.hide()
         self.model_selected = False
         
 

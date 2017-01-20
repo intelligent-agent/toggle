@@ -5,7 +5,7 @@ PYTHON=`which python`
 DESTDIR=/
 BUILDIR=$(CURDIR)/debian/redeem
 PROJECT=toggle
-VERSION=0.5.0
+VERSION=0.7.0
 
 all:
 	@echo "make source - Create source package"
@@ -19,16 +19,12 @@ libtoggle-deb:
 	$(MAKE) -f debian/rules build
 	$(MAKE) -f debian/rules install
 
-libtoggle:
-	cd toggle-lib && ./autogen.sh --prefix=/usr --enable-introspection --libdir=/usr/lib/arm-linux-gnueabihf
-	cd toggle-lib && make
-	cd toggle-lib && make install
-
 source:
 	$(PYTHON) setup.py sdist $(COMPILE)
 
 install:
-	$(PYTHON) setup.py install --root $(DESTDIR) $(COMPILE) --prefix=/usr
+	$(PYTHON) setup.py install --single-version-externally-managed --root $(DESTDIR) $(COMPILE) 
+	cp configs/*.cfg /etc/toggle/
 
 buildrpm:
 	$(PYTHON) setup.py bdist_rpm --post-install=rpm/postinstall --pre-uninstall=rpm/preuninstall
@@ -46,8 +42,5 @@ clean:
 	$(MAKE) -f $(CURDIR)/debian/rules clean
 	rm -rf build/ MANIFEST
 	find . -name '*.pyc' -delete
-	make -C toggle-lib clean
-	rm -rf toggle-lib/debian
-	rm -rf toggle-lib/usr
 	rm -rf usr
 	rm -rf debian/python-toggle

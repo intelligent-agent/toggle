@@ -10,10 +10,13 @@ MxButton, MxButton:checked{
   border-image: none;
 }
 
-MxButton.jog_arrow{
-    background-image: url("/etc/toggle/style/arrow_128.png");
+MxButton.mouse{
+    background-image: url("/etc/toggle/style/pointer.png");
     border-image: none;
 }
+
+MxButton.jog_arrow          {  background-image: url("/etc/toggle/style/arrow_128.png"); border-image: none; }
+MxButton.jog_arrow:checked  {  background-image: url("/etc/toggle/style/arrow_disabled_128.png"); border-image: none; }
 
 MxButton.jog_home           {  background-image: url("/etc/toggle/style/home.png");      border-image: none; }
 MxButton.jog_home_z         {  background-image: url("/etc/toggle/style/z.png");         border-image: none; }
@@ -94,4 +97,3 @@ MxButton.printing{          background-image: none;                             
 MxButton.paused:checked{    background-image: url("/etc/toggle/style/pause_128.png");        border-image: none; }
 MxButton.paused{            background-image: none;                                          border-image: none; }
 MxButton.heartbeat{         background-image: url("/etc/toggle/style/heartbeat_128.png");    border-image: none; }
-

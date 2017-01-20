@@ -1,7 +1,7 @@
 
 from Graph import Graph, GraphScale, GraphPlot
 
-from gi.repository import Clutter, Mx, Mash, Toggle
+from gi.repository import Clutter, Mx, Mash
 
 import logging
 
@@ -159,9 +159,9 @@ class TemperatureGraph():
             self.temps["bed"]["heating"] = True
 
     def change_to_filament(self, button, action):
-        print "Graph tapped"
-        self.graph.hide()
-        self.config.filament_graph.graph.show()
-        #self.config.filament_graph.graph.refresh()
+        if self.config.getboolean('System', 'use-filament-graph'):
+            self.graph.hide()
+            self.config.filament_graph.graph.show()
+            #self.config.filament_graph.graph.refresh()
 
 

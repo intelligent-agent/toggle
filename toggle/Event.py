@@ -2,6 +2,7 @@
 import logging
 import os
 import time
+import json
 
 from gi.repository import GLib
 
@@ -95,6 +96,13 @@ class PushUpdate:
         elif plugin_type == "display_message":
             message = plugin_data["message"]
             self.config.message.display(message) 
+        elif plugin_type == "bed_probe_point":
+            point = json.loads(plugin_data["message"])
+            self.config.plate.add_probe_point(point)
+            self.config.loader.select_none()
+        elif plugin_type == "bed_probe_reset":
+            self.config.plate.remove_probe_points()
+            self.config.loader.model.show()
         else:
             logging.debug("Unknown plugin type: "+str(plugin_type))
 
@@ -113,7 +121,7 @@ class PushUpdate:
 
     def slicingProgress(self):
         prog = self.payload["progress"]
-        self.config.message.display("Slicing progress: {}%".format(prog))
+        self.config.message.update("Slicing progress: {}%".format(prog))
 
     def state(self):
         print "Got state!"

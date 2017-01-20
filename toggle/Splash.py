@@ -1,6 +1,6 @@
 # Plate
 
-from gi.repository import Clutter, Mx, Mash, Toggle
+from gi.repository import Clutter, Mx, Mash
 
 class Splash():
     def __init__(self, config):

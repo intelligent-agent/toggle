@@ -132,7 +132,7 @@ class WebSocksClient():
         """
         self.state = WebSocksClient.FAILED
         self.io_loop.stop()
-        logging.warning('Websocket connection error: %s', exception)
+        logging.debug('Websocket connection error: %s', exception)
 
 
     def parse_msg(self, msg):
@@ -152,7 +152,7 @@ class WebSocksClient():
 
     def run(self):
         
-        for i in range(10):
+        for i in range(30):
             if self.running:
                 self.config.splash.set_status("Connecting to {} ({})".format(self.host, i))
                 logging.debug("Websocket connection attempt "+str(i))

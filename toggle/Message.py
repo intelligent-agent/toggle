@@ -1,5 +1,5 @@
 # Display a message. 
-from gi.repository import Clutter, Mx, Mash, Toggle, GLib
+from gi.repository import Clutter, Mx, Mash
 import logging
 from threading import current_thread
 class Message:
@@ -24,7 +24,6 @@ class Message:
         if self.msg.get_opacity() == 255:
             logging.debug("Updating message")
             self.txt.set_text(text)
-            #self.txt.set_x(400-self.txt.get_width()/2)
             self.fade.rewind()
         else:
             self.display(text)
