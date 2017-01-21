@@ -26,7 +26,10 @@ class Jog:
             "jog_e_toggle", 
             "travel_xy",
             "travel_z",
-            "travel_eh"
+            "travel_eh",
+            "fan_on",
+            "fan_off",
+            "motors_off"
         ]
 
         for name in buttons:
@@ -75,6 +78,15 @@ class Jog:
             self.config.rest_client.select_tool("tool0")
         else:
             self.config.rest_client.select_tool("tool1")
+
+    def fan_on(self, btn, etc=None, other=None):
+       self.config.rest_client.send_gcode("M106 S255")
+
+    def fan_off(self, btn, etc=None, other=None):
+       self.config.rest_client.send_gcode("M107")
+
+    def motors_off(self, btn, etc=None, other=None):
+       self.config.rest_client.send_gcode("M84")
 
     def travel_xy(self, tap, btn=None, other=None):
         logging.debug("tavel_xy")
