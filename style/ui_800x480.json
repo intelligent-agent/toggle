@@ -448,10 +448,42 @@
                             "x": 105,
                             "y": 110
                         }]
+		     },{
+                        "id": "misc-control", 
+                        "type": "ClutterActor", 
+                        "x": 520, 
+                        "y": 80,
+                        "width": 70, 
+                        "height": 300,
+                        "children": [{
+                            "id": "fan_on", 
+                            "type": "MxButton",
+                            "style-class": "fan_on", 
+                            "height": 70, 
+                            "width": 70, 
+                            "x": 120, 
+                            "y": 0
+                        },{
+                            "id": "fan_off", 
+                            "type": "MxButton",
+                            "style-class": "fan_off", 
+                            "height": 70, 
+                            "width": 70, 
+                            "x": 120, 
+                            "y": 245
+                        },{
+                            "id": "motors_off", 
+                            "type": "MxButton",
+                            "style-class": "motors_off", 
+                            "height": 70, 
+                            "width": 70, 
+                            "x": 120, 
+                            "y": 130
+                        }]
                     },{
                         "id": "jogger-e", 
                         "type": "ClutterActor", 
-                        "x": 520, 
+                        "x": 435, 
                         "y": 80,
                         "width": 70, 
                         "height": 300,

@@ -42,6 +42,12 @@ class RestClient:
         r = requests.post(url, data=data, headers=self._headers)
         print r.json
 
+    def send_gcode(self, cmd):
+        logging.debug("Sending gcode")
+        url = "http://"+self._host+":"+str(self._port)+"/api/printer/command"
+        data = json.dumps({'command': cmd}) 
+        r = requests.post(url, data=data, headers=self._headers)
+        print r.json
 
     def start_preheat(self):
         logging.debug("Starting preheat")

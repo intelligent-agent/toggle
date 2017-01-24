@@ -15,6 +15,11 @@ MxButton.mouse{
     border-image: none;
 }
 
+MxButton.fan_on		{ background-image: url("/etc/toggle/style/fan_128.png");        border-image: none; }
+MxButton.fan_off	{ background-image: url("/etc/toggle/style/fandisable_128.png"); border-image: none; }
+
+MxButton.motors_off	{ background-image: url("/etc/toggle/style/motorsoff_128.png"); border-image: none; }
+
 MxButton.jog_arrow          {  background-image: url("/etc/toggle/style/arrow_128.png"); border-image: none; }
 MxButton.jog_arrow:checked  {  background-image: url("/etc/toggle/style/arrow_disabled_128.png"); border-image: none; }
 
