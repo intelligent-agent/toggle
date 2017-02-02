@@ -12,8 +12,8 @@ class TemperatureGraph():
         self.config = config
 
         # Set up temperature graph
-        self.graph = Graph(800, 380)        
         self.temp = config.ui.get_object("graph")
+        self.graph = Graph(self.temp.get_width(), self.temp.get_height())        
         self.temp.add_child(self.graph)
         self.temp.set_reactive(True)
 
