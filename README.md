@@ -158,3 +158,20 @@ make
 make install
 ```
 
+
+
+## Ubuntu Xenial 
+**Mash**
+apt install autogen gnome-common gtk-doc gtk-doc-tools libglib2.0-dev gobject-introspection libmx-dev python-gobject-dev
+git clone https://github.com/eliasbakken/mash.git
+
+
+
+**Install Toggle**
+cd /usr/src
+git clone https://bitbucket.org/intelligentagent/toggle
+cd toggle
+apt install python-setuptools python-gi python-requests python-tornado
+
+
+
