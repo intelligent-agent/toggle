@@ -30,22 +30,24 @@
                 "children": [{
                     "id": "side0-btn-prev", 
                     "type": "MxButton",
-                    "label": "<<", 
-                    "style-class": "main",
+                    "style-class": "jog",
                     "x": 20, 
-                    "y": 15, 
-                    "visible": false
-                },{
-                    "id": "side0-btn-next", 
-                    "type": "MxButton", 
-                    "style-class": "temp",
-                    "x": 1700, 
                     "y": 15, 
                     "width": 128,
                     "height": 128,
                     "visible": false
                 },{
-                    "id": "side0-content", 
+                    "id": "side0-btn-next", 
+                    "type": "MxButton", 
+                    "style-class": "temp",
+                    "x": 1777, 
+                    "y": 15, 
+                    "width": 128,
+                    "height": 128,
+                    "visible": false
+                },{
+                    "id": "side5-content", 
+                    "visible": true,
                     "type": "ClutterActor",
                     "width" : 1920,
                     "height" : 1080, 
@@ -72,6 +74,45 @@
                             "color": "white", 
                             "x": 100, 
                             "y": 780,
+                            "font-description": "Sans 24"
+                        }] 
+                    }]
+                },{
+                    "id": "side0-content", 
+                    "visible": false,
+                    "type": "ClutterActor",
+                    "width" : 1920,
+                    "height" : 1080, 
+                    "layout-manager" : { 
+                        "type" : "ClutterBinLayout"
+                    },
+                    "children" : [{
+                        "id": "scroll-pane",
+                        "type": "ClutterScrollActor",
+                        "layout-manager" : { 
+                            "type" : "ClutterFixedLayout"
+                        },
+                        "width": 1900, 
+                        "height": 2000,
+                        "y": 150,
+                        "x": 10,
+                        "background-color": "grey",
+                        "scroll-mode": 1,
+                        "children": [{
+                            "id": "config-text", 
+                            "type": "ClutterText", 
+                            "text": "Toggle config screen",
+                            "color": "black", 
+                            "x": 100, 
+                            "y": 80,
+                            "font-description": "Sans 24"
+                        },{
+                            "id": "config-text-end", 
+                            "type": "ClutterText", 
+                            "text": "End of config screen",
+                            "color": "black", 
+                            "x": 100, 
+                            "y": 1920,
                             "font-description": "Sans 24"
                         }] 
                     }]
@@ -138,11 +179,12 @@
                 },{
                     "id": "side1-btn-prev", 
                     "type": "MxButton",
-                    "style-class": "main",
+                    "style-class": "settings",
                     "is_toggle": true, 
                     "x": 15, 
                     "y": 15, 
-                    "visible": false
+                    "height": 128, 
+                    "width": 128
                 },{
                     "id": "side1-btn-next", 
                     "type": "MxButton", 

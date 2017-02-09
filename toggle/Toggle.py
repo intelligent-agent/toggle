@@ -55,6 +55,7 @@ from TemperatureGraph import TemperatureGraph
 from FilamentGraph import FilamentGraph
 from CubeTabs import CubeTabs
 from Splash import Splash
+from Settings import Settings
 from Jog import Jog
 
 
@@ -133,6 +134,8 @@ class Toggle:
         config.jog = Jog(config)
         config.temp_graph = TemperatureGraph(config)
         config.filament_graph = FilamentGraph(config)
+        config.Settings = Settings(config)
+    
 
         # Set up SockJS and REST clients
         host = config.get("Rest", "hostname")

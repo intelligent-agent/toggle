@@ -52,7 +52,7 @@ class CubeTabs():
         self.t2.set_to(180)
         self.t2.add_marker("appear", 0.5)
         self.t2.connect("marker-reached::appear", self.appear)
-        self.t2.connect("completed", self.completed)
+        self.t2.connect("completed", self.intro_completed)
         self.t2.set_duration(self.duration)
         self.t2.set_animatable(self.box)
         self.t2.set_progress_mode(Clutter.AnimationMode.EASE_IN_OUT_CUBIC)
@@ -111,6 +111,15 @@ class CubeTabs():
     def completed(self, one):
         self.dis.hide()
 
+    # Runs after the side 0 to 2 transition is done
+    def intro_completed(self, one):
+        self.ui.get_object("side5-content").hide()
+        self.ui.get_object("side0-content").show()
+        self.ui.get_object("side0-btn-next").show()
+        self.ui.get_object("side0-btn-prev").show()
+        self.dis.hide()
+        
+
     # Animation to run as soon as a connection 
     def to_side_2(self):
         self.current_side = 2
@@ -123,7 +132,8 @@ class CubeTabs():
 
     # Start animation only when side two has loaded
     def preload_complete(self, something):
-        self.t2.start()        
+        self.t2.start()
+    
 
 if __name__ == '__main__':
     Clutter.init( sys.argv )
