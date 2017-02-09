@@ -58,8 +58,8 @@
                         "layout-manager" : { 
                             "type" : "ClutterFixedLayout"
                         },
-                        "width": 386, 
-                        "height": 439,
+                        "width": 400, 
+                        "height": 400,
                         "children": [{
                             "id": "splash", 
                             "type" : "ClutterTexture"
@@ -68,8 +68,8 @@
                             "type": "ClutterText", 
                             "text": "Toggle initializing...",
                             "color": "white", 
-                            "x": 40, 
-                            "y": 380
+                            "x": 45, 
+                            "y": 350
                         }] 
                     }]
                 }]
@@ -569,11 +569,11 @@
                 },{
                     "id": "side3-btn-next", 
                     "type": "MxButton", 
-                    "label": ">>",
-                    "style-class": "main",
+                    "style-class": "settings",
                     "x": 700, 
                     "y": 15, 
-                    "visible": false	
+                    "width": 64,
+                    "height": 64
                 }]
             }]
         },{

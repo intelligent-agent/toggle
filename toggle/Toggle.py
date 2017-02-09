@@ -26,7 +26,7 @@ import gi
 gi.require_version('Mash', '0.3')
 gi.require_version('Cogl', '1.0')
 gi.require_version('Clutter', '1.0')
-#gi.require_version('Mx', '2.0')
+gi.require_version('Mx', '1.0')
 from gi.repository import Clutter, Mx, Cogl, Mash
 
 #import subprocess
@@ -82,7 +82,7 @@ class LoggerWriter:
 class Toggle:
 
     def __init__(self):
-        self.version = "1.2.1"
+        self.version = "1.3.0"
         logging.info("Starting Toggle "+self.version)
 
         file_path = os.path.join("/etc/toggle","local.cfg")
@@ -121,6 +121,11 @@ class Toggle:
         config.stage.connect("destroy", self.stop)
         config.stage.connect('key-press-event', self.key_press)
 
+        config.screen_width = config.getint("Screen", "width")
+        config.screen_height = config.getint("Screen", "height")
+        config.screen_rot = config.get("Screen", "rotation")
+        config.screen_full = config.getboolean("Screen", "fullscreen")
+
         # Set up tabs
         config.tabs = CubeTabs(config.ui, 4)
         config.splash = Splash(config)
@@ -143,7 +148,7 @@ class Toggle:
         config.socks_client = WebSocksClient(config, host="ws://"+host+":5000")
         
         # mouse
-        use_mouse = int(config.get('System', 'mouse'))
+        use_mouse = int(config.get('Input', 'mouse'))
         self.cursor = config.ui.get_object("cursor")
         if use_mouse:
             config.stage.connect("motion-event", self.mouse_move)
@@ -151,6 +156,10 @@ class Toggle:
         else:
             logging.info("Mouse is not active")
             self.cursor.set_opacity(0)
+        config.mouse_invert_x = config.getboolean('Input', 'mouse_invert_x')
+        config.mouse_invert_y = config.getboolean('Input', 'mouse_invert_y')
+        config.mouse_swap = config.getboolean('Input', 'mouse_swap_xy')
+
 
         config.push_updates = JoinableQueue(10)
         self.config = config
@@ -163,15 +172,21 @@ class Toggle:
         # Flip and move the stage to the right location
         # This has to be done in the application, since it is a
         # fbdev app
-        if self.config.get("System", "rotation") == "90":
+        #self.config.mouse_offset_x = 0
+        #self.config.mouse_offset_y = 0
+        if  self.config.screen_rot == "90":
             self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 90.0)
-            self.config.ui.get_object("all").set_position(480, 0)
-        elif self.config.get("System", "rotation") == "270":
+            self.config.ui.get_object("all").set_position(self.config.screen_width, 0)
+            #self.config.mouse_offset_x = self.config.screen_width
+        elif self.config.screen_rot == "270":
             self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, -90.0)
-            self.config.ui.get_object("all").set_position(0, 800)
-        elif self.config.get("System", "rotation") == "180":
+            self.config.ui.get_object("all").set_position(0, self.config.screen_width)
+        elif self.config.screen_rot == "180":
             self.config.ui.get_object("all").set_pivot_point(0.5, 0.5)
             self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 180.0)
+
+        if self.config.screen_full:
+            self.config.stage.set_fullscreen(True)
 
         """ Start the process """
         self.running = True
@@ -229,8 +244,21 @@ class Toggle:
             self.stop(None)
             
     def mouse_move(self, actor, event):
-        self.cursor.set_position(event.x, event.y)
+        x, y = event.x, event.y
+        # Swap axes
+        if self.config.mouse_swap:    
+            x, y = y, x
+        # invert
+        if self.config.mouse_invert_x:
+            x = self.config.screen_height - x
+        if self.config.mouse_invert_y:
+            y = self.config.screen_width - y
 
+
+        #logging.debug("X: {}, Y: {}".format(x, y))
+        self.cursor.set_position(x, y)
+
+        return Clutter.EVENT_PROPAGATE
 
 def main():
     t = Toggle()

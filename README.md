@@ -164,8 +164,12 @@ make install
 **Mash**
 apt install autogen gnome-common gtk-doc gtk-doc-tools libglib2.0-dev gobject-introspection libmx-dev python-gobject-dev
 git clone https://github.com/eliasbakken/mash.git
-
-
+cd /usr/src/mash
+./autogen.sh --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --enable-introspection
+sed -i 's/SUBDIRS = mash examples docs/SUBDIRS = mash docs/' Makefile
+sed -i 's/--library=libmash-@MASH_API_VERSION@.la/--library=mash-@MASH_API_VERSION@/ --library-path=/usr/src/mash/mash/.libs/' mash/Makefile.am
+make
+make install
 
 **Install Toggle**
 cd /usr/src

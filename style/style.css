@@ -30,6 +30,7 @@ MxButton.jog_home_e:checked {  background-image: url("/etc/toggle/style/h.png");
 MxButton.print              {  background-image: url("/etc/toggle/style/print_128.png"); border-image: none; }
 MxButton.jog                {  background-image: url("/etc/toggle/style/jog_128.png");   border-image: none; }
 MxButton.temp               {  background-image: url("/etc/toggle/style/temperature_128.png"); border-image: none; }
+MxButton.settings           {  background-image: url("/etc/toggle/style/settings_128.png"); border-image: none; }
 
 /* Printer operations */
 MxButton.cancel:checked     {  background-image: url("/etc/toggle/style/cancel_128.png"); border-image: none;}

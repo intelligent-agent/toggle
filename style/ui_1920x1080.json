@@ -58,20 +58,21 @@
                         "layout-manager" : { 
                             "type" : "ClutterFixedLayout"
                         },
-                        "width": 772, 
-                        "height": 878,
+                        "width": 900, 
+                        "height": 900,
                         "children": [{
                             "id": "splash", 
                             "type" : "ClutterTexture",
-                            "width": 772, 
-                            "height": 878
+                            "width": 900, 
+                            "height": 900
                         },{
                             "id": "splash-status", 
                             "type": "ClutterText", 
                             "text": "Toggle initializing...",
                             "color": "white", 
-                            "x": 200, 
-                            "y": 800
+                            "x": 100, 
+                            "y": 780,
+                            "font-description": "Sans 24"
                         }] 
                     }]
                 }]
@@ -92,15 +93,15 @@
                         "id": "graph", 
                         "type" : "ClutterActor", 
                         "width": 1920, 
-                        "height": 700, 
+                        "height": 800, 
                         "y": 80
                     },{
                         "id": "heat-tool0", 
                         "type": "MxButton", 
                         "style-class": "heat",
                         "is_toggle": true, 
-                        "x": 600, 
-                        "y": 850, 
+                        "x": 696, 
+                        "y": 900, 
                         "width": 128, 
                         "height": 128
                     },{
@@ -108,8 +109,8 @@
                         "type": "MxButton", 
                         "style-class": "heat",
                         "is_toggle": true, 
-                        "x": 800, 
-                        "y": 850, 
+                        "x": 896, 
+                        "y": 900, 
                         "width": 128, 
                         "height": 128
                     },{
@@ -117,17 +118,17 @@
                         "type": "MxButton", 
                         "style-class": "heat",
                         "is_toggle": true, 
-                        "x": 1000, 
-                        "y": 850, 
+                        "x": 1096, 
+                        "y": 900, 
                         "width": 128, 
                         "height": 128
                     },{
                         "id": "lbl-temp", 
                         "type": "ClutterText", 
                         "text": "Temperature",
-                        "x": 1200,
-                        "y": 900,
-                        "width": 300, 
+                        "x": 1205, 
+                        "y": 1000,
+                        "width": 700, 
                         "height": 50, 
                         "x-align": 3,
                         "x-expand": true,
@@ -139,7 +140,7 @@
                     "type": "MxButton",
                     "style-class": "main",
                     "is_toggle": true, 
-                    "x": 20, 
+                    "x": 15, 
                     "y": 15, 
                     "visible": false
                 },{
@@ -147,7 +148,7 @@
                     "type": "MxButton", 
                     "style-class": "print",
                     "is_toggle": true, 
-                    "x": 1700, 
+                    "x": 1777, 
                     "y": 15,	
                     "height": 128, 
                     "width": 128
@@ -224,8 +225,8 @@
                                 "type": "ClutterTexture",
                                 "width": 128, 
                                 "height": 128,
-                                "x": 268,
-                                "y": 200, 
+                                "x": 650,
+                                "y": 400, 
                                 "pivot-point": [0.5, 0.5], 
                                 "visible": false
                             }]
@@ -247,14 +248,15 @@
                             "id": "lbl-stat", 
                             "type": "ClutterText", 
                             "x": 15, 
-                            "y": 800
+                            "y": 900,
+                            "font-description": "Sans 32"
                         },{
                             "id": "lbl-model", 
                             "type": "ClutterText", 
                             "text": "Model",
-                            "x": 1700, 
-                            "y": 800,
-                            "width": 500, 
+                            "x": 1205, 
+                            "y": 1000,
+                            "width": 700, 
                             "height": 50, 
                             "x-align": 3,
                             "x-expand": true,
@@ -263,10 +265,10 @@
                         },{
                             "id": "progress-bar", 
                             "type": "MxProgressBar", 
-                            "x": 1400, 
-                            "y": 850,
-                            "width": 220, 
-                            "height": 25, 
+                            "x": 1465, 
+                            "y": 940,
+                            "width": 440, 
+                            "height": 50, 
                             "x-align": 3,
                             "x-expand": true
                         },{
@@ -292,7 +294,7 @@
                             "is-toggle": true, 
                             "toggled": true,
                             "x": 696, 
-                            "y": 800, 
+                            "y": 900, 
                             "width": 128, 
                             "height": 128
                         },{
@@ -301,7 +303,7 @@
                             "style-class": "play",
                             "is_toggle": true, 
                             "x": 896, 
-                            "y": 800, 
+                            "y": 900, 
                             "width": 128, 
                             "height": 128
                         },{
@@ -310,7 +312,7 @@
                             "style-class": "pause",
                             "is_toggle": true, 
                             "x": 1096	, 
-                            "y": 800, 
+                            "y": 900, 
                             "width": 128, 
                             "height": 128
                         },{
@@ -319,7 +321,7 @@
                              "style-class": "jog_arrow",
                             "height": 128, 
                             "width": 128,
-                            "x": 1700,
+                            "x": 1777,
                             "y": 500, 
                             "rotation-angle-z": 0.0, 
                             "pivot-point": [0.5, 0.5]
@@ -337,7 +339,7 @@
                     "id": "side2-btn-next", 
                     "type": "MxButton", 
                     "style-class": "jog",
-                    "x": 1700, 
+                    "x": 1777, 
                     "y": 15,	
                     "width": 128,
                     "height": 128
@@ -362,9 +364,9 @@
                         "type": "ClutterActor", 
                         "x": 120,
                         "y": 160,
-                        "width": 600, 
-                        "height": 600,
-                        "background-color": "red",
+                        "width": 700, 
+                        "height": 700,
+                        "background-color": "white",
                         "children": [{
                             "id": "jog_x_minus", 
                             "type": "MxButton",
@@ -411,23 +413,23 @@
                             "style-class": "jog_home", 
                             "height": 200, 
                             "width": 200,
-                            "x": 200,
-                            "y": 280
+                            "x": 205,
+                            "y": 220
                             
                         }]
                     },{
                         "id": "jogger-z", 
                         "type": "ClutterActor", 
-                        "x": 350, 
-                        "y": 80,
+                        "x": 765, 
+                        "y": 160,
                         "width": 70, 
                         "height": 300,
                         "children": [{
                             "id": "jog_z_plus", 
                             "type": "MxButton",
                             "style-class": "jog_arrow", 
-                            "height": 70, 
-                            "width": 70, 
+                            "height": 140, 
+                            "width": 140, 
                             "x": 120, 
                             "y": 0,  
                             "rotation-angle-z": 270.0, 
@@ -436,36 +438,44 @@
                             "id": "jog_z_minus", 
                             "type": "MxButton",
                             "style-class": "jog_arrow", 
-                            "height": 70, 
-                            "width": 70,
+                            "height": 140, 
+                            "width": 140,
                             "x": 120,
-                            "y": 245, 
+                            "y": 500, 
                             "rotation-angle-z": 90.0, 
                             "pivot-point": [0.5, 0.5]
                         },{
                             "id": "jog_z_home", 
                             "type": "MxButton",
                             "style-class": "jog_home_z", 
-                            "height": 100, 
-                            "width": 100,
-                            "x": 105,
-                            "y": 110
+                            "height": 140, 
+                            "width": 140,
+                            "x": 120,
+                            "y": 250
                         }]
 		            },{
                         "id": "misc-control", 
                         "type": "ClutterActor", 
-                        "x": 520, 
-                        "y": 80,
+                        "x": 1100, 
+                        "y": 160,
                         "width": 70, 
                         "height": 300,
                         "children": [{
+                            "id": "motors_off", 
+                            "type": "MxButton",
+                            "style-class": "motors_off", 
+                            "height": 140, 
+                            "width": 140, 
+                            "x": 120, 
+                            "y": 0
+                        },{
                             "id": "fan_on", 
                             "type": "MxButton",
                             "style-class": "fan_on", 
                             "height": 140, 
                             "width": 140, 
                             "x": 120, 
-                            "y": 0
+                            "y": 250
                         },{
                             "id": "fan_off", 
                             "type": "MxButton",
@@ -473,21 +483,13 @@
                             "height": 140, 
                             "width": 140, 
                             "x": 120, 
-                            "y": 245
-                        },{
-                            "id": "motors_off", 
-                            "type": "MxButton",
-                            "style-class": "motors_off", 
-                            "height": 140, 
-                            "width": 140, 
-                            "x": 120, 
-                            "y": 130
+                            "y": 500
                         }]
                     },{
                         "id": "jogger-e", 
                         "type": "ClutterActor", 
-                        "x": 435, 
-                        "y": 80,
+                        "x": 1400, 
+                        "y": 160,
                         "width": 130, 
                         "height": 300,
                         "children": [{
@@ -507,7 +509,7 @@
                             "height": 140, 
                             "width": 140,
                             "x": 120,
-                            "y": 245, 
+                            "y": 500, 
                             "rotation-angle-z": 90.0, 
                             "pivot-point": [0.5, 0.5]
                         },{
@@ -515,10 +517,10 @@
                             "type": "MxButton",
                             "style-class": "jog_home_e",
                             "is_toggle": true,
-                            "height": 200, 
-                            "width": 200,
-                            "x": 105,
-                            "y": 110
+                            "height": 140, 
+                            "width": 140,
+                            "x": 120,
+                            "y": 250
                             
                         }]
                     },{
@@ -538,8 +540,8 @@
                         "type": "MxButton", 
                         "style-class": "travel_10",
                         "is_toggle": true, 
-                        "x": 600, 
-                        "y": 850, 
+                        "x": 696, 
+                        "y": 900, 
                         "width": 128, 
                         "height": 128
                     },{
@@ -547,8 +549,8 @@
                         "type": "MxButton", 
                         "style-class": "travel_10",
                         "is_toggle": true, 
-                        "x": 800, 
-                        "y": 850, 
+                        "x": 896, 
+                        "y": 900, 
                         "width": 128, 
                         "height": 128
                     },{
@@ -556,8 +558,8 @@
                         "type": "MxButton", 
                         "style-class": "travel_10",
                         "is_toggle": true, 
-                        "x": 1000, 
-                        "y": 850, 
+                        "x": 1096, 
+                        "y": 900, 
                         "width": 128, 
                         "height": 128
                     }]
@@ -575,7 +577,7 @@
                     "style-class": "settings",
                     "width": 128,
                     "height": 128,
-                    "x": 1700, 
+                    "x": 1777, 
                     "y": 15, 
                     "visible": true
                 }]
@@ -586,7 +588,7 @@
             "width" : 600,
             "height" : 64,
             "x": 15, 
-            "y": 900,
+            "y": 1000,
             "layout-manager" : { 
                 "type" : "ClutterFlowLayout"
             },

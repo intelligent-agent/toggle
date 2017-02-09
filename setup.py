@@ -58,11 +58,13 @@ setup(name='Toggle',
                         'style/travel_1_128.png', 
                         'style/travel_10_128.png', 
                         'style/travel_100_128.png', 
-                        'style/Toggle_splash.png',
+                        'style/Toggle_splash_900.png',
+                        'style/Toggle_splash_400.png',
                         'style/pointer.png',
                         'style/fan_128.png',
                         'style/fandisable_128.png',
-                        'style/motorsoff_128.png'
+                        'style/motorsoff_128.png', 
+                        'style/settings_128.png'
                     ]),
                   ('/etc/toggle', [
                         'configs/default.cfg', 
