@@ -149,7 +149,7 @@ class Toggle:
         config.plate        = Plate(config)
 
         config.socks_client = WebSocksClient(config, host="ws://"+host+":5000")
-        
+
         # mouse
         use_mouse = int(config.get('Input', 'mouse'))
         self.cursor = config.ui.get_object("cursor")

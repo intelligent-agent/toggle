@@ -30,10 +30,11 @@
                 "children": [{
                     "id": "side0-btn-prev", 
                     "type": "MxButton",
-                    "label": "<<", 
-                    "style-class": "main",
+                    "style-class": "settings",
                     "x": 20, 
                     "y": 15, 
+                    "width": 64,
+                    "height": 64,
                     "visible": false
                 },{
                     "id": "side0-btn-next", 
@@ -46,6 +47,45 @@
                     "visible": false
                 },{
                     "id": "side0-content", 
+                    "type": "ClutterActor",
+                    "width" : 800,
+                    "height" : 480, 
+                    "visible": false,
+                    "layout-manager" : { 
+                        "type" : "ClutterBinLayout"
+                    },
+                     "children" : [{
+                        "id": "scroll-pane",
+                        "type": "ClutterScrollActor",
+                        "layout-manager" : { 
+                            "type" : "ClutterFixedLayout"
+                        },
+                        "width": 780, 
+                        "height": 1000,
+                        "y": 80,
+                        "x": 10,
+                        "background-color": "grey",
+                        "scroll-mode": 1,
+                        "children": [{
+                            "id": "config-text", 
+                            "type": "ClutterText", 
+                            "text": "Toggle config screen",
+                            "color": "black", 
+                            "x": 100, 
+                            "y": 80,
+                            "font-description": "Sans 24"
+                        },{
+                            "id": "config-text-end", 
+                            "type": "ClutterText", 
+                            "text": "End of config screen",
+                            "color": "black", 
+                            "x": 100, 
+                            "y": 960,
+                            "font-description": "Sans 24"
+                        }] 
+                    }]
+                },{
+                    "id": "side5-content", 
                     "type": "ClutterActor",
                     "width" : 800,
                     "height" : 480, 
