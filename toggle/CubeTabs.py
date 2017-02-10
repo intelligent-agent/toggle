@@ -12,6 +12,8 @@ class CubeTabs():
         self.tgs = [None]*num_tabs
         self.current_side = 0
         self.sides = [None]*num_tabs
+        self.selected_callbacks = [None]*num_tabs
+        self.appear_callbacks = [None]*num_tabs
 
         self.box = self.ui.get_object("box")
 
@@ -21,11 +23,6 @@ class CubeTabs():
             tap_prev = Clutter.TapAction()
             btn_prev.add_action(tap_prev)
             tap_prev.connect("tap", self.btn_prev)     
-
-            #tap_prev.connect("gesture-begin", self.gesture_begin)
-            #tap_prev.connect("gesture-cancel", self.gesture_cancel)  
-            #tap_prev.connect("gesture-progress", self.gesture_progress)  
-            #tap_prev.connect("gesture-end", self.gesture_end)  
 
             btn_next = self.ui.get_object("side"+str(i)+"-btn-next")
             tap_next = Clutter.TapAction()
@@ -89,6 +86,9 @@ class CubeTabs():
         self.tg.set_direction(Clutter.TimelineDirection.BACKWARD)    
         self.tg.rewind()
         self.tg.start()
+        # Current side has been updated, callback if set
+        if self.selected_callbacks[self.current_side]:
+            self.selected_callbacks[self.current_side]()
 
     def btn_next(self, btn=None, other=None):
         if self.tg.is_playing():
@@ -102,6 +102,9 @@ class CubeTabs():
         self.tg.set_direction(Clutter.TimelineDirection.FORWARD)
         self.tg.rewind()
         self.tg.start()
+        # Current side has been updated, callback if set
+        if self.selected_callbacks[self.current_side]:
+            self.selected_callbacks[self.current_side]()
         
     def appear(self, one, two, three):
         self.box.set_child_at_index(self.app, 4)
@@ -134,6 +137,13 @@ class CubeTabs():
     def preload_complete(self, something):
         self.t2.start()
     
+    def set_pane_selected_callback(self, pane_nr, callback):
+        self.selected_callbacks[pane_nr] = callback
+
+
+    def add_pane_appear_callback(self, pane_nr, callback):
+        self.appear_callbacks[pane_nr] = callback
+
 
 if __name__ == '__main__':
     Clutter.init( sys.argv )

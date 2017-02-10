@@ -58,30 +58,126 @@
                         "id": "scroll-pane",
                         "type": "ClutterScrollActor",
                         "layout-manager" : { 
-                            "type" : "ClutterFixedLayout"
+                            "type" : "ClutterBoxLayout",
+                            "orientation": 1
                         },
                         "width": 780, 
                         "height": 1000,
                         "y": 80,
                         "x": 10,
-                        "background-color": "grey",
+                        "background-color": "#EEE",
                         "scroll-mode": 1,
                         "children": [{
-                            "id": "config-text", 
-                            "type": "ClutterText", 
-                            "text": "Toggle config screen",
-                            "color": "black", 
-                            "x": 100, 
-                            "y": 80,
-                            "font-description": "Sans 24"
+                            "id": "Network-box",
+                            "type": "ClutterActor",
+                            "width": 780,
+                            "height": 200,
+                            "background-color": "#CCC",
+                            "layout-manager" : { 
+                                "type" : "ClutterFixedLayout"
+                            },
+                            "children": [{
+                                "id": "Network-text", 
+                                "type": "ClutterText", 
+                                "text": "Network",
+                                "color": "black", 
+                                "x": 10,
+                                "y": 10,
+                                "font-description": "Sans 16"
+                            },{
+                                "type": "ClutterText", 
+                                "text": "Local hostname: ",
+                                "x": 10,
+                                "y": 35,
+                                "font-description": "Sans 12"
+                            },{
+                                "id": "local-hostname", 
+                                "type": "ClutterText", 
+                                "text": "Not set",
+                                "x": 200,
+                                "y": 35,
+                                "font-description": "Sans 12"
+                            },{
+                                "type": "ClutterText", 
+                                "text": "Remote Hostname: ",
+                                "x": 10,
+                                "y": 55,
+                                "font-description": "Sans 12"
+                            },{
+                                "id": "remote-hostname", 
+                                "type": "ClutterText", 
+                                "text": "Not set",
+                                "x": 200,
+                                "y": 55,
+                                "font-description": "Sans 12"
+                            },{
+                                "type": "ClutterText", 
+                                "text": "IP adress: ",
+                                "x": 10,
+                                "y": 75,
+                                "font-description": "Sans 12"
+                            },{
+                                "id": "local-ip", 
+                                "type": "ClutterText", 
+                                "text": "Not set",
+                                "x": 200,
+                                "y": 75,
+                                "font-description": "Sans 12"
+                            }]
                         },{
-                            "id": "config-text-end", 
+                            "id": "Slicer-settings-box",
+                            "type": "ClutterActor", 
+                            "width": 780,
+                            "height": 200,
+                            "background-color": "#DDD",
+                            "layout-manager" : { 
+                                "type" : "ClutterFixedLayout"
+                            }, 
+                            "children": [{
+                                "type": "ClutterText", 
+                                "text": "Slicer settings",
+                                "color": "black", 
+                                "x": 10, 
+                                "y": 10,
+                                "font-description": "Sans 16"
+                            },{
+                                "type": "ClutterText", 
+                                "text": "Layer height: ",
+                                "x": 10,
+                                "y": 35,
+                                "font-description": "Sans 12"
+                            },{
+                                "id": "slicer-layer-height", 
+                                "type": "ClutterText", 
+                                "text": "Not set",
+                                "x": 200,
+                                "y": 35,
+                                "font-description": "Sans 12"
+                            },{
+                                "type": "ClutterText", 
+                                "text": "Print temperature: ",
+                                "x": 10,
+                                "y": 65,
+                                "font-description": "Sans 12"
+                            },{
+                                "id": "slicer-print-temp", 
+                                "type": "ClutterText", 
+                                "text": "Not set",
+                                "x": 200,
+                                "y": 65,
+                                "font-description": "Sans 12"
+                            }]
+                        },{
+                            "id": "config-text-1", 
                             "type": "ClutterText", 
-                            "text": "End of config screen",
+                            "text": "Config box 2",
                             "color": "black", 
-                            "x": 100, 
-                            "y": 960,
-                            "font-description": "Sans 24"
+                            "width": 780, 
+                            "height": 80,
+                            "x": 10,
+                            "y": 10,
+                            "background-color": "#CCC",
+                            "font-description": "Sans 16"
                         }] 
                     }]
                 },{
@@ -175,11 +271,12 @@
                 },{
                     "id": "side1-btn-prev", 
                     "type": "MxButton",
-                    "style-class": "main",
+                    "style-class": "settings",
                     "is_toggle": true, 
                     "x": 20, 
                     "y": 15, 
-                    "visible": false
+                    "height": 64, 
+                    "width": 64
                 },{
                     "id": "side1-btn-next", 
                     "type": "MxButton", 

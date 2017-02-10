@@ -296,7 +296,7 @@
                             "id": "lbl-model", 
                             "type": "ClutterText", 
                             "text": "Model",
-                            "x": 1205, 
+                            "x": 1265, 
                             "y": 1000,
                             "width": 700, 
                             "height": 50, 
@@ -307,28 +307,30 @@
                         },{
                             "id": "progress-bar", 
                             "type": "MxProgressBar", 
-                            "x": 1465, 
+                            "x": 1265, 
                             "y": 940,
-                            "width": 440, 
+                            "width": 640, 
                             "height": 50, 
                             "x-align": 3,
                             "x-expand": true
                         },{
                             "id": "time-gone", 
                             "type": "ClutterText", 
-                            "x": 1400, 
-                            "y": 800,
+                            "x": 1265, 
+                            "y": 910,
                             "width": 220, 
-                            "height": 25
+                            "height": 25,
+                            "font-description": "Sans 16"
                         },{
                             "id": "time-left", 
                             "type": "ClutterText", 
-                            "x": 1600, 
-                            "y": 800,
+                            "x": 1680, 
+                            "y": 910,
                             "width": 220, 
                             "height": 25, 
                             "x-align": 3,
-                            "x-expand": true
+                            "x-expand": true,
+                            "font-description": "Sans 16"
                         },{
                             "id": "btn-cancel", 
                             "type": "MxButton", 
