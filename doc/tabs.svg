@@ -69,9 +69,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.959798"
-     inkscape:cx="309.52788"
-     inkscape:cy="1067.9525"
+     inkscape:zoom="0.35"
+     inkscape:cx="679.18877"
+     inkscape:cy="425.20937"
      inkscape:document-units="px"
      inkscape:current-layer="g16168-6"
      showgrid="false"
@@ -885,6 +885,75 @@
            y="1019.1919"
            style="font-size:27.5px"
            id="tspan4380-0">1</tspan></text>
+      <g
+         style="display:inline"
+         id="g5018-7"
+         transform="matrix(0.43740575,0,0,0.43740575,-482.37656,2092.5938)"
+         inkscape:export-filename="/home/elias/workspace/toggle/style/Toggle_splash_400.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90">
+        <rect
+           ry="33.941124"
+           y="54.554863"
+           x="1425.592"
+           height="900"
+           width="900"
+           id="rect4941-8"
+           style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+        <text
+           sodipodi:linespacing="125%"
+           id="text4943-4"
+           y="761.19147"
+           x="1495.3914"
+           style="font-style:normal;font-variant:normal;font-stretch:normal;font-size:30.96922874px;line-height:125%;font-family:Roboto;-inkscape-font-specification:'Roboto Semi-Light';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           xml:space="preserve"><tspan
+             style="font-size:222.97845459px;fill:#ffffff"
+             y="761.19147"
+             x="1495.3914"
+             id="tspan4945-5"
+             sodipodi:role="line">toggle</tspan></text>
+        <g
+           style="stroke:#ffffff;stroke-opacity:1"
+           transform="matrix(1.4231745,0,0,1.4231745,-2264.8458,62.342098)"
+           id="g5010-0">
+          <rect
+             style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+             id="rect4964-3"
+             width="77.428192"
+             height="75.837204"
+             x="2662.6106"
+             y="266.23618"
+             ry="0" />
+          <rect
+             style="display:inline;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+             id="rect4964-5-6"
+             width="77.428192"
+             height="75.837204"
+             x="2690.7178"
+             y="237.06807"
+             ry="0" />
+          <path
+             style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             d="M 2661.8347,266.0639 2690.119,236.719"
+             id="path4981-1"
+             inkscape:connector-curvature="0" />
+          <path
+             style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             d="m 2738.8579,266.78465 28.2843,-29.3449"
+             id="path4981-9-0"
+             inkscape:connector-curvature="0" />
+          <path
+             style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             d="m 2740.3579,342.78465 28.2843,-29.3449"
+             id="path4981-2-6"
+             inkscape:connector-curvature="0" />
+          <path
+             style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+             d="m 2663.3579,340.78465 28.2843,-29.3449"
+             id="path4981-28-3"
+             inkscape:connector-curvature="0" />
+        </g>
+      </g>
     </g>
   </g>
 </svg>

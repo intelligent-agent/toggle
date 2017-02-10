@@ -64,7 +64,10 @@ setup(name='Toggle',
                         'style/fan_128.png',
                         'style/fandisable_128.png',
                         'style/motorsoff_128.png', 
-                        'style/settings_128.png'
+                        'style/settings_128.png',
+                        'style/network_128.png',
+                        'style/wifi_128.png',
+                        'style/slicer_128.png'
                     ]),
                   ('/etc/toggle', [
                         'configs/default.cfg', 
