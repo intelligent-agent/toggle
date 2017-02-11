@@ -13,7 +13,9 @@ class Settings():
         self.y = 0
         config.tabs.set_pane_selected_callback(0, self.on_select_callback)
         self.config = config
+        self.enable_sliders()
 
+    # Mouse scrolling event
     def on_scroll_event(self, actor, event):
         if event.direction == Clutter.ScrollDirection.DOWN:
             self.y += 40
@@ -57,4 +59,31 @@ class Settings():
         # Add Slicer print temp
         slicer_print_temp = self.config.ui.get_object("slicer-print-temp")
         slicer_print_temp.set_text(self.config.get("Slicer", "print_temperature"))
+
+
+
+    # Enables tap action on all setings sliders
+    def enable_sliders(self):
+        for box in ["network", "wifi", "slicer"]:
+            header = self.config.ui.get_object(box+"-header")
+            header.set_reactive(True)
+            tap = Clutter.TapAction()
+            header.add_action(tap)
+            tap.connect("tap", self.tap)     
+            
+            body = self.config.ui.get_object(box+"-body")
+            header.is_open = False  
+            header.body = body
+        
+
+    # Run when teh header is taped
+    def tap(self, tap, actor):
+        if actor.is_open:
+            actor.body.set_height(5)
+            actor.is_open = False
+        else:
+            actor.body.set_height(300)
+            actor.is_open = True
+
+        
 

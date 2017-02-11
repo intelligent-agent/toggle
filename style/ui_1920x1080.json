@@ -99,7 +99,7 @@
                             "orientation": 1
                         },
                         "children": [{
-                            "id": "Network-box",
+                            "id": "network-box",
                             "type": "ClutterActor",
                             "width": 1900,
                             "background-color": "#c9c3c3",
@@ -108,7 +108,7 @@
                                 "orientation": 1
                             },
                             "children": [{
-                                "id": "Network-header",
+                                "id": "network-header",
                                 "type": "ClutterActor",
                                 "height": 150,
                                 "width": 1900,
@@ -131,11 +131,11 @@
                                     "height": 128
                                 }]
                             },{
-                                "id": "Network-body",
+                                "id": "network-body",
                                 "type": "ClutterActor",
                                 "background-color": "#FFF",
-                                "height": 300,
                                 "width": 1900,
+                                "height": 5,
                                 "layout-manager" : {
                                     "type" : "ClutterFixedLayout"
                                 },
@@ -181,7 +181,7 @@
                                 }]
                             }]
                         },{
-                            "id": "Wifi-box",
+                            "id": "wifi-box",
                             "type": "ClutterActor",
                             "width": 1900,
                             "background-color": "#c9c3c3",
@@ -190,7 +190,7 @@
                                 "orientation": 1
                             },
                             "children": [{
-                                "id": "Wifi-header",
+                                "id": "wifi-header",
                                 "type": "ClutterActor",
                                 "height": 150,
                                 "width": 1900,
@@ -213,11 +213,11 @@
                                     "height": 128
                                 }]
                             },{
-                                "id": "Wifi-body",
+                                "id": "wifi-body",
                                 "type": "ClutterActor",
                                 "background-color": "#FFF",
                                 "width": 1900,
-                                "height": 300,
+                                "height": 5,
                                 "children": [{
                                     "type": "ClutterText",
                                     "text": "Wifi SSID: ",
@@ -234,7 +234,7 @@
                                 }]
                             }]
                         },{
-                            "id": "Slicer-box",
+                            "id": "slicer-box",
                             "type": "ClutterActor",
                             "width": 1900,
                             "background-color": "#c9c3c3",
@@ -243,7 +243,7 @@
                                 "orientation": 1
                             },
                             "children": [{
-                                "id": "Slicer-header",
+                                "id": "slicer-header",
                                 "type": "ClutterActor",
                                 "height": 150,
                                 "width": 1900,
@@ -269,7 +269,7 @@
                                 "id": "slicer-body",
                                 "type": "ClutterActor",
                                 "width": 1900,
-                                "height": 300,
+                                "height": 5,
                                 "background-color": "#FFF",
                                 "layout-manager" : {
                                     "type" : "ClutterFixedLayout"
