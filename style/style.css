@@ -97,6 +97,7 @@ MxButton.travel_100{
 MxIcon.network{        background-image: url("/etc/toggle/style/network_128.png"); border-image: none; }
 MxIcon.wifi{           background-image: url("/etc/toggle/style/wifi_128.png"); border-image: none; }
 MxIcon.slicer{         background-image: url("/etc/toggle/style/slicer_128.png"); border-image: none; }
+MxIcon.printer{        background-image: url("/etc/toggle/style/print_128.png"); border-image: none; }
 
 /* FLAGS */
 

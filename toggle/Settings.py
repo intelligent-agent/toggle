@@ -61,11 +61,21 @@ class Settings():
         slicer_print_temp = self.config.ui.get_object("slicer-print-temp")
         slicer_print_temp.set_text(self.config.get("Slicer", "print_temperature"))
 
+        # Add the button for calibrating the bed
+        calibrate_bed_button = self.config.ui.get_object("printer-calibrate-bed")
+        tap = Clutter.TapAction()
+        calibrate_bed_button.add_action(tap)
+        tap.connect("tap", self.calibrate_bed)     
+        
+
+
+    def calibrate_bed(self, tap, actor):
+        self.config.rest_client.send_gcode("G29")
 
 
     # Enables tap action on all setings sliders
     def enable_sliders(self):
-        for box in ["network", "wifi", "slicer"]:
+        for box in ["network", "wifi", "slicer", "printer"]:
             header = self.config.ui.get_object(box+"-header")
             header.set_reactive(True)
             tap = Clutter.TapAction()

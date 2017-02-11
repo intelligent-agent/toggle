@@ -135,7 +135,7 @@
                                     "y": 80
                                 },{
                                     "type": "ClutterText",
-                                    "text": "IP adress: ",
+                                    "text": "IP Address: ",
                                     "font-description": "Sans 16",
                                     "x": 120,
                                     "y": 140
@@ -236,7 +236,7 @@
                             },{
                                 "id": "slicer-body",
                                 "type": "ClutterActor",
-                                "width": 1900,
+                                "width": 780,
                                 "height": 5,
                                 "background-color": "#FFF",
                                 "layout-manager" : {
@@ -245,7 +245,7 @@
                                 "children": [{
                                     "type": "ClutterText",
                                     "text": "Layer height: ",
-                                    "x": 125,
+                                    "x": 120,
                                     "y": 20,
                                     "font-description": "Sans 16"
                                 },{
@@ -258,7 +258,7 @@
                                 },{
                                     "type": "ClutterText",
                                     "text": "Print temperature: ",
-                                    "x": 125,
+                                    "x": 120,
                                     "y": 80,
                                     "font-description": "Sans 16"
                                 },{
@@ -268,6 +268,56 @@
                                     "font-description": "Sans 16",
                                     "x": 400,
                                     "y": 80
+                                }]
+                            }]
+                        },{
+                            "id": "printer-box",
+                            "type": "ClutterActor",
+                            "width": 780,
+                            "background-color": "#c9c3c3",
+                            "layout-manager" : {
+                                "type" : "ClutterBoxLayout",
+                                "orientation": 1
+                            },
+                            "children": [{
+                                "id": "printer-header",
+                                "type": "ClutterActor",
+                                "height": 100,
+                                "width": 780,
+                                "layout-manager" : {
+                                    "type" : "ClutterFixedLayout"
+                                },
+                                "children": [{
+                                    "type": "ClutterText",
+                                    "text": "Printer",
+                                    "color": "black",
+                                    "x": 120,
+                                    "y": 30,
+                                    "font-description": "Sans 32"
+                                },{
+                                    "type": "MxIcon",
+                                    "style-class": "printer",
+                                    "x": 30,
+                                    "y": 18,
+                                    "width": 64,
+                                    "height": 64
+                                }]
+                            },{
+                                "id": "printer-body",
+                                "type": "ClutterActor",
+                                "width": 780,
+                                "height": 5,
+                                "background-color": "#FFF",
+                                "layout-manager" : {
+                                    "type" : "ClutterFixedLayout"
+                                },
+                                "children": [{
+                                    "id": "printer-calibrate-bed",
+                                    "type": "MxButton",
+                                    "label": "Calibrate Bed",
+                                    "style-class": "main",
+                                    "x": 120,
+                                    "y": 20
                                 }]
                             }]
                         }]
