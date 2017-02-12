@@ -29,11 +29,23 @@ class ConnMan(Network):
     def __init__(self):
         Network.__init__(self)
         import pyconnman
+        self.manager = pyconnman.ConnManager()
+        self.technologies = self.manager.get_technologies()
         self.wifi = None
-        self.ethernet = None        
+        self.ethernet = None
+        self.bluetooth = None
+
+        for t in self.technologies:
+            (path, params) = t
+            if params['Name'] == "WiFi":
+                self.wifi = t
+            elif params['Name'] == "Wired":
+                self.ethernet = t
+            elif params['Name'] == "Bluetooth":
+                self.bluetooth = t
 
     def has_wifi_capabilities(self):
-        return not not self.ethernet
+        return not not self.wifi
 
     def has_ethernet_capabilities(self):
         return not not self.ethernet
@@ -41,7 +53,7 @@ class ConnMan(Network):
     def is_wifi_connected(self):
         if not self.has_wifi_capabilities():
             return False        
-        return False
+        return 
 
     def is_ethernet_connected(self):
         if not self.has_ethernet_capabilities():
@@ -50,6 +62,10 @@ class ConnMan(Network):
 
     def get_access_points(self):
         aps = []
+        for service in self.manager.get_services():
+            (path, params) = service
+            ap = {"name": params["Name"], "active": params["State"] == "online"}
+            aps.append(ap)
         return aps
 
     def get_active_access_point(self):
@@ -96,12 +112,11 @@ class NetworkManager(Network):
         aps = []
         aap = self.wifi.get_active_access_point()
         if aap is not None:
-            aap.active = True
-            aps.append(aap)        
+            aps.append({"name": aap.get_ssid(), "active": True})        
         for ap in self.wifi.get_access_points():
+            i = {"name": ap.get_ssid(), "active": False}
             if aap is not None and ap.get_bssid() != aap.get_bssid():
-                ap.active = False
-                aps.append(ap)
+                aps.append(i)
         return aps
 
     def get_active_access_point(self):
@@ -113,7 +128,7 @@ class NetworkManager(Network):
 if __name__ == "__main__":
     m = Network.get_manager()
     if m == "connman":
-        n = Connman()
+        n = ConnMan()
         print "Using Connman"
     elif m == "nm":
         n = NetworkManager()
@@ -126,6 +141,6 @@ if __name__ == "__main__":
     print "Is wifi Enabled: "+str(n.is_wifi_connected())
     print "Is ethernet capable: "+str(n.has_ethernet_capabilities())
     print "Is ethernet Enabled: "+str(n.is_ethernet_connected())
-    #print n.get_access_points()
+    print n.get_access_points()
 
     print n.get_connected_ip()

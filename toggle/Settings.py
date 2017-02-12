@@ -112,10 +112,10 @@ class Settings():
         actor.set_size(780, 40)
         text = Clutter.Text()
         text.set_position(120, 0)
-        if ap.active:
-            text.set_text("* "+ap.get_ssid())
+        if ap["active"]:
+            text.set_text("* "+ap["name"])
         else:
-            text.set_text(ap.get_ssid())            
+            text.set_text(ap["name"])            
         text.set_font_name("Sans 16")
         actor.add_actor(text)
         
