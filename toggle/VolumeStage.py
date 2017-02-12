@@ -14,7 +14,7 @@ class VolumeStage(Clutter.Actor):
         self.vp = self.ui.get_object("volume-viewport")
         self.vp.set_reactive(True)
         self.vp.connect("scroll-event", self.scroll)
-        self.rotation = config.getint("System", "rotation")
+        self.rotation = int(config.screen_rot)
 
         self.angle_max = config.getfloat("System", "angle_max")
         self.angle_min = config.getfloat("System", "angle_min")

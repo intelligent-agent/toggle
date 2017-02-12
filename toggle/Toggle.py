@@ -137,7 +137,7 @@ class Toggle:
         config.filament_graph = FilamentGraph(config)
         m = Network.get_manager()
         if m == "connman":
-            config.network = Connman()
+            config.network = ConnMan()
             logging.debug("Using Connman")
         elif m == "nm":
             config.network = NetworkManager()

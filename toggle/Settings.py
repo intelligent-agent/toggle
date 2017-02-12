@@ -12,19 +12,18 @@ class Settings():
         self.scroller.set_reactive(True)
         self.header_y = config.ui.get_object("scroll-header").get_height()
         self.scroller.connect("scroll-event", self.on_scroll_event)
-
         pan = Clutter.PanAction()
         self.scroller.add_action(pan)
         pan.connect ("pan", self.pan)
         
 
-        self.y = 0
+        self.y = self.header_y
         config.tabs.set_pane_selected_callback(0, self.on_select_callback)
         self.config = config
         self.enable_sliders()
         self.setup_wifi_tab()
         self.scroller_height = self.scroller.get_height()
-        self.stage_height = self.config.stage.get_height()
+        self.stage_height = self.config.ui.get_object("box").get_height()
 
     # Mouse scrolling event
     def on_scroll_event(self, actor, event):
@@ -44,10 +43,24 @@ class Settings():
 
 
     # Finger pan action
-    def pan(self, actor, event, action):
-        print actor
-        print event
-        print action
+    def pan(self, action, actor, event):
+        #print action.get_motion_delta(0)
+        d = action.get_motion_delta(0)
+        if self.config.screen_rot == "0":
+            delta = d[2]            
+        elif self.config.screen_rot == "90":
+            delta = -d[1]
+        elif self.config.screen_rot == "180":
+            delta = -d[2]
+        elif self.config.screen_rot == "270":
+            delta = d[1]
+
+        self.y += delta
+        self.y = min(self.header_y, self.y)
+        self.y = max(-self.scroller_height + self.stage_height, self.y)
+
+        self.x, _ = self.scroller.get_position()
+        self.scroller.set_position(self.x, self.y)
 
     # Called after the pane appears
     def on_appear_callback(self):
@@ -55,7 +68,6 @@ class Settings():
 
     # Called after the pane is chosen
     def on_select_callback(self):        
-        self.scroller_height = self.scroller.get_height()
         # add local IP
         local_ip = self.config.ui.get_object("local-ip")
         local_ip.set_text(self.config.network.get_connected_ip())
@@ -132,6 +144,7 @@ class Settings():
             actor.body.set_height(-1)
             actor.is_open = True
         self.scroller_height = self.scroller.get_height()
+        
         
         
 
