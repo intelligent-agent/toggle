@@ -10,11 +10,21 @@ class Settings():
         self.ui = config.ui
         self.scroller = config.ui.get_object("scroll-pane")
         self.scroller.set_reactive(True)
+        self.header_y = config.ui.get_object("scroll-header").get_height()
         self.scroller.connect("scroll-event", self.on_scroll_event)
+
+        pan = Clutter.PanAction()
+        self.scroller.add_action(pan)
+        pan.connect ("pan", self.pan)
+        
+
         self.y = 0
         config.tabs.set_pane_selected_callback(0, self.on_select_callback)
         self.config = config
         self.enable_sliders()
+        self.setup_wifi_tab()
+        self.scroller_height = self.scroller.get_height()
+        self.stage_height = self.config.stage.get_height()
 
     # Mouse scrolling event
     def on_scroll_event(self, actor, event):
@@ -25,24 +35,30 @@ class Settings():
         elif event.direction == Clutter.ScrollDirection.SMOOTH:
             delta = Clutter.Event.get_scroll_delta(event)
             self.y += delta[1]*40
-
-        self.y = min(150, self.y)
-        self.y = max(-2000+1080-10, self.y)
+        
+        self.y = min(self.header_y, self.y)
+        self.y = max(-self.scroller_height + self.stage_height, self.y)
 
         self.x, _ = self.scroller.get_position()
         self.scroller.set_position(self.x, self.y)
 
+
+    # Finger pan action
+    def pan(self, actor, event, action):
+        print actor
+        print event
+        print action
 
     # Called after the pane appears
     def on_appear_callback(self):
         pass
 
     # Called after the pane is chosen
-    def on_select_callback(self):
+    def on_select_callback(self):        
+        self.scroller_height = self.scroller.get_height()
         # add local IP
         local_ip = self.config.ui.get_object("local-ip")
-        ip_addr = [(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]
-        local_ip.set_text(ip_addr)
+        local_ip.set_text(self.config.network.get_connected_ip())
 
         # Add local hostname
         hostname = os.uname()
@@ -65,13 +81,33 @@ class Settings():
         calibrate_bed_button = self.config.ui.get_object("printer-calibrate-bed")
         tap = Clutter.TapAction()
         calibrate_bed_button.add_action(tap)
-        tap.connect("tap", self.calibrate_bed)     
+        tap.connect("tap", self.calibrate_bed)
         
-
-
     def calibrate_bed(self, tap, actor):
         self.config.rest_client.send_gcode("G29")
 
+
+    def setup_wifi_tab(self):
+        wifi_body = self.config.ui.get_object("wifi-body")
+        ssid_combo = self.config.ui.get_object("wifi-ssid")
+        aps = self.config.network.get_access_points()
+        
+        for ap in aps:
+            wifi_body.add_actor(self.make_wifi_tab(ap)) 
+
+    def make_wifi_tab(self, ap):
+        actor = Clutter.Actor()
+        actor.set_size(780, 40)
+        text = Clutter.Text()
+        text.set_position(120, 0)
+        if ap.active:
+            text.set_text("* "+ap.get_ssid())
+        else:
+            text.set_text(ap.get_ssid())            
+        text.set_font_name("Sans 16")
+        actor.add_actor(text)
+        
+        return actor
 
     # Enables tap action on all setings sliders
     def enable_sliders(self):
@@ -83,18 +119,19 @@ class Settings():
             tap.connect("tap", self.tap)     
             
             body = self.config.ui.get_object(box+"-body")
+            body.set_height(5)
             header.is_open = False  
             header.body = body
         
-
-    # Run when teh header is taped
+    # Run when the header is taped
     def tap(self, tap, actor):
         if actor.is_open:
             actor.body.set_height(5)
             actor.is_open = False
         else:
-            actor.body.set_height(300)
+            actor.body.set_height(-1)
             actor.is_open = True
-
+        self.scroller_height = self.scroller.get_height()
+        
         
 

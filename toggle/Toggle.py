@@ -56,6 +56,7 @@ from FilamentGraph import FilamentGraph
 from CubeTabs import CubeTabs
 from Splash import Splash
 from Settings import Settings
+from Network import Network, NetworkManager, ConnMan
 from Jog import Jog
 
 
@@ -134,6 +135,15 @@ class Toggle:
         config.jog = Jog(config)
         config.temp_graph = TemperatureGraph(config)
         config.filament_graph = FilamentGraph(config)
+        m = Network.get_manager()
+        if m == "connman":
+            config.network = Connman()
+            logging.debug("Using Connman")
+        elif m == "nm":
+            config.network = NetworkManager()
+            logging.debug("Using NetworkManager")
+        else:
+            logging.warning("Neither NetworkManager nor Connman was found")
         config.Settings = Settings(config)
     
 

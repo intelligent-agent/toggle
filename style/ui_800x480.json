@@ -28,32 +28,12 @@
                 "rotation-angle-y": 0.0,
                 "background-color": "white",
                 "children": [{
-                    "id": "side0-btn-prev",
-                    "type": "MxButton",
-                    "style-class": "settings",
-                    "x": 20,
-                    "y": 15,
-                    "width": 64,
-                    "height": 64,
-                    "visible": false
-                },{
-                    "id": "side0-btn-next",
-                    "type": "MxButton",
-                    "style-class": "temp",
-                    "x": 700,
-                    "y": 15,
-                    "width": 64,
-                    "height": 64,
-                    "visible": false
-                },{
                     "id": "side0-content",
                     "visible": false,
                     "type": "ClutterActor",
                     "width" : 800,
                     "height" : 480,
-                    "layout-manager" : {
-                        "type" : "ClutterBinLayout"
-                    },
+                    "layout-manager" : { "type" : "ClutterBinLayout" },
                     "children" : [{
                         "id": "scroll-pane",
                         "type": "ClutterScrollActor",
@@ -80,9 +60,7 @@
                                 "type": "ClutterActor",
                                 "height": 100,
                                 "width": 780,
-                                "layout-manager" : {
-                                    "type" : "ClutterFixedLayout"
-                                },
+                                "layout-manager" : { "type" : "ClutterFixedLayout" },
                                 "children": [{
                                     "type": "ClutterText",
                                     "text": "Network",
@@ -104,48 +82,46 @@
                                 "background-color": "#FFF",
                                 "width": 780,
                                 "height": 5,
-                                "layout-manager" : {
-                                    "type" : "ClutterFixedLayout"
-                                },
+                                "layout-manager" : { "type" : "ClutterFixedLayout" },
                                 "children": [{
                                     "type": "ClutterText",
                                     "text": "Remote Hostname: ",
                                     "font-description": "Sans 16",
                                     "x": 120,
-                                    "y": 20
+                                    "y": 10
                                 },{
                                     "id": "remote-hostname",
                                     "type": "ClutterText",
                                     "text": "Not set",
                                     "font-description": "Sans 16",
                                     "x": 400,
-                                    "y": 20
+                                    "y": 10
                                 },{
                                     "type": "ClutterText",
                                     "text": "Local Hostname: ",
                                     "font-description": "Sans 16",
                                     "x": 120,
-                                    "y": 80
+                                    "y": 50
                                 },{
                                     "id": "local-hostname",
                                     "type": "ClutterText",
                                     "text": "Not set",
                                     "font-description": "Sans 16",
                                     "x": 400,
-                                    "y": 80
+                                    "y": 50
                                 },{
                                     "type": "ClutterText",
                                     "text": "IP Address: ",
                                     "font-description": "Sans 16",
                                     "x": 120,
-                                    "y": 140
+                                    "y": 90
                                 },{
                                     "id": "local-ip",
                                     "type": "ClutterText",
                                     "text": "Not set",
                                     "font-description": "Sans 16",
                                     "x": 400,
-                                    "y": 140
+                                    "y": 90
                                 }]
                             }]
                         },{
@@ -185,21 +161,12 @@
                                 "type": "ClutterActor",
                                 "background-color": "#FFF",
                                 "width": 780,
-                                "height": 5,
-                                "children": [{
-                                    "type": "ClutterText",
-                                    "text": "Wifi SSID: ",
-                                    "font-description": "Sans 16",
-                                    "x": 120,
-                                    "y": 20
-                                },{
-                                    "id": "wifi-ssid",
-                                    "type": "ClutterText",
-                                    "text": "Not set",
-                                    "font-description": "Sans 16",
-                                    "x": 400,
-                                    "y": 20
-                                }]
+                                "min-height": 5,
+                                "layout-manager" : {
+                                    "type" : "ClutterBoxLayout",
+                                    "orientation": 1
+                                },
+                                "children": []
                             }]
                         },{
                             "id": "slicer-box",
@@ -321,6 +288,32 @@
                                 }]
                             }]
                         }]
+                    },{
+                        "id": "scroll-header",
+                        "type": "ClutterActor",
+                        "width": 800,
+                        "height": 90,
+                        "x": 0,
+                        "y": 0,
+                        "background-color": "#FFF"
+                    },{
+                        "id": "side0-btn-prev",
+                        "type": "MxButton",
+                        "style-class": "settings",
+                        "x": 20,
+                        "y": 15,
+                        "width": 64,
+                        "height": 64,
+                        "visible": false
+                    },{
+                        "id": "side0-btn-next",
+                        "type": "MxButton",
+                        "style-class": "temp",
+                        "x": 700,
+                        "y": 15,
+                        "width": 64,
+                        "height": 64,
+                        "visible": false
                     }]
                 },{
                     "id": "side5-content",
