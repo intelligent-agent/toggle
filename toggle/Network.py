@@ -64,7 +64,7 @@ class ConnMan(Network):
         aps = []
         for service in self.manager.get_services():
             (path, params) = service
-            if "name" in params:
+            if "Name" in params:
                 ap = {"name": params["Name"], "active": params["State"] == "online", "service": service}
             else:
                 ap = {"name": "?", "active": False, "service": None}
@@ -123,11 +123,13 @@ class NetworkManager(Network):
     def get_access_points(self):
         aps = []
         aap = self.wifi.get_active_access_point()
+        aap_bssid = ""
         if aap is not None:
-            aps.append({"name": aap.get_ssid(), "active": True, "service": aap})        
+            aps.append({"name": aap.get_ssid(), "active": True, "service": aap})
+            aap_bssid = aap.get_bssid()
         for ap in self.wifi.get_access_points():
             i = {"name": ap.get_ssid(), "active": False, "service": ap}
-            if aap is not None and ap.get_bssid() != aap.get_bssid():
+            if ap.get_bssid() != aap_bssid:
                 aps.append(i)
         return aps
 
@@ -139,7 +141,6 @@ class NetworkManager(Network):
         print ap["service"]
         print "Connecting to "+ap["name"]+" with "+passwd
         return "OK"
-
 
 
 if __name__ == "__main__":
@@ -158,6 +159,9 @@ if __name__ == "__main__":
     print "Is wifi Enabled: "+str(n.is_wifi_connected())
     print "Is ethernet capable: "+str(n.has_ethernet_capabilities())
     print "Is ethernet Enabled: "+str(n.is_ethernet_connected())
-    print n.get_access_points()
+    for ap in n.get_access_points():
+        print "*" if ap["active"] else " ",
+        print ap["name"]
+    print "IP: "+n.get_connected_ip()
 
-    print n.get_connected_ip()
+    print n.connect(n.get_access_points()[0], "grim")
