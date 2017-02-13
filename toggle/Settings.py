@@ -24,6 +24,7 @@ class Settings():
         cancel_tap.connect("tap", self.cancel_tap)
 
         self.wifi_password = ""
+        self.selected_ap = None
 
         self.y = self.header_y
         config.tabs.set_pane_selected_callback(0, self.on_select_callback)
@@ -129,6 +130,7 @@ class Settings():
         actor.add_actor(text)
         tap = Clutter.TapAction()
         actor.add_action(tap)
+        actor.ap = ap
         tap.connect("tap", self.ap_tap)
         actor.set_reactive(True)
         
@@ -137,13 +139,26 @@ class Settings():
     # Called with a wifi network is tapped
     def ap_tap(self, tap, actor):
         self.wifi_password = ""
+        self.selected_ap = actor.ap
         self.config.ui.get_object("wifi-input").set_text(self.wifi_password)
+        self.set_wifi_status("For "+self.selected_ap["name"])
         self.make_keyboard(0)
 
     # Called when OK in the wifi screen is taped
     def ok_tap(self, tap, actor):
-        print self.config.ui.get_object("wifi-input").get_text()
-        self.config.ui.get_object("wifi-overlay").hide()
+        self.wifi_password = self.config.ui.get_object("wifi-input").get_text()
+        self.set_wifi_status("Connecting to "+self.selected_ap["name"])
+        result = self.config.network.connect(self.selected_ap, self.wifi_password)
+        if result == "OK":
+            self.set_wifi_status("Connected")
+            self.config.ui.get_object("wifi-overlay").hide()
+        else:
+            self.set_wifi_status("Unable to connect")
+            
+
+    def set_wifi_status(self, text):
+        self.config.ui.get_object("wifi-status").set_text(text)
+        
 
     # Called when Cancel is tapped
     def cancel_tap(self, tap, actor):

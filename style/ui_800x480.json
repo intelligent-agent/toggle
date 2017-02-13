@@ -929,6 +929,13 @@
                 "x": 120,
                 "y": 110
             },{
+                "id": "wifi-status",
+                "type": "ClutterText",
+                "font-description": "Sans 12",
+                "color": "#FFF",
+                "x": 120,
+                "y": 200
+            },{
                 "id": "wifi-ok",
                 "type": "MxButton",
                 "label": "OK",

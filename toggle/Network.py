@@ -65,9 +65,9 @@ class ConnMan(Network):
         for service in self.manager.get_services():
             (path, params) = service
             if "name" in params:
-                ap = {"name": params["Name"], "active": params["State"] == "online"}
+                ap = {"name": params["Name"], "active": params["State"] == "online", "service": service}
             else:
-                ap = {"name": "?", "active": False}
+                ap = {"name": "?", "active": False, "service": None}
             aps.append(ap)
         return aps
 
@@ -78,6 +78,11 @@ class ConnMan(Network):
         # Assume all APs need a password
         return True
     
+
+    def connect(self, ap, passwd):
+        print ap["service"]
+        print "Connecting to "+ap["name"]+" with "+passwd
+        return "OK"
 
 class NetworkManager(Network):
     def __init__(self):
@@ -119,9 +124,9 @@ class NetworkManager(Network):
         aps = []
         aap = self.wifi.get_active_access_point()
         if aap is not None:
-            aps.append({"name": aap.get_ssid(), "active": True})        
+            aps.append({"name": aap.get_ssid(), "active": True, "service": aap})        
         for ap in self.wifi.get_access_points():
-            i = {"name": ap.get_ssid(), "active": False}
+            i = {"name": ap.get_ssid(), "active": False, "service": ap}
             if aap is not None and ap.get_bssid() != aap.get_bssid():
                 aps.append(i)
         return aps
@@ -129,6 +134,11 @@ class NetworkManager(Network):
     def get_active_access_point(self):
         return self.wifi.get_active_access_point()
 
+
+    def connect(self, ap, passwd):
+        print ap["service"]
+        print "Connecting to "+ap["name"]+" with "+passwd
+        return "OK"
 
 
 
