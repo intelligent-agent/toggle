@@ -2,12 +2,12 @@
   color: #000;
   font-family: "Sans";
   font-size: 20px;
-  border-image: none;
+  /*border-image: none;*/
 }
 
 MxButton, MxButton:checked{
   padding: 7 13 7 13;
-  border-image: none;
+  /*border-image: none;*/
 }
 
 MxButton.mouse{
@@ -109,3 +109,12 @@ MxButton.printing{          background-image: none;                             
 MxButton.paused:checked{    background-image: url("/etc/toggle/style/pause_128.png");        border-image: none; }
 MxButton.paused{            background-image: none;                                          border-image: none; }
 MxButton.heartbeat{         background-image: url("/etc/toggle/style/heartbeat_128.png");    border-image: none; }
+
+
+
+MxButton.keyboard{
+    color: #000;
+    font-family: "Sans";
+    font-size: 20px;
+    padding: 16 20;
+}

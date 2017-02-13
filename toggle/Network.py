@@ -64,12 +64,19 @@ class ConnMan(Network):
         aps = []
         for service in self.manager.get_services():
             (path, params) = service
-            ap = {"name": params["Name"], "active": params["State"] == "online"}
+            if "name" in params:
+                ap = {"name": params["Name"], "active": params["State"] == "online"}
+            else:
+                ap = {"name": "?", "active": False}
             aps.append(ap)
         return aps
 
     def get_active_access_point(self):
         return None
+
+    def ap_needs_password(self, ap):
+        # Assume all APs need a password
+        return True
     
 
 class NetworkManager(Network):
