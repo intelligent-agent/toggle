@@ -111,6 +111,7 @@ class Settings():
 
     def setup_wifi_tab(self):
         wifi_body = self.config.ui.get_object("wifi-body")
+        wifi_body.remove_all_children()
         ssid_combo = self.config.ui.get_object("wifi-ssid")
         aps = self.config.network.get_access_points()
         
@@ -120,13 +121,14 @@ class Settings():
     def make_wifi_tab(self, ap):
         actor = Clutter.Actor()
         actor.set_size(780, 40)
-        text = Clutter.Text()
+        text = Mx.Label()
         text.set_position(120, 0)
         if ap["active"]:
             text.set_text("* "+ap["name"])
         else:
             text.set_text(ap["name"])            
-        text.set_font_name("Sans 16")
+        #text.set_font_name("Sans 16")
+        text.set_style_class("wifi")
         actor.add_actor(text)
         tap = Clutter.TapAction()
         actor.add_action(tap)
@@ -138,17 +140,24 @@ class Settings():
 
     # Called with a wifi network is tapped
     def ap_tap(self, tap, actor):
-        self.wifi_password = ""
-        self.selected_ap = actor.ap
-        self.config.ui.get_object("wifi-input").set_text(self.wifi_password)
-        self.set_wifi_status("For "+self.selected_ap["name"])
-        self.make_keyboard(0)
+        if self.config.network.ap_needs_password(actor.ap):
+            self.wifi_password = ""
+            self.selected_ap = actor.ap
+            self.config.ui.get_object("wifi-input").set_text(self.wifi_password)
+            self.set_wifi_status("For "+self.selected_ap["name"])
+            self.make_keyboard(0)
+        else:
+            self.config.network.activate_connection(actor.ap)
+            self.setup_wifi_tab()
+        print "AP-tap"
+
 
     # Called when OK in the wifi screen is taped
     def ok_tap(self, tap, actor):
         self.wifi_password = self.config.ui.get_object("wifi-input").get_text()
         self.set_wifi_status("Connecting to "+self.selected_ap["name"])
-        result = self.config.network.connect(self.selected_ap, self.wifi_password)
+        result = self.config.network.update_password(self.selected_ap, self.wifi_password)
+        result = self.config.network.activate_connection(self.selected_ap)
         if result == "OK":
             self.set_wifi_status("Connected")
             self.config.ui.get_object("wifi-overlay").hide()

@@ -111,6 +111,12 @@ MxButton.paused{            background-image: none;                             
 MxButton.heartbeat{         background-image: url("/etc/toggle/style/heartbeat_128.png");    border-image: none; }
 
 
+MxLabel.wifi{
+    color: #000;
+    font-family: "Sans";
+    font-size: 20px;
+    padding: 16 20;
+}
 
 MxButton.keyboard{
     color: #000;
@@ -118,3 +124,5 @@ MxButton.keyboard{
     font-size: 20px;
     padding: 16 20;
 }
+
+
