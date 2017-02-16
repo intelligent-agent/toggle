@@ -313,7 +313,7 @@
                         "y": 15,
                         "width": 64,
                         "height": 64,
-                        "visible": false
+                        "visible": true
                     }]
                 },{
                     "id": "side5-content",
@@ -342,6 +342,24 @@
                             "x": 45,
                             "y": 350
                         }]
+                    },{
+                        "id": "side5-btn-next",
+                        "type": "MxButton",
+                        "style-class": "temp",
+                        "x": 700,
+                        "y": 15,
+                        "width": 64,
+                        "height": 64,                            
+                        "opacity": 0
+                    },{
+                        "id": "side5-btn-prev",
+                        "type": "MxButton",
+                        "style-class": "settings",
+                        "x": 20,
+                        "y": 15,
+                        "width": 64,
+                        "height": 64,                            
+                        "opacity": 0
                     }]
                 }]
             },{

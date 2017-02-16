@@ -21,7 +21,10 @@ if __name__ == '__main__':
     stage.connect("destroy", lambda w: Clutter.main_quit() )
 
     model = Mash.Model()
-    model.load_from_file(0, "/home/root/.octoprint/uploads/reel2.stl")
+    model_data = Mash.Data()
+    path = "models/calibration-cube.stl"
+    model_data.load(0, path)
+    model.set_data(model_data)
     model.set_color(Clutter.Color.from_string("#55A94BFF")[1])  
     model.set_position(400, 200)
     stage.add_child(model)

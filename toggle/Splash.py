@@ -13,5 +13,9 @@ class Splash():
         self.status.set_text (status)
 
     def enable_next(self):
-        next = self.ui.get_object("side0-btn-next")
-        next.show()
+        next = self.ui.get_object("side5-btn-next")
+        next.set_opacity(255)
+        prev = self.ui.get_object("side5-btn-prev")
+        prev.set_opacity(255)
+
+

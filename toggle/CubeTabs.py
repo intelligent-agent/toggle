@@ -40,8 +40,17 @@ class CubeTabs():
             t.set_progress_mode(Clutter.AnimationMode.EASE_IN_OUT_CUBIC)
             self.tgs[i] = t 
 
-        self.tg = self.tgs[0]
+        btn_next = self.ui.get_object("side5-btn-next")
+        tap_next = Clutter.TapAction()
+        btn_next.add_action(tap_next)
+        tap_next.connect("tap", self.btn_next)       
 
+        btn_next = self.ui.get_object("side5-btn-prev")
+        tap_next = Clutter.TapAction()
+        btn_next.add_action(tap_next)
+        tap_next.connect("tap", self.btn_prev)       
+
+        self.tg = self.tgs[0]
 
         # Set up page 0 to page 2 transition        
         self.t2 = Clutter.PropertyTransition(property_name='rotation-angle-y')
