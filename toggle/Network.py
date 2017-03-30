@@ -66,17 +66,14 @@ class ConnMan(Network):
         aps = []
         for service in self.manager.get_services():
             (path, params) = service
-            if "Name" in params:
-                ap = {
-                    "name": params["Name"], 
-                    "active": params["State"] == "online", 
-                    "service": service, 
-                    "strength": params["Strength"], 
-                    "security": params["Security"],
-                    "path": path
-                }
-            else:
-                ap = {"name": "?", "active": False, "service": None}
+            ap = {
+                "name": params["Name"] if "Name" in params else "?", 
+                "active": (params["State"] == "online") if "State" in params else False, 
+                "service": service, 
+                "strength": params["Strength"] if "Strength" in params else "?", 
+                "security": params["Security"] if "Security" in params else "?",
+                "path": path
+            }
             aps.append(ap)
         return aps
 

@@ -1,5 +1,9 @@
 import subprocess
 import logging
+import gi
+gi.require_version('Clutter', '1.0')
+gi.require_version('Mx', '2.0')
+gi.require_version('Mash', '0.3')
 from gi.repository import Clutter, Mx, Mash, Cogl, GObject
 
 # Set up logging
@@ -22,7 +26,7 @@ if __name__ == '__main__':
 
     model = Mash.Model()
     model_data = Mash.Data()
-    path = "models/calibration-cube.stl"
+    path = "models/suzanne.ply"
     model_data.load(0, path)
     model.set_data(model_data)
     model.set_color(Clutter.Color.from_string("#55A94BFF")[1])  

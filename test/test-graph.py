@@ -130,7 +130,7 @@ if __name__ == '__main__':
     stage.set_size(800, 500)
     stage.set_title('Clutter - Cairo content')
     stage.set_background_color(color('white'))
-    stage.set_user_resizable(True)
+    #stage.set_user_resizable(True)
 
     # quit when the window gets closed
     stage.connect('destroy', clutter_quit)
