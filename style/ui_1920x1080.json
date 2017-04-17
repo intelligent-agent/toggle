@@ -255,7 +255,7 @@
                         },{
                             "id": "printer-box",
                             "type": "ClutterActor",
-                            "width": 780,
+                            "width": 1900,
                             "background-color": "#c9c3c3",
                             "layout-manager" : {
                                 "type" : "ClutterBoxLayout",
@@ -264,8 +264,8 @@
                             "children": [{
                                 "id": "printer-header",
                                 "type": "ClutterActor",
-                                "height": 100,
-                                "width": 780,
+                                "height": 5,
+                                "width": 1900,
                                 "layout-manager" : {
                                     "type" : "ClutterFixedLayout"
                                 },
@@ -281,8 +281,8 @@
                                     "style-class": "printer",
                                     "x": 30,
                                     "y": 18,
-                                    "width": 64,
-                                    "height": 64
+                                    "width": 128,
+                                    "height": 128
                                 }]
                             },{
                                 "id": "printer-body",
@@ -306,7 +306,7 @@
                     },{
                         "id": "scroll-header",
                         "type": "ClutterActor",
-                        "width": 800,
+                        "width": 1920,
                         "height": 90,
                         "x": 0,
                         "y": 0,
@@ -315,19 +315,19 @@
                         "id": "side0-btn-prev",
                         "type": "MxButton",
                         "style-class": "settings",
-                        "x": 20,
+                        "x": 15,
                         "y": 15,
-                        "width": 64,
-                        "height": 64,
+                        "width": 128,
+                        "height": 128,
                         "visible": false
                     },{
                         "id": "side0-btn-next",
                         "type": "MxButton",
                         "style-class": "temp",
-                        "x": 700,
+                        "x": 1777,
                         "y": 15,
-                        "width": 64,
-                        "height": 64,
+                        "width": 128,
+                        "height": 128,
                         "visible": true
                     }]
                 },{
@@ -356,25 +356,25 @@
                             "color": "white",
                             "x": 100,
                             "y": 780,
-                            "font-description": "Sans 24"
+                            "font-description": "Sans 32"
                         }]
                     },{
                         "id": "side5-btn-next",
                         "type": "MxButton",
                         "style-class": "temp",
-                        "x": 700,
+                        "x": 1777,
                         "y": 15,
-                        "width": 64,
-                        "height": 64,                            
+                        "width": 128,
+                        "height": 128,                            
                         "opacity": 0
                     },{
                         "id": "side5-btn-prev",
                         "type": "MxButton",
                         "style-class": "settings",
-                        "x": 20,
+                        "x": 15,
                         "y": 15,
-                        "width": 64,
-                        "height": 64,                            
+                        "width": 128,
+                        "height": 128,                            
                         "opacity": 0
                     }]
                 }]

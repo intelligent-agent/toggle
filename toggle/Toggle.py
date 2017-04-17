@@ -193,7 +193,7 @@ class Toggle:
             #self.config.mouse_offset_x = self.config.screen_width
         elif self.config.screen_rot == "270":
             self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, -90.0)
-            self.config.ui.get_object("all").set_position(0, self.config.screen_width)
+            self.config.ui.get_object("all").set_position(0, self.config.screen_height)
         elif self.config.screen_rot == "180":
             self.config.ui.get_object("all").set_pivot_point(0.5, 0.5)
             self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 180.0)

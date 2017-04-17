@@ -5,6 +5,7 @@ gi.require_version('Clutter', '1.0')
 from gi.repository import Clutter, GLib
 import cairo
 import math
+from random import uniform
 
 color = lambda string: Clutter.color_from_string(string)[1]  # shortcut
 
@@ -26,7 +27,7 @@ class CairoActor(Clutter.Actor):
         self.border_radius = 50
         self.refresh_millis = 10
         self.fill_color = 0.39, 0.58, 0.93  # crimson
-        self.stroke_color = 0.8, 0.27, 0  # orange red
+        self.stroke_color = []
         self.lines = []
 
         self.idle_resize_id = 0
@@ -49,11 +50,13 @@ class CairoActor(Clutter.Actor):
         ctx.set_line_width(self.line_width)
         ctx.set_operator(cairo.OPERATOR_OVER)
         #print self.lines
+        i = 0
         for line in self.lines:
             if len(line): 
                 #print "Line"
                 #print line
-                ctx.set_source_rgb(*self.stroke_color)
+                ctx.set_source_rgb(*self.stroke_color[i])
+                i+=1
                 ctx.new_sub_path()
                 ctx.move_to(line[0][0], line[0][1])
                 for points in line:
@@ -73,11 +76,18 @@ if __name__ == '__main__':
     stage.set_user_resizable(True)
     #stage.set_fullscreen(True)
 
+    pressed = False
+    events = 0
     cairo_actor = CairoActor()
     stage.add_child(cairo_actor)
 
     # bind the size of cairo_actor to the size of the stage
     cairo_actor.add_constraint(Clutter.BindConstraint.new(stage, Clutter.BindCoordinate.SIZE, 0.0))
+
+    timeline = Clutter.Timeline.new(1000)
+    timeline.set_repeat_count(-1)
+    #timeline.add_marker("start")
+    timeline.start()
 
     def stage_key(element, event):
         if event.keyval == Clutter.Escape:
@@ -97,23 +107,45 @@ if __name__ == '__main__':
         Clutter.main_quit()
 
     def touch_event(actor, event):
-        #print event.type()      
-        if event.type() == Clutter.EventType.TOUCH_BEGIN:
-            cairo_actor.lines.append([])   
-            print "New line"           
-        if event.type() == Clutter.EventType.TOUCH_UPDATE:
-            #print "update"
-            x, y = event.get_coords()
-            cairo_actor.lines[-1].append((x, y))
-            cairo_actor.canvas.invalidate()
+        global events
+        global pressed
+        events += 1
+        if callable(event.type):
+            if event.type() == Clutter.EventType.TOUCH_BEGIN:
+                cairo_actor.lines.append([])
+                cairo_actor.stroke_color.append((uniform(0,1), uniform(0,1), uniform(0,1)))
+            if event.type() == Clutter.EventType.TOUCH_UPDATE:
+                x, y = event.get_coords()
+                cairo_actor.lines[-1].append((x, y))
+        else:
+            if event.type == Clutter.EventType.BUTTON_PRESS:
+                cairo_actor.lines.append([])
+                cairo_actor.stroke_color.append((uniform(0,1), uniform(0,1), uniform(0,1)))
+                pressed = True
+                #print "pressed: "+str(pressed)
+            if event.type == Clutter.EventType.MOTION:
+                #print "pressed: "+str(pressed)
+                if pressed:
+                    cairo_actor.lines[-1].append((event.x, event.y))
+            if event.type == Clutter.EventType.BUTTON_RELEASE:
+                pressed = False
+
+    def invalidate(val):
+        global events
+        print events
+        events = 0
+        cairo_actor.canvas.invalidate()
+
 
     # quit when the window gets closed
-    stage.connect('destroy', clutter_quit)
+    stage.connect('destroy', clutter_quit) 
     stage.connect('key-press-event', stage_key)
-    #stage.connect("motion-event", mouse_move)
-    #stage.connect("button-press-event", mouse_down)
-    #stage.connect("button-release-event", mouse_up)
+    stage.connect("motion-event", touch_event)
+    stage.connect("button-press-event", touch_event)
+    stage.connect("button-release-event", touch_event)
     stage.connect("touch-event", touch_event)
+    timeline.connect("completed", invalidate )
+
 
     stage.show()
     Clutter.main()
