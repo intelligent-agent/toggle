@@ -9,7 +9,7 @@ def read(fname):
 
 
 setup(name='Toggle',
-      version='1.2.1',
+      version='1.3.0',
       description='Embedded UI for 3D printers',
       author='Elias Bakken',
       author_email='elias@iagent.no',
@@ -31,7 +31,7 @@ setup(name='Toggle',
                   ('/etc/toggle/style', [
                         'style/style.css', 
                         'style/ui_800x480.json',
-			'style/ui_1920x1080.json',
+			            'style/ui_1920x1080.json',
                         'style/arrow_128.png',
                         'style/arrow_disabled_128.png',
                         'style/cancel_128.png',
@@ -74,7 +74,7 @@ setup(name='Toggle',
                         'configs/prusa_i3.cfg', 
                         'configs/kossel_mini.cfg', 
                         'configs/makerbot_cupcake.cfg', 
-			'models/probe-point.stl']),
+			            'models/probe-point.stl']),
                   ('/lib/systemd/system/', [
                         'systemd/toggle.service']), 
         		  ('./', ['README.md'])],

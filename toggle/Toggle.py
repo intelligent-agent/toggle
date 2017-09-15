@@ -165,6 +165,7 @@ class Toggle:
         self.cursor = config.ui.get_object("cursor")
         if use_mouse:
             config.stage.connect("motion-event", self.mouse_move)
+            #config.stage.connect("touch-event", self.mouse_move)
             logging.info("Mouse is active")
         else:
             logging.info("Mouse is not active")
@@ -257,7 +258,11 @@ class Toggle:
             self.stop(None)
             
     def mouse_move(self, actor, event):
-        x, y = event.x, event.y
+        if hasattr(event, "x"):        
+            x, y = event.x, event.y
+        else:
+            x, y = event.get_coords()
+            
         # Swap axes
         if self.config.mouse_swap:    
             x, y = y, x
