@@ -14,7 +14,9 @@ class Plate(Mash.Model):
         self.plate_data = Mash.Data()
         self.plate_data.load(0, config.get("System", "plate"))
         self.plate.set_data(self.plate_data)
-        self.plate.set_color(Clutter.Color.from_string("#555F")[1])
+        color_str = config.get("System", "plate-color")
+        self.color = Clutter.Color.from_string(color_str)[1]
+        self.plate.set_color(self.color)
 
         # Position it
         (width, height) = self.plate.get_size()

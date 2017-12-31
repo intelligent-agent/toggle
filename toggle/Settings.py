@@ -3,7 +3,7 @@
 from gi.repository import Clutter, Mx, Mash
 import os
 import socket
-import pyconnman
+#import pyconnman
 
 class Settings():
     def __init__(self, config):

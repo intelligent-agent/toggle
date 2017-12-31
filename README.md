@@ -187,3 +187,34 @@ sudo make install
 
 
 
+
+
+## Raspbian (WIP)
+
+
+
+
+sudo apt install autogen gnome-common gtk-doc-tools libglib2.0-dev gobject-introspection libmx-dev python-gobject-dev libgirepository1.0-dev
+sudo apt install git
+sudo apt install libclutter-1.0-dev
+
+sudo apt install libgles2-mesa-dev
+
+cd /usr/src/
+sudo git clone https://github.com/eliasbakken/mash.git
+cd /usr/src/mash
+sudo ./autogen.sh --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --enable-introspection
+sed -i 's/SUBDIRS = mash examples docs/SUBDIRS = mash docs/' Makefile
+sed -i 's/--library=libmash-@MASH_API_VERSION@.la/--library=mash-@MASH_API_VERSION@/ --library-path=/usr/src/mash/mash/.libs/' mash/Makefile.am
+sudo make
+sudo make install
+
+sudo install python-gi-cairo
+
+cd /usr/src
+sudo git clone https://bitbucket.org/intelligentagent/toggle
+cd toggle
+sudo make install
+
+
+ - Remove GL_BACK_LEFT etc. from cogl git 

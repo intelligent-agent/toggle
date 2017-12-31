@@ -44,3 +44,7 @@ clean:
 	find . -name '*.pyc' -delete
 	rm -rf usr
 	rm -rf debian/python-toggle
+
+
+themes:
+	./style/Mixer/convert.sh

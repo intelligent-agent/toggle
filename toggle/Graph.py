@@ -81,10 +81,11 @@ class GraphScale():
         for y in self.y_values:
             ctx.move_to(23,      height-(y-self.scale_min)*(height/self.scale_tot))
             ctx.line_to(width,  height-(y-self.scale_min)*(height/self.scale_tot))
-            ctx.move_to(0,      height-(y-self.scale_min)*(height/self.scale_tot)+3)
+            ctx.move_to(0,      height-(y-self.scale_min)*(height/self.scale_tot))
             ctx.show_text(str(y))
         if self.title:
-            ctx.move_to(width/2.0-20, 10)
+            ctx.move_to(width/2.0-40, 16)
+            ctx.set_font_size(16)   
             ctx.show_text(str(self.title))   
         
 
@@ -93,16 +94,16 @@ class Graph(Clutter.Actor):
 
     def __init__(self, width, height):
         super(Graph, self).__init__()
-        self.set_size(width-40, height-40)
-        self.set_margin_top(20)
-        self.set_margin_right(20)
-        self.set_margin_bottom(20)
-        self.set_margin_left(20)
+        self.set_size(width, height)
+        self.set_margin_top(0)
+        self.set_margin_right(0)
+        self.set_margin_bottom(0)
+        self.set_margin_left(0)
         self.canvas = Clutter.Canvas()
         self.set_content(self.canvas)
         self.canvas.connect('draw', self.draw)
         self.line_width = 3
-        self.refresh_millis = 10
+        self.refresh_millis = 100
 
         self.plots = []
 

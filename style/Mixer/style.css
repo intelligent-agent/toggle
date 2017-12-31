@@ -1,0 +1,142 @@
+*{
+  color: #000;
+  font-family: "Sans";
+  font-size: 20px;
+  /*border-image: none;*/
+}
+
+MxButton, MxButton:checked{
+  padding: 7 13 7 13;
+  /*border-image: none;*/
+}
+
+MxButton.mouse{
+    background-image: url("/etc/toggle/style/Mixer/pointer_64.png");
+    border-image: none;
+}
+
+MxButton.fan_on		{ background-image: url("/etc/toggle/style/Mixer/fan_on_128.png");        border-image: none; }
+MxButton.fan_off	{ background-image: url("/etc/toggle/style/Mixer/fan_off_128.png"); border-image: none; }
+
+MxButton.motors_off	{ background-image: url("/etc/toggle/style/Mixer/motor_off_128.png"); border-image: none; }
+
+MxButton.jog_arrow          {  background-image: url("/etc/toggle/style/Mixer/arrow_128.png"); border-image: none; }
+MxButton.jog_arrow:checked  {  background-image: url("/etc/toggle/style/Mixer/arrow_disabled_128.png"); border-image: none; }
+
+MxButton.jog_home           {  background-image: url("/etc/toggle/style/Mixer/home_128.png");      border-image: none; }
+MxButton.jog_home_z         {  background-image: url("/etc/toggle/style/Mixer/z_128.png");         border-image: none; }
+MxButton.jog_home_e         {  background-image: url("/etc/toggle/style/Mixer/e_128.png");         border-image: none; }
+MxButton.jog_home_e:checked {  background-image: url("/etc/toggle/style/Mixer/h_128.png");         border-image: none; }
+MxButton.print              {  background-image: url("/etc/toggle/style/Mixer/print_128.png"); border-image: none; }
+MxButton.jog                {  background-image: url("/etc/toggle/style/Mixer/jog_128.png");   border-image: none; }
+MxButton.temp               {  background-image: url("/etc/toggle/style/Mixer/temperature_128.png"); border-image: none; }
+MxButton.settings           {  background-image: url("/etc/toggle/style/Mixer/settings_128.png"); border-image: none; }
+
+/* Printer operations */
+MxButton.cancel:checked     {  background-image: url("/etc/toggle/style/Mixer/cancel_128.png"); border-image: none;}
+MxButton.cancel{
+    background-image: url("/etc/toggle/style/Mixer/cancel_disabled_128.png");
+    border-image: none;
+}
+
+MxButton.play:checked{
+    background-image: url("/etc/toggle/style/Mixer/play_128.png");
+    border-image: none;
+}
+MxButton.play{
+    background-image: url("/etc/toggle/style/Mixer/play_disabled_128.png");
+    border-image: none;
+}
+
+MxButton.pause:checked{
+    background-image: url("/etc/toggle/style/Mixer/pause_128.png");
+    border-image: none;
+}
+MxButton.pause{
+    background-image: url("/etc/toggle/style/Mixer/pause_disabled_128.png");
+    border-image: none;
+}
+
+
+/* Preheat operations */
+MxButton.heat{
+    background-image: url("/etc/toggle/style/Mixer/heater_cold_128.png");
+    border-image: none;
+}
+MxButton.heating{
+    background-image: url("/etc/toggle/style/Mixer/heater_heating_128.png");
+    border-image: none;
+}
+MxButton.heated{
+    background-image: url("/etc/toggle/style/Mixer/heater_heated_128.png");
+    border-image: none;
+}
+
+MxButton.heat_bed{
+    background-image: url("/etc/toggle/style/Mixer/heater_bed_cold_128.png");
+    border-image: none;
+}
+MxButton.heating_bed{
+    background-image: url("/etc/toggle/style/Mixer/heater_bed_heating_128.png");
+    border-image: none;
+}
+MxButton.heated_bed{
+    background-image: url("/etc/toggle/style/Mixer/heater_bed_heated_128.png");
+    border-image: none;
+}
+
+
+/* Jog travel*/
+MxButton.travel_01{
+    background-image: url("/etc/toggle/style/Mixer/0.1_128.png");
+    border-image: none;
+}
+
+MxButton.travel_1{
+    background-image: url("/etc/toggle/style/Mixer/1_128.png");
+    border-image: none;
+}
+
+MxButton.travel_10{
+    background-image: url("/etc/toggle/style/Mixer/10_128.png");
+    border-image: none;
+}
+
+MxButton.travel_100{
+    background-image: url("/etc/toggle/style/Mixer/100_128.png");
+    border-image: none;
+}
+
+/* Icons */
+MxIcon.network{        background-image: url("/etc/toggle/style/Mixer/network_128.png"); border-image: none; }
+MxIcon.wifi{           background-image: url("/etc/toggle/style/Mixer/wifi_128.png"); border-image: none; }
+MxIcon.slicer{         background-image: url("/etc/toggle/style/Mixer/slicer_128.png"); border-image: none; }
+MxIcon.printer{        background-image: url("/etc/toggle/style/Mixer/print_128.png"); border-image: none; }
+
+/* FLAGS */
+
+/* Connection */
+MxButton.connection{        background-image: url("/etc/toggle/style/Mixer/connection_disabled_64.png"); border-image: none; }
+MxButton.connection:checked{background-image: url("/etc/toggle/style/Mixer/connection_64.png");    border-image: none; }
+MxButton.printing:checked{  background-image: url("/etc/toggle/style/Mixer/running_64.png");         border-image: none; }
+MxButton.printing{          background-image: none;                                          border-image: none; }
+MxButton.paused:checked{    background-image: url("/etc/toggle/style/Mixer/paused_64.png");        border-image: none; }
+MxButton.paused{            background-image: none;                                          border-image: none; }
+MxButton.heartbeat{         background-image: url("/etc/toggle/style/Mixer/heartbeat_64.png");    border-image: none; }
+
+
+MxLabel.wifi{
+    color: #000;
+    font-family: "Sans";
+    font-size: 20px;
+    padding: 16 20;
+}
+
+MxButton.keyboard{
+    color: #000;
+    font-family: "Sans";
+    font-size: 20px;
+    padding: 16 20;
+}
+
+

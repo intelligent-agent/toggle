@@ -26,7 +26,8 @@ if __name__ == '__main__':
 
     model = Mash.Model()
     model_data = Mash.Data()
-    path = "models/suzanne.ply"
+    #path = "suzanne.ply"
+    path = "calibration-cube.stl"
     model_data.load(0, path)
     model.set_data(model_data)
     model.set_color(Clutter.Color.from_string("#55A94BFF")[1])  
