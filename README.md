@@ -191,9 +191,11 @@ sudo make install
 
 ## Raspbian (WIP)
 
+cogl-1.18 from stephenjust
+./configure --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --enable-gles2=yes --enable-cogl-gles2=yes --enable-rpi-egl-platform=yes --disable-glx --disable-gl --no-create --no-recursion
 
 
-
+```
 sudo apt install autogen gnome-common gtk-doc-tools libglib2.0-dev gobject-introspection libmx-dev python-gobject-dev libgirepository1.0-dev
 sudo apt install git
 sudo apt install libclutter-1.0-dev
@@ -212,9 +214,22 @@ sudo make install
 sudo install python-gi-cairo
 
 cd /usr/src
-sudo git clone https://bitbucket.org/intelligentagent/toggle
+sudo git clone https://github.com/intelligent-agent/toggle
 cd toggle
 sudo make install
+```
 
+Install Cogl from git with null window system
+```
+
+```
+
+GL_BACK_LEFT                      0x0402
+GL_BACK_RIGHT                     0x0403
 
  - Remove GL_BACK_LEFT etc. from cogl git 
+
+
+
+
+

@@ -4,6 +4,7 @@ from gi.repository import Clutter, Mx, Mash
 import os
 import socket
 #import pyconnman
+import logging
 
 class Settings():
     def __init__(self, config):
@@ -108,19 +109,20 @@ class Settings():
     def calibrate_bed(self, tap, actor):
         self.config.rest_client.send_gcode("G29")
 
-
     def setup_wifi_tab(self):
         wifi_body = self.config.ui.get_object("wifi-body")
         wifi_body.remove_all_children()
         ssid_combo = self.config.ui.get_object("wifi-ssid")
+        self.actor_width = wifi_body.get_width()
         aps = self.config.network.get_access_points()
         
         for ap in aps:
             wifi_body.add_actor(self.make_wifi_tab(ap)) 
 
     def make_wifi_tab(self, ap):
+        logging.debug("make_wifi")
         actor = Clutter.Actor()
-        actor.set_size(780, 40)
+        actor.set_size(self.actor_width, 40)
         text = Mx.Label()
         text.set_position(120, 0)
         if ap["active"]:

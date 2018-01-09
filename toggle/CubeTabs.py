@@ -131,7 +131,6 @@ class CubeTabs():
         self.ui.get_object("side0-btn-prev").show()
         self.dis.hide()
         
-
     # Animation to run as soon as a connection 
     def to_side_2(self):
         self.current_side = 2

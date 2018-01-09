@@ -48,3 +48,6 @@ clean:
 
 themes:
 	./style/Mixer/convert.sh
+
+run:
+	sudo CLUTTER_BACKEND=x11 python toggle/Toggle.py

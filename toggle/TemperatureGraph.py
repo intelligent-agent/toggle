@@ -116,19 +116,19 @@ class TemperatureGraph():
                 diff = self.temps[tool]["t_target"] - self.temps[tool]["t_actual"]
                 if abs(diff) < self.ok_range:
                     self.temps[tool]["state"] = "heated"
-                    self.temps[tool]["btn"].set_style_class("heated")
+                    self.temps[tool]["btn"].set_style_class("hot")
                 elif diff > 0:
                     self.temps[tool]["state"] = "heating"
                     self.temps[tool]["btn"].set_style_class("heating")
                 else:
                     self.temps[tool]["state"] = "cooling"
             else:
-                self.temps[tool]["btn"].set_style_class("heat")
+                self.temps[tool]["btn"].set_style_class("cold")
             
     def on_preheat_tool0(self, button, action):
         if self.temps["tool0"]["heating"]:
             self.config.rest_client.set_tool_temp(0, 0)
-            self.temps["tool0"]["btn"].set_style_class("heat")
+            self.temps["tool0"]["btn"].set_style_class("cold")
             self.temps["tool0"]["heating"] = False
         else:
             new_temp = self.temps["tool0"]["t_preheat"]
@@ -139,7 +139,7 @@ class TemperatureGraph():
     def on_preheat_tool1(self, button, action):
         if self.temps["tool1"]["heating"]:
             self.config.rest_client.set_tool_temp(1, 0)
-            self.temps["tool1"]["btn"].set_style_class("heat")
+            self.temps["tool1"]["btn"].set_style_class("cold")
             self.temps["tool1"]["heating"] = False
         else:
             new_temp = self.temps["tool1"]["t_preheat"]
@@ -150,12 +150,12 @@ class TemperatureGraph():
     def on_preheat_bed(self, button, action):
         if self.temps["bed"]["heating"]:
             self.config.rest_client.set_bed_temp(0)
-            self.temps["bed"]["btn"].set_style_class("heat")
+            self.temps["bed"]["btn"].set_style_class("cold_bed")
             self.temps["bed"]["heating"] = False
         else:
             new_temp = self.temps["bed"]["t_preheat"]
             self.config.rest_client.set_bed_temp(new_temp)
-            self.temps["bed"]["btn"].set_style_class("heating")
+            self.temps["bed"]["btn"].set_style_class("heating_bed")
             self.temps["bed"]["heating"] = True
 
     def change_to_filament(self, button, action):

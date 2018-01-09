@@ -57,6 +57,7 @@ class ModelLoader(Clutter.Actor):
 
     # Synchronize the files on this machine with the files from OctoPrint
     def sync_models(self):
+        logging.debug("Syncing models")
         self.locals = filter(listdir(self.path), '*.[Ss][Tt][Ll]')
         self.remotes = self.config.rest_client.get_list_of_files()
         if not self.remotes:
@@ -65,6 +66,11 @@ class ModelLoader(Clutter.Actor):
 
         to_delete = list(set(self.locals) - set(remote_names))
         to_download = list(set(remote_names) - set(self.locals))
+
+        if len(to_delete):
+            logging.info("Deleting {} models".format(len(to_delete)))
+        if len(to_download):
+            logging.info("Downloading {} models".format(len(to_download)))
 
         # Delete not present with OctoPrint
         for model in to_delete:

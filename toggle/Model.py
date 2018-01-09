@@ -81,7 +81,7 @@ class Model(Mash.Model):
         self.model_data.get_extents(self.v_min, self.v_max)
         (self.width, self.height) = self.model.get_size()
         self.depth = self.v_max.z-self.v_min.z
-        self.model.set_y(-self.depth/2.0)
+        self.model.set_y(-0.01-self.depth/2.0) # Prevent Z-fighting
         self.model.set_x(-self.width/2.0)
         self.model.set_z_position(-self.height/2.0)
         self.set_progress(0)
