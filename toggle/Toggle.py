@@ -166,10 +166,10 @@ class Toggle:
         self.cursor = config.ui.get_object("cursor")
         if use_mouse:
             config.stage.connect("motion-event", self.mouse_move)
-            #config.stage.connect("touch-event", self.mouse_move)
             logging.info("Mouse is active")
         else:
-            logging.info("Mouse is not active")
+            config.stage.connect("touch-event", self.mouse_move)
+            logging.info("Mouse is not active, using touch instead")
             self.cursor.set_opacity(0)
         config.mouse_invert_x = config.getboolean('Input', 'mouse_invert_x')
         config.mouse_invert_y = config.getboolean('Input', 'mouse_invert_y')
