@@ -1,4 +1,5 @@
-python-gi-cairo \
+# 
+apt install python-gi-cairo \
 python-tornado \
 python-numpy \
 python-networkmanager
