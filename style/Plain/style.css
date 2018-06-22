@@ -74,7 +74,7 @@ MxButton.heated{
 
 /* Jog travel*/
 MxButton.travel_01{
-    background-image: url("/etc/toggle/style/tPlain/ravel_0.1_128.png");
+    background-image: url("/etc/toggle/style/Plain/travel_0.1_128.png");
     border-image: none;
 }
 
@@ -124,3 +124,5 @@ MxButton.keyboard{
     font-size: 20px;
     padding: 16 20;
 }
+
+

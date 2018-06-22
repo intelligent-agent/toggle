@@ -110,6 +110,8 @@ class Settings():
         self.config.rest_client.send_gcode("G29")
 
     def setup_wifi_tab(self):
+	if not self.config.network.has_wifi_capabilities():
+		return
         wifi_body = self.config.ui.get_object("wifi-body")
         wifi_body.remove_all_children()
         ssid_combo = self.config.ui.get_object("wifi-ssid")

@@ -172,16 +172,16 @@ class NetworkManager(Network):
 
     def get_access_points(self):
         aps = []
-        aap = self.wifi.ActiveAccessPoint    
+        aap = self.wifi.ActiveAccessPoint if self.wifi.State == self.nm.NM_DEVICE_STATE_ACTIVATED else None
+
         for ap in self.wifi.SpecificDevice().GetAccessPoints():
-            if hasattr(self.wifi.SpecificDevice().ActiveAccessPoint, "HwAddress"):
-                i = {
-                    "name": ap.Ssid, 
-                    "active": ap.HwAddress == self.wifi.SpecificDevice().ActiveAccessPoint.HwAddress, 
-                    "service": ap, 
-                    "strength": ap.Strength
-                }
-                aps.append(i)
+            i = {
+                "name": ap.Ssid,
+                "active": False if aap == None else ap.HwAddress == aap.HwAddress,
+                "service": ap,
+                "strength": ap.Strength
+            }
+            aps.append(i)
         return aps
 
     def get_active_access_point(self):
