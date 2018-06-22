@@ -140,4 +140,9 @@ MxButton.keyboard{
     padding: 16 20;
 }
 
+MxTable.background{
+    color: #F21;
+    background-color: #1F2;
+}
+
 

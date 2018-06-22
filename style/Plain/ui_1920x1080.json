@@ -3,6 +3,7 @@
     "type" : "ClutterStage",
     "width" : 1920,
     "height" : 1080,
+    "background-color": "white",
     "signals" : [],
     "children" : [{
         "id": "all",
@@ -391,6 +392,7 @@
                 "children": [{
                     "id": "side1-content",
                     "type": "ClutterActor",
+                    "background-color": "#FFFFFFFF",
                     "children" : [{
                         "id": "graph",
                         "type" : "ClutterActor",
@@ -469,6 +471,7 @@
                 "children": [{
                     "id": "side2-content",
                     "type": "ClutterActor",
+                    "background-color": "white",
                     "children": [{
                         "id": "content-flip",
                         "type" : "ClutterActor",

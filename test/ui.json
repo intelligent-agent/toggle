@@ -1,19 +1,24 @@
 [{
     "id" : "stage",
     "type" : "ClutterStage",
-    "width" : 800,
-    "height" : 480,
+    "width" : 1920,
+    "height" : 1080,
     "signals" : [],
     "children" : [{
         "id": "all", 
         "type": "ClutterActor",
         "pivot-point": [0.0, 0.0],
         "rotation-angle-z": 0.0,
+        "background-color": "blue",
+        "width" : 1280,
+        "height" : 720,
         "children" : [{
             "id" : "box",
             "type" : "ClutterActor",
-            "width" : 800,
-            "height" : 480,
+            "width" : 640,
+            "height" : 360,
+            "background-color": "yellow",
+            "opacity": 255,
             "pivot-point-z": -400.0,
             "pivot-point": [0.5, 0.5],
             "rotation-angle-x": 0.0,
@@ -21,10 +26,10 @@
             "children" : [{
                 "id": "side3",     
                 "type" : "ClutterActor",
-                "width" : 800,
-                "height" : 480,
-                "visible": false, 
-                "background-color": "white",
+                "width" : 240,
+                "height" : 180,
+                "visible": true, 
+                "background-color": "red",
                 "children": []
             }]
         }]

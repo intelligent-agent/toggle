@@ -151,7 +151,7 @@ class WebSocksClient():
         return ''.join(random.choice(letters) for c in range(length))
 
     def run(self):
-        for i in range(1):
+        for i in range(self.config.getint("Rest", "timeout")):
             if self.running:
                 self.config.splash.set_status("Connecting to {} ({})".format(self.host, i))
                 logging.debug("Websocket connection attempt "+str(i))

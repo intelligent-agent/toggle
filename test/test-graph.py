@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+import gi
+gi.require_version('Clutter', '1.0')
 from gi.repository import Clutter, GLib
 import cairo
 import math
@@ -83,11 +85,12 @@ class GraphActor(Clutter.Actor):
         self.connect('notify::allocation', self.on_allocation)
 
     def on_allocation(self, *_):
+        print "on allocation"
         if self.idle_resize_id == 0:
             self.idle_resize_id = Clutter.threads_add_timeout(GLib.PRIORITY_DEFAULT, self.refresh_millis, self.idle_resize)
 
     def idle_resize(self):
-        self.canvas.invalidate()
+        print "idle resize"
         self.canvas.set_size(*self.get_size())
         self.idle_resize_id = 0
 
@@ -96,7 +99,13 @@ class GraphActor(Clutter.Actor):
         self.temps.append(temp)
 
     def refresh(self):
-        self.on_allocation("")
+        #self.canvas.invalidate()
+        #self.on_allocation("")
+        #self.queue_draw()
+        #import random
+        #self.set_x(random.randint(0, 9))
+        self.canvas.invalidate()
+        #self.allocate_preferred_size(Clutter.AllocationFlags.ABSOLUTE_ORIGIN_CHANGED)
 
     def draw(self, canvas, ctx, width, height):
         # clear the previous frame
