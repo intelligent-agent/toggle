@@ -1,7 +1,6 @@
-# Networ connection manager
-import socket 
+# Network connection manager
+import socket
 import os
-
 
 
 class Network:
@@ -20,9 +19,13 @@ class Network:
 
     def get_connected_ip(self):
         try:
-            return [(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]
+            return [
+                (s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close())
+                for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]
+            ][0][1]
         except socket.error, e:
             return "Network unreachable"
+
 
 class ConnMan(Network):
     def __init__(self):
@@ -51,11 +54,11 @@ class ConnMan(Network):
 
     def has_ethernet_capabilities(self):
         return not not self.ethernet
-    
+
     def is_wifi_connected(self):
         if not self.has_wifi_capabilities():
-            return False        
-        return 
+            return False
+        return
 
     def is_ethernet_connected(self):
         if not self.has_ethernet_capabilities():
@@ -67,10 +70,10 @@ class ConnMan(Network):
         for service in self.manager.get_services():
             (path, params) = service
             ap = {
-                "name": params["Name"] if "Name" in params else "?", 
-                "active": (params["State"] == "online") if "State" in params else False, 
-                "service": service, 
-                "strength": params["Strength"] if "Strength" in params else "?", 
+                "name": ["Name"] if "Name" in params else "?",
+                "active": (params["State"] == "online") if "State" in params else False,
+                "service": service,
+                "strength": params["Strength"] if "Strength" in params else "?",
                 "security": params["Security"] if "Security" in params else "?",
                 "path": path
             }
@@ -86,8 +89,8 @@ class ConnMan(Network):
         if "none" in ap["security"]:
             return False
         return True
-    
-    # Perform a wifi scan 
+
+    # Perform a wifi scan
     def scan(self):
         self.wifi.scan()
 
@@ -99,37 +102,33 @@ class ConnMan(Network):
 
     # Update the password on an existing AP.
     def update_password(self, ap, passwd):
-        pass 
+        pass
 
-    # Add a connection not previously seen 
+    # Add a connection not previously seen
     def add_connection(self, ap):
         pass
 
     def _start_agent(self):
-        params = {'name': None,
-                  'ssid': None,
-                  'identity': None,
-                  'username': None,
-                  'password': None,
-                  'passphrase': None,
-                  'wpspin': None, 
-                }
+        params = {
+            'name': None,
+            'ssid': None,
+            'identity': None,
+            'username': None,
+            'password': None,
+            'passphrase': None,
+            'wpspin': None,
+        }
         try:
             agent_path = "/test/agent"
             agent = self.p.SimpleWifiAgent(agent_path)
-            agent.set_service_params('*',
-                                     params['name'],
-                                     params['ssid'],
-                                     params['identity'],
-                                     params['username'],
-                                     params['password'],
-                                     params['passphrase'],
+            agent.set_service_params('*', params['name'], params['ssid'],
+                                     params['identity'], params['username'],
+                                     params['password'], params['passphrase'],
                                      params['wpspin'])
             services[agent_path] = agent
             manager.register_agent(agent_path)
         except dbus.exceptions.DBusException:
             print 'Unable to complete:', sys.exc_info()
-
 
     def activate_connection(self, ap):
         service = self.p.service.ConnService(ap["path"])
@@ -159,7 +158,7 @@ class NetworkManager(Network):
 
     def has_ethernet_capabilities(self):
         return not not self.ethernet
-    
+
     def is_wifi_connected(self):
         if not self.has_wifi_capabilities():
             return False
@@ -175,13 +174,14 @@ class NetworkManager(Network):
         aap = self.wifi.ActiveAccessPoint if self.wifi.State == self.nm.NM_DEVICE_STATE_ACTIVATED else None
 
         for ap in self.wifi.SpecificDevice().GetAccessPoints():
-            i = {
-                "name": ap.Ssid,
-                "active": False if aap == None else ap.HwAddress == aap.HwAddress,
-                "service": ap,
-                "strength": ap.Strength
-            }
-            aps.append(i)
+            if hasattr(self.wifi.SpecificDevice().ActiveAccessPoint, "HwAddress"):
+                i = {
+                    "name": ap.Ssid,
+                    "active": ap.HwAddress == self.wifi.SpecificDevice().ActiveAccessPoint.HwAddress,
+                    "service": ap,
+                    "strength": ap.Strength
+                }
+                aps.append(i)
         return aps
 
     def get_active_access_point(self):
@@ -191,7 +191,7 @@ class NetworkManager(Network):
         # Assume all APs need a password
         return False
 
-    # Perform a wifi scan 
+    # Perform a wifi scan
     def scan(self):
         self.wifi.request_scan()
 
@@ -203,20 +203,20 @@ class NetworkManager(Network):
 
     # Update the password on an existing AP.
     def update_password(self, ap, passwd):
-        pass 
+        pass
 
-    # Add a connection not previously seen 
+    # Add a connection not previously seen
     def add_connection(self, ap):
         pass
 
     # Activate a Wifi AP/SSID
     def activate_connection(self, ap):
         connections = self.nm.Settings.ListConnections()
-        connections = dict([(x.GetSettings()['connection']['id'], x) for x in connections])
+        connections = dict(
+            [(x.GetSettings()['connection']['id'], x) for x in connections])
         conn = connections[ap["name"]]
         self.nm.NetworkManager.ActivateConnection(conn, self.wifi, "/")
         return "OK"
-
 
 
 class NetworkManagerGI(Network):
@@ -232,7 +232,7 @@ class NetworkManagerGI(Network):
         self.devices = self.client.get_devices()
         self.access_points = []
         self.wifi = None
-        self.ethernet = None        
+        self.ethernet = None
 
         for dev in self.devices:
             if dev.get_device_type() == self.nm.DeviceType.WIFI:
@@ -245,10 +245,10 @@ class NetworkManagerGI(Network):
 
     def has_ethernet_capabilities(self):
         return not not self.ethernet
-    
+
     def is_wifi_connected(self):
         if not self.has_wifi_capabilities():
-            return False        
+            return False
         return self.wifi.get_state() == self.nm.DeviceState.ACTIVATED
 
     def is_ethernet_connected(self):
@@ -262,20 +262,20 @@ class NetworkManagerGI(Network):
         aap_bssid = ""
         if aap is not None:
             aps.append({
-                "name": aap.get_ssid(), 
-                "active": True, 
+                "name": aap.get_ssid(),
+                "active": True,
                 "service": aap,
                 "strength": aap.get_strength()
             })
             aap_bssid = aap.get_bssid()
         for ap in self.wifi.get_access_points():
             i = {
-                "name": ap.get_ssid(), 
-                "active": False, 
-                "service": ap, 
+                "name": ap.get_ssid(),
+                "active": False,
+                "service": ap,
                 "strength": ap.get_strength()
             }
-                    
+
             if ap.get_bssid() != aap_bssid:
                 aps.append(i)
         return aps
@@ -283,8 +283,7 @@ class NetworkManagerGI(Network):
     def get_active_access_point(self):
         return self.wifi.get_active_access_point()
 
-
-    # Perform a wifi scan 
+    # Perform a wifi scan
     def scan(self):
         self.wifi.request_scan()
 
@@ -301,14 +300,10 @@ class NetworkManagerGI(Network):
 
         specific_object = ""
         #s_wifi = conn.get_setting_wireless()
-        self.client.add_and_activate_connection(
-            None, 
-            self.wifi, 
-            ap["service"],
-            self.connection_finished_cb
-        )
+        self.client.add_and_activate_connection(None, self.wifi, ap["service"],
+                                                self.connection_finished_cb)
         print ap["service"]
-        print "Connecting to "+ap["name"]+" with "+passwd
+        print "Connecting to " + ap["name"] + " with " + passwd
         return "OK"
 
 
@@ -324,15 +319,16 @@ if __name__ == "__main__":
         print "Neither NetworkManager nor Connman was found"
         exit(1)
 
-    print "Is wifi capable: "+str(n.has_wifi_capabilities())
-    print "Is wifi Enabled: "+str(n.is_wifi_connected())
-    print "Is ethernet capable: "+str(n.has_ethernet_capabilities())
-    print "Is ethernet Enabled: "+str(n.is_ethernet_connected())
+    print "Is wifi capable: " + str(n.has_wifi_capabilities())
+    print "Is wifi Enabled: " + str(n.is_wifi_connected())
+    print "Is ethernet capable: " + str(n.has_ethernet_capabilities())
+    print "Is ethernet Enabled: " + str(n.is_ethernet_connected())
     for ap in n.get_access_points():
         #print ap["strength"],
         print "*" if ap["active"] else " ",
         print ap["name"]
-    print "IP: "+n.get_connected_ip()
+    print "IP: " + n.get_connected_ip()
 
-    print "Needs password: "+str(n.ap_needs_password(n.get_access_points()[0]))
+    print "Needs password: " + str(
+        n.ap_needs_password(n.get_access_points()[0]))
     print n.activate_connection(n.get_access_points()[0])
