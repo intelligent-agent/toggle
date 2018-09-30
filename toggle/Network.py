@@ -159,7 +159,7 @@ class NetworkManager(Network):
 
     def has_ethernet_capabilities(self):
         return not not self.ethernet
-    
+
     def is_wifi_connected(self):
         if not self.has_wifi_capabilities():
             return False
@@ -175,13 +175,14 @@ class NetworkManager(Network):
         aap = self.wifi.ActiveAccessPoint if self.wifi.State == self.nm.NM_DEVICE_STATE_ACTIVATED else None
 
         for ap in self.wifi.SpecificDevice().GetAccessPoints():
-            i = {
-                "name": ap.Ssid,
-                "active": False if aap == None else ap.HwAddress == aap.HwAddress,
-                "service": ap,
-                "strength": ap.Strength
-            }
-            aps.append(i)
+            if hasattr(self.wifi.SpecificDevice().ActiveAccessPoint, "HwAddress"):
+                i = {
+                    "name": ap.Ssid, 
+                    "active": ap.HwAddress == self.wifi.SpecificDevice().ActiveAccessPoint.HwAddress, 
+                    "service": ap, 
+                    "strength": ap.Strength
+                }
+                aps.append(i)
         return aps
 
     def get_active_access_point(self):

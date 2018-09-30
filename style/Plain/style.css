@@ -57,20 +57,33 @@ MxButton.pause{
     border-image: none;
 }
 
-
 /* Preheat operations */
-MxButton.heat{
-    background-image: url("/etc/toggle/style/Plain/heat_128.png");
+MxButton.cold{
+    background-image: url("/etc/toggle/style/Plain/heater_cold_128.png");
     border-image: none;
 }
 MxButton.heating{
-    background-image: url("/etc/toggle/style/Plain/heating_128.png");
+    background-image: url("/etc/toggle/style/Plain/heater_heating_128.png");
     border-image: none;
 }
-MxButton.heated{
-    background-image: url("/etc/toggle/style/Plain/heated_128.png");
+MxButton.hot{
+    background-image: url("/etc/toggle/style/Plain/heater_hot_128.png");
     border-image: none;
 }
+
+MxButton.cold_bed{
+    background-image: url("/etc/toggle/style/Plain/heater_bed_cold_128.png");
+    border-image: none;
+}
+MxButton.heating_bed{
+    background-image: url("/etc/toggle/style/Plain/heater_bed_heating_128.png");
+    border-image: none;
+}
+MxButton.hot_bed{
+    background-image: url("/etc/toggle/style/Plain/heater_bed_hot_128.png");
+    border-image: none;
+}
+
 
 /* Jog travel*/
 MxButton.travel_01{

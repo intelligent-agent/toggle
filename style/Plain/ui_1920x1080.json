@@ -404,7 +404,7 @@
                         "type": "MxButton",
                         "style-class": "heat",
                         "is_toggle": true,
-                        "x": 696,
+                        "x": 596,
                         "y": 900,
                         "width": 128,
                         "height": 128
@@ -413,7 +413,7 @@
                         "type": "MxButton",
                         "style-class": "heat",
                         "is_toggle": true,
-                        "x": 896,
+                        "x": 796,
                         "y": 900,
                         "width": 128,
                         "height": 128
@@ -422,7 +422,16 @@
                         "type": "MxButton",
                         "style-class": "heat",
                         "is_toggle": true,
-                        "x": 1096,
+                        "x": 996,
+                        "y": 900,
+                        "width": 128,
+                        "height": 128
+                    },{
+                        "id": "heat-tool2",
+                        "type": "MxButton",
+                        "style-class": "heat",
+                        "is_toggle": true,
+                        "x": 1196,
                         "y": 900,
                         "width": 128,
                         "height": 128
