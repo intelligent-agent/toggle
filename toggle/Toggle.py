@@ -92,7 +92,7 @@ class Toggle:
         if not os.path.exists(file_path):
             logging.info(file_path + " does not exist, Creating one")
             os.mknod(file_path)
-            os.chmod(file_path, 0o777)
+            os.chmod(file_path, 0o666)
 
         # Parse the config files.
         config = CascadingConfigParser([
