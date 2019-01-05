@@ -119,7 +119,7 @@
                                     "y": 80
                                 },{
                                     "type": "ClutterText",
-                                    "text": "IP adress: ",
+                                    "text": "IP address: ",
                                     "font-description": "Sans 32",
                                     "x": 250,
                                     "y": 140
