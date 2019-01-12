@@ -183,6 +183,8 @@ setup(
     # metadata for upload to PyPI
     keywords="3d printer firmware",
     install_requires=[
+      'requests',
+      'pyconnman',
     ],
     #url=__url__,
     ext_modules=[
