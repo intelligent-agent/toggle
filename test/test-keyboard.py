@@ -9,10 +9,13 @@ import string
 
 
 def make_keyboard(ui):
+  # yapf: disable
   keys = [["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "<<"],
           ["a", "s", "d", "f", "g", "h", "j", "k", "l", "m"],
           [" ^", "z", "x", "c", "v", "b", "n", "m", ",", ".", "^ "],
-          [" 123 ", "                                        ", " }]? "]]
+          [" 123 ", "                                        ", " }]? "]
+         ]
+  # yapf: enable
 
   for i, row in enumerate(keys):
     key_row = ui.get_object("row-" + str(i))

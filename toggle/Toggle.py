@@ -28,18 +28,15 @@ gi.require_version('Mash', '0.3')
 gi.require_version('Cogl', '1.0')
 gi.require_version('Clutter', '1.0')
 
-from gi.repository import Clutter, Cogl, Mx, Mash
-
-#import subprocess
 import logging
 import time
 import Queue
 import sys
 import os
 
-#from gi.repository import Clutter, Mx,  Toggle, Cogl, GObject, GLib
-from threading import Thread, current_thread
+from gi.repository import Clutter, Mx
 from multiprocessing import JoinableQueue
+from threading import Thread, current_thread
 
 from Model import Model
 from Plate import Plate
@@ -85,8 +82,8 @@ class LoggerWriter:
 
 class Toggle:
   def __init__(self):
-    self.version = "1.3.0"
-    logging.info("Starting Toggle " + self.version)
+    from .__init__ import __version__
+    logging.info("Initializing  Toggle {}".format(__version__))
 
     file_path = os.path.join("/etc/toggle", "local.cfg")
     if not os.path.exists(file_path):
@@ -130,7 +127,7 @@ class Toggle:
     # Set up tabs
     config.tabs = CubeTabs(config.ui, 4)
     config.splash = Splash(config)
-    config.splash.set_status("Starting Toggle " + self.version + "...")
+    config.splash.set_status("Starting Toggle {} ...".format(__version__))
     config.jog = Jog(config)
     config.temp_graph = TemperatureGraph(config)
     config.filament_graph = FilamentGraph(config)
