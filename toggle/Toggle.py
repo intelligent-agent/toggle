@@ -147,8 +147,6 @@ class Toggle:
 
     # Set up SockJS and REST clients
     host = config.get("Rest", "hostname")
-    user = config.get("WebSocket", "user")
-    user_key = config.get("WebSocket", "api_key")
     config.rest_client = RestClient(config)
 
     # Add other stuff
@@ -159,7 +157,6 @@ class Toggle:
     config.plate = Plate(config)
 
     config.socks_client = WebSocksClient(config, host="ws://" + host + ":5000")
-    config.socks_client.send('{ "auth": "' + user + ":" + user_key + '" }' )
 
     # mouse
     use_mouse = int(config.get('Input', 'mouse'))
@@ -209,7 +206,11 @@ class Toggle:
     self.p0 = Thread(target=self.loop, args=(self.config.push_updates, "Push updates"))
     self.p0.start()
 
+    user = self.config.get("WebSocket", "user")
+    user_key = self.config.get("WebSocket", "api_key")
+
     self.config.socks_client.start()
+    self.config.socks_client.send('{ "auth": "' + user + ":" + user_key + '" }')
     logging.info("Toggle ready")
     Clutter.main()
 

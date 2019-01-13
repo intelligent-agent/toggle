@@ -48,14 +48,16 @@ class WebSocksClient():
 
     self.max_reconnects = 10
     self.state = WebSocksClient.CLOSED
-
     self.io_loop = ioloop.IOLoop.current()
+
 
   def connect(self):
     logging.debug("Connecting to " + self.url)
     self.state = WebSocksClient.CONNECTING
-    self.conn = websocket.websocket_connect(
+    self._ws_connection = websocket.websocket_connect(
         self.url, io_loop=self.io_loop, callback=self._connect_callback)
+    if not self._ws_connection or self._ws_connection:
+        raise RuntimeError('Web socket connection could not be established.')
 
   def send(self, data):
     """

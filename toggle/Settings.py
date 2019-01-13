@@ -118,8 +118,9 @@ class Settings():
     self.actor_width = wifi_body.get_width()
     aps = self.config.network.get_access_points()
 
-    for ap in aps:
-      wifi_body.add_actor(self.make_wifi_tab(ap))
+
+#    for ap in aps:
+#      wifi_body.add_actor(self.make_wifi_tab(ap))
 
   def make_wifi_tab(self, ap):
     logging.debug("make_wifi")
@@ -127,10 +128,10 @@ class Settings():
     actor.set_size(self.actor_width, 40)
     text = Mx.Label()
     text.set_position(120, 0)
-    if ap["active"]:
-      text.set_text("* " + ap["name"])
-    else:
-      text.set_text(ap["name"])
+    #if ap["active"]:
+    #  text.set_text("* " + ap["name"])
+    #else:
+    #  text.set_text(ap["name"])
     #text.set_font_name("Sans 16")
     text.set_style_class("wifi")
     actor.add_actor(text)
@@ -216,18 +217,18 @@ class Settings():
     self.config.ui.get_object("wifi-input").set_text(self.wifi_password)
 
   def make_keyboard(self, keyset=0):
-    keys = [[["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", " << "],
-             ["a", "s", "d", "f", "g", "h", "j", "k", "l", "'"],
-             [" ^", "z", "x", "c", "v", "b", "n", "m", ",", ".", " ^"],
+    keys = [[["q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
+              " << "], ["a", "s", "d", "f", "g", "h", "j", "k", "l",
+                        "'"], [" ^", "z", "x", "c", "v", "b", "n", "m", ",", ".", " ^"],
              [" 123 ", "                                        ", " }]? "]],
-            [["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", " << "],
-             ["=", "-", "+", "*", "/", "\\", ":", ";", "'", "\""],
-             ["(", ")", "#", "$", "!", "?", "@", "m", ",", "."],
-             [" ABC ", "                                        ", " ABC "]],
-            [["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", " << "],
-             ["A", "S", "D", "F", "G", "H", "J", "K", "L", "'"],
-             ["^ ", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "^ "],
-             [" 123 ", "                                        ", " }]? "]]]
+            [["1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+              " << "], ["=", "-", "+", "*", "/", "\\", ":", ";", "'", "\""],
+             ["(", ")", "#", "$", "!", "?", "@", "m", ",",
+              "."], [" ABC ", "                                        ",
+                     " ABC "]], [["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P",
+                                  " << "], ["A", "S", "D", "F", "G", "H", "J", "K", "L", "'"],
+                                 ["^ ", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "^ "],
+                                 [" 123 ", "                                        ", " }]? "]]]
 
     for i, row in enumerate(keys[keyset]):
       key_row = self.config.ui.get_object("row-" + str(i))
