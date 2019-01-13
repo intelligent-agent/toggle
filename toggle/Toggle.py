@@ -36,6 +36,7 @@ import time
 import Queue
 import sys
 import os
+import _version
 
 #from gi.repository import Clutter, Mx,  Toggle, Cogl, GObject, GLib
 from threading import Thread, current_thread
@@ -85,7 +86,7 @@ class LoggerWriter:
 
 class Toggle:
   def __init__(self):
-    self.version = "1.3.0"
+    self.version = "1.3.0-auth"
     logging.info("Starting Toggle " + self.version)
 
     file_path = os.path.join("/etc/toggle", "local.cfg")
@@ -206,13 +207,11 @@ class Toggle:
     self.p0 = Thread(target=self.loop, args=(self.config.push_updates, "Push updates"))
     self.p0.start()
 
-    user = self.config.get("WebSocket", "user")
-    user_key = self.config.get("WebSocket", "api_key")
-
     self.config.socks_client.start()
-    self.config.socks_client.send('{ "auth": "' + user + ":" + user_key + '" }')
     logging.info("Toggle ready")
+    
     Clutter.main()
+
 
   # UI events needs to happen from within the
   # main thread. This was the only way I found that would do that.
