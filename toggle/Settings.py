@@ -1,8 +1,12 @@
 # Plate
 
-from gi.repository import Clutter, Mx, Mash
+import gi
+gi.require_version('Mx', '2.0')
+gi.require_version('Clutter', '1.0')
+
+from gi.repository import Clutter, Mx
 import os
-import socket
+#import socket
 #import pyconnman
 import logging
 
@@ -143,7 +147,7 @@ class Settings():
 
     return actor
 
-  # Called with a wifi network is tapped
+  # Called when a wifi network is tapped
   def ap_tap(self, tap, actor):
     if self.config.network.ap_needs_password(actor.ap):
       self.wifi_password = ""
@@ -188,7 +192,7 @@ class Settings():
       header.is_open = False
       header.body = body
 
-  # Run when the header is taped
+  # Run when the header is tapped
   def tap(self, tap, actor):
     if actor.is_open:
       actor.body.set_height(5)
@@ -217,18 +221,23 @@ class Settings():
     self.config.ui.get_object("wifi-input").set_text(self.wifi_password)
 
   def make_keyboard(self, keyset=0):
-    keys = [[["q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
-              " << "], ["a", "s", "d", "f", "g", "h", "j", "k", "l",
-                        "'"], [" ^", "z", "x", "c", "v", "b", "n", "m", ",", ".", " ^"],
-             [" 123 ", "                                        ", " }]? "]],
-            [["1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
-              " << "], ["=", "-", "+", "*", "/", "\\", ":", ";", "'", "\""],
-             ["(", ")", "#", "$", "!", "?", "@", "m", ",",
-              "."], [" ABC ", "                                        ",
-                     " ABC "]], [["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P",
-                                  " << "], ["A", "S", "D", "F", "G", "H", "J", "K", "L", "'"],
-                                 ["^ ", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "^ "],
-                                 [" 123 ", "                                        ", " }]? "]]]
+    # yapf: disable
+    keys = [[["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", " << "],
+             ["a", "s", "d", "f", "g", "h", "j", "k", "l", "'"],
+             [" ^", "z", "x", "c", "v", "b", "n", "m", ",", ".", " ^"],
+             [" 123 ", "                                        ", " }]? "]
+            ],
+            [["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", " << "],
+             ["=", "-", "+", "*", "/", "\\", ":", ";", "'", "\""],
+             ["(", ")", "#", "$", "!", "?", "@", "m", ",", "."],
+             [" ABC ", "                                        ", " ABC "]
+            ],
+            [["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", " << "],
+             ["A", "S", "D", "F", "G", "H", "J", "K", "L", "'"],
+             ["^ ", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "^ "],
+             [" 123 ", "                                        ", " }]? "]
+           ]]
+    # yapf: enable
 
     for i, row in enumerate(keys[keyset]):
       key_row = self.config.ui.get_object("row-" + str(i))
