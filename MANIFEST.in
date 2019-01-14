@@ -4,3 +4,5 @@ include models/*.stl
 include models/platforms/*.stl
 include style/*
 include systemd/*
+include versioneer.py
+include toggle/_version.py
