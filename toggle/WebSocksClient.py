@@ -57,12 +57,14 @@ class WebSocksClient():
     self._ws_connection = websocket.websocket_connect(
         self.url, io_loop=self.io_loop, callback=self._connect_callback)
 
+
   def authenticate(self, apikey):
     user = self.config.get("WebSocket", "user")
     logging.debug("Authenticating with " + user + ":" + apikey)
     msg = '{ "auth" : "' + str(user) + ':' + str(apikey) + '" }'
     logging.info("Sending message " + msg)
     self._ws_connection.write_message(msg)
+
 
   def send(self, data):
     """
@@ -112,6 +114,7 @@ class WebSocksClient():
       self.authenticate(apik)
 
     self.parse_msg(data)
+
 
   def _on_connection_success(self):
     """

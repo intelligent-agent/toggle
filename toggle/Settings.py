@@ -122,8 +122,9 @@ class Settings():
     self.actor_width = wifi_body.get_width()
     aps = self.config.network.get_access_points()
 
-    for ap in aps:
-      wifi_body.add_actor(self.make_wifi_tab(ap))
+
+#    for ap in aps:
+#      wifi_body.add_actor(self.make_wifi_tab(ap))
 
   def make_wifi_tab(self, ap):
     logging.debug("make_wifi")
@@ -131,10 +132,10 @@ class Settings():
     actor.set_size(self.actor_width, 40)
     text = Mx.Label()
     text.set_position(120, 0)
-    if ap["active"]:
-      text.set_text("* " + ap["name"])
-    else:
-      text.set_text(ap["name"])
+    #if ap["active"]:
+    #  text.set_text("* " + ap["name"])
+    #else:
+    #  text.set_text(ap["name"])
     #text.set_font_name("Sans 16")
     text.set_style_class("wifi")
     actor.add_actor(text)

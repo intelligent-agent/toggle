@@ -33,6 +33,7 @@ import time
 import Queue
 import sys
 import os
+import _version
 
 from gi.repository import Clutter, Mx
 from multiprocessing import JoinableQueue
@@ -205,7 +206,9 @@ class Toggle:
 
     self.config.socks_client.start()
     logging.info("Toggle ready")
+    
     Clutter.main()
+
 
   # UI events needs to happen from within the
   # main thread. This was the only way I found that would do that.
