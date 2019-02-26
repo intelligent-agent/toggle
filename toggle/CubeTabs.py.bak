@@ -1,4 +1,4 @@
-
+from __future__ import print_function
 from gi.repository import Clutter, Mx, Cogl
 import sys
 
