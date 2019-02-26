@@ -12,7 +12,7 @@ class Jog:
     ]
 
     for name in buttons:
-      print name
+      print(name)
       if hasattr(self, name):
         btn = config.ui.get_object(name)
         func = getattr(self, name)
@@ -20,40 +20,40 @@ class Jog:
         btn.add_action(tap)
         tap.connect("tap", func, None)
       else:
-        print "missing function " + str(name)
+        print("missing function " + str(name))
 
   def jog_x_minus(self, btn, etc=None, other=None):
-    print "jog x min"
+    print("jog x min")
 
   def jog_x_plus(self, btn, etc=None, other=None):
-    print "jog x plus"
+    print("jog x plus")
 
   def jog_y_minus(self, btn, etc=None, other=None):
-    print "jog y min"
+    print("jog y min")
 
   def jog_y_plus(self, btn, etc=None, other=None):
-    print "jog y plus"
+    print("jog y plus")
 
   def jog_home(self, btn, etc=None, other=None):
-    print "jog home"
+    print("jog home")
 
   def jog_z_plus(self, btn, etc=None, other=None):
-    print "jog z plus"
+    print("jog z plus")
 
   def jog_z_minus(self, btn, etc=None, other=None):
-    print "jog z minus"
+    print("jog z minus")
 
   def jog_z_home(self, btn, etc=None, other=None):
-    print "jog home z"
+    print("jog home z")
 
   def jog_e_extrude(self, btn, etc=None, other=None):
-    print "extrude"
+    print("extrude")
 
   def jog_e_retract(self, btn, etc=None, other=None):
-    print "retract"
+    print("retract")
 
   def jog_e_toggle(self, btn, etc=None, other=None):
-    print "Toggle e"
+    print("Toggle e")
 
 
 if __name__ == '__main__':

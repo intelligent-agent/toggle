@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import gi
+import collections
 gi.require_version('Clutter', '1.0')
 from gi.repository import Clutter, GLib
 import cairo
@@ -97,7 +98,7 @@ if __name__ == '__main__':
         stage.set_fullscreen(False)
       else:
         stage.set_fullscreen(True)
-        print "F"
+        print("F")
     elif event.unicode_value == "q":
       Clutter.main_quit()
 
@@ -108,7 +109,7 @@ if __name__ == '__main__':
     global events
     global pressed
     events += 1
-    if callable(event.type):
+    if isinstance(event.type, collections.Callable):
       if event.type() == Clutter.EventType.TOUCH_BEGIN:
         cairo_actor.lines.append([])
         cairo_actor.stroke_color.append((uniform(0, 1), uniform(0, 1), uniform(0, 1)))
@@ -130,7 +131,7 @@ if __name__ == '__main__':
 
   def invalidate(val):
     global events
-    print events
+    print(events)
     events = 0
     cairo_actor.canvas.invalidate()
 
