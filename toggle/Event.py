@@ -22,7 +22,7 @@ class LocalUpdate:
       #logging.debug("Got LocalUpdate "+self.update_type+": "+str(self.payload))
       getattr(self, self.update_type)()
     else:
-      print "missing function " + str(self.update_type)
+      print("missing function " + str(self.update_type))
 
 
 # A Local update, when added to the queue, is executed by adding it
@@ -41,7 +41,7 @@ class PushUpdate:
       #logging.debug("Got PushUpdate "+self.update_type+": "+str(self.payload))
       getattr(self, self.update_type)()
     else:
-      print "missing function " + str(self.update_type)
+      print("missing function " + str(self.update_type))
 
   def execute_in_thread(self, config):
     self.config = config
@@ -49,7 +49,7 @@ class PushUpdate:
       #logging.debug("Got PushUpdate with thread exeution "+self.update_type+": "+str(self.payload))
       getattr(self, "thread_" + self.update_type)()
     else:
-      print "missing function thread_" + str(self.update_type)
+      print("missing function thread_" + str(self.update_type))
 
   def connected(self):
     self.config.printer.set_status("Connected")
@@ -118,7 +118,7 @@ class PushUpdate:
     self.config.message.update("Slicing progress: {}%".format(prog))
 
   def state(self):
-    print "Got state!"
+    print("Got state!")
 
   def select_model(self):
     pass
@@ -137,7 +137,7 @@ class Event:
     if hasattr(self, evt_type):
       getattr(self, evt_type)()
     else:
-      print "missing event function " + str(evt_type)
+      print("missing event function " + str(evt_type))
 
   def FileSelected(self):
     filename = os.path.splitext(self.payload["filename"])[0] + ".stl"

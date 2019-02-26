@@ -157,7 +157,7 @@ class Settings():
     else:
       self.config.network.activate_connection(actor.ap)
       self.setup_wifi_tab()
-    print "AP-tap"
+    print("AP-tap")
 
   # Called when OK in the wifi screen is taped
   def ok_tap(self, tap, actor):

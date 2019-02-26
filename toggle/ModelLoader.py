@@ -9,9 +9,9 @@ from itertools import cycle
 import re
 from fnmatch import filter
 import requests
-from Model import Model
+from .Model import Model
 
-from Event import PushUpdate, LocalUpdate
+from .Event import PushUpdate, LocalUpdate
 
 from threading import Thread
 import time
@@ -59,7 +59,7 @@ class ModelLoader(Clutter.Actor):
   # Synchronize the files on this machine with the files from OctoPrint
   def sync_models(self):
     logging.debug("Syncing models")
-    self.locals = filter(listdir(self.path), '*.[Ss][Tt][Ll]')
+    self.locals = list(filter(listdir(self.path), '*.[Ss][Tt][Ll]'))
     self.remotes = self.config.rest_client.get_list_of_files()
     if not self.remotes:
       return
@@ -113,7 +113,7 @@ class ModelLoader(Clutter.Actor):
 
   def tap_next(self, action, button, user_data):
     if not button.get_toggled():
-      self.tap(self.models.next())
+      self.tap(next(self.models))
 
   def tap_prev(self, action, button, user_data):
     if not button.get_toggled():
@@ -162,7 +162,7 @@ class bidirectional_cycle(object):
     self.lower = [name.lower() for name in self.collection]
     self.index = 0
 
-  def next(self):
+  def __next__(self):
     self.index = (self.index + 1) % len(self.collection)
     result = self.collection[self.index]
     return result

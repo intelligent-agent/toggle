@@ -19,35 +19,35 @@ class RestClient:
     url = "http://" + self._host + ":" + str(self._port) + "/api/job"
     data = json.dumps({'command': 'start'})
     r = requests.post(url, data=data, headers=self._headers)
-    print r.json
+    print(r.json)
 
   def pause_job(self):
     logging.debug("Pausing job")
     url = "http://" + self._host + ":" + str(self._port) + "/api/job"
     data = json.dumps({'command': 'pause'})
     r = requests.post(url, data=data, headers=self._headers)
-    print r.json
+    print(r.json)
 
   def cancel_job(self):
     logging.debug("Cancelling job")
     url = "http://" + self._host + ":" + str(self._port) + "/api/job"
     data = json.dumps({'command': 'cancel'})
     r = requests.post(url, data=data, headers=self._headers)
-    print r.json
+    print(r.json)
 
   def resume_job(self):
     logging.debug("Resuming job")
     url = "http://" + self._host + ":" + str(self._port) + "/api/job"
     data = json.dumps({'command': 'pause'})
     r = requests.post(url, data=data, headers=self._headers)
-    print r.json
+    print(r.json)
 
   def send_gcode(self, cmd):
     logging.debug("Sending gcode")
     url = "http://" + self._host + ":" + str(self._port) + "/api/printer/command"
     data = json.dumps({'command': cmd})
     r = requests.post(url, data=data, headers=self._headers)
-    print r.json
+    print(r.json)
 
   def start_preheat(self):
     logging.debug("Starting preheat")
@@ -80,11 +80,11 @@ class RestClient:
 
   # Select a model
   def select_file(self, filename):
-    print "Select file"
+    print("Select file")
     url = "http://" + self._host + ":" + str(self._port) + "/api/files/local/" + filename
     data = json.dumps({'command': 'select'})
     r = requests.post(url, data=data, headers=self._headers)
-    print r.json
+    print(r.json)
 
   # Jog the printer
   def jog(self, amount):
@@ -111,11 +111,11 @@ class RestClient:
 
   # Select Extruder E/H
   def select_tool(self, tool):
-    print "selecting " + tool
+    print("selecting " + tool)
     url = "http://" + self._host + ":" + str(self._port) + "/api/printer/tool"
     data = json.dumps({'command': 'select', 'tool': tool})
     r = requests.post(url, data=data, headers=self._headers)
-    print r
+    print(r)
 
   # Get list of files
   def get_list_of_files(self):

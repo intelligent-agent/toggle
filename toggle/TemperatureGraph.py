@@ -1,4 +1,4 @@
-from Graph import Graph, GraphScale, GraphPlot
+from .Graph import Graph, GraphScale, GraphPlot
 
 from gi.repository import Clutter, Mx, Mash
 
@@ -94,7 +94,7 @@ class TemperatureGraph():
   def update_temperatures(self, temp):
     time = temp['time']
     for tool in self.temps:
-      if temp.has_key(tool):
+      if tool in temp:
         t = temp[tool]["actual"]
         plot = self.temps[tool]["g_actual"]
         plot.add_point(time, t)
@@ -105,7 +105,7 @@ class TemperatureGraph():
 
   def update_temperature_status(self, temp):
     for tool in self.temps:
-      if temp.has_key(tool):
+      if tool in temp:
         self.temps[tool]["t_actual"] = temp[tool]["actual"]
         self.temps[tool]["t_target"] = temp[tool]["target"]
 

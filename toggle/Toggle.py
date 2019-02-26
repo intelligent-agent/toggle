@@ -30,7 +30,7 @@ gi.require_version('Clutter', '1.0')
 
 import logging
 import time
-import Queue
+import queue
 import sys
 import os
 
@@ -38,24 +38,24 @@ from gi.repository import Clutter, Mx
 from multiprocessing import JoinableQueue
 from threading import Thread, current_thread
 
-from Model import Model
-from Plate import Plate
-from VolumeStage import VolumeStage
-from ModelLoader import ModelLoader
-from Printer import Printer
-from CascadingConfigParser import CascadingConfigParser
-from WebSocksClient import WebSocksClient
-from RestClient import RestClient
-from Event import Event, PushUpdate, LocalUpdate
-from Message import Message
-from Graph import Graph, GraphScale, GraphPlot
-from TemperatureGraph import TemperatureGraph
-from FilamentGraph import FilamentGraph
-from CubeTabs import CubeTabs
-from Splash import Splash
-from Settings import Settings
-from Network import Network, NetworkManager, ConnMan
-from Jog import Jog
+from .Model import Model
+from .Plate import Plate
+from .VolumeStage import VolumeStage
+from .ModelLoader import ModelLoader
+from .Printer import Printer
+from .CascadingConfigParser import CascadingConfigParser
+from .WebSocksClient import WebSocksClient
+from .RestClient import RestClient
+from .Event import Event, PushUpdate, LocalUpdate
+from .Message import Message
+from .Graph import Graph, GraphScale, GraphPlot
+from .TemperatureGraph import TemperatureGraph
+from .FilamentGraph import FilamentGraph
+from .CubeTabs import CubeTabs
+from .Splash import Splash
+from .Settings import Settings
+from .Network import Network, NetworkManager, ConnMan
+from .Jog import Jog
 
 # Set up logging
 logging.basicConfig(
@@ -112,7 +112,7 @@ class Toggle:
     try:
       config.ui.load_from_file(config.get("System", "ui"))
     except:
-      print "Error loading UI"
+      print("Error loading UI")
       import traceback
       traceback.print_exc()
     config.stage = config.ui.get_object("stage")
@@ -220,7 +220,7 @@ class Toggle:
       while self.running:
         try:
           update = queue.get(block=True, timeout=1)
-        except Queue.Empty:
+        except queue.Empty:
           continue
         # Execute any long running operations here,
         # to keep the main thread free for animations
