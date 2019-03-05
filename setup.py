@@ -191,7 +191,8 @@ setup(
     ],
     entry_points= {
       'console_scripts': [
-        'toggle = toggle.Toggle:main'
+        'toggle = toggle.Toggle:main',
+        'update-toggle = updater:perform_update',
       ]
     },
 )
