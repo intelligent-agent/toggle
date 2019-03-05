@@ -25,7 +25,7 @@ def main():
     msg = yield conn.read_message()
     if msg is None:
       break
-    print msg
+    print(msg)
     # Do something with msg
 
 

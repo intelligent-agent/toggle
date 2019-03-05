@@ -110,7 +110,7 @@ class VolumeStage(Clutter.Actor):
     return False
 
   def zoom_cancel(self, action, actor):
-    print "zoom cancel"
+    print("zoom cancel")
 
   def scroll(self, actor, event):
     if event.direction == Clutter.ScrollDirection.DOWN:
@@ -122,6 +122,6 @@ class VolumeStage(Clutter.Actor):
     self.spinner.set_scale_z(self.scale)
 
   def motion(self, actor, event):
-    print(event.x, event.y)
+    print((event.x, event.y))
     self.config.loader.model.light_point.set_x(event.x)
     self.config.loader.model.light_point.set_y(event.y)
