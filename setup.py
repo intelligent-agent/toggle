@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import os
 from setuptools import setup, find_packages
 
@@ -191,7 +191,8 @@ setup(
     ],
     entry_points= {
       'console_scripts': [
-        'toggle = toggle.Toggle:main'
+        'toggle = toggle.Toggle:main',
+        'update-toggle = updater:perform_update',
       ]
     },
 )

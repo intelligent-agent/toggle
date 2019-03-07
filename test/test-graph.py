@@ -56,7 +56,7 @@ class Temperature():
 
     ctx.move_to(x_values[0], y_values[0])
 
-    points = zip(x_values, y_values)
+    points = list(zip(x_values, y_values))
 
     for point in points[1:]:
       ctx.line_to(point[0], point[1])
@@ -87,13 +87,13 @@ class GraphActor(Clutter.Actor):
     self.connect('notify::allocation', self.on_allocation)
 
   def on_allocation(self, *_):
-    print "on allocation"
+    print("on allocation")
     if self.idle_resize_id == 0:
       self.idle_resize_id = Clutter.threads_add_timeout(GLib.PRIORITY_DEFAULT, self.refresh_millis,
                                                         self.idle_resize)
 
   def idle_resize(self):
-    print "idle resize"
+    print("idle resize")
     self.canvas.set_size(*self.get_size())
     self.idle_resize_id = 0
 
