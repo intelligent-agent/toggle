@@ -24,28 +24,28 @@ import logging
 
 
 class CascadingConfigParser(configparser.SafeConfigParser):
-    def __init__(self, config_files):
+  def __init__(self, config_files):
 
-        configparser.SafeConfigParser.__init__(self)
+    configparser.SafeConfigParser.__init__(self)
 
-        # Parse to real path
-        self.config_files = []
-        for config_file in config_files:
-            self.config_files.append(os.path.realpath(config_file))
+    # Parse to real path
+    self.config_files = []
+    for config_file in config_files:
+      self.config_files.append(os.path.realpath(config_file))
 
-        # Parse all config files in list
-        for config_file in self.config_files:
-            if os.path.isfile(config_file):
-                logging.info("Using config file " + config_file)
-                self.readfp(open(config_file))
-            else:
-                logging.warning("Missing config file " + config_file)
-                # Might also add command line options for overriding stuff
+    # Parse all config files in list
+    for config_file in self.config_files:
+      if os.path.isfile(config_file):
+        logging.info("Using config file " + config_file)
+        self.readfp(open(config_file))
+      else:
+        logging.warning("Missing config file " + config_file)
+        # Might also add command line options for overriding stuff
 
-    def timestamp(self):
-        """ Get the largest (newest) timestamp for all the config files. """
-        ts = 0
-        for config_file in self.config_files:
-            if os.path.isfile(config_file):
-                ts = max(ts, os.path.getmtime(config_file))
-        return ts
+  def timestamp(self):
+    """ Get the largest (newest) timestamp for all the config files. """
+    ts = 0
+    for config_file in self.config_files:
+      if os.path.isfile(config_file):
+        ts = max(ts, os.path.getmtime(config_file))
+    return ts

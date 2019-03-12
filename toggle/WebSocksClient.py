@@ -10,7 +10,7 @@ from tornado import websocket
 
 import threading
 import functools
-import json  
+import json
 import time
 import random
 import string
@@ -180,7 +180,7 @@ def main():
 
   def work():
     for i in range(10):
-      print (i)
+      print(i)
       time.sleep(1)
 
   client.start()
