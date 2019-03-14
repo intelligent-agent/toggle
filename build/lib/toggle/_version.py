@@ -9,11 +9,11 @@ import json
 
 version_json = '''
 {
- "date": "2019-02-19T15:23:06-0800",
- "dirty": false,
+ "date": "2019-03-14T14:16:07-0700",
+ "dirty": true,
  "error": null,
- "full-revisionid": "28388c4f22d41854b2caa246602dcb13d55ad13e",
- "version": "0+untagged.221.master.g28388c4"
+ "full-revisionid": "5a86832eea38003ee67fa2f409a063fb1c07affa",
+ "version": "0+untagged.172.dev-python3Port.g5a86832.dirty"
 }
 '''  # END VERSION_JSON
 
