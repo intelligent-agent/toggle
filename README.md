@@ -158,3 +158,108 @@ make
 make install
 ```
 
+
+
+## Ubuntu Xenial 
+**Mash**
+```
+apt install autogen gnome-common gtk-doc gtk-doc-tools libglib2.0-dev gobject-introspection libmx-dev python-gobject-dev libgirepository1.0-dev
+```
+
+```
+git clone https://github.com/eliasbakken/mash.git
+cd /usr/src/mash
+./autogen.sh --prefix=/usr --enable-introspection
+make
+make install
+```
+**Install Toggle**
+```
+apt install python-setuptools python-gi python-requests python-tornado python-networkmanager
+```
+
+```
+cd /usr/src
+git clone https://bitbucket.org/intelligentagent/toggle
+cd toggle
+sudo make install
+```
+
+
+
+
+
+## Raspbian (WIP)
+Starting with clean raspbian (Stretch) console image
+Downloded Cogl source from apt. 
+```
+make  INTROSPECTION_SCANNER_ARGS="--library-path=/opt/vc/lib"
+
+sudo apt install autogen libglib2.0-dev gobject-introspection python-gobject-dev libgirepository1.0-dev autopoint gtk-doc-tools libcairo2-dev
+
+wget https://raw.githubusercontent.com/raspberrypi/firmware/master/opt/vc/lib/pkgconfig/bcm_host.pc
+sudo ln -s  /opt/vc/lib/libbrcmEGL.so /opt/vc/lib/libEGL.so
+ - Cairo installs X11 stuff
+
+./configure --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --enable-gles2=yes --enable-cogl-gles2=yes --enable-rpi-egl-platform=yes --disable-glx --disable-gl --disable-gtk-doc --with-default-driver=gles2
+
+-I/opt/vc/include -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux
+
+Also handy: https://gist.github.com/lethean/ac21450495dddc597f79
+
+cogl-1.18 from stephenjust
+./configure --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --enable-gles2=yes --enable-cogl-gles2=yes --enable-rpi-egl-platform=yes --disable-glx --disable-gl --no-create --no-recursion
+
+```
+
+##clutter-1.0-1.26.0+dfsg
+```
+sudo apt install libxkbcommon-dev libgudev-1.0-dev libinput-dev libevdev-dev
+./configure --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --disable-x11-backend  --enable-egl-backend --enable-evdev-input --disable-gdk-backend --enable-debug --disable-gtk-doc 
+```
+
+```
+sudo apt install autogen gnome-common gtk-doc-tools libglib2.0-dev gobject-introspection libmx-dev python-gobject-dev libgirepository1.0-dev
+sudo apt install git
+sudo apt install libclutter-1.0-dev
+
+sudo apt install libgles2-mesa-dev
+
+# Mash
+```
+git clone https://github.com/eliasbakken/mash.git
+./autogen.sh --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --enable-introspection
+make CFLAGS+="-DCOGL_ENABLE_EXPERIMENTAL_API"
+sudo make install
+```
+
+sudo install python-gi-cairo
+
+cd /usr/src
+sudo git clone https://github.com/intelligent-agent/toggle
+cd toggle
+sudo make install
+```
+
+#MX
+
+https://github.com/clutter-project/mx
+
+
+Install Cogl from git with null window system
+```
+
+#Toggle 
+
+```
+apt install python-setuptools python-gi python-requests python-tornado python-networkmanager gnome-icon-theme
+
+#define GL_BACK_LEFT 0x0402
+#define GL_BACK_RIGHT 0x0403
+
+ - Remove GL_BACK_LEFT etc. from cogl git 
+
+
+
+
+

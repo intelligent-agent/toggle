@@ -1,0 +1,65 @@
+[{
+    "id" : "stage",
+    "type" : "ClutterStage",
+    "width" : 800,
+    "height" : 480,
+    "signals" : [],
+    "children" : [{
+        "id": "all", 
+        "type": "ClutterActor",
+        "pivot-point": [0.0, 0.0],
+        "rotation-angle-z": 0.0,
+        "children" : [{
+            "id" : "keyboard",
+            "type" : "ClutterActor",
+            "width" : 800,
+            "height" : 240,
+            "y": 240,
+            "pivot-point-z": -400.0,
+            "pivot-point": [0.5, 0.5],
+            "rotation-angle-x": 0.0,
+            "layout-manager" : { 
+                "type" : "ClutterBoxLayout",
+                "orientation": 1
+            },
+            "children": [{
+                "id": "row-0",
+                "type" : "ClutterActor",
+                "height": 60,
+                "layout-manager" : { 
+                    "type" : "ClutterBoxLayout",
+                    "orientation": 0,
+                    "spacing": 20
+                }
+            },{
+                "id": "row-1",
+                "type" : "ClutterActor",
+                "height": 60,
+                "layout-manager" : { 
+                    "type" : "ClutterBoxLayout",
+                    "orientation": 0,
+                    "spacing": 20
+                }
+            },{
+                "id": "row-2",
+                "type" : "ClutterActor",
+                "height": 60,
+                "layout-manager" : { 
+                    "type" : "ClutterBoxLayout",
+                    "orientation": 0,
+                    "spacing": 20
+                }
+            },{
+                "id": "row-3",
+                "height": 60,
+                "type" : "ClutterActor",
+                "layout-manager" : { 
+                    "type" : "ClutterBoxLayout",
+                    "orientation": 0,
+                    "spacing": 20
+                }
+            }]
+        }]
+    }]
+}]
+
