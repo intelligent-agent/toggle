@@ -21,7 +21,7 @@ class Network:
     try:
       return [(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close())
               for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]
-    except socket.error, e:
+    except socket.error as e:
       return "Network unreachable"
 
 
@@ -96,7 +96,7 @@ class ConnMan(Network):
     self.connection_finished_cb = cb
 
   def connection_finished_cb(self, other):
-    print other
+    print(other)
 
   # Update the password on an existing AP.
   def update_password(self, ap, passwd):
@@ -125,7 +125,7 @@ class ConnMan(Network):
       services[agent_path] = agent
       manager.register_agent(agent_path)
     except dbus.exceptions.DBusException:
-      print 'Unable to complete:', sys.exc_info()
+      print('Unable to complete:', sys.exc_info())
 
   def activate_connection(self, ap):
     service = self.p.service.ConnService(ap["path"])
@@ -139,15 +139,15 @@ class ConnMan(Network):
 class NetworkManager(Network):
   def __init__(self):
     Network.__init__(self)
-    import NetworkManager
-    self.nm = NetworkManager
-    self.devices = NetworkManager.NetworkManager.GetDevices()
+    import NetworkManager as SystemNetworkManager
+    self.nm = SystemNetworkManager
+    self.devices = self.nm.NetworkManager.GetDevices()
     self.wifi = None
     self.ethernet = None
     for dev in self.devices:
-      if dev.DeviceType == NetworkManager.NM_DEVICE_TYPE_WIFI:
+      if dev.DeviceType == SystemNetworkManager.NM_DEVICE_TYPE_WIFI:
         self.wifi = dev
-      if dev.DeviceType == NetworkManager.NM_DEVICE_TYPE_ETHERNET:
+      if dev.DeviceType == SystemNetworkManager.NM_DEVICE_TYPE_ETHERNET:
         self.ethernet = dev
 
   def has_wifi_capabilities(self):
@@ -196,7 +196,7 @@ class NetworkManager(Network):
     self.connection_finished_cb = cb
 
   def connection_finished_cb(self, other):
-    print other
+    print(other)
 
   # Update the password on an existing AP.
   def update_password(self, ap, passwd):
@@ -282,7 +282,7 @@ class NetworkManagerGI(Network):
     self.connection_finished_cb = cb
 
   def connection_finished_cb(self, other):
-    print other
+    print(other)
 
   # Connect to a WIFI AP
   def activate_connection(self, ap, passwd):
@@ -293,8 +293,8 @@ class NetworkManagerGI(Network):
     #s_wifi = conn.get_setting_wireless()
     self.client.add_and_activate_connection(None, self.wifi, ap["service"],
                                             self.connection_finished_cb)
-    print ap["service"]
-    print "Connecting to " + ap["name"] + " with " + passwd
+    print(ap["service"])
+    print("Connecting to " + ap["name"] + " with " + passwd)
     return "OK"
 
 
@@ -302,23 +302,24 @@ if __name__ == "__main__":
   m = Network.get_manager()
   if m == "connman":
     n = ConnMan()
-    print "Using Connman"
+    print("Using Connman")
   elif m == "nm":
-    n = NetworkManager2()
-    print "Using NetworkManager"
+    n = NetworkManager()
+    print("Using NetworkManager")
   else:
-    print "Neither NetworkManager nor Connman was found"
+    print("Neither NetworkManager nor Connman was found")
     exit(1)
 
-  print "Is wifi capable: " + str(n.has_wifi_capabilities())
-  print "Is wifi Enabled: " + str(n.is_wifi_connected())
-  print "Is ethernet capable: " + str(n.has_ethernet_capabilities())
-  print "Is ethernet Enabled: " + str(n.is_ethernet_connected())
+  print("Is wifi capable: " + str(n.has_wifi_capabilities()))
+  print("Is wifi Enabled: " + str(n.is_wifi_connected()))
+  print("Is ethernet capable: " + str(n.has_ethernet_capabilities()))
+  print("Is ethernet Enabled: " + str(n.is_ethernet_connected()))
   for ap in n.get_access_points():
-    #print ap["strength"],
-    print "*" if ap["active"] else " ",
-    print ap["name"]
-  print "IP: " + n.get_connected_ip()
+    #print (ap["strength"],)
+    print("*" if ap["active"] else " ", )
+    print(ap["name"])
+  print("IP: " + n.get_connected_ip())
 
-  print "Needs password: " + str(n.ap_needs_password(n.get_access_points()[0]))
-  print n.activate_connection(n.get_access_points()[0])
+  print ("Needs password: " + \
+      str(n.ap_needs_password(n.get_access_points()[0])))
+  print(n.activate_connection(n.get_access_points()[0]))

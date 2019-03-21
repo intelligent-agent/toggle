@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Temp graph
 
 #from gi.repository import Clutter, Mx, Mash, Toggle
@@ -13,23 +13,25 @@ import time
 import random
 import logging
 
-color = lambda string: Clutter.color_from_string(string)[1]    # shortcut
+
+def color(string):
+  return Clutter.color_from_string(string)[1]    # shortcut
 
 
 class GraphPlot():
   def __init__(self, name, color, scale_min=0.0, scale_max=320.0):
-    self.color = color    #1.0, 0.0, 0.0
+    self.color = color    # 1.0, 0.0, 0.0
     self.name = name
     self.line_width = 3
     self.values = []
     self.times = []
-    self.cutoff_time = 30 * 60    #30 minutes
+    self.cutoff_time = 30 * 60    # 30 minutes
     self.scale_max = float(scale_max)
     self.scale_min = float(scale_min)
     self.scale_tot = float(abs(scale_max - scale_min))
 
   def add_point(self, time, value):
-    if value == None:
+    if value is None:
       value = 0.0
     self.values.append(value)
     self.times.append(time)
@@ -57,7 +59,7 @@ class GraphPlot():
 
     ctx.move_to(x_values[0], y_values[0])
     points = zip(x_values, y_values)
-    for point in points[1:]:
+    for point in list(points)[1:]:
       ctx.line_to(point[0], point[1])
 
 

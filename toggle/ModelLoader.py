@@ -9,15 +9,15 @@ from itertools import cycle
 import re
 from fnmatch import filter
 import requests
-from Model import Model
+from .Model import Model
 
-from Event import PushUpdate, LocalUpdate
+from .Event import PushUpdate, LocalUpdate
 
 from threading import Thread
 import time
 """
-Class that loads all models in a directory 
-and makes next and prev buttons change the loaded model 
+Class that loads all models in a directory
+and makes next and prev buttons change the loaded model
 """
 
 
@@ -150,9 +150,9 @@ class ModelLoader(Clutter.Actor):
     self.model_selected = False
 
 
-""" 
-Helper class for cycling through a list by 
-calling next and prev 
+"""
+Helper class for cycling through a list by
+calling next and prev
 """
 
 

@@ -18,7 +18,7 @@ class Message:
   def display(self, text):
     logging.debug("Message: " + text)
     self.txt.set_text(text)
-    #self.txt.set_x(400-self.txt.get_width()/2)
+    # self.txt.set_x(400-self.txt.get_width()/2)
     self.msg.set_opacity(255)
     self.fade.start()
 

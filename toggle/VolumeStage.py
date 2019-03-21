@@ -60,15 +60,15 @@ class VolumeStage(Clutter.Actor):
 
   def pan_end(self, action, actor):
     self.panning = False
-    #print "pan end"
+    #print ("pan end")
 
   def pan_cancel(self, action, actor):
-    #print "pan cancel"
+    #print ("pan cancel")
     self.panning = False
     return False
 
   def pan(self, gesture, actor, other=None, stuff=None):
-    #print "pan" + str(gesture.get_motion_delta(0))
+    #print ("pan" + str(gesture.get_motion_delta(0)))
     if self.zooming:
       return False
     (d, x, y) = gesture.get_motion_delta(0)
@@ -93,12 +93,12 @@ class VolumeStage(Clutter.Actor):
   def zoom_begin(self, action, actor):
     self.zoom_start = self.scale
     self.zooming = True
-    #print "zoom_begin"
+    #print ("zoom_begin")
     return True
 
   def zoom_end(self, action, actor):
     self.zooming = False
-    #print "zoom_end"
+    #print ("zoom_end")
     return False
 
   def zoom(self, action, actor, focal_point, factor):
@@ -106,11 +106,11 @@ class VolumeStage(Clutter.Actor):
     self.scale = max(min(self.scale, self.scale_max), self.scale_min)
     self.spinner.set_scale(self.scale, self.scale)
     self.spinner.set_scale_z(self.scale)
-    #print "zoom"
+    #print ("zoom")
     return False
 
   def zoom_cancel(self, action, actor):
-    print "zoom cancel"
+    print("zoom cancel")
 
   def scroll(self, actor, event):
     if event.direction == Clutter.ScrollDirection.DOWN:

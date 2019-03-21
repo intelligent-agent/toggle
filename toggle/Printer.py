@@ -133,7 +133,7 @@ class Printer:
   # Update the current state of the printer.
   # This sets the flags shown in the bottom left corner.
   def update_printer_state(self, state):
-    #logging.debug(state)
+    # logging.debug(state)
     #print self.config.loader.model_selected
     self.set_status(state["text"])
     self.flags = state["flags"]
@@ -173,7 +173,7 @@ class Printer:
 
   def start_connect_thread(self):
     pass
-    #TODO
+    # TODO
 
   def flash_heartbeat(self):
     self.heartbeat.set_opacity(255)

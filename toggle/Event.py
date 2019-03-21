@@ -22,7 +22,7 @@ class LocalUpdate:
       #logging.debug("Got LocalUpdate "+self.update_type+": "+str(self.payload))
       getattr(self, self.update_type)()
     else:
-      print "missing function " + str(self.update_type)
+      print("missing function " + str(self.update_type))
 
 
 # A Local update, when added to the queue, is executed by adding it
@@ -41,7 +41,7 @@ class PushUpdate:
       #logging.debug("Got PushUpdate "+self.update_type+": "+str(self.payload))
       getattr(self, self.update_type)()
     else:
-      print "missing function " + str(self.update_type)
+      print("missing function " + str(self.update_type))
 
   def execute_in_thread(self, config):
     self.config = config
@@ -49,7 +49,7 @@ class PushUpdate:
       #logging.debug("Got PushUpdate with thread exeution "+self.update_type+": "+str(self.payload))
       getattr(self, "thread_" + self.update_type)()
     else:
-      print "missing function thread_" + str(self.update_type)
+      print("missing function thread_" + str(self.update_type))
 
   def connected(self):
     self.config.printer.set_status("Connected")
@@ -80,11 +80,11 @@ class PushUpdate:
       #message = plugin_data["message"]
       #time = int(plugin_data["time"])
       #[filament_name, filament_value] = message.split(":")
-      #if filament_name in self.config.filament_graph.filament_sensors:
+      # if filament_name in self.config.filament_graph.filament_sensors:
       #  sensor = self.config.filament_sensors[filament_name]
       #  sensor.add_point(time, float(filament_value))
       #  self.config.filament_graph.refresh()
-      #else:
+      # else:
       #  logging.info("Unknown extruder: "+str(filament_name))
     elif plugin_type == "alarm_filament_jam":
       self.config.message.display("Alarm: Filament Jam!")
@@ -118,7 +118,7 @@ class PushUpdate:
     self.config.message.update("Slicing progress: {}%".format(prog))
 
   def state(self):
-    print "Got state!"
+    print("Got state!")
 
   def select_model(self):
     pass
@@ -133,11 +133,11 @@ class Event:
   def __init__(self, config, evt_type, payload):
     self.config = config
     self.payload = payload
-    #print "Got event"+str(evt_type)+" "+str(payload)
+    #print ("Got event"+str(evt_type)+" "+str(payload))
     if hasattr(self, evt_type):
       getattr(self, evt_type)()
     else:
-      print "missing event function " + str(evt_type)
+      print("missing event function " + str(evt_type))
 
   def FileSelected(self):
     filename = os.path.splitext(self.payload["filename"])[0] + ".stl"
@@ -146,7 +146,7 @@ class Event:
   def FileDeselected(self):
     logging.debug("Deselected " + self.payload["filename"])
     filename = os.path.splitext(self.payload["filename"])[0] + ".stl"
-    #config.loader.select_model(filename)
+    # config.loader.select_model(filename)
 
   def UpdatedFiles(self):
     logging.debug("Updated files")

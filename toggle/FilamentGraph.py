@@ -1,10 +1,12 @@
-from Graph import Graph, GraphScale, GraphPlot
+from .Graph import Graph, GraphScale, GraphPlot
 
 from gi.repository import Clutter, Mx, Mash
 
 import logging
 
-color_str = lambda string: Clutter.color_from_string(string)[1]    # shortcut
+
+def color_str(string):
+  return Clutter.color_from_string(string)[1]    # shortcut
 
 
 class FilamentGraph():
@@ -36,7 +38,7 @@ class FilamentGraph():
 
     for tool in self.graphs:
       for source in self.graphs[tool]:
-        #logging.debug(self.graphs[tool][source])
+        # logging.debug(self.graphs[tool][source])
         self.graph.add_plot(self.graphs[tool][source])
 
     # Add a scale to the plot
@@ -56,6 +58,6 @@ class FilamentGraph():
     self.graph.refresh()
 
   def change_to_temperature(self, button, action):
-    print "Tap filament"
+    print("Tap filament")
     self.graph.hide()
     self.config.temp_graph.graph.show()

@@ -129,4 +129,5 @@ class Plate(Mash.Model):
       point.show()
 
   def rescale(self, val, in_min, in_max, out_min, out_max):
-    return out_min + (val - in_min) * ((out_max - out_min) / (in_max - in_min))
+    return out_min + (val - in_min) * \
+        ((out_max - out_min) / (in_max - in_min))
