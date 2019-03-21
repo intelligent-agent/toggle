@@ -25,7 +25,7 @@ License: GNU GPL v3: http://www.gnu.org/copyleft/gpl.html
 #import subprocess
 import logging
 import time
-import Queue
+import queue
 import sys
 
 from gi.repository import Clutter, Mx, Mash, Toggle, Cogl, GObject, GLib
@@ -106,7 +106,7 @@ class Toggle:
     def execute(event):
       print("Execute " + event + " from " + str(current_thread()))
       for i in range(100):
-        hashlib.md5(str(range(100000)))
+        hashlib.md5(str(list(range(100000))))
       print("Done executing")
 
     self.execute = execute
@@ -139,7 +139,7 @@ class Toggle:
       while self.running:
         try:
           event = queue.get(block=True, timeout=1)
-        except Queue.Empty:
+        except queue.Empty:
           continue
         if event == "glib_idle_add":
           print("adding with Glib")

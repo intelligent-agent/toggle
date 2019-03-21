@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import gi
+import collections
 gi.require_version('Clutter', '1.0')
 from gi.repository import Clutter, GLib
 import cairo
@@ -108,7 +109,7 @@ if __name__ == '__main__':
     global events
     global pressed
     events += 1
-    if callable(event.type):
+    if isinstance(event.type, collections.Callable):
       if event.type() == Clutter.EventType.TOUCH_BEGIN:
         cairo_actor.lines.append([])
         cairo_actor.stroke_color.append((uniform(0, 1), uniform(0, 1), uniform(0, 1)))

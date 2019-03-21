@@ -1,10 +1,12 @@
-from Graph import Graph, GraphScale, GraphPlot
+from .Graph import Graph, GraphScale, GraphPlot
 
 from gi.repository import Clutter, Mx, Mash
 
 import logging
 
-color_str = lambda string: Clutter.color_from_string(string)[1]    # shortcut
+
+def color_str(string):
+  return Clutter.color_from_string(string)[1]    # shortcut
 
 
 class FilamentGraph():

@@ -21,7 +21,7 @@ class Network:
     try:
       return [(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close())
               for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]
-    except socket.error, e:
+    except socket.error as e:
       return "Network unreachable"
 
 
@@ -139,15 +139,15 @@ class ConnMan(Network):
 class NetworkManager(Network):
   def __init__(self):
     Network.__init__(self)
-    import NetworkManager
-    self.nm = NetworkManager
-    self.devices = NetworkManager.NetworkManager.GetDevices()
+    import NetworkManager as SystemNetworkManager
+    self.nm = SystemNetworkManager
+    self.devices = self.nm.NetworkManager.GetDevices()
     self.wifi = None
     self.ethernet = None
     for dev in self.devices:
-      if dev.DeviceType == NetworkManager.NM_DEVICE_TYPE_WIFI:
+      if dev.DeviceType == SystemNetworkManager.NM_DEVICE_TYPE_WIFI:
         self.wifi = dev
-      if dev.DeviceType == NetworkManager.NM_DEVICE_TYPE_ETHERNET:
+      if dev.DeviceType == SystemNetworkManager.NM_DEVICE_TYPE_ETHERNET:
         self.ethernet = dev
 
   def has_wifi_capabilities(self):
@@ -304,8 +304,8 @@ if __name__ == "__main__":
     n = ConnMan()
     print("Using Connman")
   elif m == "nm":
+    n = NetworkManager()
     print("Using NetworkManager")
-    n = NetworkManager2()
   else:
     print("Neither NetworkManager nor Connman was found")
     exit(1)

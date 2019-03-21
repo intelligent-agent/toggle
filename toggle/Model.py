@@ -70,7 +70,7 @@ class Model(Mash.Model):
       self.model_data.load(0, path)
       #self.model.load_from_file(0, path)
       self.model.set_data(self.model_data)
-    except:
+    except BaseException:
       logging.warning("Unable to open model " + path)
       raise
       return

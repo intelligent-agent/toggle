@@ -18,15 +18,15 @@ License: GNU GPL v3: http://www.gnu.org/copyleft/gpl.html
  along with Redeem.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import ConfigParser
+import configparser
 import os
 import logging
 
 
-class CascadingConfigParser(ConfigParser.SafeConfigParser):
+class CascadingConfigParser(configparser.SafeConfigParser):
   def __init__(self, config_files):
 
-    ConfigParser.SafeConfigParser.__init__(self)
+    configparser.SafeConfigParser.__init__(self)
 
     # Parse to real path
     self.config_files = []

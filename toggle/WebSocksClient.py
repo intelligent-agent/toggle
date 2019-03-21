@@ -17,7 +17,7 @@ import string
 import logging
 import sys
 
-from Event import PushUpdate
+from .Event import PushUpdate
 
 APPLICATION_JSON = 'application/json'
 
