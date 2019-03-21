@@ -56,6 +56,6 @@ class FilamentGraph():
     self.graph.refresh()
 
   def change_to_temperature(self, button, action):
-    print "Tap filament"
+    print("Tap filament")
     self.graph.hide()
     self.config.temp_graph.graph.show()

@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 #! -*- coding: utf-8 -*-
 """
 Test threads in Clutter
@@ -41,17 +41,17 @@ logging.basicConfig(
 
 
 def click(button, other=None):
-  print "click func start"
+  print("click func start")
   time.sleep(1)
-  print "Click func end"
+  print("Click func end")
 
 
 def thread_click(button, other):
-  print "click func start"
+  print("click func start")
   t = Thread(target=thread_func)
   t.start()
   t.join()
-  print "Click func end"
+  print("Click func end")
 
 
 def thread_func():
@@ -104,10 +104,10 @@ class Toggle:
     # main thread. This was the only way I found that would do that.
     # It looks weirdm, but it works.
     def execute(event):
-      print "Execute " + event + " from " + str(current_thread())
+      print("Execute " + event + " from " + str(current_thread()))
       for i in range(100):
         hashlib.md5(str(range(100000)))
-      print "Done executing"
+      print("Done executing")
 
     self.execute = execute
     stage.show()
@@ -142,13 +142,13 @@ class Toggle:
         except Queue.Empty:
           continue
         if event == "glib_idle_add":
-          print "adding with Glib"
+          print("adding with Glib")
           GLib.idle_add(self.execute, event)
         elif event == "threads_add_idle":
-          print "adding with Clutter"
+          print("adding with Clutter")
           Clutter.threads_add_idle(0, self.execute, event)
         elif event == "execute_in_thread":
-          print "Executing from thread"
+          print("Executing from thread")
           self.execute(event)
 
         # Must hand it over to the main thread.

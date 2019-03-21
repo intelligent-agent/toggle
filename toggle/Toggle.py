@@ -175,9 +175,9 @@ class Toggle:
 
   def run(self):
     """
-    Start the program. Can be called from
-    this file or from a start-up script.
-    """
+        Start the program. Can be called from
+        this file or from a start-up script.
+        """
     # Flip and move the stage to the right location
     # This has to be done in the application, since it is a
     # fbdev app

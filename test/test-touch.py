@@ -97,7 +97,7 @@ if __name__ == '__main__':
         stage.set_fullscreen(False)
       else:
         stage.set_fullscreen(True)
-        print "F"
+        print("F")
     elif event.unicode_value == "q":
       Clutter.main_quit()
 
@@ -130,7 +130,7 @@ if __name__ == '__main__':
 
   def invalidate(val):
     global events
-    print events
+    print(events)
     events = 0
     cairo_actor.canvas.invalidate()
 

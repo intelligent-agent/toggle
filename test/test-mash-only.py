@@ -23,10 +23,10 @@ if __name__ == '__main__':
   v1 = Clutter.Vertex()
   v2 = Clutter.Vertex()
   data.get_extents(v1, v2)
-  print v1.z
-  print v2.z
+  print(v1.z)
+  print(v2.z)
 
-  print model.get_depth()
+  print(model.get_depth())
 
   color = Clutter.Color.from_string("#F00F")[1]
   model.set_color(color)

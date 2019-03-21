@@ -176,7 +176,7 @@ if __name__ == '__main__':
 
     def work():
       for i in range(10):
-        print i
+        print(i)
         time.sleep(1)
 
     client.start()
