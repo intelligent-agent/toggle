@@ -29,7 +29,7 @@ class Model(Mash.Model):
     self.t.set_repeat_count(-1)
     self.t.start()
 
-    #Set up the light
+    # Set up the light
     self.light_set = Mash.LightSet()
     vp = config.ui.get_object("volume-viewport")
 

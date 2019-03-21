@@ -80,11 +80,11 @@ class PushUpdate:
       #message = plugin_data["message"]
       #time = int(plugin_data["time"])
       #[filament_name, filament_value] = message.split(":")
-      #if filament_name in self.config.filament_graph.filament_sensors:
+      # if filament_name in self.config.filament_graph.filament_sensors:
       #  sensor = self.config.filament_sensors[filament_name]
       #  sensor.add_point(time, float(filament_value))
       #  self.config.filament_graph.refresh()
-      #else:
+      # else:
       #  logging.info("Unknown extruder: "+str(filament_name))
     elif plugin_type == "alarm_filament_jam":
       self.config.message.display("Alarm: Filament Jam!")
@@ -146,7 +146,7 @@ class Event:
   def FileDeselected(self):
     logging.debug("Deselected " + self.payload["filename"])
     filename = os.path.splitext(self.payload["filename"])[0] + ".stl"
-    #config.loader.select_model(filename)
+    # config.loader.select_model(filename)
 
   def UpdatedFiles(self):
     logging.debug("Updated files")

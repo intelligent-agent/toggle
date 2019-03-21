@@ -116,7 +116,7 @@ class CubeTabs():
   def appear(self, one, two, three):
     self.box.set_child_at_index(self.app, 4)
     self.app.set_opacity(255)
-    #self.app.show()
+    # self.app.show()
 
   def completed(self, one):
     self.dis.hide()

@@ -39,7 +39,7 @@ class Settings():
     self.setup_wifi_tab()
     self.scroller_height = self.scroller.get_height()
     self.stage_height = self.config.ui.get_object("box").get_height()
-    #self.make_keyboard(0)
+    # self.make_keyboard(0)
 
   # Mouse scrolling event
   def on_scroll_event(self, actor, event):

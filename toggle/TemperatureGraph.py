@@ -192,4 +192,4 @@ class TemperatureGraph():
     if self.config.getboolean('System', 'use-filament-graph'):
       self.graph.hide()
       self.config.filament_graph.graph.show()
-      #self.config.filament_graph.graph.refresh()
+      # self.config.filament_graph.graph.refresh()

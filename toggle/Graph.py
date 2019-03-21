@@ -18,12 +18,12 @@ color = lambda string: Clutter.color_from_string(string)[1]    # shortcut
 
 class GraphPlot():
   def __init__(self, name, color, scale_min=0.0, scale_max=320.0):
-    self.color = color    #1.0, 0.0, 0.0
+    self.color = color    # 1.0, 0.0, 0.0
     self.name = name
     self.line_width = 3
     self.values = []
     self.times = []
-    self.cutoff_time = 30 * 60    #30 minutes
+    self.cutoff_time = 30 * 60    # 30 minutes
     self.scale_max = float(scale_max)
     self.scale_min = float(scale_min)
     self.scale_tot = float(abs(scale_max - scale_min))
