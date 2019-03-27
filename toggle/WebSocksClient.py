@@ -43,12 +43,10 @@ class WebSocksClient():
     self._prefix = "/sockjs"
     self._r1 = str(random.randint(0, 1000))
     self._conn_id = self.random_str(8)
-
     self.url = host + '/'.join([self._prefix, self._r1, self._conn_id, 'websocket'])
 
     self.max_reconnects = 10
     self.state = WebSocksClient.CLOSED
-
     self.io_loop = ioloop.IOLoop.current()
 
   def connect(self):
@@ -64,17 +62,14 @@ class WebSocksClient():
     """
     if not self._ws_connection:
       raise RuntimeError('Web socket connection is closed.')
-
     self._ws_connection.write_message(escape.utf8(json.dumps(data)))
 
   def close_conn(self):
     """
     Close connection.
     """
-
     if not self._ws_connection:
       raise RuntimeError('Web socket connection is already closed.')
-
     self._ws_connection.close()
 
   def _connect_callback(self, future):
@@ -92,7 +87,6 @@ class WebSocksClient():
       if msg is None:
         self._on_connection_close()
         break
-
       self._on_message(msg)
 
   def _on_message(self, msg):
@@ -123,19 +117,18 @@ class WebSocksClient():
     This is called on successful connection ot the server.
     """
     self.state = WebSocksClient.CONNECTED
-    logging.debug('Webscket connected!')
+    logging.debug('Websocket connected!')
 
   def _on_connection_close(self):
     """
-    This is called when server closed the connection.
+    This is called when the server closes the connection.
     """
     self.state = WebSocksClient.CLOSED
     logging.debug('Websocket connection closed!')
 
   def _on_connection_error(self, exception):
     """
-    This is called in case if connection to the server could
-    not established.
+    This is called if the connection to the server could not be established.
     """
     self.state = WebSocksClient.FAILED
     self.io_loop.stop()
