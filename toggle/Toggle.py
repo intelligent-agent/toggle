@@ -143,7 +143,6 @@ class Toggle:
     config.Settings = Settings(config)
 
     # Set up SockJS and REST clients
-    host = config.get("Rest", "hostname")
     config.rest_client = RestClient(config)
 
     # Add other stuff
@@ -153,7 +152,7 @@ class Toggle:
     config.loader = ModelLoader(config)
     config.plate = Plate(config)
 
-    config.socks_client = WebSocksClient(config, host="ws://" + host + ":5000")
+    config.socks_client = WebSocksClient(config)
 
     # mouse
     use_mouse = int(config.get('Input', 'mouse'))
