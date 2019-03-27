@@ -112,7 +112,7 @@ class Toggle:
     try:
       config.ui.load_from_file(config.get("System", "ui"))
     except:
-      print "Error loading UI"
+      print("Error loading UI")
       import traceback
       traceback.print_exc()
     config.stage = config.ui.get_object("stage")
