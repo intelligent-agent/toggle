@@ -100,8 +100,8 @@ class Toggle:
     if level > 0:
       logging.getLogger().setLevel(level)
 
-    sys.stdout = LoggerWriter(config, logging, 20)
-    sys.stderr = LoggerWriter(config, logging, 50)
+    sys.stdout = LoggerWriter(config, logging, logging.INFO)
+    sys.stderr = LoggerWriter(config, logging, logging.FATAL)
 
     Clutter.init(None)
 
