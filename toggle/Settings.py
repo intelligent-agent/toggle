@@ -94,7 +94,7 @@ class Settings():
 
     # Add remote address
     remote_host_name = self.config.ui.get_object("remote-hostname")
-    remote_host_name.set_text(self.config.get("Rest", "hostname"))
+    remote_host_name.set_text(self.config.get("Server", "host"))
 
     # Add Slicer height
     slicer_layer_height = self.config.ui.get_object("slicer-layer-height")
