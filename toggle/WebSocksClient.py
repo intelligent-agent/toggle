@@ -46,7 +46,6 @@ class WebSocksClient():
       self.request_timeout = DEFAULT_REQUEST_TIMEOUT
     self.url = '/'.join(["ws://{}:{}".format(host, port), 'sockjs', 'websocket'])
 
-
     self.max_reconnects = 10
     self.state = WebSocksClient.CLOSED
     self.io_loop = ioloop.IOLoop.current()
@@ -166,7 +165,6 @@ class WebSocksClient():
 
 
 if __name__ == '__main__':
-
 
   def main():
     logging.basicConfig(
