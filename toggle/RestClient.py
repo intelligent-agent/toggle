@@ -9,10 +9,10 @@ import logging
 class RestClient:
   def __init__(self, config):
     self.config = config
-    self._api_key = config.get("Rest", "api_key")
+    self._host = config.get("Server", "host")
+    self._port = config.get("Server", "port")
     self._prefix = "/api"
-    self._host = config.get("Rest", "hostname")
-    self._port = 5000
+    self._api_key = config.get("OctoPrint", "authentication")
     self._headers = {'Content-Type': 'application/json', 'X-Api-Key': self._api_key}
 
   def start_job(self):
