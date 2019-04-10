@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# Enable toggle.service
-systemctl enable toggle.service
-systemctl start toggle.service
