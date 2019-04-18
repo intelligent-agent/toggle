@@ -6,13 +6,15 @@ root = tk.Tk()
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 
+color_scheme = json.load(open("base_color_scheme.json"))["base_color_scheme"]
+
 conf = [
   {
     "id": "stage",
     "type": "ClutterStage",
     "width": screen_width,
     "height": screen_height,
-    "background-color": "base_color_scheme.background",
+    "background-color": color_scheme,
     "signals": [],
     "children": [
       {
@@ -27,8 +29,8 @@ conf = [
           {
             "id": "box",
             "type": "ClutterActor",
-            "width": None,
-            "height": None,
+            "width": screen_width,
+            "height": screen_height,
             "pivot-point-z": -540.0,
             "pivot-point": [
               0.5,
@@ -38,26 +40,26 @@ conf = [
             "layout-manager": {
               "type": "ClutterFixedLayout"
             },
-            "children": "box_children.json"
+            "children": json.load(open("box_children.py"))["box_children"]
           },
           {
             "id": "state",
             "type": "ClutterActor",
-            "width": None,
-            "height": None,
+            "width": screen_width / 3.2,
+            "height": screen_height / 16.875,
             "x": 15,
             "y": 1000,
             "layout-manager": {
               "type": "ClutterFlowLayout"
             },
-            "children": "clutter_children.json"
+            "children": json.load(open("clutter_children.py"))["clutter_children"]
           },
           {
             "id": "msg",
             "type": "ClutterActor",
             "width": None,
             "height": None,
-            "background-color": "base_color_scheme.background",
+            "background-color": color_scheme["background"],
             "opacity": 0,
             "layout-manager": {
               "type": "ClutterBinLayout"
@@ -82,7 +84,7 @@ conf = [
               "type": "ClutterFixedLayout"
             },
             "visible": False,
-            "children": "wifi_children.json"
+            "children": "wifi_children.py"
           },
           {
             "id": "cursor",
@@ -104,3 +106,7 @@ conf = [
     ]
   }
 ]
+
+
+with open("full_conf.json") as fh:
+  json.dump(conf, fh)

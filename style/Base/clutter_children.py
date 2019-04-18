@@ -1,5 +1,5 @@
-{
-  "clutter_children": [
+
+  clutter_children =[
     {
       "id": "connection",
       "type": "MxButton",
@@ -30,4 +30,4 @@
       "opacity": 0
     }
   ]
-}
+
