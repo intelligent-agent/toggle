@@ -17,7 +17,7 @@
           "width": 1900,
           "y": 80,
           "x": 10,
-          "background-color": "#EEE",
+          "background-color": "base_color_scheme.scroll_pane",
           "scroll-mode": 1,
           "layout-manager": {
             "type": "ClutterBoxLayout",
@@ -28,7 +28,7 @@
               "id": "network-box",
               "type": "ClutterActor",
               "width": 1900,
-              "background-color": "#c9c3c3",
+              "background-color": "base_color_scheme.box_bg",
               "layout-manager": {
                 "type": "ClutterBoxLayout",
                 "orientation": 1
@@ -46,7 +46,7 @@
                     {
                       "type": "ClutterText",
                       "text": "Network",
-                      "color": "black",
+                      "color": "base_color_scheme.text_content",
                       "x": 250,
                       "y": 45,
                       "font-description": "Sans 52"
@@ -64,7 +64,7 @@
                 {
                   "id": "network-body",
                   "type": "ClutterActor",
-                  "background-color": "#FFF",
+                  "background-color": "base_color_scheme.background",
                   "width": 1900,
                   "height": 5,
                   "layout-manager": {
@@ -124,7 +124,7 @@
               "id": "wifi-box",
               "type": "ClutterActor",
               "width": 1900,
-              "background-color": "#c9c3c3",
+              "background-color": "base_color_scheme.box_bg",
               "layout-manager": {
                 "type": "ClutterBoxLayout",
                 "orientation": 1
@@ -142,7 +142,7 @@
                     {
                       "type": "ClutterText",
                       "text": "Wifi",
-                      "color": "black",
+                      "color": "base_color_scheme.text_content",
                       "x": 250,
                       "y": 45,
                       "font-description": "Sans 52"
@@ -160,7 +160,7 @@
                 {
                   "id": "wifi-body",
                   "type": "ClutterActor",
-                  "background-color": "#FFF",
+                  "background-color": "base_color_scheme.background",
                   "width": 1900,
                   "height": 5,
                   "children": [
@@ -187,7 +187,7 @@
               "id": "slicer-box",
               "type": "ClutterActor",
               "width": 1900,
-              "background-color": "#c9c3c3",
+              "background-color": "base_color_scheme.box_bg",
               "layout-manager": {
                 "type": "ClutterBoxLayout",
                 "orientation": 1
@@ -205,7 +205,7 @@
                     {
                       "type": "ClutterText",
                       "text": "Slicer",
-                      "color": "black",
+                      "color": "base_color_scheme.text_content",
                       "x": 250,
                       "y": 45,
                       "font-description": "Sans 52"
@@ -225,7 +225,7 @@
                   "type": "ClutterActor",
                   "width": 1900,
                   "height": 5,
-                  "background-color": "#FFF",
+                  "background-color": "base_color_scheme.background",
                   "layout-manager": {
                     "type": "ClutterFixedLayout"
                   },
@@ -268,7 +268,7 @@
               "id": "printer-box",
               "type": "ClutterActor",
               "width": 1900,
-              "background-color": "#c9c3c3",
+              "background-color": "base_color_scheme.box_bg",
               "layout-manager": {
                 "type": "ClutterBoxLayout",
                 "orientation": 1
@@ -286,7 +286,7 @@
                     {
                       "type": "ClutterText",
                       "text": "Printer",
-                      "color": "black",
+                      "color": "base_color_scheme.text_content",
                       "x": 120,
                       "y": 30,
                       "font-description": "Sans 32"
@@ -306,7 +306,7 @@
                   "type": "ClutterActor",
                   "width": 780,
                   "height": 5,
-                  "background-color": "#FFF",
+                  "background-color": "base_color_scheme.background",
                   "layout-manager": {
                     "type": "ClutterFixedLayout"
                   },
@@ -332,7 +332,7 @@
           "height": 90,
           "x": 0,
           "y": 0,
-          "background-color": "#FFF"
+          "background-color": "base_color_scheme.background"
         },
         {
           "id": "side0-btn-prev",
@@ -382,7 +382,7 @@
               "id": "splash-status",
               "type": "ClutterText",
               "text": "Toggle initializing...",
-              "color": "white",
+              "color": "base_color_scheme.splash",
               "x": 100,
               "y": 780,
               "font-description": "Sans 32"

@@ -4,7 +4,7 @@
     "type": "ClutterStage",
     "width": null,
     "height": null,
-    "background-color": "add from base_color_scheme.background",
+    "background-color": "base_color_scheme.background",
     "signals": [],
     "children": [
       {
@@ -30,7 +30,7 @@
             "layout-manager": {
               "type": "ClutterFixedLayout"
             },
-            "children": "to add later from base_children.json"
+            "children": "base_children.json"
           },
           {
             "id": "state",
@@ -42,14 +42,14 @@
             "layout-manager": {
               "type": "ClutterFlowLayout"
             },
-            "children": "add from clutter_children.json"
+            "children": "clutter_children.json"
           },
           {
             "id": "msg",
             "type": "ClutterActor",
             "width": null,
             "height": null,
-            "background-color": "add from base_color_scheme.background",
+            "background-color": "base_color_scheme.background",
             "opacity": 0,
             "layout-manager": {
               "type": "ClutterBinLayout"
@@ -69,12 +69,12 @@
             "type": "ClutterActor",
             "width": null,
             "height": null,
-            "background-color": "add from base_color_scheme.wifi_background",
+            "background-color": "base_color_scheme.wifi_background",
             "layout-manager": {
               "type": "ClutterFixedLayout"
             },
             "visible": false,
-            "children": "add from wifi_children.json"
+            "children": "wifi_children.json"
           },
           {
             "id": "cursor",
