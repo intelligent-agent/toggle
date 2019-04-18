@@ -1,10 +1,16 @@
+import tkinter as tk
+
+root = tk.Tk()
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
 box_children = [
     {
         "id": "side0-content",
         "visible": False,
         "type": "ClutterActor",
-        "width": 1920,
-        "height": 1080,
+        "width": screen_width,
+        "height": screen_height,
         "layout-manager": {
             "type": "ClutterBinLayout"
         },
@@ -12,7 +18,7 @@ box_children = [
             {
                 "id": "scroll-pane",
                 "type": "ClutterScrollActor",
-                "width": 1900,
+                "width": screen_width/1.025,
                 "y": 80,
                 "x": 10,
                 "background-color": "base_color_scheme.scroll_pane",
@@ -25,7 +31,7 @@ box_children = [
                     {
                         "id": "network-box",
                         "type": "ClutterActor",
-                        "width": 1900,
+                        "width": screen_width/1.025,
                         "background-color": "base_color_scheme.box_bg",
                         "layout-manager": {
                             "type": "ClutterBoxLayout",
@@ -35,8 +41,8 @@ box_children = [
                             {
                                 "id": "network-header",
                                 "type": "ClutterActor",
-                                "height": 150,
-                                "width": 1900,
+                                "height": screen_height / 6, #this may not translate well
+                                "width": screen_width/1.025,
                                 "layout-manager": {
                                     "type": "ClutterFixedLayout"
                                 },

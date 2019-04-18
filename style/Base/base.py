@@ -1,5 +1,6 @@
 import json
 import tkinter as tk
+import box_children.box_children as bc
 
 ### get the screen resolution ###
 root = tk.Tk()
@@ -40,7 +41,7 @@ conf = [
             "layout-manager": {
               "type": "ClutterFixedLayout"
             },
-            "children": json.load(open("box_children.py"))["box_children"]
+            "children": bc
           },
           {
             "id": "state",
