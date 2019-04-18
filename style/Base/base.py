@@ -1,7 +1,7 @@
 import json
 import tkinter as tk
-import box_children.box_children as bc
 
+import box_children.box_children as bc
 import clutter_children.clutter_children as cc
 import base_color_scheme.base_color_scheme as bcs
 import wifi_children.wifi_children as wc
