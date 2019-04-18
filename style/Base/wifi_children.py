@@ -1,104 +1,109 @@
-{
-  "wifi_children": [
-    {
-      "id": "wifi-text",
-      "type": "ClutterText",
-      "font-description": "Sans 24",
-      "color": "base_color_scheme.background",
-      "height": 100,
-      "text": "Password:",
-      "x": 120,
-      "y": 70
-    },
-    {
-      "id": "wifi-input",
-      "type": "MxEntry",
-      "password-char": 42,
-      "height": 60,
-      "width": 560,
-      "x": 120,
-      "y": 110
-    },
-    {
-      "id": "wifi-status",
-      "type": "ClutterText",
-      "font-description": "Sans 12",
-      "color": "base_color_scheme.background",
-      "x": 120,
-      "y": 200
-    },
-    {
-      "id": "wifi-ok",
-      "type": "MxButton",
-      "label": "OK",
-      "x": 520,
-      "y": 185
-    },
-    {
-      "id": "wifi-cancel",
-      "type": "MxButton",
-      "label": "Cancel",
-      "x": 586,
-      "y": 185
-    },
-    {
-      "id": "keyboard",
-      "type": "ClutterActor",
-      "width": 800,
-      "height": 240,
-      "y": 240,
-      "pivot-point-z": -400.0,
-      "pivot-point": [
-        0.5,
-        0.5
-      ],
-      "rotation-angle-x": 0.0,
-      "layout-manager": {
-        "type": "ClutterBoxLayout",
-        "orientation": 1
-      },
-      "children": [
-        {
-          "id": "row-0",
-          "type": "ClutterActor",
-          "height": 60,
-          "layout-manager": {
-            "type": "ClutterBoxLayout",
-            "orientation": 0,
-            "spacing": 17
-          }
-        },
-        {
-          "id": "row-1",
-          "type": "ClutterActor",
-          "height": 60,
-          "layout-manager": {
-            "type": "ClutterBoxLayout",
-            "orientation": 0,
-            "spacing": 19
-          }
-        },
-        {
-          "id": "row-2",
-          "type": "ClutterActor",
-          "height": 60,
-          "layout-manager": {
-            "type": "ClutterBoxLayout",
-            "orientation": 0,
-            "spacing": 19
-          }
-        },
-        {
-          "id": "row-3",
-          "height": 60,
-          "type": "ClutterActor",
-          "layout-manager": {
-            "type": "ClutterBoxLayout",
-            "orientation": 0,
-            "spacing": 19
-          }
-        }
-      ]
-    }
-  ]
-}
+import base_color_scheme.base_color_scheme as bcs
+
+import tkinter as tk
+
+### get the screen resolution ###
+root = tk.Tk()
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
+wifi_children = [{
+    "id": "wifi-text",
+    "type": "ClutterText",
+    "font-description": "Sans 24",
+    "color": bcs["background"],
+    "height": 100,
+    "text": "Password:",
+    "x": 120,
+    "y": 70
+},
+                 {
+                     "id": "wifi-input",
+                     "type": "MxEntry",
+                     "password-char": 42,
+                     "height": 60,
+                     "width": 560,
+                     "x": 120,
+                     "y": 110
+                 },
+                 {
+                     "id": "wifi-status",
+                     "type": "ClutterText",
+                     "font-description": "Sans 12",
+                     "color": bcs["background"],
+                     "x": 120,
+                     "y": 200
+                 }, {
+                     "id": "wifi-ok",
+                     "type": "MxButton",
+                     "label": "OK",
+                     "x": 520,
+                     "y": 185
+                 }, {
+                     "id": "wifi-cancel",
+                     "type": "MxButton",
+                     "label": "Cancel",
+                     "x": 586,
+                     "y": 185
+                 },
+                 {
+                     "id":
+                         "keyboard",
+                     "type":
+                         "ClutterActor",
+                     "width":
+                         800,
+                     "height":
+                         240,
+                     "y":
+                         240,
+                     "pivot-point-z":
+                         -400.0,
+                     "pivot-point": [0.5, 0.5],
+                     "rotation-angle-x":
+                         0.0,
+                     "layout-manager": {
+                         "type": "ClutterBoxLayout",
+                         "orientation": 1
+                     },
+                     "children": [{
+                         "id": "row-0",
+                         "type": "ClutterActor",
+                         "height": 60,
+                         "layout-manager": {
+                             "type": "ClutterBoxLayout",
+                             "orientation": 0,
+                             "spacing": 17
+                         }
+                     },
+                                  {
+                                      "id": "row-1",
+                                      "type": "ClutterActor",
+                                      "height": 60,
+                                      "layout-manager": {
+                                          "type": "ClutterBoxLayout",
+                                          "orientation": 0,
+                                          "spacing": 19
+                                      }
+                                  },
+                                  {
+                                      "id": "row-2",
+                                      "type": "ClutterActor",
+                                      "height": 60,
+                                      "layout-manager": {
+                                          "type": "ClutterBoxLayout",
+                                          "orientation": 0,
+                                          "spacing": 19
+                                      }
+                                  },
+                                  {
+                                      "id": "row-3",
+                                      "height": 60,
+                                      "type": "ClutterActor",
+                                      "layout-manager": {
+                                          "type": "ClutterBoxLayout",
+                                          "orientation": 0,
+                                          "spacing": 19
+                                      }
+                                  }]
+                 }]
