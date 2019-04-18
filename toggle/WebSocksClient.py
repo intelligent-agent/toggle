@@ -106,6 +106,7 @@ class WebSocksClient():
       logging.debug("SockJS: Socket connected")
       apik = data['connected']['apikey']
       self.authenticate(apik)
+
     self.parse_msg(data)
 
   def _on_connection_success(self):
