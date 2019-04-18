@@ -1,9 +1,17 @@
-[
+import json
+import tkinter as tk
+
+### get the screen resolution ###
+root = tk.Tk()
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
+conf = [
   {
     "id": "stage",
     "type": "ClutterStage",
-    "width": null,
-    "height": null,
+    "width": screen_width,
+    "height": screen_height,
     "background-color": "base_color_scheme.background",
     "signals": [],
     "children": [
@@ -19,8 +27,8 @@
           {
             "id": "box",
             "type": "ClutterActor",
-            "width": null,
-            "height": null,
+            "width": None,
+            "height": None,
             "pivot-point-z": -540.0,
             "pivot-point": [
               0.5,
@@ -35,8 +43,8 @@
           {
             "id": "state",
             "type": "ClutterActor",
-            "width": null,
-            "height": null,
+            "width": None,
+            "height": None,
             "x": 15,
             "y": 1000,
             "layout-manager": {
@@ -47,8 +55,8 @@
           {
             "id": "msg",
             "type": "ClutterActor",
-            "width": null,
-            "height": null,
+            "width": None,
+            "height": None,
             "background-color": "base_color_scheme.background",
             "opacity": 0,
             "layout-manager": {
@@ -59,7 +67,7 @@
                 "id": "txt",
                 "type": "ClutterText",
                 "font-description": "Sans 36",
-                "color": null,
+                "color": "base_color_scheme.text_content",
                 "height": 100
               }
             ]
@@ -67,13 +75,13 @@
           {
             "id": "wifi-overlay",
             "type": "ClutterActor",
-            "width": null,
-            "height": null,
+            "width": None,
+            "height": None,
             "background-color": "base_color_scheme.wifi_background",
             "layout-manager": {
               "type": "ClutterFixedLayout"
             },
-            "visible": false,
+            "visible": False,
             "children": "wifi_children.json"
           },
           {
