@@ -1,4 +1,6 @@
-import base_color_scheme.base_color_scheme as bcs
+import base_color_scheme
+
+bcs = base_color_scheme.base_color_scheme
 
 import tkinter as tk
 

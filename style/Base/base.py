@@ -118,5 +118,5 @@ conf = [{
     }]
 }]
 
-with open("full_conf.json") as fh:
+with open("full_conf.json", "w") as fh:
   json.dump(conf, fh)
