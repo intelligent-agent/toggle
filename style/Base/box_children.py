@@ -1,8 +1,11 @@
 import tkinter as tk
+import base_color_scheme.base_color_scheme as cs #short for color scheme
 
 root = tk.Tk()
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
+
+iw = screen_width - 20 #inner width with margins appears frequently
 
 box_children = [
     {
@@ -18,10 +21,10 @@ box_children = [
             {
                 "id": "scroll-pane",
                 "type": "ClutterScrollActor",
-                "width": screen_width/1.025,
+                "width": iw,
                 "y": 80,
                 "x": 10,
-                "background-color": "base_color_scheme.scroll_pane",
+                "background-color": cs.scroll_pane,
                 "scroll-mode": 1,
                 "layout-manager": {
                     "type": "ClutterBoxLayout",
@@ -31,8 +34,8 @@ box_children = [
                     {
                         "id": "network-box",
                         "type": "ClutterActor",
-                        "width": screen_width/1.025,
-                        "background-color": "base_color_scheme.box_bg",
+                        "width": iw,
+                        "background-color": cs.box_bg,
                         "layout-manager": {
                             "type": "ClutterBoxLayout",
                             "orientation": 1
@@ -42,7 +45,7 @@ box_children = [
                                 "id": "network-header",
                                 "type": "ClutterActor",
                                 "height": screen_height / 6, #this may not translate well
-                                "width": screen_width/1.025,
+                                "width": iw,
                                 "layout-manager": {
                                     "type": "ClutterFixedLayout"
                                 },
@@ -50,9 +53,9 @@ box_children = [
                                     {
                                         "type": "ClutterText",
                                         "text": "Network",
-                                        "color": "base_color_scheme.text_content",
-                                        "x": 250,
-                                        "y": 45,
+                                        "color": cs.text_content,
+                                        "x": screen_width * 0.14, #250 ish at 1920 x 1080
+                                        "y": screen_height / 20, #45 ish at 1920 x 1080
                                         "font-description": "Sans 52"
                                     },
                                     {
@@ -68,8 +71,8 @@ box_children = [
                             {
                                 "id": "network-body",
                                 "type": "ClutterActor",
-                                "background-color": "base_color_scheme.background",
-                                "width": 1900,
+                                "background-color": cs.background,
+                                "width": iw,
                                 "height": 5,
                                 "layout-manager": {
                                     "type": "ClutterFixedLayout"
@@ -127,8 +130,8 @@ box_children = [
                     {
                         "id": "wifi-box",
                         "type": "ClutterActor",
-                        "width": 1900,
-                        "background-color": "base_color_scheme.box_bg",
+                        "width": iw,
+                        "background-color": cs.box_bg,
                         "layout-manager": {
                             "type": "ClutterBoxLayout",
                             "orientation": 1
@@ -138,7 +141,7 @@ box_children = [
                                 "id": "wifi-header",
                                 "type": "ClutterActor",
                                 "height": 150,
-                                "width": 1900,
+                                "width": iw,
                                 "layout-manager": {
                                     "type": "ClutterFixedLayout"
                                 },
@@ -146,7 +149,7 @@ box_children = [
                                     {
                                         "type": "ClutterText",
                                         "text": "Wifi",
-                                        "color": "base_color_scheme.text_content",
+                                        "color": cs.text_content,
                                         "x": 250,
                                         "y": 45,
                                         "font-description": "Sans 52"
@@ -164,8 +167,8 @@ box_children = [
                             {
                                 "id": "wifi-body",
                                 "type": "ClutterActor",
-                                "background-color": "base_color_scheme.background",
-                                "width": 1900,
+                                "background-color": cs.background,
+                                "width": iw,
                                 "height": 5,
                                 "children": [
                                     {
@@ -190,8 +193,8 @@ box_children = [
                     {
                         "id": "slicer-box",
                         "type": "ClutterActor",
-                        "width": 1900,
-                        "background-color": "base_color_scheme.box_bg",
+                        "width": iw,
+                        "background-color": cs.box_bg,
                         "layout-manager": {
                             "type": "ClutterBoxLayout",
                             "orientation": 1
@@ -201,7 +204,7 @@ box_children = [
                                 "id": "slicer-header",
                                 "type": "ClutterActor",
                                 "height": 150,
-                                "width": 1900,
+                                "width": iw,
                                 "layout-manager": {
                                     "type": "ClutterFixedLayout"
                                 },
@@ -209,7 +212,7 @@ box_children = [
                                     {
                                         "type": "ClutterText",
                                         "text": "Slicer",
-                                        "color": "base_color_scheme.text_content",
+                                        "color": cs.text_content,
                                         "x": 250,
                                         "y": 45,
                                         "font-description": "Sans 52"
@@ -227,9 +230,9 @@ box_children = [
                             {
                                 "id": "slicer-body",
                                 "type": "ClutterActor",
-                                "width": 1900,
+                                "width": iw,
                                 "height": 5,
-                                "background-color": "base_color_scheme.background",
+                                "background-color": cs.background,
                                 "layout-manager": {
                                     "type": "ClutterFixedLayout"
                                 },
@@ -271,8 +274,8 @@ box_children = [
                     {
                         "id": "printer-box",
                         "type": "ClutterActor",
-                        "width": 1900,
-                        "background-color": "base_color_scheme.box_bg",
+                        "width": iw,
+                        "background-color": cs.box_bg,
                         "layout-manager": {
                             "type": "ClutterBoxLayout",
                             "orientation": 1
@@ -282,7 +285,7 @@ box_children = [
                                 "id": "printer-header",
                                 "type": "ClutterActor",
                                 "height": 5,
-                                "width": 1900,
+                                "width": iw,
                                 "layout-manager": {
                                     "type": "ClutterFixedLayout"
                                 },
@@ -290,7 +293,7 @@ box_children = [
                                     {
                                         "type": "ClutterText",
                                         "text": "Printer",
-                                        "color": "base_color_scheme.text_content",
+                                        "color": cs.text_content,
                                         "x": 120,
                                         "y": 30,
                                         "font-description": "Sans 32"
@@ -310,7 +313,7 @@ box_children = [
                                 "type": "ClutterActor",
                                 "width": 780,
                                 "height": 5,
-                                "background-color": "base_color_scheme.background",
+                                "background-color": cs.background,
                                 "layout-manager": {
                                     "type": "ClutterFixedLayout"
                                 },
@@ -332,11 +335,11 @@ box_children = [
             {
                 "id": "scroll-header",
                 "type": "ClutterActor",
-                "width": 1920,
+                "width": screen_width,
                 "height": 90,
                 "x": 0,
                 "y": 0,
-                "background-color": "base_color_scheme.background"
+                "background-color": cs.background
             },
             {
                 "id": "side0-btn-prev",
@@ -346,7 +349,7 @@ box_children = [
                 "y": 15,
                 "width": 128,
                 "height": 128,
-                "visible": false
+                "visible": False
             },
             {
                 "id": "side0-btn-next",
@@ -356,15 +359,15 @@ box_children = [
                 "y": 15,
                 "width": 128,
                 "height": 128,
-                "visible": true
+                "visible": True
             }
         ]
     },
     {
         "id": "side5-content",
         "type": "ClutterActor",
-        "width": 1920,
-        "height": 1080,
+        "width": screen_width,
+        "height": screen_height,
         "layout-manager": {
             "type": "ClutterBinLayout"
         },
@@ -386,7 +389,7 @@ box_children = [
                         "id": "splash-status",
                         "type": "ClutterText",
                         "text": "Toggle initializing...",
-                        "color": "base_color_scheme.splash",
+                        "color": cs.splash,
                         "x": 100,
                         "y": 780,
                         "font-description": "Sans 32"
