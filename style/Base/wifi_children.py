@@ -12,7 +12,7 @@ wifi_children = [{
     "type": "ClutterText",
     "font-description": "Sans 24",
     "color": bcs["background"],
-    "height": 100,
+    "height": screen_height / 10.8,
     "text": "Password:",
     "x": 120,
     "y": 70
@@ -21,8 +21,8 @@ wifi_children = [{
                      "id": "wifi-input",
                      "type": "MxEntry",
                      "password-char": 42,
-                     "height": 60,
-                     "width": 560,
+                     "height": screen_height / 18,
+                     "width": screen_width / 3.42,
                      "x": 120,
                      "y": 110
                  },
@@ -52,9 +52,9 @@ wifi_children = [{
                      "type":
                          "ClutterActor",
                      "width":
-                         800,
+                         screen_width / 2.4,
                      "height":
-                         240,
+                         screen_height / 4.5,
                      "y":
                          240,
                      "pivot-point-z":
@@ -69,7 +69,7 @@ wifi_children = [{
                      "children": [{
                          "id": "row-0",
                          "type": "ClutterActor",
-                         "height": 60,
+                         "height": screen_height / 18,
                          "layout-manager": {
                              "type": "ClutterBoxLayout",
                              "orientation": 0,
@@ -79,7 +79,7 @@ wifi_children = [{
                                   {
                                       "id": "row-1",
                                       "type": "ClutterActor",
-                                      "height": 60,
+                                      "height": screen_height / 18,
                                       "layout-manager": {
                                           "type": "ClutterBoxLayout",
                                           "orientation": 0,
@@ -89,7 +89,7 @@ wifi_children = [{
                                   {
                                       "id": "row-2",
                                       "type": "ClutterActor",
-                                      "height": 60,
+                                      "height": screen_height / 18,
                                       "layout-manager": {
                                           "type": "ClutterBoxLayout",
                                           "orientation": 0,
@@ -98,7 +98,7 @@ wifi_children = [{
                                   },
                                   {
                                       "id": "row-3",
-                                      "height": 60,
+                                      "height": screen_height / 18,
                                       "type": "ClutterActor",
                                       "layout-manager": {
                                           "type": "ClutterBoxLayout",
