@@ -4,7 +4,7 @@
       "id": "wifi-text",
       "type": "ClutterText",
       "font-description": "Sans 24",
-      "color": "#FFF",
+      "color": "add from base_color_scheme.background",
       "height": 100,
       "text": "Password:",
       "x": 120,
@@ -23,7 +23,7 @@
       "id": "wifi-status",
       "type": "ClutterText",
       "font-description": "Sans 12",
-      "color": "#FFF",
+      "color": "add from base_color_scheme.background",
       "x": 120,
       "y": 200
     },
