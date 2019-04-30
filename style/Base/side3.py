@@ -1,15 +1,21 @@
 import tkinter as tk
 import base_color_scheme
-cs = base_color_scheme.base_color_scheme
+bcs = base_color_scheme.base_color_scheme
 
 root = tk.Tk()
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
+
+def cw (w):
+    return w/1920 * screen_width
+def ch (h):
+    return h/1080 * screen_height
+
 content = {
         "id": "side3",
         "type": "ClutterActor",
-        "width": 1920,
-        "height": 1080,
+        "width": screen_width,
+        "height": screen_height,
         "pivot-point-z": -540.0,
         "pivot-point": [
             0.5,
@@ -17,29 +23,29 @@ content = {
         ],
         "rotation-angle-y": 270.0,
         "visible": False,
-        "background-color": "white",
+        "background-color": bcs.background,
         "children": [
             {
                 "id": "side3-content",
                 "type": "ClutterActor",
-                "width": 1920,
-                "height": 1080,
+                "width": screen_width,
+                "height": screen_height,
                 "children": [
                     {
                         "id": "jogger-xy",
                         "type": "ClutterActor",
                         "x": 120,
                         "y": 160,
-                        "width": 700,
-                        "height": 700,
-                        "background-color": "white",
+                        "width": cw(700),
+                        "height": ch(700),
+                        "background-color": bcs.background,
                         "children": [
                             {
                                 "id": "jog_x_minus",
                                 "type": "MxButton",
                                 "style-class": "jog_arrow",
-                                "height": 140,
-                                "width": 140,
+                                "height": ch(140),
+                                "width": cw(140),
                                 "x": 0,
                                 "y": 250,
                                 "rotation-angle-z": 180.0,
@@ -52,8 +58,8 @@ content = {
                                 "id": "jog_y_plus",
                                 "type": "MxButton",
                                 "style-class": "jog_arrow",
-                                "height": 140,
-                                "width": 140,
+                                "height": ch(140),
+                                "width": cw(140),
                                 "x": 240,
                                 "y": 0,
                                 "rotation-angle-z": 270.0,
@@ -66,8 +72,8 @@ content = {
                                 "id": "jog_x_plus",
                                 "type": "MxButton",
                                 "style-class": "jog_arrow",
-                                "width": 140,
-                                "height": 140,
+                                "width": cw(140),
+                                "height": ch(140),
                                 "x": 480,
                                 "y": 250,
                                 "rotation-angle-z": 0.0,
@@ -80,8 +86,8 @@ content = {
                                 "id": "jog_y_minus",
                                 "type": "MxButton",
                                 "style-class": "jog_arrow",
-                                "height": 140,
-                                "width": 140,
+                                "height": ch(140),
+                                "width": cw(140),
                                 "x": 240,
                                 "y": 500,
                                 "rotation-angle-z": 90.0,
@@ -94,8 +100,8 @@ content = {
                                 "id": "jog_home",
                                 "type": "MxButton",
                                 "style-class": "jog_home",
-                                "height": 200,
-                                "width": 200,
+                                "height": ch(200),
+                                "width": cw(200),
                                 "x": 205,
                                 "y": 220
                             }
@@ -106,15 +112,15 @@ content = {
                         "type": "ClutterActor",
                         "x": 765,
                         "y": 160,
-                        "width": 70,
-                        "height": 300,
+                        "width": cw(70),
+                        "height": ch(300),
                         "children": [
                             {
                                 "id": "jog_z_plus",
                                 "type": "MxButton",
                                 "style-class": "jog_arrow",
-                                "height": 140,
-                                "width": 140,
+                                "height": ch(140),
+                                "width": cw(140),
                                 "x": 120,
                                 "y": 0,
                                 "rotation-angle-z": 270.0,
@@ -127,8 +133,8 @@ content = {
                                 "id": "jog_z_minus",
                                 "type": "MxButton",
                                 "style-class": "jog_arrow",
-                                "height": 140,
-                                "width": 140,
+                                "height": ch(140),
+                                "width": cw(140),
                                 "x": 120,
                                 "y": 500,
                                 "rotation-angle-z": 90.0,
@@ -141,8 +147,8 @@ content = {
                                 "id": "jog_z_home",
                                 "type": "MxButton",
                                 "style-class": "jog_home_z",
-                                "height": 140,
-                                "width": 140,
+                                "height": ch(140),
+                                "width": cw(140),
                                 "x": 120,
                                 "y": 250
                             }
@@ -153,15 +159,15 @@ content = {
                         "type": "ClutterActor",
                         "x": 1100,
                         "y": 160,
-                        "width": 70,
-                        "height": 300,
+                        "width": cw(70),
+                        "height": ch(300),
                         "children": [
                             {
                                 "id": "motors_off",
                                 "type": "MxButton",
                                 "style-class": "motors_off",
-                                "height": 140,
-                                "width": 140,
+                                "height": ch(140),
+                                "width": cw(140),
                                 "x": 120,
                                 "y": 0
                             },
@@ -169,8 +175,8 @@ content = {
                                 "id": "fan_on",
                                 "type": "MxButton",
                                 "style-class": "fan_on",
-                                "height": 140,
-                                "width": 140,
+                                "height": ch(140),
+                                "width": cw(140),
                                 "x": 120,
                                 "y": 250
                             },
@@ -178,8 +184,8 @@ content = {
                                 "id": "fan_off",
                                 "type": "MxButton",
                                 "style-class": "fan_off",
-                                "height": 140,
-                                "width": 140,
+                                "height": ch(140),
+                                "width": cw(140),
                                 "x": 120,
                                 "y": 500
                             }
@@ -190,15 +196,15 @@ content = {
                         "type": "ClutterActor",
                         "x": 1400,
                         "y": 160,
-                        "width": 130,
-                        "height": 300,
+                        "width": cw(130),
+                        "height": ch(300),
                         "children": [
                             {
                                 "id": "jog_e_extrude",
                                 "type": "MxButton",
                                 "style-class": "jog_arrow",
-                                "height": 140,
-                                "width": 140,
+                                "height": ch(140),
+                                "width": cw(140),
                                 "x": 120,
                                 "y": 0,
                                 "rotation-angle-z": 270.0,
@@ -211,8 +217,8 @@ content = {
                                 "id": "jog_e_retract",
                                 "type": "MxButton",
                                 "style-class": "jog_arrow",
-                                "height": 140,
-                                "width": 140,
+                                "height": ch(140),
+                                "width": cw(140),
                                 "x": 120,
                                 "y": 500,
                                 "rotation-angle-z": 90.0,
@@ -226,8 +232,8 @@ content = {
                                 "type": "MxButton",
                                 "style-class": "jog_home_e",
                                 "is_toggle": True,
-                                "height": 140,
-                                "width": 140,
+                                "height": ch(140),
+                                "width": cw(140),
                                 "x": 120,
                                 "y": 250
                             }
@@ -237,10 +243,10 @@ content = {
                         "id": "travel-length",
                         "type": "ClutterText",
                         "text": "",
-                        "x": 1080,
+                        "x": screen_height,
                         "y": 900,
-                        "width": 300,
-                        "height": 50,
+                        "width": cw(300),
+                        "height": ch(50),
                         "x-align": 3,
                         "x-expand": True,
                         "line-alignment": 2,
@@ -253,8 +259,8 @@ content = {
                         "is_toggle": True,
                         "x": 696,
                         "y": 900,
-                        "width": 128,
-                        "height": 128
+                        "width": cw(128),
+                        "height": ch(128)
                     },
                     {
                         "id": "travel_z",
@@ -263,8 +269,8 @@ content = {
                         "is_toggle": True,
                         "x": 896,
                         "y": 900,
-                        "width": 128,
-                        "height": 128
+                        "width": cw(128),
+                        "height": ch(128)
                     },
                     {
                         "id": "travel_eh",
@@ -273,8 +279,8 @@ content = {
                         "is_toggle": True,
                         "x": 1096,
                         "y": 900,
-                        "width": 128,
-                        "height": 128
+                        "width": cw(128),
+                        "height": ch(128)
                     }
                 ]
             },
@@ -282,8 +288,8 @@ content = {
                 "id": "side3-btn-prev",
                 "type": "MxButton",
                 "style-class": "print",
-                "width": 128,
-                "height": 128,
+                "width": cw(128),
+                "height": ch(128),
                 "x": 15,
                 "y": 15
             },
@@ -291,8 +297,8 @@ content = {
                 "id": "side3-btn-next",
                 "type": "MxButton",
                 "style-class": "settings",
-                "width": 128,
-                "height": 128,
+                "width": cw(128),
+                "height": ch(128),
                 "x": 1777,
                 "y": 15,
                 "visible": True
