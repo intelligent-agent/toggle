@@ -1,8 +1,21 @@
+import tkinter as tk
+import base_color_scheme
+bcs = base_color_scheme.base_color_scheme
+
+root = tk.Tk()
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
+def cw (w):
+    return w/1920 * screen_width
+def ch (h):
+    return h/1080 * screen_height
+
 content = {
         "id": "side2",
         "type": "ClutterActor",
-        "width": 1920,
-        "height": 1080,
+        "width": screen_width,
+        "height": screen_height,
         "pivot-point-z": -540.0,
         "pivot-point": [
             0.5,
@@ -10,18 +23,18 @@ content = {
         ],
         "rotation-angle-y": 180.0,
         "visible": False,
-        "background-color": "white",
+        "background-color": bcs.background,
         "children": [
             {
                 "id": "side2-content",
                 "type": "ClutterActor",
-                "background-color": "white",
+                "background-color": bcs.background,
                 "children": [
                     {
                         "id": "content-flip",
                         "type": "ClutterActor",
-                        "width": 1440,
-                        "height": 800,
+                        "width": cw(1440),
+                        "height": ch(800),
                         "pivot-point": [
                             0.5,
                             0.5
@@ -34,8 +47,8 @@ content = {
                             {
                                 "id": "volume-viewport",
                                 "type": "ClutterActor",
-                                "width": 1440,
-                                "height": 540,
+                                "width": cw(1440),
+                                "height": ch(540),
                                 "x": 100,
                                 "pivot-point": [
                                     0.5,
@@ -97,8 +110,8 @@ content = {
                                     {
                                         "id": "loader",
                                         "type": "ClutterTexture",
-                                        "width": 128,
-                                        "height": 128,
+                                        "width": cw(128),
+                                        "height": ch(128),
                                         "x": 650,
                                         "y": 400,
                                         "pivot-point": [
@@ -119,8 +132,8 @@ content = {
                                 "id": "btn-prev",
                                 "type": "MxButton",
                                 "style-class": "jog_arrow",
-                                "height": 128,
-                                "width": 128,
+                                "height": ch(128),
+                                "width": cw(128),
                                 "x": 15,
                                 "y": 500,
                                 "rotation-angle-z": 180.0,
@@ -142,8 +155,8 @@ content = {
                                 "text": "Model",
                                 "x": 1265,
                                 "y": 1000,
-                                "width": 700,
-                                "height": 50,
+                                "width": cw(700),
+                                "height": ch(50),
                                 "x-align": 3,
                                 "x-expand": True,
                                 "line-alignment": 2,
@@ -154,8 +167,8 @@ content = {
                                 "type": "MxProgressBar",
                                 "x": 1265,
                                 "y": 940,
-                                "width": 640,
-                                "height": 50,
+                                "width": cw(640),
+                                "height": ch(50),
                                 "x-align": 3,
                                 "x-expand": True
                             },
@@ -164,8 +177,8 @@ content = {
                                 "type": "ClutterText",
                                 "x": 1265,
                                 "y": 910,
-                                "width": 220,
-                                "height": 25,
+                                "width": cw(220),
+                                "height": ch(25),
                                 "font-description": "Sans 16"
                             },
                             {
@@ -173,8 +186,8 @@ content = {
                                 "type": "ClutterText",
                                 "x": 1680,
                                 "y": 910,
-                                "width": 220,
-                                "height": 25,
+                                "width": cw(220),
+                                "height": ch(25),
                                 "x-align": 3,
                                 "x-expand": True,
                                 "font-description": "Sans 16"
@@ -187,8 +200,8 @@ content = {
                                 "toggled": True,
                                 "x": 696,
                                 "y": 900,
-                                "width": 128,
-                                "height": 128
+                                "width": cw(128),
+                                "height": ch(128)
                             },
                             {
                                 "id": "btn-print",
@@ -197,8 +210,8 @@ content = {
                                 "is_toggle": True,
                                 "x": 896,
                                 "y": 900,
-                                "width": 128,
-                                "height": 128
+                                "width": cw(128),
+                                "height": ch(128)
                             },
                             {
                                 "id": "btn-pause",
@@ -207,15 +220,15 @@ content = {
                                 "is_toggle": True,
                                 "x": 1096,
                                 "y": 900,
-                                "width": 128,
-                                "height": 128
+                                "width": cw(128),
+                                "height": ch(128)
                             },
                             {
                                 "id": "btn-next",
                                 "type": "MxButton",
                                 "style-class": "jog_arrow",
-                                "height": 128,
-                                "width": 128,
+                                "height": ch(128),
+                                "width": cw(128),
                                 "x": 1777,
                                 "y": 500,
                                 "rotation-angle-z": 0.0,
@@ -234,8 +247,8 @@ content = {
                 "style-class": "temp",
                 "x": 15,
                 "y": 15,
-                "width": 128,
-                "height": 128
+                "width": cw(128),
+                "height": ch(128)
             },
             {
                 "id": "side2-btn-next",
@@ -243,8 +256,8 @@ content = {
                 "style-class": "jog",
                 "x": 1777,
                 "y": 15,
-                "width": 128,
-                "height": 128
+                "width": cw(128),
+                "height": ch(128)
             }
         ]
     }
