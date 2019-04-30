@@ -1,9 +1,15 @@
+import tkinter as tk
+import base_color_scheme
+cs = base_color_scheme.base_color_scheme
 
+root = tk.Tk()
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
 content = {
         "id": "side0",
         "type": "ClutterActor",
-        "width": 1920,
-        "height": 1080,
+        "width": screen_width,
+        "height": screen_height,
         "pivot-point-z": -540.0,
         "pivot-point": [
             0.5,
@@ -16,8 +22,8 @@ content = {
                 "id": "side0-content",
                 "visible": False,
                 "type": "ClutterActor",
-                "width": 1920,
-                "height": 1080,
+                "width": screen_width,
+                "height": screen_height,
                 "layout-manager": {
                     "type": "ClutterBinLayout"
                 },
@@ -25,7 +31,7 @@ content = {
                     {
                         "id": "scroll-pane",
                         "type": "ClutterScrollActor",
-                        "width": 1900,
+                        "width": screen_width-20,
                         "y": 80,
                         "x": 10,
                         "background-color": "#EEE",
@@ -38,7 +44,7 @@ content = {
                             {
                                 "id": "network-box",
                                 "type": "ClutterActor",
-                                "width": 1900,
+                                "width": screen_width-20,
                                 "background-color": "#c9c3c3",
                                 "layout-manager": {
                                     "type": "ClutterBoxLayout",
@@ -48,8 +54,8 @@ content = {
                                     {
                                         "id": "network-header",
                                         "type": "ClutterActor",
-                                        "height": 150,
-                                        "width": 1900,
+                                        "height": 150/1080 * screen_height,
+                                        "width": screen_width-20,
                                         "layout-manager": {
                                             "type": "ClutterFixedLayout"
                                         },
@@ -67,8 +73,8 @@ content = {
                                                 "style-class": "network",
                                                 "x": 100,
                                                 "y": 15,
-                                                "width": 128,
-                                                "height": 128
+                                                "width": 128/1920*screen_width,
+                                                "height": 128/1080 * screen_height
                                             }
                                         ]
                                     },
@@ -76,8 +82,8 @@ content = {
                                         "id": "network-body",
                                         "type": "ClutterActor",
                                         "background-color": "#FFF",
-                                        "width": 1900,
-                                        "height": 5,
+                                        "width": screen_width-20,
+                                        "height": 5/1080 * screen_height,,
                                         "layout-manager": {
                                             "type": "ClutterFixedLayout"
                                         },
@@ -134,7 +140,7 @@ content = {
                             {
                                 "id": "wifi-box",
                                 "type": "ClutterActor",
-                                "width": 1900,
+                                "width": screen_width-20,
                                 "background-color": "#c9c3c3",
                                 "layout-manager": {
                                     "type": "ClutterBoxLayout",
@@ -144,8 +150,8 @@ content = {
                                     {
                                         "id": "wifi-header",
                                         "type": "ClutterActor",
-                                        "height": 150,
-                                        "width": 1900,
+                                        "height": 150/1080 * screen_height,,
+                                        "width": screen_width-20,
                                         "layout-manager": {
                                             "type": "ClutterFixedLayout"
                                         },
@@ -163,8 +169,8 @@ content = {
                                                 "style-class": "wifi",
                                                 "x": 100,
                                                 "y": 15,
-                                                "width": 128,
-                                                "height": 128
+                                                "width": 128/1920*screen_width,
+                                                "height": 128/1080 * screen_height,
                                             }
                                         ]
                                     },
@@ -172,8 +178,8 @@ content = {
                                         "id": "wifi-body",
                                         "type": "ClutterActor",
                                         "background-color": "#FFF",
-                                        "width": 1900,
-                                        "height": 5,
+                                        "width": screen_width-20,
+                                        "height": 5/1080 * screen_height,
                                         "children": [
                                             {
                                                 "type": "ClutterText",
@@ -197,7 +203,7 @@ content = {
                             {
                                 "id": "slicer-box",
                                 "type": "ClutterActor",
-                                "width": 1900,
+                                "width": screen_width-20,
                                 "background-color": "#c9c3c3",
                                 "layout-manager": {
                                     "type": "ClutterBoxLayout",
@@ -207,8 +213,8 @@ content = {
                                     {
                                         "id": "slicer-header",
                                         "type": "ClutterActor",
-                                        "height": 150,
-                                        "width": 1900,
+                                        "height": 150/1080 * screen_height,
+                                        "width": screen_width-20,
                                         "layout-manager": {
                                             "type": "ClutterFixedLayout"
                                         },
@@ -226,16 +232,16 @@ content = {
                                                 "style-class": "slicer",
                                                 "x": 100,
                                                 "y": 15,
-                                                "width": 128,
-                                                "height": 128
+                                                "width": 128/1920*screen_width,
+                                                "height": 128/1080 * screen_height,
                                             }
                                         ]
                                     },
                                     {
                                         "id": "slicer-body",
                                         "type": "ClutterActor",
-                                        "width": 1900,
-                                        "height": 5,
+                                        "width": screen_width-20,
+                                        "height": 5/1080 * screen_height,
                                         "background-color": "#FFF",
                                         "layout-manager": {
                                             "type": "ClutterFixedLayout"
@@ -278,7 +284,7 @@ content = {
                             {
                                 "id": "printer-box",
                                 "type": "ClutterActor",
-                                "width": 1900,
+                                "width": screen_width-20,
                                 "background-color": "#c9c3c3",
                                 "layout-manager": {
                                     "type": "ClutterBoxLayout",
@@ -288,8 +294,8 @@ content = {
                                     {
                                         "id": "printer-header",
                                         "type": "ClutterActor",
-                                        "height": 5,
-                                        "width": 1900,
+                                        "height": 5/1080 * screen_height,
+                                        "width": screen_width-20,
                                         "layout-manager": {
                                             "type": "ClutterFixedLayout"
                                         },
@@ -307,16 +313,16 @@ content = {
                                                 "style-class": "printer",
                                                 "x": 30,
                                                 "y": 18,
-                                                "width": 128,
-                                                "height": 128
+                                                "width": 128/1920*screen_width,
+                                                "height": 128/1080 * screen_height,
                                             }
                                         ]
                                     },
                                     {
                                         "id": "printer-body",
                                         "type": "ClutterActor",
-                                        "width": 780,
-                                        "height": 5,
+                                        "width": 780/1920*screen_width,
+                                        "height": 5/1080 * screen_height,
                                         "background-color": "#FFF",
                                         "layout-manager": {
                                             "type": "ClutterFixedLayout"
@@ -339,8 +345,8 @@ content = {
                     {
                         "id": "scroll-header",
                         "type": "ClutterActor",
-                        "width": 1920,
-                        "height": 90,
+                        "width": screen_width,
+                        "height": 90/1080 * screen_height,
                         "x": 0,
                         "y": 0,
                         "background-color": "#FFF"
@@ -351,8 +357,8 @@ content = {
                         "style-class": "settings",
                         "x": 15,
                         "y": 15,
-                        "width": 128,
-                        "height": 128,
+                        "width": 128/1920*screen_width,
+                        "height": 128/1080 * screen_height,
                         "visible": False
                     },
                     {
@@ -361,8 +367,8 @@ content = {
                         "style-class": "temp",
                         "x": 1777,
                         "y": 15,
-                        "width": 128,
-                        "height": 128,
+                        "width": 128/1920*screen_width,
+                        "height": 128/1080 * screen_height,
                         "visible": True
                     }
                 ]
@@ -370,8 +376,8 @@ content = {
             {
                 "id": "side5-content",
                 "type": "ClutterActor",
-                "width": 1920,
-                "height": 1080,
+                "width": screen_width/1920*screen_width,
+                "height": screen_height/1080 * screen_height,
                 "layout-manager": {
                     "type": "ClutterBinLayout"
                 },
@@ -382,8 +388,8 @@ content = {
                         "layout-manager": {
                             "type": "ClutterFixedLayout"
                         },
-                        "width": 900,
-                        "height": 900,
+                        "width": 900/1920*screen_width,
+                        "height": 900/1080 * screen_height,
                         "children": [
                             {
                                 "id": "splash",
@@ -406,8 +412,8 @@ content = {
                         "style-class": "temp",
                         "x": 1777,
                         "y": 15,
-                        "width": 128,
-                        "height": 128,
+                        "width": 128/1920*screen_width,
+                        "height": 128/1080 * screen_height,
                         "opacity": 0
                     },
                     {
@@ -416,8 +422,8 @@ content = {
                         "style-class": "settings",
                         "x": 15,
                         "y": 15,
-                        "width": 128,
-                        "height": 128,
+                        "width": 128/1920*screen_width,
+                        "height": 128/1080 * screen_height,
                         "opacity": 0
                     }
                 ]

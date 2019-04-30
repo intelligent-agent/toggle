@@ -1,8 +1,16 @@
+import tkinter as tk
+import base_color_scheme
+cs = base_color_scheme.base_color_scheme
+
+root = tk.Tk()
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
 content = {
         "id": "side1",
         "type": "ClutterActor",
-        "width": 1920,
-        "height": 1080,
+        "width": screen_width,
+        "height": screen_height,
         "pivot-point-z": -540.0,
         "pivot-point": [
             0.5,
@@ -20,8 +28,8 @@ content = {
                     {
                         "id": "graph",
                         "type": "ClutterActor",
-                        "width": 1920,
-                        "height": 800,
+                        "width": screen_width,
+                        "height": 800/1080 * screen_height,
                         "y": 80
                     },
                     {
@@ -31,8 +39,8 @@ content = {
                         "is_toggle": True,
                         "x": 596,
                         "y": 900,
-                        "width": 128,
-                        "height": 128
+                        "width": 128/1920 * screen_width,
+                        "height": 128/1080 * screen_height
                     },
                     {
                         "id": "heat-bed",
@@ -41,8 +49,8 @@ content = {
                         "is_toggle": True,
                         "x": 796,
                         "y": 900,
-                        "width": 128,
-                        "height": 128
+                        "width": 128/1920 * screen_width,
+                        "height": 128/1080 * screen_height
                     },
                     {
                         "id": "heat-tool1",
@@ -51,8 +59,8 @@ content = {
                         "is_toggle": True,
                         "x": 996,
                         "y": 900,
-                        "width": 128,
-                        "height": 128
+                        "width": 128/1920 * screen_width,
+                        "height": 128/1080 * screen_height
                     },
                     {
                         "id": "heat-tool2",
@@ -61,8 +69,8 @@ content = {
                         "is_toggle": True,
                         "x": 1196,
                         "y": 900,
-                        "width": 128,
-                        "height": 128
+                        "width": 128/1920 * screen_width,
+                        "height": 128/1080 * screen_height
                     },
                     {
                         "id": "lbl-temp",
@@ -70,8 +78,8 @@ content = {
                         "text": "Temperature",
                         "x": 1205,
                         "y": 1000,
-                        "width": 700,
-                        "height": 50,
+                        "width": 700/1920 * screen_width,
+                        "height": 50/1080 * screen_height,
                         "x-align": 3,
                         "x-expand": True,
                         "line-alignment": 2,
@@ -86,8 +94,8 @@ content = {
                 "is_toggle": True,
                 "x": 15,
                 "y": 15,
-                "height": 128,
-                "width": 128
+                "height": 128/1080 * screen_height,
+                "width": 128/1920 * screen_width
             },
             {
                 "id": "side1-btn-next",
@@ -96,8 +104,8 @@ content = {
                 "is_toggle": True,
                 "x": 1777,
                 "y": 15,
-                "height": 128,
-                "width": 128
+                "height": 128/1080 * screen_height,
+                "width": 128/1920 * screen_width
             }
         ]
     }
