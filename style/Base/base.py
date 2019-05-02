@@ -6,6 +6,9 @@ import clutter_children
 import base_color_scheme
 import wifi_children
 
+## Get the screen width and height ##
+from side_helpers import screen_height, screen_width
+
 
 """
 This is the start of our compositional UI config system.
@@ -29,7 +32,9 @@ We've broken this compositional UI config system into several pieces:
 
   - box_children.py, which stores information about what boxes are in the Toggle UI
 
-  - side<N>.py where N={0,1,2,3}, stores information about each side of the box.
+  - side<N>.py where N={0,1,2,3 ...}, stores information about each side of the box.
+  
+    - This feature will support easily adding new sides to the box for further features
 
   - wifi_children.py, which stores information for the wifi panel of the information page.
 
@@ -42,10 +47,6 @@ cc = clutter_children.clutter_children
 bcs = base_color_scheme.base_color_scheme
 wc = wifi_children.wifi_children
 
-### get the screen resolution ###
-root = tk.Tk()
-screen_width = root.winfo_screenwidth()
-screen_height = root.winfo_screenheight()
 
 conf = [{
     "id":

@@ -2,6 +2,10 @@ import tkinter as tk
 import base_color_scheme
 from side_helpers import ch, cw, screen_width, screen_height
 
+"""
+functions as the wifi settings side of the box (page)
+"""
+
 bcs = base_color_scheme.base_color_scheme
 
 content = {
@@ -15,7 +19,7 @@ content = {
             0.0
         ],
         "rotation-angle-y": 0.0,
-        "background-color":  bcs["scroll_pane"],
+        "background-color": bcs["scroll_pane"],
         "children": [
             {
                 "id": "side0-content",
@@ -372,6 +376,8 @@ content = {
                     }
                 ]
             },
+
+            ## if you are confused why side5-content is here, we are too ##
             {
                 "id": "side5-content",
                 "type": "ClutterActor",

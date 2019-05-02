@@ -3,6 +3,11 @@ import base_color_scheme
 bcs = base_color_scheme.base_color_scheme
 from side_helpers import ch, cw, screen_width, screen_height
 
+"""
+This is the side that has a house, some fan buttons, and 3 tens at the bottom.
+At this point, I don't know how to describe it better :)
+"""
+
 content = {
         "id": "side3",
         "type": "ClutterActor",

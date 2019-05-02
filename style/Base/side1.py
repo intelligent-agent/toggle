@@ -3,6 +3,10 @@ import base_color_scheme
 from side_helpers import ch, cw, screen_width, screen_height
 bcs = base_color_scheme.base_color_scheme
 
+"""
+This side is the temperature graph.
+"""
+
 content = {
         "id": "side1",
         "type": "ClutterActor",

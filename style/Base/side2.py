@@ -2,6 +2,13 @@ import tkinter as tk
 import base_color_scheme
 from side_helpers import ch, cw, screen_width, screen_height
 
+"""
+This side is the main control side.
+
+Its key features are pause, play, and a 3D-rendering box to track progress (model in progress),
+and a progress bar
+"""
+
 bcs = base_color_scheme.base_color_scheme
 
 content = {
