@@ -23,7 +23,7 @@ content = {
         ],
         "rotation-angle-y": 270.0,
         "visible": False,
-        "background-color": bcs.background,
+        "background-color": bcs["background"],
         "children": [
             {
                 "id": "side3-content",
@@ -38,7 +38,7 @@ content = {
                         "y": 160,
                         "width": cw(700),
                         "height": ch(700),
-                        "background-color": bcs.background,
+                        "background-color": bcs["background"],
                         "children": [
                             {
                                 "id": "jog_x_minus",
