@@ -83,7 +83,7 @@ content = {
                                         "type": "ClutterActor",
                                         "background-color": "#FFF",
                                         "width": screen_width-20,
-                                        "height": 5/1080 * screen_height,,
+                                        "height": 5/1080 * screen_height,
                                         "layout-manager": {
                                             "type": "ClutterFixedLayout"
                                         },
@@ -150,7 +150,7 @@ content = {
                                     {
                                         "id": "wifi-header",
                                         "type": "ClutterActor",
-                                        "height": 150/1080 * screen_height,,
+                                        "height": 150/1080 * screen_height,
                                         "width": screen_width-20,
                                         "layout-manager": {
                                             "type": "ClutterFixedLayout"
