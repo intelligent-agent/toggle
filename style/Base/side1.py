@@ -1,6 +1,6 @@
 import tkinter as tk
 import base_color_scheme
-cs = base_color_scheme.base_color_scheme
+bcs = base_color_scheme.base_color_scheme
 
 root = tk.Tk()
 screen_width = root.winfo_screenwidth()
@@ -17,13 +17,13 @@ content = {
             0.0
         ],
         "rotation-angle-y": 90.0,
-        "background-color": "white",
+        "background-color": bcs.background,
         "visible": False,
         "children": [
             {
                 "id": "side1-content",
                 "type": "ClutterActor",
-                "background-color": "#FFFFFFFF",
+                "background-color":  bcs.background,
                 "children": [
                     {
                         "id": "graph",

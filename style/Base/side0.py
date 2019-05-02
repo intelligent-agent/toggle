@@ -1,6 +1,6 @@
 import tkinter as tk
 import base_color_scheme
-cs = base_color_scheme.base_color_scheme
+bcs = base_color_scheme.base_color_scheme
 
 root = tk.Tk()
 screen_width = root.winfo_screenwidth()
@@ -16,7 +16,7 @@ content = {
             0.0
         ],
         "rotation-angle-y": 0.0,
-        "background-color": "white",
+        "background-color":  bcs.scroll_pane,
         "children": [
             {
                 "id": "side0-content",
@@ -34,7 +34,7 @@ content = {
                         "width": screen_width-20,
                         "y": 80,
                         "x": 10,
-                        "background-color": "#EEE",
+                        "background-color":  bcs.background,
                         "scroll-mode": 1,
                         "layout-manager": {
                             "type": "ClutterBoxLayout",
@@ -45,7 +45,7 @@ content = {
                                 "id": "network-box",
                                 "type": "ClutterActor",
                                 "width": screen_width-20,
-                                "background-color": "#c9c3c3",
+                                "background-color": bcs.box_bg,
                                 "layout-manager": {
                                     "type": "ClutterBoxLayout",
                                     "orientation": 1
@@ -81,7 +81,7 @@ content = {
                                     {
                                         "id": "network-body",
                                         "type": "ClutterActor",
-                                        "background-color": "#FFF",
+                                        "background-color": bcs.background,
                                         "width": screen_width-20,
                                         "height": 5/1080 * screen_height,
                                         "layout-manager": {
@@ -141,7 +141,7 @@ content = {
                                 "id": "wifi-box",
                                 "type": "ClutterActor",
                                 "width": screen_width-20,
-                                "background-color": "#c9c3c3",
+                                "background-color": bcs.box_bg,
                                 "layout-manager": {
                                     "type": "ClutterBoxLayout",
                                     "orientation": 1
@@ -177,7 +177,7 @@ content = {
                                     {
                                         "id": "wifi-body",
                                         "type": "ClutterActor",
-                                        "background-color": "#FFF",
+                                        "background-color": bcs.background,
                                         "width": screen_width-20,
                                         "height": 5/1080 * screen_height,
                                         "children": [
@@ -204,7 +204,7 @@ content = {
                                 "id": "slicer-box",
                                 "type": "ClutterActor",
                                 "width": screen_width-20,
-                                "background-color": "#c9c3c3",
+                                "background-color": bcs.box_bg,
                                 "layout-manager": {
                                     "type": "ClutterBoxLayout",
                                     "orientation": 1
@@ -242,7 +242,7 @@ content = {
                                         "type": "ClutterActor",
                                         "width": screen_width-20,
                                         "height": 5/1080 * screen_height,
-                                        "background-color": "#FFF",
+                                        "background-color": bcs.background,
                                         "layout-manager": {
                                             "type": "ClutterFixedLayout"
                                         },
@@ -285,7 +285,7 @@ content = {
                                 "id": "printer-box",
                                 "type": "ClutterActor",
                                 "width": screen_width-20,
-                                "background-color": "#c9c3c3",
+                                "background-color": bcs.box_bg,
                                 "layout-manager": {
                                     "type": "ClutterBoxLayout",
                                     "orientation": 1
@@ -323,7 +323,7 @@ content = {
                                         "type": "ClutterActor",
                                         "width": 780/1920*screen_width,
                                         "height": 5/1080 * screen_height,
-                                        "background-color": "#FFF",
+                                        "background-color": bcs.background,
                                         "layout-manager": {
                                             "type": "ClutterFixedLayout"
                                         },
@@ -349,7 +349,7 @@ content = {
                         "height": 90/1080 * screen_height,
                         "x": 0,
                         "y": 0,
-                        "background-color": "#FFF"
+                        "background-color": bcs.background
                     },
                     {
                         "id": "side0-btn-prev",
