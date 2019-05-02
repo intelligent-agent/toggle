@@ -31,7 +31,9 @@ We've broken this compositional UI config system into several pieces:
 
   - side<N>.py where N={0,1,2,3}, stores information about
 
-  - wifi_children.py, which 
+  - wifi_children.py, which stores information for the wifi panel of the information page.
+
+There's more documentation about what's in each file is in that file.
 """
 
 ### finish imports ###

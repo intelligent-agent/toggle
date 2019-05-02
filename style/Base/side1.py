@@ -2,6 +2,7 @@ import tkinter as tk
 import base_color_scheme
 bcs = base_color_scheme.base_color_scheme
 
+
 root = tk.Tk()
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()

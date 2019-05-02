@@ -4,6 +4,14 @@ bcs = base_color_scheme.base_color_scheme
 
 import tkinter as tk
 
+"""
+This file is part of the compositional UI config generation system
+
+It deals with children of the wifi settings and wifi information panels.
+"""
+
+
+
 ### get the screen resolution ###
 root = tk.Tk()
 screen_width = root.winfo_screenwidth()

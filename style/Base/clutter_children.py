@@ -5,6 +5,12 @@ root = tk.Tk()
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 
+"""
+This file stores information about the clutter
+children for the box
+"""
+
+
 clutter_children = [{
     "id": "connection",
     "type": "MxButton",
