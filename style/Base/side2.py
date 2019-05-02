@@ -23,12 +23,12 @@ content = {
         ],
         "rotation-angle-y": 180.0,
         "visible": False,
-        "background-color": bcs.background,
+        "background-color": bcs["background"],
         "children": [
             {
                 "id": "side2-content",
                 "type": "ClutterActor",
-                "background-color": bcs.background,
+                "background-color": bcs["background"],
                 "children": [
                     {
                         "id": "content-flip",
