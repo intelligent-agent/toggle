@@ -1,15 +1,8 @@
 import tkinter as tk
 import base_color_scheme
+from side_helpers import ch, cw, screen_width, screen_height
+
 bcs = base_color_scheme.base_color_scheme
-
-root = tk.Tk()
-screen_width = root.winfo_screenwidth()
-screen_height = root.winfo_screenheight()
-
-def cw (w):
-    return w/1920 * screen_width
-def ch (h):
-    return h/1080 * screen_height
 
 content = {
         "id": "side2",

@@ -29,7 +29,7 @@ We've broken this compositional UI config system into several pieces:
 
   - box_children.py, which stores information about what boxes are in the Toggle UI
 
-  - side<N>.py where N={0,1,2,3}, stores information about
+  - side<N>.py where N={0,1,2,3}, stores information about each side of the box.
 
   - wifi_children.py, which stores information for the wifi panel of the information page.
 

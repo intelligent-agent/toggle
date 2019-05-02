@@ -1,11 +1,7 @@
 import tkinter as tk
 import base_color_scheme
+from side_helpers import ch, cw, screen_width, screen_height
 bcs = base_color_scheme.base_color_scheme
-
-
-root = tk.Tk()
-screen_width = root.winfo_screenwidth()
-screen_height = root.winfo_screenheight()
 
 content = {
         "id": "side1",
@@ -30,7 +26,7 @@ content = {
                         "id": "graph",
                         "type": "ClutterActor",
                         "width": screen_width,
-                        "height": 800/1080 * screen_height,
+                        "height": ch(800),
                         "y": 80
                     },
                     {
@@ -40,8 +36,8 @@ content = {
                         "is_toggle": True,
                         "x": 596,
                         "y": 900,
-                        "width": 128/1920 * screen_width,
-                        "height": 128/1080 * screen_height
+                        "width": cw(128),
+                        "height": ch(128),
                     },
                     {
                         "id": "heat-bed",
@@ -50,8 +46,8 @@ content = {
                         "is_toggle": True,
                         "x": 796,
                         "y": 900,
-                        "width": 128/1920 * screen_width,
-                        "height": 128/1080 * screen_height
+                        "width": cw(128),
+                        "height": ch(128),
                     },
                     {
                         "id": "heat-tool1",
@@ -60,8 +56,8 @@ content = {
                         "is_toggle": True,
                         "x": 996,
                         "y": 900,
-                        "width": 128/1920 * screen_width,
-                        "height": 128/1080 * screen_height
+                        "width": cw(128),
+                        "height": ch(128),
                     },
                     {
                         "id": "heat-tool2",
@@ -70,8 +66,8 @@ content = {
                         "is_toggle": True,
                         "x": 1196,
                         "y": 900,
-                        "width": 128/1920 * screen_width,
-                        "height": 128/1080 * screen_height
+                        "width": cw(128),
+                        "height": ch(128),
                     },
                     {
                         "id": "lbl-temp",
@@ -79,8 +75,8 @@ content = {
                         "text": "Temperature",
                         "x": 1205,
                         "y": 1000,
-                        "width": 700/1920 * screen_width,
-                        "height": 50/1080 * screen_height,
+                        "width": cw(700),
+                        "height": ch(50),
                         "x-align": 3,
                         "x-expand": True,
                         "line-alignment": 2,
@@ -95,8 +91,8 @@ content = {
                 "is_toggle": True,
                 "x": 15,
                 "y": 15,
-                "height": 128/1080 * screen_height,
-                "width": 128/1920 * screen_width
+                "height": ch(128),
+                "width": cw(128),
             },
             {
                 "id": "side1-btn-next",
@@ -105,8 +101,8 @@ content = {
                 "is_toggle": True,
                 "x": 1777,
                 "y": 15,
-                "height": 128/1080 * screen_height,
-                "width": 128/1920 * screen_width
+                "height": ch(128),
+                "width": cw(128),
             }
         ]
     }
