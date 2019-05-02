@@ -16,7 +16,7 @@ content = {
             0.0
         ],
         "rotation-angle-y": 0.0,
-        "background-color":  bcs.scroll_pane,
+        "background-color":  bcs["scroll_pane"],
         "children": [
             {
                 "id": "side0-content",
@@ -34,7 +34,7 @@ content = {
                         "width": screen_width-20,
                         "y": 80,
                         "x": 10,
-                        "background-color":  bcs.background,
+                        "background-color":  bcs["background"],
                         "scroll-mode": 1,
                         "layout-manager": {
                             "type": "ClutterBoxLayout",
@@ -45,7 +45,7 @@ content = {
                                 "id": "network-box",
                                 "type": "ClutterActor",
                                 "width": screen_width-20,
-                                "background-color": bcs.box_bg,
+                                "background-color": bcs["box_bg"],
                                 "layout-manager": {
                                     "type": "ClutterBoxLayout",
                                     "orientation": 1
@@ -81,7 +81,7 @@ content = {
                                     {
                                         "id": "network-body",
                                         "type": "ClutterActor",
-                                        "background-color": bcs.background,
+                                        "background-color": bcs["background"],
                                         "width": screen_width-20,
                                         "height": 5/1080 * screen_height,
                                         "layout-manager": {
@@ -141,7 +141,7 @@ content = {
                                 "id": "wifi-box",
                                 "type": "ClutterActor",
                                 "width": screen_width-20,
-                                "background-color": bcs.box_bg,
+                                "background-color": bcs["box_bg"],
                                 "layout-manager": {
                                     "type": "ClutterBoxLayout",
                                     "orientation": 1
@@ -150,7 +150,7 @@ content = {
                                     {
                                         "id": "wifi-header",
                                         "type": "ClutterActor",
-                                        "height": 150/1080 * screen_height,,
+                                        "height": 150/1080 * screen_height,
                                         "width": screen_width-20,
                                         "layout-manager": {
                                             "type": "ClutterFixedLayout"
@@ -177,7 +177,7 @@ content = {
                                     {
                                         "id": "wifi-body",
                                         "type": "ClutterActor",
-                                        "background-color": bcs.background,
+                                        "background-color": bcs["background"],
                                         "width": screen_width-20,
                                         "height": 5/1080 * screen_height,
                                         "children": [
@@ -204,7 +204,7 @@ content = {
                                 "id": "slicer-box",
                                 "type": "ClutterActor",
                                 "width": screen_width-20,
-                                "background-color": bcs.box_bg,
+                                "background-color": bcs["box_bg"],
                                 "layout-manager": {
                                     "type": "ClutterBoxLayout",
                                     "orientation": 1
@@ -242,7 +242,7 @@ content = {
                                         "type": "ClutterActor",
                                         "width": screen_width-20,
                                         "height": 5/1080 * screen_height,
-                                        "background-color": bcs.background,
+                                        "background-color": bcs["background"],
                                         "layout-manager": {
                                             "type": "ClutterFixedLayout"
                                         },
@@ -285,7 +285,7 @@ content = {
                                 "id": "printer-box",
                                 "type": "ClutterActor",
                                 "width": screen_width-20,
-                                "background-color": bcs.box_bg,
+                                "background-color": bcs["box_bg"],
                                 "layout-manager": {
                                     "type": "ClutterBoxLayout",
                                     "orientation": 1
@@ -323,7 +323,7 @@ content = {
                                         "type": "ClutterActor",
                                         "width": 780/1920*screen_width,
                                         "height": 5/1080 * screen_height,
-                                        "background-color": bcs.background,
+                                        "background-color": bcs["background"],
                                         "layout-manager": {
                                             "type": "ClutterFixedLayout"
                                         },
@@ -349,7 +349,7 @@ content = {
                         "height": 90/1080 * screen_height,
                         "x": 0,
                         "y": 0,
-                        "background-color": bcs.background
+                        "background-color": bcs["background"]
                     },
                     {
                         "id": "side0-btn-prev",

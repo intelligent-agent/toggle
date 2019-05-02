@@ -17,13 +17,13 @@ content = {
             0.0
         ],
         "rotation-angle-y": 90.0,
-        "background-color": bcs.background,
+        "background-color": bcs["background"],
         "visible": False,
         "children": [
             {
                 "id": "side1-content",
                 "type": "ClutterActor",
-                "background-color":  bcs.background,
+                "background-color":  bcs["background"],
                 "children": [
                     {
                         "id": "graph",
