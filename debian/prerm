@@ -1,6 +1,0 @@
-#!/bin/sh
-
-# Shutdown and remove toggle.service
-systemctl stop toggle.service
-systemctl disable toggle.service
-
