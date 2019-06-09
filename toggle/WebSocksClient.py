@@ -17,7 +17,7 @@ import string
 import logging
 import sys
 
-from .Event import PushUpdate
+from Event import PushUpdate
 
 APPLICATION_JSON = 'application/json'
 
@@ -35,16 +35,16 @@ class WebSocksClient():
   CONNECTED = 2
   FAILED = 3
 
-  def __init__(self, config=None, host="ws://kamikaze.local"):
+  def __init__(self, config=None):
     self.config = config
-    self.host = host
-    self.connect_timeout = 60
-    self.request_timeout = 60
-    self._prefix = "/sockjs"
-    self._r1 = str(random.randint(0, 1000))
-    self._conn_id = self.random_str(8)
-
-    self.url = host + '/'.join([self._prefix, 'websocket'])
+    host = config.get("Server", "host")
+    port = str(config.get("Server", "port"))
+    self.connect_timeout = DEFAULT_CONNECT_TIMEOUT
+    try:
+      self.request_timeout = self.config.getint("OctoPrint", "timeout")
+    except:
+      self.request_timeout = DEFAULT_REQUEST_TIMEOUT
+    self.url = '/'.join(["ws://{}:{}".format(host, port), 'sockjs', 'websocket'])
 
     self.max_reconnects = 10
     self.state = WebSocksClient.CLOSED
@@ -57,7 +57,7 @@ class WebSocksClient():
         self.url, io_loop=self.io_loop, callback=self._connect_callback)
 
   def authenticate(self, apikey):
-    user = self.config.get("WebSocket", "user")
+    user = self.config.get("OctoPrint", "user")
     logging.debug("Authenticating with " + user + ":" + apikey)
     msg = '{ "auth" : "' + str(user) + ':' + str(apikey) + '" }'
     logging.info("Sending message " + msg)
@@ -75,10 +75,8 @@ class WebSocksClient():
     """
     Close connection.
     """
-
     if not self._ws_connection:
       raise RuntimeError('Web socket connection is already closed.')
-
     self._ws_connection.close()
 
   def _connect_callback(self, future):
@@ -96,7 +94,6 @@ class WebSocksClient():
       if msg is None:
         self._on_connection_close()
         break
-
       self._on_message(msg)
 
   def _on_message(self, msg):
@@ -107,9 +104,8 @@ class WebSocksClient():
     data = json.loads(msg)
     if 'connected' in data:
       logging.debug("SockJS: Socket connected")
-      apik = data['connected']['apikey']
+      apik = self.config.get("OctoPrint", "apikey")
       self.authenticate(apik)
-
     self.parse_msg(data)
 
   def _on_connection_success(self):
@@ -121,15 +117,14 @@ class WebSocksClient():
 
   def _on_connection_close(self):
     """
-    This is called when server closed the connection.
+    This is called when the server closes the connection.
     """
     self.state = WebSocksClient.CLOSED
     logging.debug('Websocket connection closed!')
 
   def _on_connection_error(self, exception):
     """
-    This is called in case if connection to the server could
-    not established.
+    This is called if the connection to the server could not be established.
     """
     self.state = WebSocksClient.FAILED
     self.io_loop.stop()
@@ -144,19 +139,17 @@ class WebSocksClient():
       logging.warning("Unable to parse message from Octoprint " + str(e))
       logging.warning("messsage was " + str(msg))
 
-  def random_str(self, length):
-    letters = string.ascii_lowercase + string.digits
-    return ''.join(random.choice(letters) for c in range(length))
-
   def run(self):
-    for i in range(self.config.getint("Rest", "timeout")):
+    for i in range(self.request_timeout):
       if self.running:
-        self.config.splash.set_status("Connecting to {} ({})".format(self.host, i))
+        self.config.splash.set_status("Connecting to {} ({})".format(
+            self.config.get("Server", "host"), i))
         logging.debug("Websocket connection attempt " + str(i))
         self.connect()
         self.io_loop.start()
         time.sleep(1)
-    self.config.splash.set_status("Unable to connect to " + self.host)
+    self.config.splash.set_status("Unable to connect to {}".format(
+        self.config.get("Server", "host")))
     self.config.splash.enable_next()
 
   def start(self):
@@ -170,24 +163,25 @@ class WebSocksClient():
     self.thread.join()
 
 
-def main():
-  logging.basicConfig(
-      level=logging.DEBUG,
-      format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-      datefmt='%m-%d %H:%M')
-
-  client = WebSocksClient(None, "ws://kamikaze.local")
-
-  def work():
-    for i in range(10):
-      print(i)
-      time.sleep(1)
-
-  client.start()
-  threading.Thread(target=work).start()
-  time.sleep(10)
-  client.stop()
-
-
 if __name__ == '__main__':
+
+  def main():
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+        datefmt='%m-%d %H:%M')
+
+    settings = {'Server': {'host': 'localhost', 'port': 5000}}
+    client = WebSocksClient(settings)
+
+    def work():
+      for i in range(10):
+        print i
+        time.sleep(1)
+
+    client.start()
+    threading.Thread(target=work).start()
+    time.sleep(10)
+    client.stop()
+
   main()

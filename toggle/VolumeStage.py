@@ -55,7 +55,7 @@ class VolumeStage(Clutter.Actor):
     self.panning = True
     self.start_x = self.p.get_rotation_angle(Clutter.RotateAxis.Y_AXIS)
     self.start_y = self.spinner.get_rotation_angle(Clutter.RotateAxis.X_AXIS)
-    #print "pan begin"
+    #print ("pan begin")
     return True
 
   def pan_end(self, action, actor):

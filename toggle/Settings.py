@@ -94,7 +94,7 @@ class Settings():
 
     # Add remote address
     remote_host_name = self.config.ui.get_object("remote-hostname")
-    remote_host_name.set_text(self.config.get("Rest", "hostname"))
+    remote_host_name.set_text(self.config.get("Server", "host"))
 
     # Add Slicer height
     slicer_layer_height = self.config.ui.get_object("slicer-layer-height")
@@ -121,7 +121,6 @@ class Settings():
     ssid_combo = self.config.ui.get_object("wifi-ssid")
     self.actor_width = wifi_body.get_width()
     aps = self.config.network.get_access_points()
-
     for ap in aps:
       wifi_body.add_actor(self.make_wifi_tab(ap))
 
@@ -131,11 +130,11 @@ class Settings():
     actor.set_size(self.actor_width, 40)
     text = Mx.Label()
     text.set_position(120, 0)
+    apName = ap["service"][1]["Name"]
     if ap["active"]:
-      text.set_text("* " + ap["name"])
+      text.set_text("* " + apName)
     else:
-      text.set_text(ap["name"])
-    #text.set_font_name("Sans 16")
+      text.set_text("  " + apName)    # the space is to keep the names aligned on the display
     text.set_style_class("wifi")
     actor.add_actor(text)
     tap = Clutter.TapAction()
