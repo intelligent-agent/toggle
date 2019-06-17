@@ -175,8 +175,6 @@ setup(
         'configs/kossel_mini.cfg',
         'configs/makerbot_cupcake.cfg',
         'models/probe-point.stl']),
-      ('/lib/systemd/system/', [
-        'systemd/toggle.service']),
       ('./', [
         'README.md'])
     ],
