@@ -121,7 +121,6 @@ class Settings():
     ssid_combo = self.config.ui.get_object("wifi-ssid")
     self.actor_width = wifi_body.get_width()
     aps = self.config.network.get_access_points()
-
     for ap in aps:
       wifi_body.add_actor(self.make_wifi_tab(ap))
 
@@ -131,11 +130,11 @@ class Settings():
     actor.set_size(self.actor_width, 40)
     text = Mx.Label()
     text.set_position(120, 0)
+    apName = ap["service"][1]["Name"]
     if ap["active"]:
-      text.set_text("* " + ap["name"])
+      text.set_text("* " + apName)
     else:
-      text.set_text(ap["name"])
-    #text.set_font_name("Sans 16")
+      text.set_text("  " + apName)    # the space is to keep the names aligned on the display
     text.set_style_class("wifi")
     actor.add_actor(text)
     tap = Clutter.TapAction()
@@ -225,17 +224,17 @@ class Settings():
              ["a", "s", "d", "f", "g", "h", "j", "k", "l", "'"],
              [" ^", "z", "x", "c", "v", "b", "n", "m", ",", ".", " ^"],
              [" 123 ", "                                        ", " }]? "]
-            ],
+             ],
             [["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", " << "],
              ["=", "-", "+", "*", "/", "\\", ":", ";", "'", "\""],
              ["(", ")", "#", "$", "!", "?", "@", "m", ",", "."],
              [" ABC ", "                                        ", " ABC "]
-            ],
+             ],
             [["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", " << "],
              ["A", "S", "D", "F", "G", "H", "J", "K", "L", "'"],
              ["^ ", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "^ "],
              [" 123 ", "                                        ", " }]? "]
-           ]]
+             ]]
     # yapf: enable
 
     for i, row in enumerate(keys[keyset]):

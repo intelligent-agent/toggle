@@ -1,5 +1,31 @@
 #!/usr/bin/env python3
 #! -*- coding: utf-8 -*-
+from .Jog import Jog
+from .Network import Network, NetworkManager, ConnMan
+from .Settings import Settings
+from .Splash import Splash
+from .CubeTabs import CubeTabs
+from .FilamentGraph import FilamentGraph
+from .TemperatureGraph import TemperatureGraph
+from .Graph import Graph, GraphScale, GraphPlot
+from .Message import Message
+from .Event import Event, PushUpdate, LocalUpdate
+from .RestClient import RestClient
+from .WebSocksClient import WebSocksClient
+from .CascadingConfigParser import CascadingConfigParser
+from .Printer import Printer
+from .ModelLoader import ModelLoader
+from .VolumeStage import VolumeStage
+from .Plate import Plate
+from .Model import Model
+from threading import Thread, current_thread
+from multiprocessing import JoinableQueue
+from gi.repository import Clutter, Mx
+import os
+import sys
+import queue as Queue
+import time
+import logging
 """
 The main entry point for Toggle.
 
@@ -101,8 +127,8 @@ class Toggle:
     if level > 0:
       logging.getLogger().setLevel(level)
 
-    sys.stdout = LoggerWriter(config, logging, 20)
-    sys.stderr = LoggerWriter(config, logging, 50)
+    sys.stdout = LoggerWriter(config, logging, logging.INFO)
+    sys.stderr = LoggerWriter(config, logging, logging.FATAL)
 
     Clutter.init(None)
 
@@ -176,9 +202,9 @@ class Toggle:
 
   def run(self):
     """
-    Start the program. Can be called from
-    this file or from a start-up script.
-    """
+        Start the program. Can be called from
+        this file or from a start-up script.
+        """
     # Flip and move the stage to the right location
     # This has to be done in the application, since it is a
     # fbdev app

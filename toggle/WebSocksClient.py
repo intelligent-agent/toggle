@@ -104,7 +104,7 @@ class WebSocksClient():
     data = json.loads(msg)
     if 'connected' in data:
       logging.debug("SockJS: Socket connected")
-      apik = data['connected']['apikey']
+      apik = self.config.get("OctoPrint", "apikey")
       self.authenticate(apik)
     self.parse_msg(data)
 
