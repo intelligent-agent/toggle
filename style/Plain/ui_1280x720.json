@@ -364,7 +364,7 @@
                             "text": "Toggle initializing...",
                             "color": "white",
                             "x": 55,
-                            "y": 490,
+                            "y": 520,
                             "font-description": "Sans 16"
                         }]
                     },{
@@ -421,7 +421,7 @@
                         "type": "MxButton",
                         "style-class": "heat",
                         "is_toggle": true,
-                        "x": 600,
+                        "x": 550,
                         "y": 590,
                         "width": 100,
                         "height": 100
@@ -430,7 +430,7 @@
                         "type": "MxButton",
                         "style-class": "heat",
                         "is_toggle": true,
-                        "x": 800,
+                        "x": 700,
                         "y": 590,
                         "width": 100,
                         "height": 100
@@ -439,7 +439,7 @@
                         "type": "MxButton",
                         "style-class": "heat",
                         "is_toggle": true,
-                        "x": 1000,
+                        "x": 850,
                         "y": 590,
                         "width": 100,
                         "height": 100
@@ -447,14 +447,14 @@
                         "id": "lbl-temp",
                         "type": "ClutterText",
                         "text": "Temperature",
-                        "x": 1205,
-                        "y": 600,
-                        "width": 700,
-                        "height": 50,
+                        "x": 1000,
+                        "y": 650,
+                        "width": 250,
+                        "height": 30,
                         "x-align": 3,
                         "x-expand": true,
                         "line-alignment": 2,
-                        "font-description": "Sans 32"
+                        "font-description": "Sans 16"
                     }]
                 },{
                     "id": "side1-btn-prev",
@@ -599,8 +599,8 @@
                     },{
                         "id": "time-gone",
                         "type": "ClutterText",
-                        "x": 865,
-                        "y": 600,
+                        "x": 850,
+                        "y": 620,
                         "width": 150,
                         "height": 25,
                         "font-description": "Sans 16"
@@ -608,7 +608,7 @@
                         "id": "time-left",
                         "type": "ClutterText",
                         "x": 1100,
-                        "y": 600,
+                        "y": 620,
                         "width": 150,
                         "height": 25,
                         "x-align": 3,
