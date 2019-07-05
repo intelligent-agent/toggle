@@ -16,6 +16,7 @@ import random
 import string
 import logging
 import sys
+import asyncio
 
 from .Event import PushUpdate
 
@@ -48,13 +49,11 @@ class WebSocksClient():
 
     self.max_reconnects = 10
     self.state = WebSocksClient.CLOSED
-    self.io_loop = ioloop.IOLoop.current()
 
   def connect(self):
     logging.debug("Connecting to " + self.url)
     self.state = WebSocksClient.CONNECTING
-    self._ws_connection = websocket.websocket_connect(
-        self.url, io_loop=self.io_loop, callback=self._connect_callback)
+    self._ws_connection = websocket.websocket_connect(self.url, callback=self._connect_callback)
 
   def authenticate(self, apikey):
     user = self.config.get("OctoPrint", "user")
@@ -127,7 +126,6 @@ class WebSocksClient():
     This is called if the connection to the server could not be established.
     """
     self.state = WebSocksClient.FAILED
-    self.io_loop.stop()
     logging.debug('Websocket connection error: %s', exception)
 
   def parse_msg(self, data):
@@ -140,13 +138,14 @@ class WebSocksClient():
       logging.warning("messsage was " + str(msg))
 
   def run(self):
+    asyncio.set_event_loop(asyncio.new_event_loop())
     for i in range(self.request_timeout):
       if self.running:
         self.config.splash.set_status("Connecting to {} ({})".format(
             self.config.get("Server", "host"), i))
         logging.debug("Websocket connection attempt " + str(i))
         self.connect()
-        self.io_loop.start()
+        ioloop.IOLoop.instance().start()
         time.sleep(1)
     self.config.splash.set_status("Unable to connect to {}".format(
         self.config.get("Server", "host")))
@@ -159,7 +158,6 @@ class WebSocksClient():
 
   def stop(self):
     self.running = False
-    self.io_loop.stop()
     self.thread.join()
 
 
