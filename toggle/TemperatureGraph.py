@@ -111,7 +111,7 @@ class TemperatureGraph():
     if "tool1" in temp:
       self.lbl_temp.set_text("B:{} T0:{} T1:{}".format(
           temp["bed"]["actual"], temp["tool0"]["actual"], temp["tool1"]["actual"]))
-    else:
+    elif "bed" in temp:
       self.lbl_temp.set_text("B:{} T0:{}".format(temp["bed"]["actual"], temp["tool0"]["actual"]))
 
     # Update preheat button states

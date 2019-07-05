@@ -71,9 +71,9 @@ class PushUpdate:
 
   def plugin(self):
     plugin_type = self.payload["data"]["type"]
-    plugin_data = self.payload["data"]["data"]
     plugin_name = self.payload["plugin"]
     if plugin_type == "filament_sensor":
+      plugin_data = self.payload["data"]["data"]
       self.config.filament_graph.update_filaments(plugin_data)
 
       #logging.debug("filament sensor data")
