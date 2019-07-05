@@ -53,8 +53,7 @@ class WebSocksClient():
   def connect(self):
     logging.debug("Connecting to " + self.url)
     self.state = WebSocksClient.CONNECTING
-    self._ws_connection = websocket.websocket_connect(
-        self.url, callback=self._connect_callback)
+    self._ws_connection = websocket.websocket_connect(self.url, callback=self._connect_callback)
 
   def authenticate(self, apikey):
     user = self.config.get("OctoPrint", "user")
