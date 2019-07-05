@@ -564,7 +564,7 @@
                             "type": "ClutterText",
                             "x": 15,
                             "y": 410,
-                            "font-description": "Sans 32"
+                            "font-description": "Sans 16"
                         },{
                             "id": "lbl-model",
                             "type": "ClutterText",
