@@ -1,7 +1,7 @@
 # Network connection manager
 import socket
 import os
-
+import uuid
 
 class Network:
   def __init__(self):
@@ -169,14 +169,14 @@ class NetworkManager(Network):
   def get_access_points(self):
     aps = []
     aap = self.wifi.ActiveAccessPoint if self.wifi.State == self.nm.NM_DEVICE_STATE_ACTIVATED else None
-
     for ap in self.wifi.SpecificDevice().GetAccessPoints():
       if hasattr(self.wifi.SpecificDevice().ActiveAccessPoint, "HwAddress"):
         i = {
             "name": ap.Ssid,
             "active": ap.HwAddress == self.wifi.SpecificDevice().ActiveAccessPoint.HwAddress,
             "service": ap,
-            "strength": ap.Strength
+            "strength": ap.Strength,
+            "password": None
         }
         aps.append(i)
     return aps
@@ -185,8 +185,7 @@ class NetworkManager(Network):
     return self.wifi.get_active_access_point()
 
   def ap_needs_password(self, ap):
-    # Assume all APs need a password
-    return False
+    return not self.is_known_connection(ap)
 
   # Perform a wifi scan
   def scan(self):
@@ -198,105 +197,41 @@ class NetworkManager(Network):
   def connection_finished_cb(self, other):
     print(other)
 
-  # Update the password on an existing AP.
   def update_password(self, ap, passwd):
-    pass
+    ap["password"] = passwd
 
-  # Add a connection not previously seen
   def add_connection(self, ap):
-    pass
+      # Assume wpa-psk security
+      # Todo: Figure out the type of security for the AP.
+      new_connection = {
+       '802-11-wireless': {'mode': 'infrastructure',
+                           'security': '802-11-wireless-security',
+                           'ssid': ap["name"]},
+       '802-11-wireless-security': {'auth-alg': 'open', 'key-mgmt': 'wpa-psk'},
+       'connection': {'id': ap["name"],
+                      'type': '802-11-wireless',
+                      'uuid': str(uuid.uuid4())},
+       'ipv4': {'method': 'auto'},
+       'ipv6': {'method': 'auto'}
+      }
+      return self.nm.Settings.AddConnection(new_connection)
+
+  def get_known_connections(self):
+    connections = self.nm.Settings.ListConnections()
+    return dict([(x.GetSettings()['connection']['id'], x) for x in connections])
 
   # Activate a Wifi AP/SSID
   def activate_connection(self, ap):
-    connections = self.nm.Settings.ListConnections()
-    connections = dict([(x.GetSettings()['connection']['id'], x) for x in connections])
-    conn = connections[ap["name"]]
+    if self.is_known_connection(ap):
+      connections = self.get_known_connections()
+      conn = connections[ap["name"]]
+    else:
+      conn = self.add_connection(ap)
     self.nm.NetworkManager.ActivateConnection(conn, self.wifi, "/")
     return "OK"
 
-
-class NetworkManagerGI(Network):
-  def __init__(self):
-    Network.__init__(self)
-    import gi
-    gi.require_version('NetworkManager', '1.0')
-    gi.require_version('NMClient', '1.0')
-    from gi.repository import NetworkManager, NMClient
-    self.nm = NetworkManager
-    self.nmc = NMClient
-    self.client = self.nmc.Client.new()
-    self.devices = self.client.get_devices()
-    self.access_points = []
-    self.wifi = None
-    self.ethernet = None
-
-    for dev in self.devices:
-      if dev.get_device_type() == self.nm.DeviceType.WIFI:
-        self.wifi = dev
-      if dev.get_device_type() == self.nm.DeviceType.ETHERNET:
-        self.ethernet = dev
-
-  def has_wifi_capabilities(self):
-    return not not self.wifi
-
-  def has_ethernet_capabilities(self):
-    return not not self.ethernet
-
-  def is_wifi_connected(self):
-    if not self.has_wifi_capabilities():
-      return False
-    return self.wifi.get_state() == self.nm.DeviceState.ACTIVATED
-
-  def is_ethernet_connected(self):
-    if not self.has_ethernet_capabilities():
-      return False
-    return self.ethernet.get_state() == self.nm.DeviceState.ACTIVATED
-
-  def get_access_points(self):
-    aps = []
-    aap = self.wifi.get_active_access_point()
-    aap_bssid = ""
-    if aap is not None:
-      aps.append({
-          "name": aap.get_ssid(),
-          "active": True,
-          "service": aap,
-          "strength": aap.get_strength()
-      })
-      aap_bssid = aap.get_bssid()
-    for ap in self.wifi.get_access_points():
-      i = {"name": ap.get_ssid(), "active": False, "service": ap, "strength": ap.get_strength()}
-
-      if ap.get_bssid() != aap_bssid:
-        aps.append(i)
-    return aps
-
-  def get_active_access_point(self):
-    return self.wifi.get_active_access_point()
-
-  # Perform a wifi scan
-  def scan(self):
-    self.wifi.request_scan()
-
-  def add_connection_finsihed_cb(self, cb):
-    self.connection_finished_cb = cb
-
-  def connection_finished_cb(self, other):
-    print(other)
-
-  # Connect to a WIFI AP
-  def activate_connection(self, ap, passwd):
-    #self.con = self.nm.Connection()
-    #self.s_con = self.nm.SettingConnection()
-
-    specific_object = ""
-    #s_wifi = conn.get_setting_wireless()
-    self.client.add_and_activate_connection(None, self.wifi, ap["service"],
-                                            self.connection_finished_cb)
-    print(ap["service"])
-    print("Connecting to " + ap["name"] + " with " + passwd)
-    return "OK"
-
+  def is_known_connection(self, ap):
+    return ap["name"] in self.get_known_connections()
 
 if __name__ == "__main__":
   m = Network.get_manager()
@@ -315,9 +250,8 @@ if __name__ == "__main__":
   print("Is ethernet capable: " + str(n.has_ethernet_capabilities()))
   print("Is ethernet Enabled: " + str(n.is_ethernet_connected()))
   for ap in n.get_access_points():
-    #print (ap["strength"],)
-    print("*" if ap["active"] else " ", )
-    print(ap["name"])
+    print(("*" if ap["active"] else " ") + ap["name"])
+    print(ap["service"].WpaFlags)
   print("IP: " + n.get_connected_ip())
 
   print ("Needs password: " + \

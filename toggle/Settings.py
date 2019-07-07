@@ -1,15 +1,11 @@
-# Plate
+# Settings-page
 
-import logging
-import os
-from gi.repository import Clutter, Mx
 import gi
 gi.require_version('Mx', '2.0')
 gi.require_version('Clutter', '1.0')
-
-#import socket
-#import pyconnman
-
+import logging
+import os
+from gi.repository import Clutter, Mx
 
 class Settings():
   def __init__(self, config):
@@ -36,7 +32,6 @@ class Settings():
     config.tabs.set_pane_selected_callback(0, self.on_select_callback)
     self.config = config
     self.enable_sliders()
-    self.setup_wifi_tab()
     self.scroller_height = self.scroller.get_height()
     self.stage_height = self.config.ui.get_object("box").get_height()
     # self.make_keyboard(0)
@@ -77,9 +72,6 @@ class Settings():
     self.x, _ = self.scroller.get_position()
     self.scroller.set_position(self.x, self.y)
 
-  # Called after the pane appears
-  def on_appear_callback(self):
-    pass
 
   # Called after the pane is chosen
   def on_select_callback(self):
@@ -125,12 +117,11 @@ class Settings():
       wifi_body.add_actor(self.make_wifi_tab(ap))
 
   def make_wifi_tab(self, ap):
-    logging.debug("make_wifi")
     actor = Clutter.Actor()
     actor.set_size(self.actor_width, 40)
     text = Mx.Label()
     text.set_position(120, 0)
-    apName = ap["service"][1]["Name"]
+    apName = ap["name"]
     if ap["active"]:
       text.set_text("* " + apName)
     else:
@@ -142,7 +133,6 @@ class Settings():
     actor.ap = ap
     tap.connect("tap", self.ap_tap)
     actor.set_reactive(True)
-
     return actor
 
   # Called when a wifi network is tapped
@@ -156,7 +146,6 @@ class Settings():
     else:
       self.config.network.activate_connection(actor.ap)
       self.setup_wifi_tab()
-    print("AP-tap")
 
   # Called when OK in the wifi screen is taped
   def ok_tap(self, tap, actor):
@@ -196,6 +185,8 @@ class Settings():
       actor.body.set_height(5)
       actor.is_open = False
     else:
+      if actor.body.get_id() == "wifi-body":
+          self.setup_wifi_tab()
       actor.body.set_height(-1)
       actor.is_open = True
     self.scroller_height = self.scroller.get_height()
