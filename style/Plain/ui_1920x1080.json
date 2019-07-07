@@ -167,6 +167,10 @@
                                 "id": "wifi-body",
                                 "type": "ClutterActor",
                                 "background-color": "#FFF",
+                                "layout-manager" : {
+                                    "type" : "ClutterBoxLayout",
+                                    "orientation": 1
+                                },
                                 "width": 1900,
                                 "height": 5,
                                 "children": [{
@@ -375,7 +379,7 @@
                         "x": 15,
                         "y": 15,
                         "width": 128,
-                        "height": 128,                            
+                        "height": 128,
                         "opacity": 0
                     }]
                 }]
