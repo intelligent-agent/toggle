@@ -55,39 +55,6 @@ License: GNU GPL v3: http://www.gnu.org/copyleft/gpl.html
  along with Toggle.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from .Jog import Jog
-from .Network import Network, NetworkManager, ConnMan
-from .Settings import Settings
-from .Splash import Splash
-from .CubeTabs import CubeTabs
-from .FilamentGraph import FilamentGraph
-from .TemperatureGraph import TemperatureGraph
-from .Graph import Graph, GraphScale, GraphPlot
-from .Message import Message
-from .Event import Event, PushUpdate, LocalUpdate
-from .RestClient import RestClient
-from .WebSocksClient import WebSocksClient
-from .CascadingConfigParser import CascadingConfigParser
-from .Printer import Printer
-from .ModelLoader import ModelLoader
-from .VolumeStage import VolumeStage
-from .Plate import Plate
-from .Model import Model
-from threading import Thread, current_thread
-from multiprocessing import JoinableQueue
-from gi.repository import Clutter, Mx
-import os
-import sys
-import queue as Queue
-import time
-import logging
-
-import gi
-gi.require_version('Mx', '2.0')
-gi.require_version('Mash', '0.3')
-gi.require_version('Cogl', '1.0')
-gi.require_version('Clutter', '1.0')
-
 # Set up logging
 logging.basicConfig(
     level=logging.DEBUG,
