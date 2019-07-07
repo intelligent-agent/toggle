@@ -184,6 +184,8 @@ class Settings():
       actor.body.set_height(5)
       actor.is_open = False
     else:
+      if actor.body.get_id() == "wifi-body":
+          self.setup_wifi_tab()
       actor.body.set_height(-1)
       actor.is_open = True
     self.scroller_height = self.scroller.get_height()
