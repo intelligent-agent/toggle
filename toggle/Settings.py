@@ -130,7 +130,7 @@ class Settings():
     actor.set_size(self.actor_width, 40)
     text = Mx.Label()
     text.set_position(120, 0)
-    apName = ap["service"][1]["Name"]
+    apName = ap["name"]
     if ap["active"]:
       text.set_text("* " + apName)
     else:

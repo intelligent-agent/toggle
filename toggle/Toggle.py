@@ -26,7 +26,6 @@ from .VolumeStage import VolumeStage
 from .Plate import Plate
 from .Model import Model
 from threading import Thread, current_thread
-from multiprocessing import JoinableQueue
 from gi.repository import Clutter, Mx
 import os
 import sys
@@ -169,7 +168,7 @@ class Toggle:
     config.mouse_invert_y = config.getboolean('Input', 'mouse_invert_y')
     config.mouse_swap = config.getboolean('Input', 'mouse_swap_xy')
 
-    config.push_updates = JoinableQueue(10)
+    config.push_updates = Queue.Queue(10)
     self.config = config
     config.plate.make_scale()
     config.stage.show()
@@ -218,23 +217,22 @@ class Toggle:
     """ When a new event comes in, execute it """
     try:
       while self.running:
-        try:
-          update = queue.get(block=True, timeout=1)
-        except Queue.Empty:
-          continue
+        update = queue.get()
+        if update is None:
+           continue
         # Execute any long running operations here,
         # to keep the main thread free for animations
         if update.has_thread_execution:
           update.execute_in_thread(self.config)
         # All UI updates must be handled by the main thread.
         Clutter.threads_add_idle(0, self.execute, update)
-        queue.task_done()
     except Exception:
       logging.exception("Exception in {} loop: ".format(name))
 
   def stop(self, w):
     logging.debug("Stopping Toggle")
     self.running = False
+    self.config.push_updates.put(None)
     self.config.socks_client.stop()
     self.p0.join()
     Clutter.main_quit()
