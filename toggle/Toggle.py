@@ -219,7 +219,7 @@ class Toggle:
       while self.running:
         update = queue.get()
         if update is None:
-           continue
+          continue
         # Execute any long running operations here,
         # to keep the main thread free for animations
         if update.has_thread_execution:
