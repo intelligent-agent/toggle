@@ -77,6 +77,7 @@ class WebSocksClient():
     if not self._ws_connection:
       raise RuntimeError('Web socket connection is already closed.')
     self._ws_connection.close()
+    self.state = WebSocksClient.CLOSED
 
   def _connect_callback(self, future):
     if future.exception() is None:
@@ -145,8 +146,10 @@ class WebSocksClient():
             self.config.get("Server", "host"), i))
         logging.debug("Websocket connection attempt " + str(i))
         self.connect()
-        ioloop.IOLoop.instance().start()
-        time.sleep(1)
+        self.ioloop = ioloop.IOLoop.instance()
+        self.ioloop.start()
+        if self.state != WebSocksClient.CLOSED:
+          time.sleep(1)
     self.config.splash.set_status("Unable to connect to {}".format(
         self.config.get("Server", "host")))
     self.config.splash.enable_next()
@@ -158,6 +161,8 @@ class WebSocksClient():
 
   def stop(self):
     self.running = False
+    self.close_conn()
+    self.ioloop.stop()
     self.thread.join()
 
 
