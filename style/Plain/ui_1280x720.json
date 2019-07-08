@@ -204,7 +204,6 @@
                                 "height": 150,
                                 "width": 1280,
                                 "background-color": "#c9c3c3",
-                                "height": 150,
                                 "layout-manager" : {
                                     "type" : "ClutterFixedLayout"
                                 },
@@ -582,11 +581,11 @@
                         "x": 850,
                         "y": 570,
                         "width": 400,
-                        "height": 50,
+                        "height": 30,
                         "x-align": 3,
                         "x-expand": false,
                         "line-alignment": 2,
-                        "font-description": "Sans 32"
+                        "font-description": "Sans 16"
                     },{
                         "id": "progress-bar",
                         "type": "MxProgressBar",

@@ -35,6 +35,7 @@ class Settings():
     self.scroller_height = self.scroller.get_height()
     self.stage_height = self.config.ui.get_object("box").get_height()
     # self.make_keyboard(0)
+    self.tabs_by_path = {}
 
   # Mouse scrolling event
   def on_scroll_event(self, actor, event):
@@ -101,6 +102,7 @@ class Settings():
     tap = Clutter.TapAction()
     calibrate_bed_button.add_action(tap)
     tap.connect("tap", self.calibrate_bed)
+    self.setup_wifi_tab()
 
   def calibrate_bed(self, tap, actor):
     self.config.rest_client.send_gcode("G29")
@@ -108,31 +110,67 @@ class Settings():
   def setup_wifi_tab(self):
     if not self.config.network.has_wifi_capabilities():
       return
-    wifi_body = self.config.ui.get_object("wifi-body")
-    wifi_body.remove_all_children()
+    self.wifi_body = self.config.ui.get_object("wifi-body")
+    self.wifi_body.remove_all_children()
     ssid_combo = self.config.ui.get_object("wifi-ssid")
-    self.actor_width = wifi_body.get_width()
+    self.actor_width = self.wifi_body.get_width()
+
+    self.config.network.add_ap_added_cb(self.ap_added)
+    self.config.network.add_ap_removed_cb(self.ap_removed)
+    self.config.network.add_ap_prop_change_cb(self.ap_propchange)
+    self.config.network.add_ap_state_changed_cb(self.ap_state_changed)
+
     aps = self.config.network.get_access_points()
     for ap in aps:
-      wifi_body.add_actor(self.make_wifi_tab(ap))
+      self.wifi_body.add_actor(self.add_wifi_tab(ap))
 
-  def make_wifi_tab(self, ap):
+  def get_actor_by_path(self, path):
+    if path in self.tabs_by_path:
+      return self.tabs_by_path[path]
+    return None
+
+  def ap_added(self, dev, interface, signal, access_point):
+    self.wifi_body.add_actor(self.add_wifi_tab(
+        self.config.network.wrap_ap(access_point)))
+
+  def ap_removed(self, dev, interface, signal, access_point):
+    child = self.get_actor_by_path(access_point.object_path)
+    if child:
+        self.wifi_body.remove_child(child)
+
+  def set_text(self, tab, ap):
+    text = tab.get_first_child()
+    text.set_text("{} ({}) {}".format("*" if ap["active"] else " ", ap["strength"], ap["name"]))
+
+  def ap_propchange(self, ap, interface, signal, properties):
+    actor = self.get_actor_by_path(ap.object_path)
+    if actor is None:
+        return
+    ap = self.config.network.wrap_ap(ap)
+    self.set_text(actor, ap)
+
+  def ap_state_changed(self, nm, interface, signal, old_state, new_state, reason):
+      print(nm)
+      print(interface)
+      print(signal)
+      print(old_state)
+      print(new_state)
+      print(reason)
+
+  def add_wifi_tab(self, ap):
     actor = Clutter.Actor()
     actor.set_size(self.actor_width, 40)
     text = Mx.Label()
     text.set_position(120, 0)
-    apName = ap["name"]
-    if ap["active"]:
-      text.set_text("* " + apName)
-    else:
-      text.set_text("  " + apName)    # the space is to keep the names aligned on the display
     text.set_style_class("wifi")
     actor.add_actor(text)
+    self.set_text(actor, ap)
     tap = Clutter.TapAction()
     actor.add_action(tap)
     actor.ap = ap
     tap.connect("tap", self.ap_tap)
     actor.set_reactive(True)
+    self.tabs_by_path[ap["service"].object_path] = actor
     return actor
 
   # Called when a wifi network is tapped
@@ -145,7 +183,6 @@ class Settings():
       self.make_keyboard(0)
     else:
       self.config.network.activate_connection(actor.ap)
-      self.setup_wifi_tab()
 
   # Called when OK in the wifi screen is taped
   def ok_tap(self, tap, actor):
@@ -185,8 +222,6 @@ class Settings():
       actor.body.set_height(5)
       actor.is_open = False
     else:
-      if actor.body.get_id() == "wifi-body":
-          self.setup_wifi_tab()
       actor.body.set_height(-1)
       actor.is_open = True
     self.scroller_height = self.scroller.get_height()

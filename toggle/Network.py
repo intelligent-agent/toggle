@@ -166,19 +166,23 @@ class NetworkManager(Network):
       return False
     return self.ethernet.State == self.nm.NM_DEVICE_STATE_ACTIVATED
 
+  def wrap_ap(self, ap):
+    return {
+          "name": ap.Ssid,
+          "active": ap.HwAddress == self.wifi.SpecificDevice().ActiveAccessPoint.HwAddress,
+          "service": ap,
+          "strength": ap.Strength,
+          "password": None
+      }
+
   def get_access_points(self):
     aps = []
     aap = self.wifi.ActiveAccessPoint if self.wifi.State == self.nm.NM_DEVICE_STATE_ACTIVATED else None
     for ap in self.wifi.SpecificDevice().GetAccessPoints():
       if hasattr(self.wifi.SpecificDevice().ActiveAccessPoint, "HwAddress"):
-        i = {
-            "name": ap.Ssid,
-            "active": ap.HwAddress == self.wifi.SpecificDevice().ActiveAccessPoint.HwAddress,
-            "service": ap,
-            "strength": ap.Strength,
-            "password": None
-        }
-        aps.append(i)
+        aps.append(self.wrap_ap(ap))
+        if hasattr(self, "ap_prop_change_cb"):
+            ap.OnPropertiesChanged(self.ap_prop_change_cb)
     return aps
 
   def get_active_access_point(self):
@@ -194,8 +198,17 @@ class NetworkManager(Network):
   def add_connection_finished_cb(self, cb):
     self.connection_finished_cb = cb
 
-  def connection_finished_cb(self, other):
-    print(other)
+  def add_ap_added_cb(self, cb):
+    self.wifi.OnAccessPointAdded(cb)
+
+  def add_ap_removed_cb(self, cb):
+    self.wifi.OnAccessPointRemoved(cb)
+
+  def add_ap_prop_change_cb(self, cb):
+    self.ap_prop_change_cb = cb
+
+  def add_ap_state_changed_cb(self, cb):
+    self.wifi.OnStateChanged(cb)
 
   def update_password(self, ap, passwd):
     ap["password"] = passwd

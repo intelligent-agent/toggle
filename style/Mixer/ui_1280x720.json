@@ -27,7 +27,7 @@
                 "pivot-point-z": -540.0,
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 0.0,
-                "background-color": "white",
+                "background-color": "#63C7AF",
                 "children": [{
                     "id": "side0-content",
                     "visible": false,
@@ -44,7 +44,6 @@
                         "width": 1280,
                         "y": 100,
                         "x": 0,
-                        "background-color": "red",
                         "scroll-mode": 1,
                         "layout-manager" : {
                             "type" : "ClutterBoxLayout",
@@ -451,11 +450,11 @@
                         "x": 1205,
                         "y": 600,
                         "width": 700,
-                        "height": 50,
+                        "height": 30,
                         "x-align": 3,
                         "x-expand": true,
                         "line-alignment": 2,
-                        "font-description": "Sans 32"
+                        "font-description": "Sans 16"
                     }]
                 },{
                     "id": "side1-btn-prev",
@@ -583,11 +582,11 @@
                         "x": 850,
                         "y": 570,
                         "width": 400,
-                        "height": 50,
+                        "height": 30,
                         "x-align": 3,
                         "x-expand": false,
                         "line-alignment": 2,
-                        "font-description": "Sans 32"
+                        "font-description": "Sans 16"
                     },{
                         "id": "progress-bar",
                         "type": "MxProgressBar",

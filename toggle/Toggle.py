@@ -27,12 +27,15 @@ from .Plate import Plate
 from .Model import Model
 from threading import Thread, current_thread
 from multiprocessing import JoinableQueue
-from gi.repository import Clutter, Mx
+from gi.repository import GObject, Clutter, Mx
+from dbus.mainloop.glib import DBusGMainLoop
 import os
 import sys
 import queue as Queue
 import time
 import logging
+
+DBusGMainLoop(set_as_default=True)
 """
 The main entry point for Toggle.
 
