@@ -231,6 +231,8 @@ class Toggle:
         Clutter.threads_add_idle(0, self.execute, update)
     except Exception:
       logging.exception("Exception in {} loop: ".format(name))
+    except dbus.exceptions.DBusException:
+      print("Dbusexception")
 
   def stop(self, w):
     logging.debug("Stopping Toggle")

@@ -25,6 +25,10 @@ class Settings():
     config.ui.get_object("wifi-cancel").add_action(cancel_tap)
     cancel_tap.connect("tap", self.cancel_tap)
 
+    self.ap_font = config.ui.get_object("wifi-ssid").get_font_description()
+    self.ap_width = config.ui.get_object("wifi-ssid").get_width()
+    self.ap_margin_left = config.ui.get_object("wifi-ssid").get_margin_left()
+
     self.wifi_password = ""
     self.selected_ap = None
 
@@ -115,10 +119,10 @@ class Settings():
     ssid_combo = self.config.ui.get_object("wifi-ssid")
     self.actor_width = self.wifi_body.get_width()
 
-    self.config.network.add_ap_added_cb(self.ap_added)
-    self.config.network.add_ap_removed_cb(self.ap_removed)
-    self.config.network.add_ap_prop_change_cb(self.ap_propchange)
-    self.config.network.add_ap_state_changed_cb(self.ap_state_changed)
+    self.config.network.ap_added_cb = self.ap_added_cb
+    self.config.network.ap_removed_cb = self.ap_removed_cb
+    self.config.network.ap_prop_changed_cb = self.ap_prop_changed_cb
+    self.config.network.ap_state_changed_cb = self.ap_state_changed_cb
 
     aps = self.config.network.get_access_points()
     for ap in aps:
@@ -129,81 +133,75 @@ class Settings():
       return self.tabs_by_path[path]
     return None
 
-  def ap_added(self, dev, interface, signal, access_point):
-    self.wifi_body.add_actor(self.add_wifi_tab(
-        self.config.network.wrap_ap(access_point)))
+  def ap_added_cb(self, ap):
+    self.wifi_body.add_actor(self.add_wifi_tab(ap))
 
-  def ap_removed(self, dev, interface, signal, access_point):
-    child = self.get_actor_by_path(access_point.object_path)
+  def ap_removed_cb(self, ap):
+    child = self.get_actor_by_path(ap["object_path"])
     if child:
         self.wifi_body.remove_child(child)
 
-  def set_text(self, tab, ap):
-    text = tab.get_first_child()
-    text.set_text("{} ({}) {}".format("*" if ap["active"] else " ", ap["strength"], ap["name"]))
+  def get_bars(self, strength):
+      return (
+        "▮▯▯▯"*25+
+        "▮▮▯▯"*25+
+        "▮▮▮▯"*25+
+        "▮▮▮▮"*26)[strength*4:strength*4+4]
 
-  def ap_propchange(self, ap, interface, signal, properties):
-    actor = self.get_actor_by_path(ap.object_path)
-    if actor is None:
-        return
-    ap = self.config.network.wrap_ap(ap)
-    self.set_text(actor, ap)
+  def set_text(self, text, ap):
+    bars = self.get_bars(int(ap["strength"]))
+    active = "✓" if ap["active"] else " "
+    text.set_text("{} {} {}".format(bars, ap["name"], active))
 
-  def ap_state_changed(self, nm, interface, signal, old_state, new_state, reason):
-      print(nm)
-      print(interface)
-      print(signal)
-      print(old_state)
-      print(new_state)
-      print(reason)
+  def ap_prop_changed_cb(self, ap):
+    actor = self.get_actor_by_path(ap["object_path"])
+    if actor:
+        self.set_text(actor, ap)
+
+  def ap_state_changed_cb(self, interface, state):
+    print(state)
+    self.selected_ap = self.config.network.get_active_access_point()
+    if self.selected_ap:
+        self.set_wifi_status(self.selected_ap["name"]+": "+state)
+    if state == "need_auth":
+      self.config.ui.get_object("wifi-input").set_text(self.wifi_password)
+      self.make_keyboard(0)
+      
 
   def add_wifi_tab(self, ap):
-    actor = Clutter.Actor()
-    actor.set_size(self.actor_width, 40)
-    text = Mx.Label()
-    text.set_position(120, 0)
-    text.set_style_class("wifi")
-    actor.add_actor(text)
+    actor = Clutter.Text()
+    actor.set_selectable(False)
+    actor.set_font_description(self.ap_font)
+    actor.set_width(self.ap_width)
+    actor.set_margin_left(self.ap_margin_left)
     self.set_text(actor, ap)
     tap = Clutter.TapAction()
     actor.add_action(tap)
     actor.ap = ap
     tap.connect("tap", self.ap_tap)
     actor.set_reactive(True)
-    self.tabs_by_path[ap["service"].object_path] = actor
+    self.tabs_by_path[ap["object_path"]] = actor
     return actor
 
   # Called when a wifi network is tapped
   def ap_tap(self, tap, actor):
-    if self.config.network.ap_needs_password(actor.ap):
-      self.wifi_password = ""
-      self.selected_ap = actor.ap
-      self.config.ui.get_object("wifi-input").set_text(self.wifi_password)
-      self.set_wifi_status("For " + self.selected_ap["name"])
-      self.make_keyboard(0)
-    else:
-      self.config.network.activate_connection(actor.ap)
+    self.selected_ap = actor.ap
+    self.config.network.activate_connection(actor.ap)
 
   # Called when OK in the wifi screen is taped
   def ok_tap(self, tap, actor):
     self.wifi_password = self.config.ui.get_object("wifi-input").get_text()
     self.set_wifi_status("Connecting to " + self.selected_ap["name"])
-    result = self.config.network.update_password(self.selected_ap, self.wifi_password)
-    result = self.config.network.activate_connection(self.selected_ap)
-    if result == "OK":
-      self.set_wifi_status("Connected")
-      self.config.ui.get_object("wifi-overlay").hide()
-    else:
-      self.set_wifi_status("Unable to connect")
+    self.config.network.update_password(self.selected_ap, self.wifi_password)
+    self.config.network.activate_connection(self.selected_ap)
+    self.config.ui.get_object("wifi-overlay").hide()
 
   def set_wifi_status(self, text):
     self.config.ui.get_object("wifi-status").set_text(text)
 
-  # Called when Cancel is tapped
   def cancel_tap(self, tap, actor):
     self.config.ui.get_object("wifi-overlay").hide()
 
-  # Enables tap action on all setings sliders
   def enable_sliders(self):
     for box in ["network", "wifi", "slicer", "printer"]:
       header = self.config.ui.get_object(box + "-header")
