@@ -1014,9 +1014,14 @@
                     "orientation": 1
                 },
                 "children": [{
+                    "id": "key-style",
+                    "type" : "MxButton",
+                    "style-class": "keyboard_720",
+                    "visible": false
+                },{
                     "id": "row-0",
                     "type" : "ClutterActor",
-                    "height": 60,
+                    "height": 110,
                     "layout-manager" : {
                         "type" : "ClutterBoxLayout",
                         "orientation": 0,
@@ -1025,7 +1030,7 @@
                 },{
                     "id": "row-1",
                     "type" : "ClutterActor",
-                    "height": 60,
+                    "height": 110,
                     "layout-manager" : {
                         "type" : "ClutterBoxLayout",
                         "orientation": 0,
@@ -1034,7 +1039,7 @@
                 },{
                     "id": "row-2",
                     "type" : "ClutterActor",
-                    "height": 60,
+                    "height": 110,
                     "layout-manager" : {
                         "type" : "ClutterBoxLayout",
                         "orientation": 0,
@@ -1042,7 +1047,7 @@
                     }
                 },{
                     "id": "row-3",
-                    "height": 60,
+                    "height": 110,
                     "type" : "ClutterActor",
                     "layout-manager" : {
                         "type" : "ClutterBoxLayout",

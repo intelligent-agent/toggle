@@ -18,6 +18,9 @@ class SecretAgent(NetworkManager.SecretAgent):
         cancel_tap = Clutter.TapAction()
         config.ui.get_object("wifi-cancel").add_action(cancel_tap)
         cancel_tap.connect("tap", self.cancel_button_tap)
+        overlay = self.config.ui.get_object("wifi-overlay")
+        overlay.set_reactive(True)
+        overlay.connect("event", self.overlay_catcher)
         self.wifi_password = ""
 
     def GetSecrets(self, settings, connection, setting_name, hints, flags):
@@ -28,6 +31,10 @@ class SecretAgent(NetworkManager.SecretAgent):
         # We show the keyboard here and assume we are sending back a
         # faulty password. The Connection will be updated on "OK" press.
         return { setting_name: { 'psk': self.wifi_password} }
+
+    def overlay_catcher(self, event, actor):
+        # Stop propagation of event further
+        return False
 
     def show_keyboard(self):
         self.config.ui.get_object("wifi-input").set_text(self.wifi_password)
@@ -67,9 +74,10 @@ class SecretAgent(NetworkManager.SecretAgent):
         for i, row in enumerate(keys[keyset]):
           key_row = self.config.ui.get_object("row-" + str(i))
           key_row.remove_all_children()
+          key_style = self.config.ui.get_object("key-style").get_style_class()
           for letter in row:
             key = Mx.Button()
-            key.set_style_class("keyboard")
+            key.set_style_class(key_style)
             key.set_label(letter)
             key.letter = letter
             key_row.add_actor(key)

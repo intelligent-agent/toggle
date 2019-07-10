@@ -166,7 +166,15 @@
                                     "type" : "ClutterBoxLayout",
                                     "orientation": 1
                                 },
-                                "children": []
+                                "children": [{
+                                    "id": "wifi-ssid",
+                                    "type": "ClutterText",
+                                    "text": "No Access Points found",
+                                    "font-description": "Sans 32",
+                                    "height": 50,
+                                    "width": 1180,
+                                    "margin-left": 100
+                                }]
                             }]
                         },{
                             "id": "slicer-box",
@@ -401,6 +409,15 @@
                         "height": 64
                     },{
                         "id": "heat-tool1",
+                        "type": "MxButton",
+                        "style-class": "heat",
+                        "is_toggle": true,
+                        "x": 452,
+                        "y": 400,
+                        "width": 64,
+                        "height": 64
+                    },{
+                        "id": "heat-tool2",
                         "type": "MxButton",
                         "style-class": "heat",
                         "is_toggle": true,
@@ -937,7 +954,7 @@
                 "height": 100,
                 "text": "Password:",
                 "x": 120,
-                "y": 70
+                "y": 30
             },{
                 "id": "wifi-input",
                 "type": "MxEntry",
@@ -945,32 +962,32 @@
                 "height": 60,
                 "width": 560,
                 "x": 120,
-                "y": 110
+                "y": 70
             },{
                 "id": "wifi-status",
                 "type": "ClutterText",
                 "font-description": "Sans 12",
                 "color": "#FFF",
                 "x": 120,
-                "y": 200
+                "y": 160
             },{
                 "id": "wifi-ok",
                 "type": "MxButton",
                 "label": "OK",
                 "x": 520,
-                "y": 185
+                "y": 145
             },{
                 "id": "wifi-cancel",
                 "type": "MxButton",
                 "label": "Cancel",
                 "x": 586,
-                "y": 185
+                "y": 145
             },{
                 "id" : "keyboard",
                 "type" : "ClutterActor",
                 "width" : 800,
                 "height" : 240,
-                "y": 240,
+                "y": 200,
                 "pivot-point-z": -400.0,
                 "pivot-point": [0.5, 0.5],
                 "rotation-angle-x": 0.0,
@@ -979,6 +996,11 @@
                     "orientation": 1
                 },
                 "children": [{
+                    "id": "key-style",
+                    "type" : "MxButton",
+                    "style-class": "keyboard_480",
+                    "visible": false
+                },{
                     "id": "row-0",
                     "type" : "ClutterActor",
                     "height": 60,

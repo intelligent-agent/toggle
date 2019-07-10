@@ -68,16 +68,10 @@ class LoggerWriter:
   def __init__(self, config, logger, level):
     self.logger = logger
     self.level = level
-    self.screen_log = config.getboolean("System", "screen_debug")
 
   def write(self, message):
     if message != '\n':
       self.logger.log(self.level, message)
-      if self.screen_log:
-        self.log_to_screen(message)
-
-  def log_to_screen(self, message):
-    pass    # TODO: implement this
 
   def flush(self):
     pass

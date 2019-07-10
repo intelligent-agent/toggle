@@ -1,43 +1,49 @@
-[{
-    "id" : "stage",
-    "type" : "ClutterStage",
-    "width" : 1920,
-    "height" : 1080,
+[
+  {
+    "id": "stage",
+    "type": "ClutterStage",
+    "width": 1920,
+    "height": 1080,
     "background-color": "white",
-    "signals" : [],
-    "children" : [{
+    "signals": [],
+    "children": [
+      {
         "id": "all",
         "type": "ClutterActor",
         "pivot-point": [0.0, 0.0],
         "rotation-angle-z": 0.0,
-        "children" : [{
-            "id" : "box",
-            "type" : "ClutterActor",
-            "width" : 1920,
-            "height" : 1080,
+        "children": [
+          {
+            "id": "box",
+            "type": "ClutterActor",
+            "width": 1920,
+            "height": 1080,
             "pivot-point-z": -540.0,
             "pivot-point": [0.5, 0.5],
             "rotation-angle-x": 0.0,
-            "layout-manager" : { "type" : "ClutterFixedLayout" },
-            "children" : [{
+            "layout-manager": { "type": "ClutterFixedLayout" },
+            "children": [
+              {
                 "id": "side0",
-                "type" : "ClutterActor",
-                "width" : 1920,
-                "height" : 1080,
+                "type": "ClutterActor",
+                "width": 1920,
+                "height": 1080,
                 "pivot-point-z": -540.0,
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 0.0,
                 "background-color": "white",
-                "children": [{
+                "children": [
+                  {
                     "id": "side0-content",
                     "visible": false,
                     "type": "ClutterActor",
-                    "width" : 1920,
-                    "height" : 1080,
-                    "layout-manager" : {
-                        "type" : "ClutterBinLayout"
+                    "width": 1920,
+                    "height": 1080,
+                    "layout-manager": {
+                      "type": "ClutterBinLayout"
                     },
-                    "children" : [{
+                    "children": [
+                      {
                         "id": "scroll-pane",
                         "type": "ClutterScrollActor",
                         "width": 1900,
@@ -45,135 +51,156 @@
                         "x": 10,
                         "background-color": "#EEE",
                         "scroll-mode": 1,
-                        "layout-manager" : {
-                            "type" : "ClutterBoxLayout",
-                            "orientation": 1
+                        "layout-manager": {
+                          "type": "ClutterBoxLayout",
+                          "orientation": 1
                         },
-                        "children": [{
+                        "children": [
+                          {
                             "id": "network-box",
                             "type": "ClutterActor",
                             "width": 1900,
                             "background-color": "#c9c3c3",
-                            "layout-manager" : {
-                                "type" : "ClutterBoxLayout",
-                                "orientation": 1
+                            "layout-manager": {
+                              "type": "ClutterBoxLayout",
+                              "orientation": 1
                             },
-                            "children": [{
+                            "children": [
+                              {
                                 "id": "network-header",
                                 "type": "ClutterActor",
                                 "height": 150,
                                 "width": 1900,
-                                "layout-manager" : {
-                                    "type" : "ClutterFixedLayout"
+                                "layout-manager": {
+                                  "type": "ClutterFixedLayout"
                                 },
-                                "children": [{
+                                "children": [
+                                  {
                                     "type": "ClutterText",
                                     "text": "Network",
                                     "color": "black",
                                     "x": 250,
                                     "y": 45,
                                     "font-description": "Sans 52"
-                                },{
+                                  },
+                                  {
                                     "type": "MxIcon",
                                     "style-class": "network",
                                     "x": 100,
                                     "y": 15,
                                     "width": 128,
                                     "height": 128
-                                }]
-                            },{
+                                  }
+                                ]
+                              },
+                              {
                                 "id": "network-body",
                                 "type": "ClutterActor",
                                 "background-color": "#FFF",
                                 "width": 1900,
                                 "height": 5,
-                                "layout-manager" : {
-                                    "type" : "ClutterFixedLayout"
+                                "layout-manager": {
+                                  "type": "ClutterFixedLayout"
                                 },
-                                "children": [{
+                                "children": [
+                                  {
                                     "type": "ClutterText",
                                     "text": "Remote Hostname: ",
                                     "font-description": "Sans 32",
                                     "x": 250,
                                     "y": 20
-                                },{
+                                  },
+                                  {
                                     "id": "remote-hostname",
                                     "type": "ClutterText",
                                     "text": "Not set",
                                     "font-description": "Sans 32",
                                     "x": 800,
                                     "y": 20
-                                },{
+                                  },
+                                  {
                                     "type": "ClutterText",
                                     "text": "Local Hostname: ",
                                     "font-description": "Sans 32",
                                     "x": 250,
                                     "y": 80
-                                },{
+                                  },
+                                  {
                                     "id": "local-hostname",
                                     "type": "ClutterText",
                                     "text": "Not set",
                                     "font-description": "Sans 32",
                                     "x": 800,
                                     "y": 80
-                                },{
+                                  },
+                                  {
                                     "type": "ClutterText",
                                     "text": "IP address: ",
                                     "font-description": "Sans 32",
                                     "x": 250,
                                     "y": 140
-                                },{
+                                  },
+                                  {
                                     "id": "local-ip",
                                     "type": "ClutterText",
                                     "text": "Not set",
                                     "font-description": "Sans 32",
                                     "x": 800,
                                     "y": 140
-                                }]
-                            }]
-                        },{
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
                             "id": "wifi-box",
                             "type": "ClutterActor",
                             "width": 1900,
                             "background-color": "#c9c3c3",
-                            "layout-manager" : {
-                                "type" : "ClutterBoxLayout",
-                                "orientation": 1
+                            "layout-manager": {
+                              "type": "ClutterBoxLayout",
+                              "orientation": 1
                             },
-                            "children": [{
+                            "children": [
+                              {
                                 "id": "wifi-header",
                                 "type": "ClutterActor",
                                 "height": 150,
                                 "width": 1900,
-                                "layout-manager" : {
-                                    "type" : "ClutterFixedLayout"
+                                "layout-manager": {
+                                  "type": "ClutterFixedLayout"
                                 },
-                                "children": [{
+                                "children": [
+                                  {
                                     "type": "ClutterText",
                                     "text": "Wifi",
                                     "color": "black",
                                     "x": 250,
                                     "y": 45,
                                     "font-description": "Sans 52"
-                                },{
+                                  },
+                                  {
                                     "type": "MxIcon",
                                     "style-class": "wifi",
                                     "x": 100,
                                     "y": 15,
                                     "width": 128,
                                     "height": 128
-                                }]
-                            },{
+                                  }
+                                ]
+                              },
+                              {
                                 "id": "wifi-body",
                                 "type": "ClutterActor",
                                 "background-color": "#FFF",
-                                "layout-manager" : {
-                                    "type" : "ClutterBoxLayout",
-                                    "orientation": 1
+                                "layout-manager": {
+                                  "type": "ClutterBoxLayout",
+                                  "orientation": 1
                                 },
                                 "width": 1900,
                                 "height": 5,
-                                "children": [{
+                                "children": [
+                                  {
                                     "id": "wifi-ssid",
                                     "type": "ClutterText",
                                     "text": "No Access Points found",
@@ -181,129 +208,154 @@
                                     "height": 50,
                                     "width": 1820,
                                     "margin-left": 100
-                                }]
-                            }]
-                        },{
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
                             "id": "slicer-box",
                             "type": "ClutterActor",
                             "width": 1900,
                             "background-color": "#c9c3c3",
-                            "layout-manager" : {
-                                "type" : "ClutterBoxLayout",
-                                "orientation": 1
+                            "layout-manager": {
+                              "type": "ClutterBoxLayout",
+                              "orientation": 1
                             },
-                            "children": [{
+                            "children": [
+                              {
                                 "id": "slicer-header",
                                 "type": "ClutterActor",
                                 "height": 150,
                                 "width": 1900,
-                                "layout-manager" : {
-                                    "type" : "ClutterFixedLayout"
+                                "layout-manager": {
+                                  "type": "ClutterFixedLayout"
                                 },
-                                "children": [{
+                                "children": [
+                                  {
                                     "type": "ClutterText",
                                     "text": "Slicer",
                                     "color": "black",
                                     "x": 250,
                                     "y": 45,
                                     "font-description": "Sans 52"
-                                },{
+                                  },
+                                  {
                                     "type": "MxIcon",
                                     "style-class": "slicer",
                                     "x": 100,
                                     "y": 15,
                                     "width": 128,
                                     "height": 128
-                                }]
-                            },{
+                                  }
+                                ]
+                              },
+                              {
                                 "id": "slicer-body",
                                 "type": "ClutterActor",
                                 "width": 1900,
                                 "height": 5,
                                 "background-color": "#FFF",
-                                "layout-manager" : {
-                                    "type" : "ClutterFixedLayout"
+                                "layout-manager": {
+                                  "type": "ClutterFixedLayout"
                                 },
-                                "children": [{
+                                "children": [
+                                  {
                                     "type": "ClutterText",
                                     "text": "Layer height: ",
                                     "x": 250,
                                     "y": 20,
                                     "font-description": "Sans 32"
-                                },{
+                                  },
+                                  {
                                     "id": "slicer-layer-height",
                                     "type": "ClutterText",
                                     "text": "Not set",
                                     "x": 800,
                                     "y": 20,
                                     "font-description": "Sans 32"
-                                },{
+                                  },
+                                  {
                                     "type": "ClutterText",
                                     "text": "Print temperature: ",
                                     "x": 250,
                                     "y": 80,
                                     "font-description": "Sans 32"
-                                },{
+                                  },
+                                  {
                                     "id": "slicer-print-temp",
                                     "type": "ClutterText",
                                     "text": "Not set",
                                     "font-description": "Sans 32",
                                     "x": 800,
                                     "y": 80
-                                }]
-                            }]
-                        },{
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
                             "id": "printer-box",
                             "type": "ClutterActor",
                             "width": 1900,
                             "background-color": "#c9c3c3",
-                            "layout-manager" : {
-                                "type" : "ClutterBoxLayout",
-                                "orientation": 1
+                            "layout-manager": {
+                              "type": "ClutterBoxLayout",
+                              "orientation": 1
                             },
-                            "children": [{
+                            "children": [
+                              {
                                 "id": "printer-header",
                                 "type": "ClutterActor",
                                 "height": 5,
                                 "width": 1900,
-                                "layout-manager" : {
-                                    "type" : "ClutterFixedLayout"
+                                "layout-manager": {
+                                  "type": "ClutterFixedLayout"
                                 },
-                                "children": [{
+                                "children": [
+                                  {
                                     "type": "ClutterText",
                                     "text": "Printer",
                                     "color": "black",
                                     "x": 120,
                                     "y": 30,
                                     "font-description": "Sans 32"
-                                },{
+                                  },
+                                  {
                                     "type": "MxIcon",
                                     "style-class": "printer",
                                     "x": 30,
                                     "y": 18,
                                     "width": 128,
                                     "height": 128
-                                }]
-                            },{
+                                  }
+                                ]
+                              },
+                              {
                                 "id": "printer-body",
                                 "type": "ClutterActor",
                                 "width": 780,
                                 "height": 5,
                                 "background-color": "#FFF",
-                                "layout-manager" : {
-                                    "type" : "ClutterFixedLayout"
+                                "layout-manager": {
+                                  "type": "ClutterFixedLayout"
                                 },
-                                "children": [{
+                                "children": [
+                                  {
                                     "id": "printer-calibrate-bed",
                                     "type": "MxButton",
                                     "label": "Calibrate Bed",
                                     "style-class": "main",
                                     "x": 120,
                                     "y": 20
-                                }]
-                            }]
-                        }]
-                    },{
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
                         "id": "scroll-header",
                         "type": "ClutterActor",
                         "width": 1920,
@@ -311,7 +363,8 @@
                         "x": 0,
                         "y": 0,
                         "background-color": "#FFF"
-                    },{
+                      },
+                      {
                         "id": "side0-btn-prev",
                         "type": "MxButton",
                         "style-class": "settings",
@@ -320,7 +373,8 @@
                         "width": 128,
                         "height": 128,
                         "visible": false
-                    },{
+                      },
+                      {
                         "id": "side0-btn-next",
                         "type": "MxButton",
                         "style-class": "temp",
@@ -329,27 +383,32 @@
                         "width": 128,
                         "height": 128,
                         "visible": true
-                    }]
-                },{
+                      }
+                    ]
+                  },
+                  {
                     "id": "side5-content",
                     "type": "ClutterActor",
-                    "width" : 1920,
-                    "height" : 1080,
-                    "layout-manager" : {
-                        "type" : "ClutterBinLayout"
+                    "width": 1920,
+                    "height": 1080,
+                    "layout-manager": {
+                      "type": "ClutterBinLayout"
                     },
-                    "children" : [{
+                    "children": [
+                      {
                         "id": "spash-holder",
                         "type": "ClutterActor",
-                        "layout-manager" : {
-                            "type" : "ClutterFixedLayout"
+                        "layout-manager": {
+                          "type": "ClutterFixedLayout"
                         },
                         "width": 900,
                         "height": 900,
-                        "children": [{
+                        "children": [
+                          {
                             "id": "splash",
-                            "type" : "ClutterTexture"
-                        },{
+                            "type": "ClutterTexture"
+                          },
+                          {
                             "id": "splash-status",
                             "type": "ClutterText",
                             "text": "Toggle initializing...",
@@ -357,17 +416,20 @@
                             "x": 100,
                             "y": 780,
                             "font-description": "Sans 32"
-                        }]
-                    },{
+                          }
+                        ]
+                      },
+                      {
                         "id": "side5-btn-next",
                         "type": "MxButton",
                         "style-class": "temp",
                         "x": 1777,
                         "y": 15,
                         "width": 128,
-                        "height": 128,                            
+                        "height": 128,
                         "opacity": 0
-                    },{
+                      },
+                      {
                         "id": "side5-btn-prev",
                         "type": "MxButton",
                         "style-class": "settings",
@@ -376,29 +438,35 @@
                         "width": 128,
                         "height": 128,
                         "opacity": 0
-                    }]
-                }]
-            },{
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
                 "id": "side1",
-                "type" : "ClutterActor",
-                "width" : 1920,
-                "height" : 1080,
+                "type": "ClutterActor",
+                "width": 1920,
+                "height": 1080,
                 "pivot-point-z": -540.0,
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 90.0,
                 "background-color": "white",
                 "visible": false,
-                "children": [{
+                "children": [
+                  {
                     "id": "side1-content",
                     "type": "ClutterActor",
                     "background-color": "#FFFFFFFF",
-                    "children" : [{
+                    "children": [
+                      {
                         "id": "graph",
-                        "type" : "ClutterActor",
+                        "type": "ClutterActor",
                         "width": 1920,
                         "height": 800,
                         "y": 80
-                    },{
+                      },
+                      {
                         "id": "heat-tool0",
                         "type": "MxButton",
                         "style-class": "heat",
@@ -407,7 +475,8 @@
                         "y": 900,
                         "width": 128,
                         "height": 128
-                    },{
+                      },
+                      {
                         "id": "heat-bed",
                         "type": "MxButton",
                         "style-class": "heat",
@@ -416,7 +485,8 @@
                         "y": 900,
                         "width": 128,
                         "height": 128
-                    },{
+                      },
+                      {
                         "id": "heat-tool1",
                         "type": "MxButton",
                         "style-class": "heat",
@@ -425,7 +495,8 @@
                         "y": 900,
                         "width": 128,
                         "height": 128
-                    },{
+                      },
+                      {
                         "id": "heat-tool2",
                         "type": "MxButton",
                         "style-class": "heat",
@@ -434,7 +505,8 @@
                         "y": 900,
                         "width": 128,
                         "height": 128
-                    },{
+                      },
+                      {
                         "id": "lbl-temp",
                         "type": "ClutterText",
                         "text": "Temperature",
@@ -446,8 +518,10 @@
                         "x-expand": true,
                         "line-alignment": 2,
                         "font-description": "Sans 32"
-                    }]
-                },{
+                      }
+                    ]
+                  },
+                  {
                     "id": "side1-btn-prev",
                     "type": "MxButton",
                     "style-class": "settings",
@@ -456,7 +530,8 @@
                     "y": 15,
                     "height": 128,
                     "width": 128
-                },{
+                  },
+                  {
                     "id": "side1-btn-next",
                     "type": "MxButton",
                     "style-class": "print",
@@ -465,47 +540,54 @@
                     "y": 15,
                     "height": 128,
                     "width": 128
-                }]
-            },{
+                  }
+                ]
+              },
+              {
                 "id": "side2",
-                "type" : "ClutterActor",
-                "width" : 1920,
-                "height" : 1080,
+                "type": "ClutterActor",
+                "width": 1920,
+                "height": 1080,
                 "pivot-point-z": -540.0,
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 180.0,
                 "visible": false,
                 "background-color": "white",
-                "children": [{
+                "children": [
+                  {
                     "id": "side2-content",
                     "type": "ClutterActor",
                     "background-color": "white",
-                    "children": [{
+                    "children": [
+                      {
                         "id": "content-flip",
-                        "type" : "ClutterActor",
-                        "width" : 1440,
-                        "height" : 800,
+                        "type": "ClutterActor",
+                        "width": 1440,
+                        "height": 800,
                         "pivot-point": [0.5, 0.5],
                         "x": 340,
-                        "layout-manager" : { "type" : "ClutterFixedLayout" },
-                        "children": [{
+                        "layout-manager": { "type": "ClutterFixedLayout" },
+                        "children": [
+                          {
                             "id": "volume-viewport",
-                            "type" : "ClutterActor",
-                            "width" : 1440,
-                            "height" : 540,
+                            "type": "ClutterActor",
+                            "width": 1440,
+                            "height": 540,
                             "x": 100,
                             "pivot-point": [0.5, 0.5],
-                            "layout-manager" : { "type" : "ClutterFixedLayout" },
-                            "children" : [{
+                            "layout-manager": { "type": "ClutterFixedLayout" },
+                            "children": [
+                              {
                                 "id": "spinner",
-                                "type" : "ClutterActor",
+                                "type": "ClutterActor",
                                 "x": 720,
                                 "y": 700,
                                 "z-position": 150,
                                 "width": 1,
                                 "height": 1,
                                 "depth": 1,
-                                "children": [{
+                                "children": [
+                                  {
                                     "id": "volume-wrapper",
                                     "type": "ClutterActor",
                                     "pivot-point": [0.5, 0.5],
@@ -518,23 +600,30 @@
                                     "scale-x": 2.0,
                                     "scale-y": 2.0,
                                     "scale-z": 2.0,
-                                    "children": [{
+                                    "children": [
+                                      {
                                         "id": "plate",
-                                        "type" : "MashModel",
+                                        "type": "MashModel",
                                         "rotation-angle-x": -90.0
-                                    },{
+                                      },
+                                      {
                                         "id": "model-flipper",
                                         "type": "ClutterActor",
-                                        "children":[{
+                                        "children": [
+                                          {
                                             "id": "model",
-                                            "type" : "MashModel",
-                                             "rotation-angle-x": 90.0,
-                                             "rotation-angle-y": 0.0,
-                                             "rotation-angle-z": 0.0
-                                        }]
-                                    }]
-                                }]
-                            },{
+                                            "type": "MashModel",
+                                            "rotation-angle-x": 90.0,
+                                            "rotation-angle-y": 0.0,
+                                            "rotation-angle-z": 0.0
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
                                 "id": "loader",
                                 "type": "ClutterTexture",
                                 "width": 128,
@@ -543,12 +632,16 @@
                                 "y": 400,
                                 "pivot-point": [0.5, 0.5],
                                 "visible": false
-                            }]
-                        }]
-                    },{
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
                         "id": "btn-bar",
                         "type": "ClutterActor",
-                        "children": [{
+                        "children": [
+                          {
                             "id": "btn-prev",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
@@ -558,13 +651,15 @@
                             "y": 500,
                             "rotation-angle-z": 180.0,
                             "pivot-point": [0.5, 0.5]
-                        },{
+                          },
+                          {
                             "id": "lbl-stat",
                             "type": "ClutterText",
                             "x": 15,
                             "y": 900,
                             "font-description": "Sans 32"
-                        },{
+                          },
+                          {
                             "id": "lbl-model",
                             "type": "ClutterText",
                             "text": "Model",
@@ -576,7 +671,8 @@
                             "x-expand": true,
                             "line-alignment": 2,
                             "font-description": "Sans 32"
-                        },{
+                          },
+                          {
                             "id": "progress-bar",
                             "type": "MxProgressBar",
                             "x": 1265,
@@ -585,7 +681,8 @@
                             "height": 50,
                             "x-align": 3,
                             "x-expand": true
-                        },{
+                          },
+                          {
                             "id": "time-gone",
                             "type": "ClutterText",
                             "x": 1265,
@@ -593,7 +690,8 @@
                             "width": 220,
                             "height": 25,
                             "font-description": "Sans 16"
-                        },{
+                          },
+                          {
                             "id": "time-left",
                             "type": "ClutterText",
                             "x": 1680,
@@ -603,7 +701,8 @@
                             "x-align": 3,
                             "x-expand": true,
                             "font-description": "Sans 16"
-                        },{
+                          },
+                          {
                             "id": "btn-cancel",
                             "type": "MxButton",
                             "style-class": "cancel",
@@ -613,7 +712,8 @@
                             "y": 900,
                             "width": 128,
                             "height": 128
-                        },{
+                          },
+                          {
                             "id": "btn-print",
                             "type": "MxButton",
                             "style-class": "play",
@@ -622,28 +722,33 @@
                             "y": 900,
                             "width": 128,
                             "height": 128
-                        },{
+                          },
+                          {
                             "id": "btn-pause",
                             "type": "MxButton",
                             "style-class": "pause",
                             "is_toggle": true,
-                            "x": 1096	,
+                            "x": 1096,
                             "y": 900,
                             "width": 128,
                             "height": 128
-                        },{
+                          },
+                          {
                             "id": "btn-next",
                             "type": "MxButton",
-                             "style-class": "jog_arrow",
+                            "style-class": "jog_arrow",
                             "height": 128,
                             "width": 128,
                             "x": 1777,
                             "y": 500,
                             "rotation-angle-z": 0.0,
                             "pivot-point": [0.5, 0.5]
-                        }]
-                    }]
-                },{
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
                     "id": "side2-btn-prev",
                     "type": "MxButton",
                     "style-class": "temp",
@@ -651,7 +756,8 @@
                     "y": 15,
                     "width": 128,
                     "height": 128
-                },{
+                  },
+                  {
                     "id": "side2-btn-next",
                     "type": "MxButton",
                     "style-class": "jog",
@@ -659,23 +765,27 @@
                     "y": 15,
                     "width": 128,
                     "height": 128
-                }]
-            },{
+                  }
+                ]
+              },
+              {
                 "id": "side3",
-                "type" : "ClutterActor",
-                "width" : 1920,
-                "height" : 1080,
+                "type": "ClutterActor",
+                "width": 1920,
+                "height": 1080,
                 "pivot-point-z": -540.0,
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 270.0,
                 "visible": false,
                 "background-color": "white",
-                "children": [{
+                "children": [
+                  {
                     "id": "side3-content",
                     "type": "ClutterActor",
                     "width": 1920,
                     "height": 1080,
-                    "children" : [{
+                    "children": [
+                      {
                         "id": "jogger-xy",
                         "type": "ClutterActor",
                         "x": 120,
@@ -683,7 +793,8 @@
                         "width": 700,
                         "height": 700,
                         "background-color": "white",
-                        "children": [{
+                        "children": [
+                          {
                             "id": "jog_x_minus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
@@ -693,7 +804,8 @@
                             "y": 250,
                             "rotation-angle-z": 180.0,
                             "pivot-point": [0.5, 0.5]
-                        },{
+                          },
+                          {
                             "id": "jog_y_plus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
@@ -703,7 +815,8 @@
                             "y": 0,
                             "rotation-angle-z": 270.0,
                             "pivot-point": [0.5, 0.5]
-                        },{
+                          },
+                          {
                             "id": "jog_x_plus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
@@ -713,7 +826,8 @@
                             "y": 250,
                             "rotation-angle-z": 0.0,
                             "pivot-point": [0.5, 0.5]
-                        },{
+                          },
+                          {
                             "id": "jog_y_minus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
@@ -723,7 +837,8 @@
                             "y": 500,
                             "rotation-angle-z": 90.0,
                             "pivot-point": [0.5, 0.5]
-                        },{
+                          },
+                          {
                             "id": "jog_home",
                             "type": "MxButton",
                             "style-class": "jog_home",
@@ -731,16 +846,18 @@
                             "width": 200,
                             "x": 205,
                             "y": 220
-
-                        }]
-                    },{
+                          }
+                        ]
+                      },
+                      {
                         "id": "jogger-z",
                         "type": "ClutterActor",
                         "x": 765,
                         "y": 160,
                         "width": 70,
                         "height": 300,
-                        "children": [{
+                        "children": [
+                          {
                             "id": "jog_z_plus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
@@ -750,7 +867,8 @@
                             "y": 0,
                             "rotation-angle-z": 270.0,
                             "pivot-point": [0.5, 0.5]
-                        },{
+                          },
+                          {
                             "id": "jog_z_minus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
@@ -760,7 +878,8 @@
                             "y": 500,
                             "rotation-angle-z": 90.0,
                             "pivot-point": [0.5, 0.5]
-                        },{
+                          },
+                          {
                             "id": "jog_z_home",
                             "type": "MxButton",
                             "style-class": "jog_home_z",
@@ -768,15 +887,18 @@
                             "width": 140,
                             "x": 120,
                             "y": 250
-                        }]
-		            },{
+                          }
+                        ]
+                      },
+                      {
                         "id": "misc-control",
                         "type": "ClutterActor",
                         "x": 1100,
                         "y": 160,
                         "width": 70,
                         "height": 300,
-                        "children": [{
+                        "children": [
+                          {
                             "id": "motors_off",
                             "type": "MxButton",
                             "style-class": "motors_off",
@@ -784,7 +906,8 @@
                             "width": 140,
                             "x": 120,
                             "y": 0
-                        },{
+                          },
+                          {
                             "id": "fan_on",
                             "type": "MxButton",
                             "style-class": "fan_on",
@@ -792,7 +915,8 @@
                             "width": 140,
                             "x": 120,
                             "y": 250
-                        },{
+                          },
+                          {
                             "id": "fan_off",
                             "type": "MxButton",
                             "style-class": "fan_off",
@@ -800,15 +924,18 @@
                             "width": 140,
                             "x": 120,
                             "y": 500
-                        }]
-                    },{
+                          }
+                        ]
+                      },
+                      {
                         "id": "jogger-e",
                         "type": "ClutterActor",
                         "x": 1400,
                         "y": 160,
                         "width": 130,
                         "height": 300,
-                        "children": [{
+                        "children": [
+                          {
                             "id": "jog_e_extrude",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
@@ -818,7 +945,8 @@
                             "y": 0,
                             "rotation-angle-z": 270.0,
                             "pivot-point": [0.5, 0.5]
-                        },{
+                          },
+                          {
                             "id": "jog_e_retract",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
@@ -828,7 +956,8 @@
                             "y": 500,
                             "rotation-angle-z": 90.0,
                             "pivot-point": [0.5, 0.5]
-                        },{
+                          },
+                          {
                             "id": "jog_e_toggle",
                             "type": "MxButton",
                             "style-class": "jog_home_e",
@@ -837,9 +966,10 @@
                             "width": 140,
                             "x": 120,
                             "y": 250
-
-                        }]
-                    },{
+                          }
+                        ]
+                      },
+                      {
                         "id": "travel-length",
                         "type": "ClutterText",
                         "text": "",
@@ -851,7 +981,8 @@
                         "x-expand": true,
                         "line-alignment": 2,
                         "font-description": "Sans 32"
-                    },{
+                      },
+                      {
                         "id": "travel_xy",
                         "type": "MxButton",
                         "style-class": "travel_10",
@@ -860,7 +991,8 @@
                         "y": 900,
                         "width": 128,
                         "height": 128
-                    },{
+                      },
+                      {
                         "id": "travel_z",
                         "type": "MxButton",
                         "style-class": "travel_10",
@@ -869,7 +1001,8 @@
                         "y": 900,
                         "width": 128,
                         "height": 128
-                    },{
+                      },
+                      {
                         "id": "travel_eh",
                         "type": "MxButton",
                         "style-class": "travel_10",
@@ -878,8 +1011,10 @@
                         "y": 900,
                         "width": 128,
                         "height": 128
-                    }]
-                },{
+                      }
+                    ]
+                  },
+                  {
                     "id": "side3-btn-prev",
                     "type": "MxButton",
                     "style-class": "print",
@@ -887,7 +1022,8 @@
                     "height": 128,
                     "x": 15,
                     "y": 15
-                },{
+                  },
+                  {
                     "id": "side3-btn-next",
                     "type": "MxButton",
                     "style-class": "settings",
@@ -896,72 +1032,85 @@
                     "x": 1777,
                     "y": 15,
                     "visible": true
-                }]
-            }]
-        },{
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "id": "state",
-            "type" : "ClutterActor",
-            "width" : 600,
-            "height" : 64,
+            "type": "ClutterActor",
+            "width": 600,
+            "height": 64,
             "x": 15,
             "y": 1000,
-            "layout-manager" : {
-                "type" : "ClutterFlowLayout"
+            "layout-manager": {
+              "type": "ClutterFlowLayout"
             },
-            "children" : [{
+            "children": [
+              {
                 "id": "connection",
                 "type": "MxButton",
                 "height": 64,
                 "width": 64,
                 "style-class": "connection"
-            },{
+              },
+              {
                 "id": "printing",
                 "type": "MxButton",
                 "height": 64,
                 "width": 64,
                 "style-class": "printing"
-            },{
+              },
+              {
                 "id": "paused",
                 "type": "MxButton",
                 "height": 64,
                 "width": 64,
                 "style-class": "paused"
-            },{
+              },
+              {
                 "id": "heartbeat",
                 "type": "MxButton",
                 "height": 64,
                 "width": 64,
                 "style-class": "heartbeat",
                 "opacity": 0
-            }]
-        },{
+              }
+            ]
+          },
+          {
             "id": "msg",
-            "type" : "ClutterActor",
-            "width" : 1920,
-            "height" : 1080,
+            "type": "ClutterActor",
+            "width": 1920,
+            "height": 1080,
             "background-color": "#000C",
-            "opacity" : 0,
-            "layout-manager" : {
-                "type" : "ClutterBinLayout"
+            "opacity": 0,
+            "layout-manager": {
+              "type": "ClutterBinLayout"
             },
-            "children" : [{
+            "children": [
+              {
                 "id": "txt",
                 "type": "ClutterText",
                 "font-description": "Sans 36",
                 "color": "#FFF",
                 "height": 100
-            }]
-        },{
+              }
+            ]
+          },
+          {
             "id": "wifi-overlay",
-            "type" : "ClutterActor",
-            "width" : 800,
-            "height" : 480,
+            "type": "ClutterActor",
+            "width": 1920,
+            "height": 1080,
             "background-color": "#000C",
-            "layout-manager" : {
-                "type" : "ClutterFixedLayout"
+            "layout-manager": {
+              "type": "ClutterFixedLayout"
             },
             "visible": false,
-            "children" : [{
+            "children": [
+              {
                 "id": "wifi-text",
                 "type": "ClutterText",
                 "font-description": "Sans 24",
@@ -970,96 +1119,119 @@
                 "text": "Password:",
                 "x": 120,
                 "y": 70
-            },{
+              },
+              {
                 "id": "wifi-input",
                 "type": "MxEntry",
                 "password-char": 42,
                 "height": 60,
-                "width": 560,
+                "width": 1600,
                 "x": 120,
                 "y": 110
-            },{
+              },
+              {
                 "id": "wifi-status",
                 "type": "ClutterText",
                 "font-description": "Sans 12",
                 "color": "#FFF",
                 "x": 120,
                 "y": 200
-            },{
+              },
+              {
                 "id": "wifi-ok",
                 "type": "MxButton",
                 "label": "OK",
-                "x": 520,
+                "x": 1550,
                 "y": 185
-            },{
+              },
+              {
                 "id": "wifi-cancel",
                 "type": "MxButton",
                 "label": "Cancel",
-                "x": 586,
+                "x": 1620,
                 "y": 185
-            },{
-                "id" : "keyboard",
-                "type" : "ClutterActor",
-                "width" : 800,
-                "height" : 240,
+              },
+              {
+                "id": "keyboard",
+                "type": "ClutterActor",
+                "width": 1920,
+                "height": 720,
                 "y": 240,
                 "pivot-point-z": -400.0,
                 "pivot-point": [0.5, 0.5],
                 "rotation-angle-x": 0.0,
-                "layout-manager" : {
-                    "type" : "ClutterBoxLayout",
-                    "orientation": 1
+                "layout-manager": {
+                  "type": "ClutterBoxLayout",
+                  "orientation": 1
                 },
-                "children": [{
+                "children": [
+                  {
+                    "id": "key-style",
+                    "type": "MxButton",
+                    "style-class": "keyboard_1080",
+                    "visible": false
+                  },
+                  {
                     "id": "row-0",
-                    "type" : "ClutterActor",
-                    "height": 60,
-                    "layout-manager" : {
-                        "type" : "ClutterBoxLayout",
-                        "orientation": 0,
-                        "spacing": 17
+                    "type": "ClutterActor",
+                    "height": 200,
+                    "layout-manager": {
+                      "type": "ClutterBoxLayout",
+                      "orientation": 0,
+                      "spacing": 17
                     }
-                },{
+                  },
+                  {
                     "id": "row-1",
-                    "type" : "ClutterActor",
-                    "height": 60,
-                    "layout-manager" : {
-                        "type" : "ClutterBoxLayout",
-                        "orientation": 0,
-                        "spacing": 19
+                    "type": "ClutterActor",
+                    "height": 200,
+                    "layout-manager": {
+                      "type": "ClutterBoxLayout",
+                      "orientation": 0,
+                      "spacing": 19
                     }
-                },{
+                  },
+                  {
                     "id": "row-2",
-                    "type" : "ClutterActor",
-                    "height": 60,
-                    "layout-manager" : {
-                        "type" : "ClutterBoxLayout",
-                        "orientation": 0,
-                        "spacing": 19
+                    "type": "ClutterActor",
+                    "height": 200,
+                    "layout-manager": {
+                      "type": "ClutterBoxLayout",
+                      "orientation": 0,
+                      "spacing": 19
                     }
-                },{
+                  },
+                  {
                     "id": "row-3",
-                    "height": 60,
-                    "type" : "ClutterActor",
-                    "layout-manager" : {
-                        "type" : "ClutterBoxLayout",
-                        "orientation": 0,
-                        "spacing": 19
+                    "height": 200,
+                    "type": "ClutterActor",
+                    "layout-manager": {
+                      "type": "ClutterBoxLayout",
+                      "orientation": 0,
+                      "spacing": 19
                     }
-                }]
-            }]
-        },{
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "id": "cursor",
-            "type" : "ClutterActor",
-            "width" : 48,
-            "height" : 48,
-            "children" : [{
+            "type": "ClutterActor",
+            "width": 48,
+            "height": 48,
+            "children": [
+              {
                 "id": "pointer",
                 "type": "MxButton",
                 "height": 48,
                 "width": 48,
                 "style-class": "mouse"
-            }]
-        }]
-    }]
-}]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
