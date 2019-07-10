@@ -7,6 +7,7 @@ import logging
 import os
 from gi.repository import Clutter, Mx
 
+
 class Settings():
   def __init__(self, config):
     self.ui = config.ui
@@ -116,21 +117,17 @@ class Settings():
   def ap_removed_cb(self, ap):
     child = self.get_actor_by_path(ap["object_path"])
     if child:
-        self.wifi_body.remove_child(child)
+      self.wifi_body.remove_child(child)
 
   def get_bars(self, strength):
-      return (
-        "▮▯▯▯"*25+
-        "▮▮▯▯"*25+
-        "▮▮▮▯"*25+
-        "▮▮▮▮"*26)[strength*4:strength*4+4]
+    return ("▮▯▯▯" * 25 + "▮▮▯▯" * 25 + "▮▮▮▯" * 25 + "▮▮▮▮" * 26)[strength * 4:strength * 4 + 4]
 
   def get_ap_state(self):
-      if self.ap_state == "activated":
-        return "✓"
-      if self.ap_state == "disconnected":
-          return ""
-      return  "⧗"
+    if self.ap_state == "activated":
+      return "✓"
+    if self.ap_state == "disconnected":
+      return ""
+    return "⧗"
 
   def set_text(self, text, ap):
     bars = self.get_bars(int(ap["strength"]))
@@ -140,7 +137,7 @@ class Settings():
   def ap_prop_changed_cb(self, ap):
     actor = self.get_actor_by_path(ap["object_path"])
     if actor:
-        self.set_text(actor, ap)
+      self.set_text(actor, ap)
 
   def ap_state_changed_cb(self, interface, state):
     self.ap_state = state

@@ -6,6 +6,7 @@ import logging
 from .SecretAgent import SecretAgent
 from gi.repository import GObject
 
+
 class Network:
   def __init__(self):
     pass
@@ -14,12 +15,12 @@ class Network:
   def get_manager(config):
     cmd = os.popen("systemctl | grep connman").read()
     if "active" in cmd:
-        logging.debug("Using Connman")
-        return ConnMan()
+      logging.debug("Using Connman")
+      return ConnMan()
     cmd = os.popen("systemctl | grep NetworkManager").read()
     if "active" in cmd:
-        logging.debug("Using NetworkManager")
-        return NetworkManager(config)
+      logging.debug("Using NetworkManager")
+      return NetworkManager(config)
     logging.warning("Neither NetworkManager nor Connman was found")
     return None
 
@@ -184,40 +185,40 @@ class NetworkManager(Network):
   def wrap_ap(self, ap):
     aap = self._active_access_point()
     return {
-          "name": ap.Ssid,
-          "active": ap.HwAddress == aap.HwAddress if aap else False,
-          "service": ap,
-          "strength": ap.Strength,
-          "password": None,
-          "object_path": ap.object_path
-      }
+        "name": ap.Ssid,
+        "active": ap.HwAddress == aap.HwAddress if aap else False,
+        "service": ap,
+        "strength": ap.Strength,
+        "password": None,
+        "object_path": ap.object_path
+    }
 
   def get_access_points(self):
     aps = []
     for ap in self.wifi.SpecificDevice().GetAccessPoints():
       try:
-          wap = self.wrap_ap(ap)
-          self.save_ap(wap, ap.object_path)
-          aps.append(wap)
-          ap.OnPropertiesChanged(self.ap_prop_changed)
+        wap = self.wrap_ap(ap)
+        self.save_ap(wap, ap.object_path)
+        aps.append(wap)
+        ap.OnPropertiesChanged(self.ap_prop_changed)
       except self.nm.ObjectVanished:
-          pass
+        pass
       except AttributeError:
-          pass
+        pass
     return aps
 
   def get_active_access_point(self):
     try:
-        ap = self._active_access_point()
-        if ap:
-            return self.wrap_ap(ap)
+      ap = self._active_access_point()
+      if ap:
+        return self.wrap_ap(ap)
     except self.nm.ObjectVanished:
-        pass
+      pass
 
   def _active_access_point(self):
-      ap = self.wifi.SpecificDevice().ActiveAccessPoint
-      if ap and hasattr(ap, "HwAddress"):
-          return ap
+    ap = self.wifi.SpecificDevice().ActiveAccessPoint
+    if ap and hasattr(ap, "HwAddress"):
+      return ap
 
   # Perform a wifi scan
   def scan(self):
@@ -233,29 +234,29 @@ class NetworkManager(Network):
 
   def ap_added(self, dev, interface, signal, access_point):
     try:
-        if hasattr(access_point, "HwAddress"):
-            access_point.OnPropertiesChanged(self.ap_prop_changed)
-            ap = self.wrap_ap(access_point)
-            self.save_ap(ap, ap["object_path"])
-            if self.ap_added_cb:
-              self.ap_added_cb(ap)
+      if hasattr(access_point, "HwAddress"):
+        access_point.OnPropertiesChanged(self.ap_prop_changed)
+        ap = self.wrap_ap(access_point)
+        self.save_ap(ap, ap["object_path"])
+        if self.ap_added_cb:
+          self.ap_added_cb(ap)
     except self.nm.ObjectVanished:
-        pass
+      pass
 
   def ap_removed(self, dev, interface, signal, access_point):
     try:
-        ap = self.get_ap_by_path(access_point.object_path)
-        if self.ap_removed_cb and ap:
-          self.ap_removed_cb(ap)
+      ap = self.get_ap_by_path(access_point.object_path)
+      if self.ap_removed_cb and ap:
+        self.ap_removed_cb(ap)
     except self.nm.ObjectVanished:
-        pass
+      pass
 
   def ap_state_changed(self, nm, interface, signal, old_state, new_state, reason):
     try:
       if self.ap_state_changed_cb:
         self.ap_state_changed_cb(nm, self.nm.const('device_state', new_state))
     except self.nm.ObjectVanished:
-        pass
+      pass
 
   def ap_prop_changed(self, ap, interface, signal, properties):
     try:
@@ -265,30 +266,38 @@ class NetworkManager(Network):
       pass
 
   def add_connection(self, ap):
-      # Assume wpa-psk security
-      conn = None
-      try:
-          if ap["service"].RsnFlags & self.nm.NM_802_11_AP_SEC_KEY_MGMT_PSK:
-              new_connection = {
-               '802-11-wireless': {'mode': 'infrastructure',
-                                   'security': '802-11-wireless-security',
-                                   'ssid': ap["name"]},
-               '802-11-wireless-security': {
+    # Assume wpa-psk security
+    conn = None
+    try:
+      if ap["service"].RsnFlags & self.nm.NM_802_11_AP_SEC_KEY_MGMT_PSK:
+        new_connection = {
+            '802-11-wireless': {
+                'mode': 'infrastructure',
+                'security': '802-11-wireless-security',
+                'ssid': ap["name"]
+            },
+            '802-11-wireless-security': {
                 'auth-alg': 'open',
                 'key-mgmt': 'wpa-psk'
-                },
-               'connection': {'id': ap["name"],
-                              'type': '802-11-wireless',
-                              'uuid': str(uuid.uuid4())},
-               'ipv4': {'method': 'auto'},
-               'ipv6': {'method': 'auto'}
-              }
-              conn = self.nm.Settings.AddConnection(new_connection)
-          else:
-              logging.warning("Only WPA-PSK security implemented")
-      except self.nm.ObjectVanished:
-        pass
-      return conn
+            },
+            'connection': {
+                'id': ap["name"],
+                'type': '802-11-wireless',
+                'uuid': str(uuid.uuid4())
+            },
+            'ipv4': {
+                'method': 'auto'
+            },
+            'ipv6': {
+                'method': 'auto'
+            }
+        }
+        conn = self.nm.Settings.AddConnection(new_connection)
+      else:
+        logging.warning("Only WPA-PSK security implemented")
+    except self.nm.ObjectVanished:
+      pass
+    return conn
 
   def get_known_connections(self):
     connections = self.nm.Settings.ListConnections()
@@ -302,12 +311,13 @@ class NetworkManager(Network):
     else:
       conn = self.add_connection(ap)
     try:
-        self.nm.NetworkManager.ActivateConnection(conn, self.wifi, "/")
+      self.nm.NetworkManager.ActivateConnection(conn, self.wifi, "/")
     except self.nm.ObjectVanished:
-        pass
+      pass
 
   def is_known_connection(self, ap):
     return ap["name"] in self.get_known_connections()
+
 
 if __name__ == "__main__":
   m = Network.get_manager()

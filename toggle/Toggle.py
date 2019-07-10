@@ -205,16 +205,16 @@ class Toggle:
   def loop(self, queue, name):
     """ When a new event comes in, execute it """
     while self.running:
-        update = queue.get()
-        if not update:
-          continue
-        # Execute any long running operations here,
-        # to keep the main thread free for animations
-        if update.has_thread_execution:
-          update.execute_in_thread(self.config)
-        # All UI updates must be handled by the main thread.
-        Clutter.threads_add_idle(0, self.execute, update)
-        
+      update = queue.get()
+      if not update:
+        continue
+      # Execute any long running operations here,
+      # to keep the main thread free for animations
+      if update.has_thread_execution:
+        update.execute_in_thread(self.config)
+      # All UI updates must be handled by the main thread.
+      Clutter.threads_add_idle(0, self.execute, update)
+
   def stop(self, w):
     logging.debug("Stopping Toggle")
     self.running = False
