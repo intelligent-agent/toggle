@@ -1123,7 +1123,6 @@
               {
                 "id": "wifi-input",
                 "type": "MxEntry",
-                "password-char": 42,
                 "height": 60,
                 "width": 1600,
                 "x": 120,
