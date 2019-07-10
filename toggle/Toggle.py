@@ -214,7 +214,7 @@ class Toggle:
           update.execute_in_thread(self.config)
         # All UI updates must be handled by the main thread.
         Clutter.threads_add_idle(0, self.execute, update)
-
+        
   def stop(self, w):
     logging.debug("Stopping Toggle")
     self.running = False
