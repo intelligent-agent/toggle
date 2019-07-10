@@ -2,19 +2,25 @@
 import socket
 import os
 import uuid
+import logging
+from .SecretAgent import SecretAgent
+from gi.repository import GObject
 
 class Network:
   def __init__(self):
     pass
 
   @staticmethod
-  def get_manager():
+  def get_manager(config):
     cmd = os.popen("systemctl | grep connman").read()
     if "active" in cmd:
-      return "connman"
+        logging.debug("Using Connman")
+        return ConnMan()
     cmd = os.popen("systemctl | grep NetworkManager").read()
     if "active" in cmd:
-      return "nm"
+        logging.debug("Using NetworkManager")
+        return NetworkManager(config)
+    logging.warning("Neither NetworkManager nor Connman was found")
     return None
 
   def get_connected_ip(self):
@@ -26,7 +32,7 @@ class Network:
 
 
 class ConnMan(Network):
-  def __init__(self):
+  def __init__(self, config):
     Network.__init__(self)
     import pyconnman
     import dbus
@@ -137,7 +143,7 @@ class ConnMan(Network):
 
 
 class NetworkManager(Network):
-  def __init__(self):
+  def __init__(self, config):
     Network.__init__(self)
     import NetworkManager as SystemNetworkManager
     self.nm = SystemNetworkManager
@@ -147,16 +153,17 @@ class NetworkManager(Network):
     for dev in self.devices:
       if dev.DeviceType == SystemNetworkManager.NM_DEVICE_TYPE_WIFI:
         self.wifi = dev
+        self.wifi.OnAccessPointAdded(self.ap_added)
+        self.wifi.OnAccessPointRemoved(self.ap_removed)
+        self.wifi.OnStateChanged(self.ap_state_changed)
       if dev.DeviceType == SystemNetworkManager.NM_DEVICE_TYPE_ETHERNET:
         self.ethernet = dev
     self.ap_removed_cb = None
     self.ap_added_cb = None
     self.ap_prop_changed_cb = None
     self.ap_state_changed_cb = None
-    self.wifi.OnAccessPointAdded(self.ap_added)
-    self.wifi.OnAccessPointRemoved(self.ap_removed)
-    self.wifi.OnStateChanged(self.ap_state_changed)
     self.aps_by_path = {}
+    self.agent = SecretAgent(config)
 
   def has_wifi_capabilities(self):
     return not not self.wifi
@@ -175,9 +182,10 @@ class NetworkManager(Network):
     return self.ethernet.State == self.nm.NM_DEVICE_STATE_ACTIVATED
 
   def wrap_ap(self, ap):
+    aap = self._active_access_point()
     return {
           "name": ap.Ssid,
-          "active": ap.HwAddress == self.wifi.SpecificDevice().ActiveAccessPoint.HwAddress,
+          "active": ap.HwAddress == aap.HwAddress if aap else False,
           "service": ap,
           "strength": ap.Strength,
           "password": None,
@@ -186,28 +194,30 @@ class NetworkManager(Network):
 
   def get_access_points(self):
     aps = []
-    aap = self.wifi.ActiveAccessPoint if self.wifi.State == self.nm.NM_DEVICE_STATE_ACTIVATED else None
     for ap in self.wifi.SpecificDevice().GetAccessPoints():
       try:
-          if hasattr(self.wifi.SpecificDevice().ActiveAccessPoint, "HwAddress"):
-            wap = self.wrap_ap(ap)
-            self.save_ap(wap, ap.object_path)
-            aps.append(wap)
-            ap.OnPropertiesChanged(self.ap_prop_changed)
+          wap = self.wrap_ap(ap)
+          self.save_ap(wap, ap.object_path)
+          aps.append(wap)
+          ap.OnPropertiesChanged(self.ap_prop_changed)
       except self.nm.ObjectVanished:
-          print("Vanished 1")
+          pass
+      except AttributeError:
+          pass
     return aps
 
   def get_active_access_point(self):
     try:
-        ap = self.wifi.SpecificDevice().ActiveAccessPoint
+        ap = self._active_access_point()
         if ap:
             return self.wrap_ap(ap)
     except self.nm.ObjectVanished:
-        print("Vanished 8")
+        pass
 
-  def ap_needs_password(self, ap):
-    return not self.is_known_connection(ap)
+  def _active_access_point(self):
+      ap = self.wifi.SpecificDevice().ActiveAccessPoint
+      if ap and hasattr(ap, "HwAddress"):
+          return ap
 
   # Perform a wifi scan
   def scan(self):
@@ -238,48 +248,46 @@ class NetworkManager(Network):
         if self.ap_removed_cb and ap:
           self.ap_removed_cb(ap)
     except self.nm.ObjectVanished:
-        print("Vanished 3")
+        pass
 
   def ap_state_changed(self, nm, interface, signal, old_state, new_state, reason):
     try:
       if self.ap_state_changed_cb:
         self.ap_state_changed_cb(nm, self.nm.const('device_state', new_state))
     except self.nm.ObjectVanished:
-        print("Vanished 4")
+        pass
 
   def ap_prop_changed(self, ap, interface, signal, properties):
     try:
       if self.ap_prop_changed_cb and hasattr(ap, "HwAddress"):
         self.ap_prop_changed_cb(self.wrap_ap(ap))
     except self.nm.ObjectVanished:
-      print("Vanished 5")
-
-  def update_password(self, ap, passwd):
-    ap["password"] = passwd
+      pass
 
   def add_connection(self, ap):
       # Assume wpa-psk security
-      # Todo: Figure out the type of security for the AP.
-      print(ap["service"].WpaFlags)
-      print(ap["service"].RsnFlags)
       conn = None
-      if ap["service"].RsnFlags & self.nm.NM_802_11_AP_SEC_KEY_MGMT_PSK:
-          new_connection = {
-           '802-11-wireless': {'mode': 'infrastructure',
-                               'security': '802-11-wireless-security',
-                               'ssid': ap["name"]},
-           '802-11-wireless-security': {'auth-alg': 'open', 'key-mgmt': 'wpa-psk'},
-           'connection': {'id': ap["name"],
-                          'type': '802-11-wireless',
-                          'uuid': str(uuid.uuid4())},
-           'ipv4': {'method': 'auto'},
-           'ipv6': {'method': 'auto'}
-          }
-          try:
+      try:
+          if ap["service"].RsnFlags & self.nm.NM_802_11_AP_SEC_KEY_MGMT_PSK:
+              new_connection = {
+               '802-11-wireless': {'mode': 'infrastructure',
+                                   'security': '802-11-wireless-security',
+                                   'ssid': ap["name"]},
+               '802-11-wireless-security': {
+                'auth-alg': 'open',
+                'key-mgmt': 'wpa-psk'
+                },
+               'connection': {'id': ap["name"],
+                              'type': '802-11-wireless',
+                              'uuid': str(uuid.uuid4())},
+               'ipv4': {'method': 'auto'},
+               'ipv6': {'method': 'auto'}
+              }
               conn = self.nm.Settings.AddConnection(new_connection)
-              print(conn)
-          except self.nm.ObjectVanished:
-            print("Vanished 7")
+          else:
+              logging.warning("Only WPA-PSK security implemented")
+      except self.nm.ObjectVanished:
+        pass
       return conn
 
   def get_known_connections(self):
@@ -296,7 +304,7 @@ class NetworkManager(Network):
     try:
         self.nm.NetworkManager.ActivateConnection(conn, self.wifi, "/")
     except self.nm.ObjectVanished:
-        print("Vanished 6")
+        pass
 
   def is_known_connection(self, ap):
     return ap["name"] in self.get_known_connections()
@@ -322,6 +330,4 @@ if __name__ == "__main__":
     print(ap["service"].WpaFlags)
   print("IP: " + n.get_connected_ip())
 
-  print ("Needs password: " + \
-      str(n.ap_needs_password(n.get_access_points()[0])))
   print(n.activate_connection(n.get_access_points()[0]))

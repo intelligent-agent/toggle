@@ -134,16 +134,8 @@ class Toggle:
     config.jog = Jog(config)
     config.temp_graph = TemperatureGraph(config)
     config.filament_graph = FilamentGraph(config)
-    m = Network.get_manager()
-    if m == "connman":
-      logging.debug("Using Connman")
-      config.network = ConnMan()
-    elif m == "nm":
-      logging.debug("Using NetworkManager")
-      config.network = NetworkManager()
-    else:
-      logging.warning("Neither NetworkManager nor Connman was found")
-    config.Settings = Settings(config)
+    config.network = Network.get_manager(config)
+    config.settings = Settings(config)
 
     # Set up SockJS and REST clients
     config.rest_client = RestClient(config)
@@ -218,8 +210,7 @@ class Toggle:
 
   def loop(self, queue, name):
     """ When a new event comes in, execute it """
-    try:
-      while self.running:
+    while self.running:
         update = queue.get()
         if not update:
           continue
@@ -229,10 +220,6 @@ class Toggle:
           update.execute_in_thread(self.config)
         # All UI updates must be handled by the main thread.
         Clutter.threads_add_idle(0, self.execute, update)
-    except Exception:
-      logging.exception("Exception in {} loop: ".format(name))
-    except dbus.exceptions.DBusException:
-      print("Dbusexception")
 
   def stop(self, w):
     logging.debug("Stopping Toggle")

@@ -174,18 +174,13 @@
                                 "width": 1900,
                                 "height": 5,
                                 "children": [{
-                                    "type": "ClutterText",
-                                    "text": "Wifi SSID: ",
-                                    "font-description": "Sans 32",
-                                    "x": 250,
-                                    "y": 20
-                                },{
                                     "id": "wifi-ssid",
                                     "type": "ClutterText",
-                                    "text": "Not set",
+                                    "text": "No Access Points found",
                                     "font-description": "Sans 32",
-                                    "x": 800,
-                                    "y": 20
+                                    "height": 50,
+                                    "width": 1820,
+                                    "margin-left": 100
                                 }]
                             }]
                         },{

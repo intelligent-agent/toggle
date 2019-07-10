@@ -176,18 +176,13 @@
                                     "orientation": 1
                                 },
                                 "children": [{
-                                    "type": "ClutterText",
-                                    "text": "Wifi SSID: ",
-                                    "font-description": "Sans 32",
-                                    "x": 100,
-                                    "y": 20
-                                },{
                                     "id": "wifi-ssid",
                                     "type": "ClutterText",
-                                    "text": "Not set",
+                                    "text": "No Access Points found",
                                     "font-description": "Sans 32",
-                                    "x": 700,
-                                    "y": 20
+                                    "height": 50,
+                                    "width": 1180,
+                                    "margin-left": 100
                                 }]
                             }]
                         },{
