@@ -162,7 +162,6 @@ class Settings():
 
   def ap_tap(self, tap, actor):
     self.selected_ap = actor.ap
-    actor.ap["password"] = "grimbadgerassault"
     self.config.network.activate_connection(actor.ap)
 
   def reconnect_last_ap(self):
