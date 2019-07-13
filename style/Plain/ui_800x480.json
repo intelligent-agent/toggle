@@ -69,7 +69,7 @@
                               {
                                 "id": "network-header",
                                 "type": "ClutterActor",
-                                "height": 100,
+                                "height": 70,
                                 "width": 780,
                                 "layout-manager": {
                                   "type": "ClutterFixedLayout"
@@ -81,15 +81,15 @@
                                     "color": "black",
                                     "x": 120,
                                     "y": 28,
-                                    "font-description": "Sans 32"
+                                    "font-description": "Sans 16"
                                   },
                                   {
                                     "type": "MxIcon",
                                     "style-class": "network",
                                     "x": 30,
-                                    "y": 18,
-                                    "width": 64,
-                                    "height": 64
+                                    "y": 10,
+                                    "width": 50,
+                                    "height": 50
                                   }
                                 ]
                               },
@@ -165,7 +165,7 @@
                               {
                                 "id": "wifi-header",
                                 "type": "ClutterActor",
-                                "height": 100,
+                                "height": 70,
                                 "width": 780,
                                 "layout-manager": {
                                   "type": "ClutterFixedLayout"
@@ -177,15 +177,15 @@
                                     "color": "black",
                                     "x": 120,
                                     "y": 28,
-                                    "font-description": "Sans 32"
+                                    "font-description": "Sans 16"
                                   },
                                   {
                                     "type": "MxIcon",
                                     "style-class": "wifi",
                                     "x": 30,
-                                    "y": 18,
-                                    "width": 64,
-                                    "height": 64
+                                    "y": 10,
+                                    "width": 50,
+                                    "height": 50
                                   }
                                 ]
                               },
@@ -226,7 +226,7 @@
                               {
                                 "id": "slicer-header",
                                 "type": "ClutterActor",
-                                "height": 100,
+                                "height": 70,
                                 "width": 780,
                                 "layout-manager": {
                                   "type": "ClutterFixedLayout"
@@ -238,15 +238,15 @@
                                     "color": "black",
                                     "x": 120,
                                     "y": 30,
-                                    "font-description": "Sans 32"
+                                    "font-description": "Sans 16"
                                   },
                                   {
                                     "type": "MxIcon",
                                     "style-class": "slicer",
                                     "x": 30,
-                                    "y": 18,
-                                    "width": 64,
-                                    "height": 64
+                                    "y": 10,
+                                    "width": 50,
+                                    "height": 50
                                   }
                                 ]
                               },
@@ -307,7 +307,7 @@
                               {
                                 "id": "printer-header",
                                 "type": "ClutterActor",
-                                "height": 100,
+                                "height": 70,
                                 "width": 780,
                                 "layout-manager": {
                                   "type": "ClutterFixedLayout"
@@ -319,15 +319,15 @@
                                     "color": "black",
                                     "x": 120,
                                     "y": 30,
-                                    "font-description": "Sans 32"
+                                    "font-description": "Sans 16"
                                   },
                                   {
                                     "type": "MxIcon",
                                     "style-class": "printer",
                                     "x": 30,
-                                    "y": 18,
-                                    "width": 64,
-                                    "height": 64
+                                    "y": 10,
+                                    "width": 50,
+                                    "height": 50
                                   }
                                 ]
                               },
@@ -370,8 +370,8 @@
                         "style-class": "settings",
                         "x": 20,
                         "y": 15,
-                        "width": 64,
-                        "height": 64,
+                        "width": 50,
+                        "height": 50,
                         "visible": false
                       },
                       {
@@ -380,8 +380,8 @@
                         "style-class": "temp",
                         "x": 700,
                         "y": 15,
-                        "width": 64,
-                        "height": 64,
+                        "width": 50,
+                        "height": 50,
                         "visible": true
                       }
                     ]
@@ -415,7 +415,7 @@
                             "color": "white",
                             "x": 45,
                             "y": 350,
-                            "font-description": "Sans 16"
+                            "font-description": "Sans 8"
                           }
                         ]
                       },
@@ -425,8 +425,8 @@
                         "style-class": "temp",
                         "x": 700,
                         "y": 15,
-                        "width": 64,
-                        "height": 64,
+                        "width": 50,
+                        "height": 50,
                         "opacity": 0
                       },
                       {
@@ -435,8 +435,8 @@
                         "style-class": "settings",
                         "x": 20,
                         "y": 15,
-                        "width": 64,
-                        "height": 64,
+                        "width": 50,
+                        "height": 50,
                         "opacity": 0
                       }
                     ]
@@ -463,8 +463,9 @@
                         "id": "graph",
                         "type": "ClutterActor",
                         "width": 800,
-                        "height": 400,
-                        "y": 40
+                        "height": 350,
+                        "y": 60,
+                        "x": 10
                       },
                       {
                         "id": "heat-tool0",
@@ -473,8 +474,8 @@
                         "is_toggle": true,
                         "x": 284,
                         "y": 400,
-                        "width": 64,
-                        "height": 64
+                        "width": 50,
+                        "height": 50
                       },
                       {
                         "id": "heat-bed",
@@ -483,8 +484,8 @@
                         "is_toggle": true,
                         "x": 368,
                         "y": 400,
-                        "width": 64,
-                        "height": 64
+                        "width": 50,
+                        "height": 50
                       },
                       {
                         "id": "heat-tool1",
@@ -493,8 +494,8 @@
                         "is_toggle": true,
                         "x": 452,
                         "y": 400,
-                        "width": 64,
-                        "height": 64
+                        "width": 50,
+                        "height": 50
                       },
                       {
                         "id": "heat-tool2",
@@ -503,8 +504,8 @@
                         "is_toggle": true,
                         "x": 536,
                         "y": 400,
-                        "width": 64,
-                        "height": 64
+                        "width": 50,
+                        "height": 50
                       },
                       {
                         "id": "lbl-temp",
@@ -528,8 +529,8 @@
                     "is_toggle": true,
                     "x": 20,
                     "y": 15,
-                    "height": 64,
-                    "width": 64
+                    "height": 50,
+                    "width": 50
                   },
                   {
                     "id": "side1-btn-next",
@@ -538,8 +539,8 @@
                     "is_toggle": true,
                     "x": 716,
                     "y": 15,
-                    "height": 64,
-                    "width": 64
+                    "height": 50,
+                    "width": 50
                   }
                 ]
               },
@@ -626,8 +627,8 @@
                               {
                                 "id": "loader",
                                 "type": "ClutterTexture",
-                                "width": 64,
-                                "height": 64,
+                                "width": 50,
+                                "height": 50,
                                 "x": 268,
                                 "y": 200,
                                 "pivot-point": [0.5, 0.5],
@@ -645,8 +646,8 @@
                             "id": "btn-prev",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 64,
-                            "width": 64,
+                            "height": 50,
+                            "width": 50,
                             "x": 15,
                             "y": 208,
                             "rotation-angle-z": 180.0,
@@ -670,7 +671,7 @@
                             "x-align": 3,
                             "x-expand": true,
                             "line-alignment": 2,
-                            "font-description": "Sans 16"
+                            "font-description": "Sans 10"
                           },
                           {
                             "id": "progress-bar",
@@ -688,7 +689,8 @@
                             "x": 560,
                             "y": 395,
                             "width": 220,
-                            "height": 25
+                            "height": 25,
+                            "font-description": "Sans 10"
                           },
                           {
                             "id": "time-left",
@@ -699,7 +701,7 @@
                             "height": 25,
                             "x-align": 3,
                             "x-expand": true,
-                            "font-description": "Sans 16"
+                            "font-description": "Sans 10"
                           },
                           {
                             "id": "btn-cancel",
@@ -709,8 +711,8 @@
                             "toggled": true,
                             "x": 284,
                             "y": 400,
-                            "width": 64,
-                            "height": 64
+                            "width": 50,
+                            "height": 50
                           },
                           {
                             "id": "btn-print",
@@ -719,8 +721,8 @@
                             "is_toggle": true,
                             "x": 368,
                             "y": 400,
-                            "width": 64,
-                            "height": 64
+                            "width": 50,
+                            "height": 50
                           },
                           {
                             "id": "btn-pause",
@@ -729,15 +731,15 @@
                             "is_toggle": true,
                             "x": 452,
                             "y": 400,
-                            "width": 64,
-                            "height": 64
+                            "width": 50,
+                            "height": 50
                           },
                           {
                             "id": "btn-next",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 64,
-                            "width": 64,
+                            "height": 50,
+                            "width": 50,
                             "x": 723,
                             "y": 208,
                             "rotation-angle-z": 0.0,
@@ -753,8 +755,8 @@
                     "style-class": "temp",
                     "x": 15,
                     "y": 15,
-                    "width": 64,
-                    "height": 64
+                    "width": 50,
+                    "height": 50
                   },
                   {
                     "id": "side2-btn-next",
@@ -762,8 +764,8 @@
                     "style-class": "jog",
                     "x": 720,
                     "y": 15,
-                    "width": 64,
-                    "height": 64
+                    "width": 50,
+                    "height": 50
                   }
                 ]
               },
@@ -797,8 +799,8 @@
                             "id": "jog_x_minus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 70,
-                            "width": 70,
+                            "height": 50,
+                            "width": 50,
                             "x": 0,
                             "y": 125,
                             "rotation-angle-z": 180.0,
@@ -808,8 +810,8 @@
                             "id": "jog_y_plus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 70,
-                            "width": 70,
+                            "height": 50,
+                            "width": 50,
                             "x": 120,
                             "y": 0,
                             "rotation-angle-z": 270.0,
@@ -819,8 +821,8 @@
                             "id": "jog_x_plus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "width": 70,
-                            "height": 70,
+                            "width": 50,
+                            "height": 50,
                             "x": 240,
                             "y": 125,
                             "rotation-angle-z": 0.0,
@@ -830,8 +832,8 @@
                             "id": "jog_y_minus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 70,
-                            "width": 70,
+                            "height": 50,
+                            "width": 50,
                             "x": 120,
                             "y": 245,
                             "rotation-angle-z": 90.0,
@@ -860,8 +862,8 @@
                             "id": "jog_z_plus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 70,
-                            "width": 70,
+                            "height": 50,
+                            "width": 50,
                             "x": 120,
                             "y": 0,
                             "rotation-angle-z": 270.0,
@@ -871,8 +873,8 @@
                             "id": "jog_z_minus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 70,
-                            "width": 70,
+                            "height": 50,
+                            "width": 50,
                             "x": 120,
                             "y": 245,
                             "rotation-angle-z": 90.0,
@@ -882,8 +884,8 @@
                             "id": "jog_z_home",
                             "type": "MxButton",
                             "style-class": "jog_home_z",
-                            "height": 100,
-                            "width": 100,
+                            "height": 70,
+                            "width": 70,
                             "x": 105,
                             "y": 110
                           }
@@ -901,8 +903,8 @@
                             "id": "motors_off",
                             "type": "MxButton",
                             "style-class": "motors_off",
-                            "height": 70,
-                            "width": 70,
+                            "height": 50,
+                            "width": 50,
                             "x": 120,
                             "y": 130
                           },
@@ -910,8 +912,8 @@
                             "id": "fan_on",
                             "type": "MxButton",
                             "style-class": "fan_on",
-                            "height": 70,
-                            "width": 70,
+                            "height": 50,
+                            "width": 50,
                             "x": 120,
                             "y": 0
                           },
@@ -919,8 +921,8 @@
                             "id": "fan_off",
                             "type": "MxButton",
                             "style-class": "fan_off",
-                            "height": 70,
-                            "width": 70,
+                            "height": 50,
+                            "width": 50,
                             "x": 120,
                             "y": 245
                           }
@@ -938,8 +940,8 @@
                             "id": "jog_e_extrude",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 70,
-                            "width": 70,
+                            "height": 50,
+                            "width": 50,
                             "x": 120,
                             "y": 0,
                             "rotation-angle-z": 270.0,
@@ -949,8 +951,8 @@
                             "id": "jog_e_retract",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 70,
-                            "width": 70,
+                            "height": 50,
+                            "width": 50,
                             "x": 120,
                             "y": 245,
                             "rotation-angle-z": 90.0,
@@ -961,8 +963,8 @@
                             "type": "MxButton",
                             "style-class": "jog_home_e",
                             "is_toggle": true,
-                            "height": 100,
-                            "width": 100,
+                            "height": 70,
+                            "width": 70,
                             "x": 105,
                             "y": 110
                           }
@@ -972,7 +974,7 @@
                         "id": "travel-length",
                         "type": "ClutterText",
                         "text": "",
-                        "x": 480,
+                        "x": 392,
                         "y": 440,
                         "width": 300,
                         "height": 25,
@@ -982,14 +984,40 @@
                         "font-description": "Sans 16"
                       },
                       {
+                        "id": "text_xy",
+                        "type": "ClutterText",
+                        "text": "XY:",
+                        "x": 250,
+                        "y": 415,
+                        "width": 50,
+                        "height": 25,
+                        "x-align": 1,
+                        "x-expand": true,
+                        "line-alignment": 1,
+                        "font-description": "Sans 16"
+                      },
+                      {
                         "id": "travel_xy",
                         "type": "MxButton",
                         "style-class": "travel_10",
                         "is_toggle": true,
                         "x": 284,
                         "y": 400,
-                        "width": 64,
-                        "height": 64
+                        "width": 50,
+                        "height": 50
+                      },
+                      {
+                        "id": "text_z",
+                        "type": "ClutterText",
+                        "text": "Z:",
+                        "x": 345,
+                        "y": 415,
+                        "width": 50,
+                        "height": 25,
+                        "x-align": 1,
+                        "x-expand": true,
+                        "line-alignment": 1,
+                        "font-description": "Sans 16"
                       },
                       {
                         "id": "travel_z",
@@ -998,8 +1026,21 @@
                         "is_toggle": true,
                         "x": 368,
                         "y": 400,
-                        "width": 64,
-                        "height": 64
+                        "width": 50,
+                        "height": 50
+                      },
+                      {
+                        "id": "text_e",
+                        "type": "ClutterText",
+                        "text": "E:",
+                        "x": 427,
+                        "y": 415,
+                        "width": 50,
+                        "height": 25,
+                        "x-align": 1,
+                        "x-expand": true,
+                        "line-alignment": 1,
+                        "font-description": "Sans 16"
                       },
                       {
                         "id": "travel_eh",
@@ -1008,8 +1049,8 @@
                         "is_toggle": true,
                         "x": 452,
                         "y": 400,
-                        "width": 64,
-                        "height": 64
+                        "width": 50,
+                        "height": 50
                       }
                     ]
                   },
@@ -1017,8 +1058,8 @@
                     "id": "side3-btn-prev",
                     "type": "MxButton",
                     "style-class": "print",
-                    "width": 64,
-                    "height": 64,
+                    "width": 50,
+                    "height": 50,
                     "x": 15,
                     "y": 15
                   },
@@ -1028,8 +1069,8 @@
                     "style-class": "settings",
                     "x": 700,
                     "y": 15,
-                    "width": 64,
-                    "height": 64
+                    "width": 50,
+                    "height": 50
                   }
                 ]
               }
