@@ -134,7 +134,7 @@ class ConnMan(Network):
       print('Unable to complete:', sys.exc_info())
 
   def activate_connection(self, ap):
-    service = self.p.service.ConnService(ap["path"])
+    service = self.p.service.ConnService(ap["object_path"])
     try:
       service.connect()
     except self.dbus.exceptions.DBusException as e:
