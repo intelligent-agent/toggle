@@ -3,7 +3,6 @@ import socket
 import os
 import uuid
 import logging
-from .SecretAgent import SecretAgent
 from gi.repository import GObject
 
 
@@ -16,7 +15,7 @@ class Network:
     cmd = os.popen("systemctl | grep connman").read()
     if "active" in cmd:
       logging.debug("Using Connman")
-      return ConnMan()
+      return ConnMan(config)
     cmd = os.popen("systemctl | grep NetworkManager").read()
     if "active" in cmd:
       logging.debug("Using NetworkManager")
@@ -75,12 +74,12 @@ class ConnMan(Network):
     for service in self.manager.get_services():
       (path, params) = service
       ap = {
-          "name": ["Name"] if "Name" in params else "?",
+          "name": params["Name"] if "Name" in params else "?",
           "active": (params["State"] == "online") if "State" in params else False,
           "service": service,
-          "strength": params["Strength"] if "Strength" in params else "?",
+          "strength": params["Strength"] if "Strength" in params else "0",
           "security": params["Security"] if "Security" in params else "?",
-          "path": path
+          "object_path": path
       }
       aps.append(ap)
     return aps
@@ -147,6 +146,7 @@ class NetworkManager(Network):
   def __init__(self, config):
     Network.__init__(self)
     import NetworkManager as SystemNetworkManager
+    from .SecretAgent import SecretAgent
     self.nm = SystemNetworkManager
     self.devices = self.nm.NetworkManager.GetDevices()
     self.wifi = None
