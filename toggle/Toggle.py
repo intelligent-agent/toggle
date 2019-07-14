@@ -26,12 +26,15 @@ from .VolumeStage import VolumeStage
 from .Plate import Plate
 from .Model import Model
 from threading import Thread, current_thread
-from gi.repository import Clutter, Mx
+from gi.repository import GObject, Clutter, Mx
+from dbus.mainloop.glib import DBusGMainLoop
 import os
 import sys
 import queue as Queue
 import time
 import logging
+
+DBusGMainLoop(set_as_default=True)
 """
 The main entry point for Toggle.
 
@@ -65,16 +68,10 @@ class LoggerWriter:
   def __init__(self, config, logger, level):
     self.logger = logger
     self.level = level
-    self.screen_log = config.getboolean("System", "screen_debug")
 
   def write(self, message):
     if message != '\n':
       self.logger.log(self.level, message)
-      if self.screen_log:
-        self.log_to_screen(message)
-
-  def log_to_screen(self, message):
-    pass    # TODO: implement this
 
   def flush(self):
     pass
@@ -131,16 +128,8 @@ class Toggle:
     config.jog = Jog(config)
     config.temp_graph = TemperatureGraph(config)
     config.filament_graph = FilamentGraph(config)
-    m = Network.get_manager()
-    if m == "connman":
-      logging.debug("Using Connman")
-      config.network = ConnMan()
-    elif m == "nm":
-      logging.debug("Using NetworkManager")
-      config.network = NetworkManager()
-    else:
-      logging.warning("Neither NetworkManager nor Connman was found")
-    config.Settings = Settings(config)
+    config.network = Network.get_manager(config)
+    config.settings = Settings(config)
 
     # Set up SockJS and REST clients
     config.rest_client = RestClient(config)
@@ -215,19 +204,16 @@ class Toggle:
 
   def loop(self, queue, name):
     """ When a new event comes in, execute it """
-    try:
-      while self.running:
-        update = queue.get()
-        if update is None:
-          continue
-        # Execute any long running operations here,
-        # to keep the main thread free for animations
-        if update.has_thread_execution:
-          update.execute_in_thread(self.config)
-        # All UI updates must be handled by the main thread.
-        Clutter.threads_add_idle(0, self.execute, update)
-    except Exception:
-      logging.exception("Exception in {} loop: ".format(name))
+    while self.running:
+      update = queue.get()
+      if not update:
+        continue
+      # Execute any long running operations here,
+      # to keep the main thread free for animations
+      if update.has_thread_execution:
+        update.execute_in_thread(self.config)
+      # All UI updates must be handled by the main thread.
+      Clutter.threads_add_idle(0, self.execute, update)
 
   def stop(self, w):
     logging.debug("Stopping Toggle")
