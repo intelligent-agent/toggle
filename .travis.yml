@@ -1,6 +1,7 @@
 matrix:
   include:
-    # python formatting
+    - os: linux
+      dist: cosmic
     - language: python
       python: 3.7
       install:
