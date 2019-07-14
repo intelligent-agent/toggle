@@ -1,5 +1,5 @@
 # Display a message.
-from gi.repository import Clutter, Mx, Mash
+from gi.repository import Clutter,  Mash
 import logging
 from threading import current_thread
 

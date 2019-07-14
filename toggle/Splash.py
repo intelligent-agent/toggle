@@ -1,7 +1,4 @@
-# Plate
-
-from gi.repository import Clutter, Mx, Mash
-
+# Splash screen showing progress until connection has been established
 
 class Splash():
   def __init__(self, config):
