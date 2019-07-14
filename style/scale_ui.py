@@ -66,7 +66,7 @@ def scale(name, data, original, address):
     data = linear_scale(old_h, h, data)
 
   if type(data) == type(1):
-    exec ("original" + address + "=" + str(data))
+    exec("original" + address + "=" + str(data))
 
   return
 
