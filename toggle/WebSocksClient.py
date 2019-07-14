@@ -74,9 +74,8 @@ class WebSocksClient():
     """
     Close connection.
     """
-    if not self._ws_connection:
-      raise RuntimeError('Web socket connection is already closed.')
-    self._ws_connection.close()
+    if type(self._ws_connection) == websocket.WebSocketClientConnection:
+        self._ws_connection.close()
     self.state = WebSocksClient.CLOSED
 
   def _connect_callback(self, future):
@@ -127,6 +126,7 @@ class WebSocksClient():
     This is called if the connection to the server could not be established.
     """
     self.state = WebSocksClient.FAILED
+    self.ioloop.stop()
     logging.debug('Websocket connection error: %s', exception)
 
   def parse_msg(self, data):
