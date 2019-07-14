@@ -92,16 +92,15 @@ class Settings():
   def setup_wifi_tab(self):
     if not self.config.network.has_wifi_capabilities():
       return
-    self.wifi_body = self.config.ui.get_object("wifi-body")
-    self.wifi_body.remove_all_children()
-    ssid_combo = self.config.ui.get_object("wifi-ssid")
-    self.actor_width = self.wifi_body.get_width()
-
     self.config.network.ap_added_cb = self.ap_added_cb
     self.config.network.ap_removed_cb = self.ap_removed_cb
     self.config.network.ap_prop_changed_cb = self.ap_prop_changed_cb
     self.config.network.ap_state_changed_cb = self.ap_state_changed_cb
+    self.add_all_aps()
 
+  def add_all_aps(self):
+    self.wifi_body = self.config.ui.get_object("wifi-body")
+    self.wifi_body.remove_all_children()
     aps = self.config.network.get_access_points()
     for ap in aps:
       self.wifi_body.add_actor(self.add_wifi_tab(ap))
@@ -159,6 +158,7 @@ class Settings():
 
   def ap_tap(self, tap, actor):
     self.selected_ap = actor.ap
+    print("Tap "+actor.ap["name"])
     self.config.network.activate_connection(actor.ap)
 
   def reconnect_last_ap(self):

@@ -8,7 +8,10 @@ from gi.repository import GObject
 
 class Network:
   def __init__(self):
-    pass
+    self.ap_removed_cb = None
+    self.ap_added_cb = None
+    self.ap_prop_changed_cb = None
+    self.ap_state_changed_cb = None
 
   @staticmethod
   def get_manager(config):
@@ -34,6 +37,7 @@ class Network:
 class ConnMan(Network):
   def __init__(self, config):
     Network.__init__(self)
+    self.config = config
     import pyconnman
     import dbus
     self.dbus = dbus
@@ -43,15 +47,32 @@ class ConnMan(Network):
     self.wifi = None
     self.ethernet = None
     self.bluetooth = None
+    self.aps_by_path = {}
 
     for t in self.technologies:
       (path, params) = t
       if params['Name'] == "WiFi":
-        self.wifi = t
+        self.wifi = pyconnman.ConnTechnology(path)
+        self._start_agent()
       elif params['Name'] == "Wired":
-        self.ethernet = t
+        self.ethernet = pyconnman.ConnTechnology(path)
       elif params['Name'] == "Bluetooth":
         self.bluetooth = t
+    self.manager.add_signal_receiver(self.services_changed,
+        self.manager.SIGNAL_SERVICES_CHANGED , None)
+    self.wifi.add_signal_receiver(self.wifi_changed,
+        self.wifi.SIGNAL_PROPERTY_CHANGED, None)
+
+  def wifi_changed(self, signal_name, user_arg, prop, value):
+    print("wifi changed")
+
+  def property_changed(self, signal_name, ap, prop, value):
+    if self.ap_prop_changed_cb:
+      if prop in ["Strength", "State"]:
+          self.ap_prop_changed_cb(ap)
+
+  def services_changed(self, signal_name, user_arg, services, signatures):
+    self.config.settings.add_all_aps()
 
   def has_wifi_capabilities(self):
     return not not self.wifi
@@ -73,15 +94,22 @@ class ConnMan(Network):
     aps = []
     for service in self.manager.get_services():
       (path, params) = service
-      ap = {
-          "name": params["Name"] if "Name" in params else "?",
-          "active": (params["State"] == "online") if "State" in params else False,
-          "service": service,
-          "strength": params["Strength"] if "Strength" in params else "0",
-          "security": params["Security"] if "Security" in params else "?",
-          "object_path": path
-      }
-      aps.append(ap)
+      if params["Type"] == "wifi":
+          if path in self.aps_by_path:
+              ap = self.aps_by_path[path]
+          else:
+              ap = {
+                  "name": params["Name"] if "Name" in params else "?",
+                  "active": (params["State"] == "online") if "State" in params else False,
+                  "service": self.p.ConnService(path),
+                  "strength": params["Strength"] if "Strength" in params else "0",
+                  "security": params["Security"] if "Security" in params else "?",
+                  "object_path": path
+              }
+              ap["service"].add_signal_receiver(self.property_changed,
+                self.wifi.SIGNAL_PROPERTY_CHANGED, ap)
+              self.aps_by_path[path] = ap
+          aps.append(ap)
     return aps
 
   def get_active_access_point(self):
@@ -123,23 +151,21 @@ class ConnMan(Network):
         'wpspin': None,
     }
     try:
-      agent_path = "/test/agent"
-      agent = self.p.SimpleWifiAgent(agent_path)
-      agent.set_service_params('*', params['name'], params['ssid'], params['identity'],
+      agent_path = '/no/iagent/connman'
+      self.agent = self.p.SimpleWifiAgent(agent_path)
+      self.agent.set_service_params('*', params['name'], params['ssid'], params['identity'],
                                params['username'], params['password'], params['passphrase'],
                                params['wpspin'])
-      services[agent_path] = agent
-      manager.register_agent(agent_path)
+      self.manager.register_agent(agent_path)
     except dbus.exceptions.DBusException:
       print('Unable to complete:', sys.exc_info())
 
   def activate_connection(self, ap):
-    service = self.p.service.ConnService(ap["object_path"])
+    print("Activating "+ap["name"])
     try:
-      service.connect()
+      ap["service"].connect()
     except self.dbus.exceptions.DBusException as e:
-      return "ERROR"
-    return "OK"
+      logging.warning(e)
 
 
 class NetworkManager(Network):
@@ -159,10 +185,6 @@ class NetworkManager(Network):
         self.wifi.OnStateChanged(self.ap_state_changed)
       if dev.DeviceType == SystemNetworkManager.NM_DEVICE_TYPE_ETHERNET:
         self.ethernet = dev
-    self.ap_removed_cb = None
-    self.ap_added_cb = None
-    self.ap_prop_changed_cb = None
-    self.ap_state_changed_cb = None
     self.aps_by_path = {}
     self.agent = SecretAgent(config)
 
@@ -222,7 +244,7 @@ class NetworkManager(Network):
 
   # Perform a wifi scan
   def scan(self):
-    self.wifi.request_scan()
+        self.wifi.request_scan()
 
   def get_ap_by_path(self, path):
     if path in self.aps_by_path:
