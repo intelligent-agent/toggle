@@ -75,7 +75,7 @@ class WebSocksClient():
     Close connection.
     """
     if type(self._ws_connection) == websocket.WebSocketClientConnection:
-        self._ws_connection.close()
+      self._ws_connection.close()
     self.state = WebSocksClient.CLOSED
 
   def _connect_callback(self, future):
