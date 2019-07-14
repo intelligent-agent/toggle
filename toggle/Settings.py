@@ -158,7 +158,6 @@ class Settings():
 
   def ap_tap(self, tap, actor):
     self.selected_ap = actor.ap
-    print("Tap "+actor.ap["name"])
     self.config.network.activate_connection(actor.ap)
 
   def reconnect_last_ap(self):

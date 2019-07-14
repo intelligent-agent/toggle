@@ -58,10 +58,9 @@ class ConnMan(Network):
         self.ethernet = pyconnman.ConnTechnology(path)
       elif params['Name'] == "Bluetooth":
         self.bluetooth = t
-    self.manager.add_signal_receiver(self.services_changed,
-        self.manager.SIGNAL_SERVICES_CHANGED , None)
-    self.wifi.add_signal_receiver(self.wifi_changed,
-        self.wifi.SIGNAL_PROPERTY_CHANGED, None)
+    self.manager.add_signal_receiver(self.services_changed, self.manager.SIGNAL_SERVICES_CHANGED,
+                                     None)
+    self.wifi.add_signal_receiver(self.wifi_changed, self.wifi.SIGNAL_PROPERTY_CHANGED, None)
 
   def wifi_changed(self, signal_name, user_arg, prop, value):
     print("wifi changed")
@@ -69,7 +68,7 @@ class ConnMan(Network):
   def property_changed(self, signal_name, ap, prop, value):
     if self.ap_prop_changed_cb:
       if prop in ["Strength", "State"]:
-          self.ap_prop_changed_cb(ap)
+        self.ap_prop_changed_cb(ap)
 
   def services_changed(self, signal_name, user_arg, services, signatures):
     self.config.settings.add_all_aps()
@@ -95,21 +94,21 @@ class ConnMan(Network):
     for service in self.manager.get_services():
       (path, params) = service
       if params["Type"] == "wifi":
-          if path in self.aps_by_path:
-              ap = self.aps_by_path[path]
-          else:
-              ap = {
-                  "name": params["Name"] if "Name" in params else "?",
-                  "active": (params["State"] == "online") if "State" in params else False,
-                  "service": self.p.ConnService(path),
-                  "strength": params["Strength"] if "Strength" in params else "0",
-                  "security": params["Security"] if "Security" in params else "?",
-                  "object_path": path
-              }
-              ap["service"].add_signal_receiver(self.property_changed,
-                self.wifi.SIGNAL_PROPERTY_CHANGED, ap)
-              self.aps_by_path[path] = ap
-          aps.append(ap)
+        if path in self.aps_by_path:
+          ap = self.aps_by_path[path]
+        else:
+          ap = {
+              "name": params["Name"] if "Name" in params else "?",
+              "active": (params["State"] == "online") if "State" in params else False,
+              "service": self.p.ConnService(path),
+              "strength": params["Strength"] if "Strength" in params else "0",
+              "security": params["Security"] if "Security" in params else "?",
+              "object_path": path
+          }
+          ap["service"].add_signal_receiver(self.property_changed,
+                                            self.wifi.SIGNAL_PROPERTY_CHANGED, ap)
+          self.aps_by_path[path] = ap
+        aps.append(ap)
     return aps
 
   def get_active_access_point(self):
@@ -154,14 +153,13 @@ class ConnMan(Network):
       agent_path = '/no/iagent/connman'
       self.agent = self.p.SimpleWifiAgent(agent_path)
       self.agent.set_service_params('*', params['name'], params['ssid'], params['identity'],
-                               params['username'], params['password'], params['passphrase'],
-                               params['wpspin'])
+                                    params['username'], params['password'], params['passphrase'],
+                                    params['wpspin'])
       self.manager.register_agent(agent_path)
     except dbus.exceptions.DBusException:
       print('Unable to complete:', sys.exc_info())
 
   def activate_connection(self, ap):
-    print("Activating "+ap["name"])
     try:
       ap["service"].connect()
     except self.dbus.exceptions.DBusException as e:
@@ -244,7 +242,7 @@ class NetworkManager(Network):
 
   # Perform a wifi scan
   def scan(self):
-        self.wifi.request_scan()
+    self.wifi.request_scan()
 
   def get_ap_by_path(self, path):
     if path in self.aps_by_path:
