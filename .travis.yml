@@ -1,8 +1,7 @@
 matrix:
   include:
-# python formatting
     - language: python
-      python: 3.5
+      python: 3.6
       install:
         - pip install yapf==0.25.0
       script:
