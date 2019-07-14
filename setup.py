@@ -181,12 +181,14 @@ setup(
         'README.md'])
     ],
     # metadata for upload to PyPI
-    keywords="3d printer firmware",
+    keywords="3d printer gui",
     install_requires=[
       'requests',
       'pyconnman',
+      'python-networkmanager',
+      'tornado',
+      'numpy'
     ],
-    #url=__url__,
     ext_modules=[
     ],
     entry_points= {
