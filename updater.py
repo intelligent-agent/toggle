@@ -124,7 +124,7 @@ def perform_update():
   try:
     opts, args = getopt.getopt(sys.argv[1:], '-t', ['tag'])
   except getopt.GetoptError as err:
-    print str(err)
+    print(str(err))
     print("./updater.py [--tag <tag name>]")
     sys.exit(2)
   service_name = switch_to_source_directory()
