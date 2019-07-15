@@ -1,6 +1,9 @@
 # VolumeStage
 import logging
-from gi.repository import Clutter, Mx, Mash, Cogl
+import gi
+gi.require_version('Cogl', '1.0')
+gi.require_version('Clutter', '1.0')
+from gi.repository import Clutter, Cogl
 
 
 class VolumeStage(Clutter.Actor):

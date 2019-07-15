@@ -1,9 +1,10 @@
 import NetworkManager
 import logging
-import gi
 import time
+import gi
 gi.require_version('Clutter', '1.0')
-from gi.repository import Clutter, Mx, GObject, GLib
+gi.require_version('Mx', '2.0')
+from gi.repository import Clutter, Mx
 
 
 class SecretAgent(NetworkManager.SecretAgent):

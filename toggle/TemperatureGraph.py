@@ -1,6 +1,6 @@
 from .Graph import Graph, GraphScale, GraphPlot
 
-from gi.repository import Clutter, Mx, Mash
+from gi.repository import Clutter
 
 import logging
 

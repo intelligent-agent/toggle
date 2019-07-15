@@ -1,5 +1,5 @@
 from __future__ import print_function
-from gi.repository import Clutter, Mx, Cogl
+from gi.repository import Clutter
 import sys
 
 
@@ -151,6 +151,7 @@ class CubeTabs():
 
 
 if __name__ == '__main__':
+  from gi.repository import Mx
   Clutter.init(sys.argv)
   style = Mx.Style.get_default()
   ui = Clutter.Script()
