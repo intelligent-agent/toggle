@@ -136,7 +136,7 @@ def perform_update():
     perform_git_command(["git", "fetch", "--tags"])
     perform_git_command(["git", "checkout", "-b", tag, "tags/" + tag])
   else:
-    perform_git_command(["git", "update"])
+    perform_git_command(["git", "pull"])
   reinstall(service_name)
   if service_was_running:
     start_service(service_name)
