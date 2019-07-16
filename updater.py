@@ -13,6 +13,8 @@ and perform its actions there.
 
 import os
 import subprocess
+import getopt
+import sys
 from six import PY3
 
 # the_service_name = 'toggle'
@@ -79,21 +81,22 @@ def stop_service(name):
   return exit_code == 0
 
 
-def perform_git_update():
-  print("Perform git update")
-  command = ["git", "pull"]
+def perform_git_command(command):
+  command_str = " ".join(command)
+  print("Performing " + command_str)
+
   with open(os.devnull, 'wb') as hide_output:
     try:
       p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=hide_output)
     except:
-      print("Error running \"git pull\"")
+      print("Error running \"{}\"".format(command_str))
 
   stdout = p.communicate()[0].strip()
   if PY3:
     stdout = stdout.decode()
   exit_code = p.returncode
   if exit_code != 0:
-    print("\"git pull\" failed with return code %d" % (p.returncode))
+    print("\"{}\" failed with return code {}".format(command_str, p.returncode))
   print(stdout)
   return exit_code == 0
 
@@ -118,11 +121,22 @@ def reinstall(name):
 
 
 def perform_update():
+  try:
+    opts, args = getopt.getopt(sys.argv[1:], '-t', ['tag'])
+  except getopt.GetoptError as err:
+    print(str(err))
+    print("./updater.py [--tag <tag name>]")
+    sys.exit(2)
   service_name = switch_to_source_directory()
   service_was_running = is_service_running(service_name)
   if service_was_running:
     stop_service(service_name)
-  perform_git_update()
+  if len(args) == 1:
+    tag = args[0]
+    perform_git_command(["git", "fetch", "--tags"])
+    perform_git_command(["git", "checkout", "-b", tag, "tags/" + tag])
+  else:
+    perform_git_command(["git", "pull"])
   reinstall(service_name)
   if service_was_running:
     start_service(service_name)
