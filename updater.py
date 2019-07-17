@@ -134,8 +134,7 @@ def perform_update():
   if len(args) == 1:
     tag = args[0]
     perform_git_command(["git", "fetch", "--tags"])
-    perform_git_command(["git", "branch", "-d", "version-"+tag])
-    perform_git_command(["git", "checkout", "-b", "version-"+tag, "tags/" + tag])
+    perform_git_command(["git", "checkout", "-b", "version-" + tag, "tags/" + tag])
   else:
     perform_git_command(["git", "pull"])
   reinstall(service_name)

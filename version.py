@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 import sys
 import requests
 from pkg_resources import parse_version
