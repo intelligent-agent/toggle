@@ -1,142 +1,43 @@
 ```python
-_/_/_/_/_/                              _/         
-   _/      _/_/      _/_/_/    _/_/_/  _/    _/_/     
-  _/    _/    _/  _/    _/  _/    _/  _/  _/_/_/_/    
- _/    _/    _/  _/    _/  _/    _/  _/  _/            
-_/      _/_/      _/_/_/    _/_/_/  _/    _/_/_/         
-                     _/        _/                               
-                _/_/      _/_/                                  
+_/_/_/_/_/                              _/
+   _/      _/_/      _/_/_/    _/_/_/  _/    _/_/
+  _/    _/    _/  _/    _/  _/    _/  _/  _/_/_/_/
+ _/    _/    _/  _/    _/  _/    _/  _/  _/
+_/      _/_/      _/_/_/    _/_/_/  _/    _/_/_/
+                     _/        _/
+                _/_/      _/_/
 ```
 
-Toggle is a 3D-printer front end for use with embedded devices. 
+Toggle is a 3D-printer front end for use with embedded devices.
 It's a perfect fit for the BeagleBone Black/Replicape/Manga Screen combo.
 
-The program is built on a windowless BeagleBone Black (egl-null) using Clutter, 
-Cogl, Mash and Mx with introspection for Python bindings. 
+The program is built on a windowless BeagleBone Black (egl-null) using Clutter,
+Cogl, Mash and Mx with introspection for Python bindings.
 
-This makes it fast while keeping a nice Python structure on top for gluing the 
-code together. 
+This makes it fast while keeping a nice Python structure on top for gluing the
+code together.
 
-This also runs on my Ubuntu 14.04 desktop for development. 
-
-Right now, this is more of a demo/proof of concept, so help is welcome : )
+This also runs on Ubuntu/Debian desktops for development.
 
 Here is the wiki page: http://wiki.thing-printer.com/index.php?title=Toggle
 
+## Environment
 
-##Debian Jessie install instructions:
-Jessie has a lot more updated packages, 
-so more can be installed with apt-get. 
+Toggle is Python3 compatible.
 
-WIP!
+**Install Toggle**
 
-**New kernel and sgx modules**
 ```
-sudo apt-get install ti-sgx-es8-modules-4.0.0-rc6-bone0
-```
-Packages that need to be installed:
-```
-sudo apt-get install libglib2.0-dev pkg-config libpango1.0-dev gobject-introspection libgirepository1.0-dev 
-libgdk-pixbuf2.0-dev libatk1.0-dev libevdev-dev libxkbcommon-dev libinput-dev libmtdev-dev 
-libjson-glib-dev libgudev-1.0-dev autogen python-gobject
+apt install python-setuptools python-gi
 ```
 
-**SGX SDK**
 ```
-cd /usr/src
-wget https://bitbucket.org/intelligentagent/toggle/downloads/GFX_5.01.01.01.tar.gz
-tar xfv GFX_5.01.01.01.tar.gz -C /
-cd /opt/gfxinstall
-./sgx-install.sh
-sed -i 's:/sys/devices/ocp*/56000000.sgx:/sys/devices/platform/ocp*/56000000.sgx:' /etc/init.d/sgx-startup.sh
-```
-pvrsrvkm should now be shown in lsmod
-
-
-**cogl 1.22.0:**
-```
-cd /usr/src
-wget http://ftp.gnome.org/pub/GNOME/sources/cogl/1.22/cogl-1.22.2.tar.xz
-tar xf cogl-1.22.2.tar.xz
-cd cogl-1.22.2/
-./configure --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --enable-introspection --disable-gles1 --disable-cairo --disable-gl --enable-gles2 --enable-null-egl-platform --enable-cogl-pango
-sed -i 's/#if COGL_HAS_WAYLAND_EGL_SERVER_SUPPORT/#ifdef COGL_HAS_WAYLAND_EGL_SERVER_SUPPORT/' cogl/winsys/cogl-winsys-egl.c 
-make
-make install 
-```
-
-**libinput-1.0.0**
-```
-cd /usr/src
-wget http://www.freedesktop.org/software/libinput/libinput-1.0.0.tar.xz
-./configure --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/
-make
-make install
-```
-
-**glib-2.48.2**
-Glib from apt gets installed in /lib, so library path must be set from here on. 
-```
-cd /usr/src
-wget http://ftp.gnome.org/pub/gnome/sources/glib/2.48/glib-2.48.2.tar.xz
-tar xf glib-2.48.2.tar.xz
-cd glib-2.48.2/
-./configure --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/
-make
-make install
-export LD_LIBRARY_PATH=/usr/lib/arm-linux-gnueabihf/
-```
-
-**Clutter 1.26**
-Note: Clutter 1.26 requires Glib >=2.44 which is not installed on Debian Jessie. 
-```
-cd /usr/src
-wget http://ftp.acc.umu.se/pub/GNOME/sources/clutter/1.26/clutter-1.26.0.tar.xz
-tar xf clutter-1.26.0.tar.xz
-cd clutter-1.26.0
-LD_LIBRARY_PATH=/usr/lib/arm-linux-gnueabihf/ ./configure --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --disable-x11-backend  --enable-egl-backend --enable-evdev-input --disable-gdk-backend
-make
-make install
-```
-
-**Mx**
-Note: the pkg-config files were installed in the standard 
-```
-cd /usr/src
-git clone https://github.com/clutter-project/mx.git
- ./autogen.sh --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --with-winsys=none --disable-gtk-doc --enable-introspection 
-make
-make install
-```
-
-**Mash (with STL-import)**
-Note: Disable compiling the examples and 
-use the right --library format for the g-ir-scanner
-```
-cd /usr/src/
-git clone https://github.com/eliasbakken/mash.git
-cd /usr/src/mash
-./autogen.sh --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --enable-introspection
-sed -i 's/--library=mash-@MASH_API_VERSION@/--library=mash-@MASH_API_VERSION@/ --library-path=/usr/src/mash/mash/.libs/' mash/Makefile.am
-make
-make install
-```
-
-**Toggle**
-```
-cd /usr/src
-git clone https://intelligentagent@bitbucket.org/intelligentagent/toggle.git
+git clone https://github.com/intelligent-agent/toggle
 cd toggle
-make install
+pip3 install -e . -r requirements
 ```
 
-
-CLUTTER_BACKEND=eglnative toggle
-
-
-
-##Debian Stretch install instructions:
-
+## Other packages for a Debian Stretch desktop:
 
 Standard packages in Stretch:
 libinput-1.2.2-1
@@ -145,8 +46,9 @@ Clutter-1.26.0-2
 libmx-1.0-2 (1.4.7-1 and others)
 
 **Mash (with STL-import)**
-Note: Disable compiling the examples and 
+Note: Disable compiling the examples and
 use the right --library format for the g-ir-scanner
+
 ```
 cd /usr/src/
 git clone https://github.com/eliasbakken/mash.git
@@ -157,109 +59,3 @@ sed -i 's/--library=libmash-@MASH_API_VERSION@.la/--library=mash-@MASH_API_VERSI
 make
 make install
 ```
-
-
-
-## Ubuntu Xenial 
-**Mash**
-```
-apt install autogen gnome-common gtk-doc gtk-doc-tools libglib2.0-dev gobject-introspection libmx-dev python-gobject-dev libgirepository1.0-dev
-```
-
-```
-git clone https://github.com/eliasbakken/mash.git
-cd /usr/src/mash
-./autogen.sh --prefix=/usr --enable-introspection
-make
-make install
-```
-**Install Toggle**
-```
-apt install python-setuptools python-gi python-requests python-tornado python-networkmanager
-```
-
-```
-cd /usr/src
-git clone https://bitbucket.org/intelligentagent/toggle
-cd toggle
-sudo make install
-```
-
-
-
-
-
-## Raspbian (WIP)
-Starting with clean raspbian (Stretch) console image
-Downloded Cogl source from apt. 
-```
-make  INTROSPECTION_SCANNER_ARGS="--library-path=/opt/vc/lib"
-
-sudo apt install autogen libglib2.0-dev gobject-introspection python-gobject-dev libgirepository1.0-dev autopoint gtk-doc-tools libcairo2-dev
-
-wget https://raw.githubusercontent.com/raspberrypi/firmware/master/opt/vc/lib/pkgconfig/bcm_host.pc
-sudo ln -s  /opt/vc/lib/libbrcmEGL.so /opt/vc/lib/libEGL.so
- - Cairo installs X11 stuff
-
-./configure --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --enable-gles2=yes --enable-cogl-gles2=yes --enable-rpi-egl-platform=yes --disable-glx --disable-gl --disable-gtk-doc --with-default-driver=gles2
-
--I/opt/vc/include -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux
-
-Also handy: https://gist.github.com/lethean/ac21450495dddc597f79
-
-cogl-1.18 from stephenjust
-./configure --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --enable-gles2=yes --enable-cogl-gles2=yes --enable-rpi-egl-platform=yes --disable-glx --disable-gl --no-create --no-recursion
-
-```
-
-##clutter-1.0-1.26.0+dfsg
-```
-sudo apt install libxkbcommon-dev libgudev-1.0-dev libinput-dev libevdev-dev
-./configure --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --disable-x11-backend  --enable-egl-backend --enable-evdev-input --disable-gdk-backend --enable-debug --disable-gtk-doc 
-```
-
-```
-sudo apt install autogen gnome-common gtk-doc-tools libglib2.0-dev gobject-introspection libmx-dev python-gobject-dev libgirepository1.0-dev
-sudo apt install git
-sudo apt install libclutter-1.0-dev
-
-sudo apt install libgles2-mesa-dev
-
-# Mash
-```
-git clone https://github.com/eliasbakken/mash.git
-./autogen.sh --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --enable-introspection
-make CFLAGS+="-DCOGL_ENABLE_EXPERIMENTAL_API"
-sudo make install
-```
-
-sudo install python-gi-cairo
-
-cd /usr/src
-sudo git clone https://github.com/intelligent-agent/toggle
-cd toggle
-sudo make install
-```
-
-#MX
-
-https://github.com/clutter-project/mx
-
-
-Install Cogl from git with null window system
-```
-
-#Toggle 
-
-```
-apt install python-setuptools python-gi python-requests python-tornado python-networkmanager gnome-icon-theme
-
-#define GL_BACK_LEFT 0x0402
-#define GL_BACK_RIGHT 0x0403
-
- - Remove GL_BACK_LEFT etc. from cogl git 
-
-
-
-
-
