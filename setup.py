@@ -182,19 +182,11 @@ setup(
     ],
     # metadata for upload to PyPI
     keywords="3d printer gui",
-    install_requires=[
-      'requests',
-      'pyconnman',
-      'python-networkmanager',
-      'tornado',
-      'numpy'
-    ],
-    ext_modules=[
-    ],
     entry_points= {
       'console_scripts': [
         'toggle = toggle.Toggle:main',
-        'update-toggle = updater:perform_update',
+        'toggle-update = updater:perform_update',
+        'toggle-version = version:get_version'
       ]
     },
 )
