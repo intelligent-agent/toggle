@@ -23,7 +23,9 @@ Here is the wiki page: http://wiki.thing-printer.com/index.php?title=Toggle
 
 ## Environment
 
-Toggle is Python3 compatible.
+- Toggle is Python3 compatible.
+- Code is formatted using YAPF, check the setup.cfg for style.
+- Travis is set up to check formatting only for now. Use yapf3.
 
 **Install Toggle**
 
