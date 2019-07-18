@@ -13,7 +13,13 @@ def get_local_version():
 
 def get_remote_version():
   r = requests.get(URL)
-  return r.json()["tag_name"]
+  json = r.json()
+  if "tag_name" in json:
+    version = r.json()["tag_name"]
+    if version.lower()[0] == "v":
+      version = version[1:]
+    return version
+  return "0"
 
 
 def get_version():

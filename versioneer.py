@@ -9,8 +9,12 @@ The Versioneer
 * Brian Warner
 * License: Public Domain
 * Compatible With: python2.6, 2.7, 3.2, 3.3, 3.4, 3.5, 3.6, and pypy
-* [![Latest Version][pypi-image]][pypi-url]
-* [![Build Status][travis-image]][travis-url]
+* [![Latest Version]
+(https://pypip.in/version/versioneer/badge.svg?style=flat)
+](https://pypi.python.org/pypi/versioneer/)
+* [![Build Status]
+(https://travis-ci.org/warner/python-versioneer.png?branch=master)
+](https://travis-ci.org/warner/python-versioneer)
 
 This is a tool for managing a recorded version number in distutils-based
 python projects. The goal is to remove the tedious and error-prone "update
@@ -174,7 +178,7 @@ two common reasons why `setup.py` might not be in the root:
   `setup.cfg`, and `tox.ini`. Projects like these produce multiple PyPI
   distributions (and upload multiple independently-installable tarballs).
 * Source trees whose main purpose is to contain a C library, but which also
-  provide bindings to Python (and perhaps other languages) in subdirectories.
+  provide bindings to Python (and perhaps other langauges) in subdirectories.
 
 Versioneer will look for `.git` in parent directories, and most operations
 should get the right version string. However `pip` and `setuptools` have bugs
@@ -267,12 +271,6 @@ domain. The `_version.py` that it creates is also in the public domain.
 Specifically, both are released under the Creative Commons "Public Domain
 Dedication" license (CC0-1.0), as described in
 https://creativecommons.org/publicdomain/zero/1.0/ .
-
-[pypi-image]: https://img.shields.io/pypi/v/versioneer.svg
-[pypi-url]: https://pypi.python.org/pypi/versioneer/
-[travis-image]:
-https://img.shields.io/travis/warner/python-versioneer/master.svg
-[travis-url]: https://travis-ci.org/warner/python-versioneer
 
 """
 
@@ -372,7 +370,7 @@ HANDLERS = {}
 
 
 def register_vcs_handler(vcs, method):    # decorator
-  """Create decorator to mark a method as the handler of a VCS."""
+  """Decorator to mark a method as the handler for a particular VCS."""
 
   def decorate(f):
     """Store f in HANDLERS[vcs][method]."""
@@ -422,7 +420,7 @@ def run_command(commands, args, cwd=None, verbose=False, hide_stderr=False, env=
   return stdout, p.returncode
 
 
-LONG_VERSION_PY['git'] = r'''
+LONG_VERSION_PY['git'] = '''
 # This file helps to compute a version number in source trees obtained from
 # git-archive tarball (such as those provided by githubs download-from-tag
 # feature). Distribution tarballs (built by setup.py sdist) and build
@@ -481,7 +479,7 @@ HANDLERS = {}
 
 
 def register_vcs_handler(vcs, method):  # decorator
-    """Create decorator to mark a method as the handler of a VCS."""
+    """Decorator to mark a method as the handler for a particular VCS."""
     def decorate(f):
         """Store f in HANDLERS[vcs][method]."""
         if vcs not in HANDLERS:
@@ -628,14 +626,15 @@ def git_versions_from_keywords(keywords, tag_prefix, verbose):
             return {"version": r,
                     "full-revisionid": keywords["full"].strip(),
                     "dirty": False, "error": None,
-                    "date": date, "branch": None}
+                    "date": date}
     # no suitable tags, so version is "0+unknown", but full hex is still there
     if verbose:
         print("no suitable tags, using unknown + full revision id")
     return {"version": "0+unknown",
             "full-revisionid": keywords["full"].strip(),
-            "dirty": False, "error": "no suitable tags", "date": None,
-            "branch": None}
+            "dirty": False, "error": "no suitable tags", "date": None}
+
+
 @register_vcs_handler("git", "pieces_from_vcs")
 def git_pieces_from_vcs(tag_prefix, root, verbose, run_command=run_command):
     """Get version from 'git describe' in the root of the source tree.
@@ -720,37 +719,12 @@ def git_pieces_from_vcs(tag_prefix, root, verbose, run_command=run_command):
                                     cwd=root)
         pieces["distance"] = int(count_out)  # total number of commits
 
-    # abbrev-ref available with git >= 1.7
-    branch_name_out, rc = run_command(GITS, ["rev-parse", "--abbrev-ref", "HEAD"],
-                                      cwd=root)
-    branch_name = branch_name_out.strip()
-    if branch_name == 'HEAD':
-        # If we aren't exactly on a branch, pick a branch which represents
-        # the current commit. If all else fails, we are on a branchless
-        # commit.
-        branches_out, rc = run_command(GITS, ["branch", "--contains"],
-                                       cwd=root)
-        branches = branches_out.split('\n')
-        # Strip off the leading "* " from the list of branches.
-        branches = [branch[2:] for branch in branches
-                    if branch and branch[4:5] != '(']
-        if 'master' in branches:
-            branch_name = 'master'
-        elif not branches:
-            branch_name = None
-        else:
-            # Pick the first branch that is returned. Good or bad.
-            branch_name = branches[0]
-
-    pieces['branch'] = branch_name
-
     # commit date: see ISO-8601 comment in git_versions_from_keywords()
     date = run_command(GITS, ["show", "-s", "--format=%%ci", "HEAD"],
                        cwd=root)[0].strip()
     pieces["date"] = date.strip().replace(" ", "T", 1).replace(" ", "", 1)
 
     return pieces
-
 
 
 def plus_or_dot(pieces):
@@ -833,7 +807,7 @@ def render_pep440_old(pieces):
 
     The ".dev0" means dirty.
 
-    Exceptions:
+    Eexceptions:
     1: no tags. 0.postDISTANCE[.dev0]
     """
     if pieces["closest-tag"]:
@@ -890,46 +864,6 @@ def render_git_describe_long(pieces):
     return rendered
 
 
-def render_pep440_branch_based(pieces):
-    """Build up version string, with post-release "local version identifier".
-
-    Our goal: TAG[+DISTANCE.BRANCH_gHEX[.dirty]] . Note that if you
-    get a tagged build and then dirty it, you'll get TAG+0.BRANCH_gHEX.dirty
-
-    Exceptions:
-    1: no tags. git_describe was just HEX. 0+untagged.DISTANCE.BRANCH_gHEX[.dirty]
-    """
-    replacements = ([' ', '.'], ['(', ''], [')', ''], ['\\', '.'], ['/', '.'])
-    branch_name = pieces.get('branch') or ''
-    if branch_name:
-        for old, new in replacements:
-            branch_name = branch_name.replace(old, new)
-    else:
-        branch_name = 'unknown_branch'
-
-    if pieces["closest-tag"]:
-        rendered = pieces["closest-tag"]
-        if pieces["distance"] or pieces["dirty"]:
-            rendered += plus_or_dot(pieces)
-            rendered += "%%d.%%s.g%%s" %% (
-                pieces["distance"],
-                branch_name,
-                pieces['short']
-            )
-            if pieces["dirty"]:
-                rendered += ".dirty"
-    else:
-        # exception #1
-        rendered = "0+untagged.%%d.%%s.g%%s" %% (
-            pieces["distance"],
-            branch_name,
-            pieces['short']
-        )
-        if pieces["dirty"]:
-            rendered += ".dirty"
-    return rendered
-
-
 def render(pieces, style):
     """Render the given version pieces into the requested style."""
     if pieces["error"]:
@@ -950,8 +884,6 @@ def render(pieces, style):
         rendered = render_pep440_post(pieces)
     elif style == "pep440-old":
         rendered = render_pep440_old(pieces)
-    elif style == "pep440-branch-based":
-        rendered = render_pep440_branch_based(pieces)
     elif style == "git-describe":
         rendered = render_git_describe(pieces)
     elif style == "git-describe-long":
@@ -1088,8 +1020,7 @@ def git_versions_from_keywords(keywords, tag_prefix, verbose):
           "full-revisionid": keywords["full"].strip(),
           "dirty": False,
           "error": None,
-          "date": date,
-          "branch": None
+          "date": date
       }
   # no suitable tags, so version is "0+unknown", but full hex is still there
   if verbose:
@@ -1099,8 +1030,7 @@ def git_versions_from_keywords(keywords, tag_prefix, verbose):
       "full-revisionid": keywords["full"].strip(),
       "dirty": False,
       "error": "no suitable tags",
-      "date": None,
-      "branch": None
+      "date": None
   }
 
 
@@ -1184,27 +1114,6 @@ def git_pieces_from_vcs(tag_prefix, root, verbose, run_command=run_command):
     count_out, rc = run_command(GITS, ["rev-list", "HEAD", "--count"], cwd=root)
     pieces["distance"] = int(count_out)    # total number of commits
 
-  # abbrev-ref available with git >= 1.7
-  branch_name_out, rc = run_command(GITS, ["rev-parse", "--abbrev-ref", "HEAD"], cwd=root)
-  branch_name = branch_name_out.strip()
-  if branch_name == 'HEAD':
-    # If we aren't exactly on a branch, pick a branch which represents
-    # the current commit. If all else fails, we are on a branchless
-    # commit.
-    branches_out, rc = run_command(GITS, ["branch", "--contains"], cwd=root)
-    branches = branches_out.split('\n')
-    # Strip off the leading "* " from the list of branches.
-    branches = [branch[2:] for branch in branches if branch and branch[4:5] != '(']
-    if 'master' in branches:
-      branch_name = 'master'
-    elif not branches:
-      branch_name = None
-    else:
-      # Pick the first branch that is returned. Good or bad.
-      branch_name = branches[0]
-
-  pieces['branch'] = branch_name
-
   # commit date: see ISO-8601 comment in git_versions_from_keywords()
   date = run_command(GITS, ["show", "-s", "--format=%ci", "HEAD"], cwd=root)[0].strip()
   pieces["date"] = date.strip().replace(" ", "T", 1).replace(" ", "", 1)
@@ -1285,7 +1194,6 @@ SHORT_VERSION_PY = """
 # unpacked source archive. Distribution tarballs contain a pre-generated copy
 # of this file.
 
-from __future__ import absolute_import
 import json
 
 version_json = '''
@@ -1402,7 +1310,7 @@ def render_pep440_old(pieces):
 
     The ".dev0" means dirty.
 
-    Exceptions:
+    Eexceptions:
     1: no tags. 0.postDISTANCE[.dev0]
     """
   if pieces["closest-tag"]:
@@ -1459,38 +1367,6 @@ def render_git_describe_long(pieces):
   return rendered
 
 
-def render_pep440_branch_based(pieces):
-  """Build up version string, with post-release "local version identifier".
-
-    Our goal: TAG[+DISTANCE.BRANCH_gHEX[.dirty]] . Note that if you
-    get a tagged build and then dirty it, you'll get TAG+0.BRANCH_gHEX.dirty
-
-    Exceptions:
-    1: no tags. git_describe was just HEX. 0+untagged.DISTANCE.BRANCH_gHEX[.dirty]
-    """
-  replacements = ([' ', '.'], ['(', ''], [')', ''], ['\\', '.'], ['/', '.'])
-  branch_name = pieces.get('branch') or ''
-  if branch_name:
-    for old, new in replacements:
-      branch_name = branch_name.replace(old, new)
-  else:
-    branch_name = 'unknown_branch'
-
-  if pieces["closest-tag"]:
-    rendered = pieces["closest-tag"]
-    if pieces["distance"] or pieces["dirty"]:
-      rendered += plus_or_dot(pieces)
-      rendered += "%d.%s.g%s" % (pieces["distance"], branch_name, pieces['short'])
-      if pieces["dirty"]:
-        rendered += ".dirty"
-  else:
-    # exception #1
-    rendered = "0+untagged.%d.%s.g%s" % (pieces["distance"], branch_name, pieces['short'])
-    if pieces["dirty"]:
-      rendered += ".dirty"
-  return rendered
-
-
 def render(pieces, style):
   """Render the given version pieces into the requested style."""
   if pieces["error"]:
@@ -1513,8 +1389,6 @@ def render(pieces, style):
     rendered = render_pep440_post(pieces)
   elif style == "pep440-old":
     rendered = render_pep440_old(pieces)
-  elif style == "pep440-branch-based":
-    rendered = render_pep440_branch_based(pieces)
   elif style == "git-describe":
     rendered = render_git_describe(pieces)
   elif style == "git-describe-long":
@@ -1620,12 +1494,8 @@ def get_version():
   return get_versions()["version"]
 
 
-def get_cmdclass(cmdclass=None):
-  """Get the custom setuptools/distutils subclasses used by Versioneer.
-
-    If the package uses a different cmdclass (e.g. one from numpy), it
-    should be provide as an argument.
-    """
+def get_cmdclass():
+  """Get the custom setuptools/distutils subclasses used by Versioneer."""
   if "versioneer" in sys.modules:
     del sys.modules["versioneer"]
     # this fixes the "python setup.py develop" case (also 'install' and
@@ -1641,7 +1511,7 @@ def get_cmdclass(cmdclass=None):
     # happens, we protect the child from the parent's versioneer too.
     # Also see https://github.com/warner/python-versioneer/issues/52
 
-  cmds = {} if cmdclass is None else cmdclass.copy()
+  cmds = {}
 
   # we add "version" to both distutils and setuptools
   from distutils.core import Command
@@ -1684,9 +1554,7 @@ def get_cmdclass(cmdclass=None):
   #  setup.py egg_info -> ?
 
   # we override different "build_py" commands for both environments
-  if 'build_py' in cmds:
-    _build_py = cmds['build_py']
-  elif "setuptools" in sys.modules:
+  if "setuptools" in sys.modules:
     from setuptools.command.build_py import build_py as _build_py
   else:
     from distutils.command.build_py import build_py as _build_py
@@ -1772,9 +1640,7 @@ def get_cmdclass(cmdclass=None):
     cmds["py2exe"] = cmd_py2exe
 
   # we override different "sdist" commands for both environments
-  if 'sdist' in cmds:
-    _sdist = cmds['sdist']
-  elif "setuptools" in sys.modules:
+  if "setuptools" in sys.modules:
     from setuptools.command.sdist import sdist as _sdist
   else:
     from distutils.command.sdist import sdist as _sdist
@@ -1847,13 +1713,9 @@ __version__ = get_versions()['version']
 del get_versions
 """
 
-INIT_PY_SNIPPET_RE = re.compile(
-    INIT_PY_SNIPPET.replace('(', r'\(').replace(')', r'\)').replace('[', r'\[').replace(
-        ']', r'\]').replace(' ._version', r' ([\w\._]+)?._version'), re.MULTILINE)
-
 
 def do_setup():
-  """Do main VCS-independent setup function for installing Versioneer."""
+  """Main VCS-independent setup function for installing Versioneer."""
   root = get_root()
   try:
     cfg = get_config_from_root(root)
@@ -1884,7 +1746,7 @@ def do_setup():
         old = f.read()
     except EnvironmentError:
       old = ""
-    if INIT_PY_SNIPPET_RE.search(old) is None:
+    if INIT_PY_SNIPPET not in old:
       print(" appending to %s" % ipy)
       with open(ipy, "a") as f:
         f.write(INIT_PY_SNIPPET)
@@ -1941,7 +1803,7 @@ def scan_setup_py():
     for line in f.readlines():
       if "import versioneer" in line:
         found.add("import")
-      if "versioneer.get_cmdclass(" in line:
+      if "versioneer.get_cmdclass()" in line:
         found.add("cmdclass")
       if "versioneer.get_version()" in line:
         found.add("get_version")
