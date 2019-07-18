@@ -38,7 +38,7 @@ def get_config():
   # _version.py
   cfg = VersioneerConfig()
   cfg.VCS = "git"
-  cfg.style = "pep440-branch-based"
+  cfg.style = "pep440-pre"
   cfg.tag_prefix = "v"
   cfg.parentdir_prefix = ""
   cfg.versionfile_source = "toggle/_version.py"
@@ -55,7 +55,7 @@ HANDLERS = {}
 
 
 def register_vcs_handler(vcs, method):    # decorator
-  """Create decorator to mark a method as the handler of a VCS."""
+  """Decorator to mark a method as the handler for a particular VCS."""
 
   def decorate(f):
     """Store f in HANDLERS[vcs][method]."""
@@ -211,8 +211,7 @@ def git_versions_from_keywords(keywords, tag_prefix, verbose):
           "full-revisionid": keywords["full"].strip(),
           "dirty": False,
           "error": None,
-          "date": date,
-          "branch": None
+          "date": date
       }
   # no suitable tags, so version is "0+unknown", but full hex is still there
   if verbose:
@@ -222,8 +221,7 @@ def git_versions_from_keywords(keywords, tag_prefix, verbose):
       "full-revisionid": keywords["full"].strip(),
       "dirty": False,
       "error": "no suitable tags",
-      "date": None,
-      "branch": None
+      "date": None
   }
 
 
@@ -306,27 +304,6 @@ def git_pieces_from_vcs(tag_prefix, root, verbose, run_command=run_command):
     pieces["closest-tag"] = None
     count_out, rc = run_command(GITS, ["rev-list", "HEAD", "--count"], cwd=root)
     pieces["distance"] = int(count_out)    # total number of commits
-
-  # abbrev-ref available with git >= 1.7
-  branch_name_out, rc = run_command(GITS, ["rev-parse", "--abbrev-ref", "HEAD"], cwd=root)
-  branch_name = branch_name_out.strip()
-  if branch_name == 'HEAD':
-    # If we aren't exactly on a branch, pick a branch which represents
-    # the current commit. If all else fails, we are on a branchless
-    # commit.
-    branches_out, rc = run_command(GITS, ["branch", "--contains"], cwd=root)
-    branches = branches_out.split('\n')
-    # Strip off the leading "* " from the list of branches.
-    branches = [branch[2:] for branch in branches if branch and branch[4:5] != '(']
-    if 'master' in branches:
-      branch_name = 'master'
-    elif not branches:
-      branch_name = None
-    else:
-      # Pick the first branch that is returned. Good or bad.
-      branch_name = branches[0]
-
-  pieces['branch'] = branch_name
 
   # commit date: see ISO-8601 comment in git_versions_from_keywords()
   date = run_command(GITS, ["show", "-s", "--format=%ci", "HEAD"], cwd=root)[0].strip()
@@ -414,7 +391,7 @@ def render_pep440_old(pieces):
 
     The ".dev0" means dirty.
 
-    Exceptions:
+    Eexceptions:
     1: no tags. 0.postDISTANCE[.dev0]
     """
   if pieces["closest-tag"]:
@@ -471,38 +448,6 @@ def render_git_describe_long(pieces):
   return rendered
 
 
-def render_pep440_branch_based(pieces):
-  """Build up version string, with post-release "local version identifier".
-
-    Our goal: TAG[+DISTANCE.BRANCH_gHEX[.dirty]] . Note that if you
-    get a tagged build and then dirty it, you'll get TAG+0.BRANCH_gHEX.dirty
-
-    Exceptions:
-    1: no tags. git_describe was just HEX. 0+untagged.DISTANCE.BRANCH_gHEX[.dirty]
-    """
-  replacements = ([' ', '.'], ['(', ''], [')', ''], ['\\', '.'], ['/', '.'])
-  branch_name = pieces.get('branch') or ''
-  if branch_name:
-    for old, new in replacements:
-      branch_name = branch_name.replace(old, new)
-  else:
-    branch_name = 'unknown_branch'
-
-  if pieces["closest-tag"]:
-    rendered = pieces["closest-tag"]
-    if pieces["distance"] or pieces["dirty"]:
-      rendered += plus_or_dot(pieces)
-      rendered += "%d.%s.g%s" % (pieces["distance"], branch_name, pieces['short'])
-      if pieces["dirty"]:
-        rendered += ".dirty"
-  else:
-    # exception #1
-    rendered = "0+untagged.%d.%s.g%s" % (pieces["distance"], branch_name, pieces['short'])
-    if pieces["dirty"]:
-      rendered += ".dirty"
-  return rendered
-
-
 def render(pieces, style):
   """Render the given version pieces into the requested style."""
   if pieces["error"]:
@@ -525,8 +470,6 @@ def render(pieces, style):
     rendered = render_pep440_post(pieces)
   elif style == "pep440-old":
     rendered = render_pep440_old(pieces)
-  elif style == "pep440-branch-based":
-    rendered = render_pep440_branch_based(pieces)
   elif style == "git-describe":
     rendered = render_git_describe(pieces)
   elif style == "git-describe-long":
