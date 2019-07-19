@@ -60,7 +60,8 @@ class ConnMan(Network):
         self.bluetooth = t
     self.manager.add_signal_receiver(self.services_changed, self.manager.SIGNAL_SERVICES_CHANGED,
                                      None)
-    self.wifi.add_signal_receiver(self.wifi_changed, self.wifi.SIGNAL_PROPERTY_CHANGED, None)
+    if self.wifi:
+      self.wifi.add_signal_receiver(self.wifi_changed, self.wifi.SIGNAL_PROPERTY_CHANGED, None)
 
   def wifi_changed(self, signal_name, user_arg, prop, value):
     print("wifi changed")
