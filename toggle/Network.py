@@ -92,24 +92,27 @@ class ConnMan(Network):
 
   def get_access_points(self):
     aps = []
-    for service in self.manager.get_services():
-      (path, params) = service
-      if params["Type"] == "wifi":
-        if path in self.aps_by_path:
-          ap = self.aps_by_path[path]
-        else:
-          ap = {
-              "name": params["Name"] if "Name" in params else "?",
-              "active": (params["State"] == "online") if "State" in params else False,
-              "service": self.p.ConnService(path),
-              "strength": params["Strength"] if "Strength" in params else "0",
-              "security": params["Security"] if "Security" in params else "?",
-              "object_path": path
-          }
-          ap["service"].add_signal_receiver(self.property_changed,
-                                            self.wifi.SIGNAL_PROPERTY_CHANGED, ap)
-          self.aps_by_path[path] = ap
-        aps.append(ap)
+    try:
+      for service in self.manager.get_services():
+        (path, params) = service
+        if params["Type"] == "wifi":
+          if path in self.aps_by_path:
+            ap = self.aps_by_path[path]
+          else:
+            ap = {
+                "name": params["Name"] if "Name" in params else "?",
+                "active": (params["State"] == "online") if "State" in params else False,
+                "service": self.p.ConnService(path),
+                "strength": params["Strength"] if "Strength" in params else "0",
+                "security": params["Security"] if "Security" in params else "?",
+                "object_path": path
+            }
+            ap["service"].add_signal_receiver(self.property_changed,
+                                              self.wifi.SIGNAL_PROPERTY_CHANGED, ap)
+            self.aps_by_path[path] = ap
+          aps.append(ap)
+    except dbus.exceptions.DBusException:
+      pass
     return aps
 
   def get_active_access_point(self):

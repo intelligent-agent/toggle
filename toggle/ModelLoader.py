@@ -25,11 +25,10 @@ class ModelLoader(Clutter.Actor):
   def __init__(self, config):
     self.config = config
     self.path = config.get("System", "model_folder")
-
     self.model_selected = False
-
     self.model = Model(self.config)
 
+  def sync_and_load_models(self):
     self.sync_models()
     self.load_models()
 
@@ -53,7 +52,7 @@ class ModelLoader(Clutter.Actor):
 
       self.config.printer.set_model("")
     else:
-      logging.warning("No models in " + self.path)
+      logging.debug("No models in " + self.path)
       self.config.printer.set_model("No models found")
 
   # Synchronize the files on this machine with the files from OctoPrint
@@ -145,7 +144,6 @@ class ModelLoader(Clutter.Actor):
       logging.warning("Missing STL: " + filename)
 
   def select_none(self):
-    #logging.debug("Selecting none")
     self.model.model.hide()
     self.model_selected = False
 

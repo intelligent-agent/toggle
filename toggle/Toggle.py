@@ -141,7 +141,7 @@ class Toggle:
     config.loader = ModelLoader(config)
     config.plate = Plate(config)
 
-    config.socks_client = WebSocksClient(config)
+    config.socks_client = WebSocksClient(config, self.on_connected_cb)
 
     # mouse
     use_mouse = int(config.get('Input', 'mouse'))
@@ -161,6 +161,9 @@ class Toggle:
     self.config = config
     config.plate.make_scale()
     config.stage.show()
+
+  def on_connected_cb(self):
+    self.config.loader.sync_and_load_models()
 
   def run(self):
     """
