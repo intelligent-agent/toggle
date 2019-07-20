@@ -8,6 +8,8 @@ _/      _/_/      _/_/_/    _/_/_/  _/    _/_/_/
                 _/_/      _/_/
 ```
 
+[![Build Status](https://travis-ci.org/intelligent-agent/toggle.svg?branch=dev)](https://travis-ci.org/intelligent-agent/toggle)
+
 Toggle is a 3D-printer front end for use with embedded devices.
 It's a perfect fit for the BeagleBone Black/Replicape/Manga Screen combo.
 

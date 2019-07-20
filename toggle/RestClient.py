@@ -124,20 +124,19 @@ class RestClient:
         str(self._port) + "/api/printer/tool"
     data = json.dumps({'command': 'select', 'tool': tool})
     r = requests.post(url, data=data, headers=self._headers)
-    print(r)
+    return r.status_code in [200, 204]
 
-  # Get list of files
   def get_list_of_files(self):
-    url = "http://" + self._host + ":" + str(self._port) + "/api/files"
-    data = json.dumps({})
     try:
-      r = requests.get(url, params=data, headers=self._headers)
+      r = requests.get(self._build_url("/api/files"), headers=self._headers)
     except requests.ConnectionError as e:
       logging.warning("Connection error")
-      return None
+      return {}
     if r.status_code in [200, 204]:
       return r.json()
+    logging.warning("Unable to contact OctoPrint by REST. "
+                    "Check your API key (currently '" + self._api_key + "'")
+    return {}
 
-    logging.warning("Unable to contact OctoPrint by REST. Check your API key (currently '" +
-                    self._api_key + "'")
-    return None
+  def _build_url(self, path):
+    return "http://" + self._host + ":" + str(self._port) + path

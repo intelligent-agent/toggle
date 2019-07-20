@@ -1,17 +1,10 @@
-import unittest
-import mock    # use mock.Mock etc
-from os import listdir
-from os.path import isfile, join
+import pytest
+from os import listdir, getcwd
+from os.path import isfile, join, basename, dirname, abspath
 
-
-from toggle.CascadingConfigParser import CascadingConfigParser
-
-class TestCascadingConfigParser(unittest.TestCase):
-  def setUp(self):
-    self.default = CascadingConfigParser(["../configs/default.cfg"])
-
-  def test_all_config_files(self):
-    path = "../configs/"
+def test_all_config_files(default_config):
+    default = default_config
+    path = default.config_location
     config_files = [join(path, f) for f in listdir(path) if isfile(join(path, f))]
     for f in config_files:
-        assert(self.default.check_file_valid(f))
+        assert(default.check_file_valid(f))

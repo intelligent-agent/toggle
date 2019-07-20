@@ -2,7 +2,4 @@ pytest
 mock
 sympy
 requests
-python-networkmanager
-tornado
-numpy
-https://github.com/liamw9534/pyconnman/archive/master.tar.gz#egg=pyconnman
+requests-mock
