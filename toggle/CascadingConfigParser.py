@@ -23,24 +23,19 @@ import os
 import logging
 
 
-class CascadingConfigParser(configparser.SafeConfigParser):
+class CascadingConfigParser(configparser.ConfigParser):
   def __init__(self, config_files):
-
-    configparser.SafeConfigParser.__init__(self)
-
-    # Parse to real path
+    configparser.ConfigParser.__init__(self)
     self.config_files = []
     for config_file in config_files:
       self.config_files.append(os.path.realpath(config_file))
-
-    # Parse all config files in list
+      self.config_location = os.path.dirname(os.path.realpath(config_file))
     for config_file in self.config_files:
       if os.path.isfile(config_file):
         logging.info("Using config file " + config_file)
-        self.readfp(open(config_file))
+        self.read_file(open(config_file))
       else:
         logging.warning("Missing config file " + config_file)
-        # Might also add command line options for overriding stuff
 
   def timestamp(self):
     """ Get the largest (newest) timestamp for all the config files. """
@@ -49,3 +44,28 @@ class CascadingConfigParser(configparser.SafeConfigParser):
       if os.path.isfile(config_file):
         ts = max(ts, os.path.getmtime(config_file))
     return ts
+
+  def check_file_valid(self, filename):
+    default = configparser.ConfigParser()
+    default.read_file(open(os.path.join(self.config_location, "default.cfg")))
+    local = configparser.ConfigParser()
+    local.read_file(open(filename))
+
+    local_ok = True
+    diff = set(local.sections()) - set(default.sections())
+    for section in diff:
+      logging.warning("Section {} does not exist in {}".format(section, "default.cfg"))
+      local_ok = False
+    for section in local.sections():
+      if not default.has_section(section):
+        continue
+      diff = set(local.options(section)) - set(default.options(section))
+      for option in diff:
+        logging.warning("Option {} in section {} does not exist in {}".format(
+            option, section, "default.cfg"))
+        local_ok = False
+    if local_ok:
+      logging.info("{} is OK".format(filename))
+    else:
+      logging.warning("{} contains errors.".format(filename))
+    return local_ok
