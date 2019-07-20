@@ -677,12 +677,8 @@
                         "x-expand": false,
                         "line-alignment": 2,
                         "font-description": "Sans 16"
-<<<<<<< HEAD
                       },
                       {
-=======
-                    },{
->>>>>>> Added support for updating list of APs
                         "id": "progress-bar",
                         "type": "MxProgressBar",
                         "x": 850,

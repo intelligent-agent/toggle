@@ -119,11 +119,8 @@ class RestClient:
 
   # Select Extruder E/H
   def select_tool(self, tool):
-    print("selecting " + tool)
-    url = "http://" + self._host + ":" + \
-        str(self._port) + "/api/printer/tool"
     data = json.dumps({'command': 'select', 'tool': tool})
-    r = requests.post(url, data=data, headers=self._headers)
+    r = requests.post(self._build_url("/api/printer/tool"), data=data, headers=self._headers)
     return r.status_code in [200, 204]
 
   def get_list_of_files(self):

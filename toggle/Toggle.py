@@ -25,6 +25,7 @@ from .ModelLoader import ModelLoader
 from .VolumeStage import VolumeStage
 from .Plate import Plate
 from .Model import Model
+from .StyleLoader import StyleLoader
 from threading import Thread, current_thread
 from gi.repository import GObject, Clutter, Mx
 from dbus.mainloop.glib import DBusGMainLoop
@@ -102,16 +103,10 @@ class Toggle:
 
     Clutter.init(None)
 
-    style = Mx.Style.get_default()
-    style.load_from_file(config.get("System", "stylesheet"))
+    config.style = StyleLoader(config)
+    config.style.load_from_config()
+    config.ui = config.style.ui
 
-    config.ui = Clutter.Script()
-    try:
-      config.ui.load_from_file(config.get("System", "ui"))
-    except BaseException:
-      print("Error loading UI")
-      import traceback
-      traceback.print_exc()
     config.stage = config.ui.get_object("stage")
     config.stage.connect("destroy", self.stop)
     config.stage.connect('key-press-event', self.key_press)
@@ -121,7 +116,6 @@ class Toggle:
     config.screen_rot = config.get("Screen", "rotation")
     config.screen_full = config.getboolean("Screen", "fullscreen")
 
-    # Set up tabs
     config.tabs = CubeTabs(config.ui, 4)
     config.splash = Splash(config)
     config.splash.set_status("Starting Toggle {} ...".format(__version__))
@@ -130,17 +124,12 @@ class Toggle:
     config.filament_graph = FilamentGraph(config)
     config.network = Network.get_manager(config)
     config.settings = Settings(config)
-
-    # Set up SockJS and REST clients
     config.rest_client = RestClient(config)
-
-    # Add other stuff
     config.volume_stage = VolumeStage(config)
     config.message = Message(config)
     config.printer = Printer(config)
     config.loader = ModelLoader(config)
     config.plate = Plate(config)
-
     config.socks_client = WebSocksClient(config, self.on_connected_cb)
 
     # mouse
