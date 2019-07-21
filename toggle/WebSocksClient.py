@@ -36,8 +36,9 @@ class WebSocksClient():
   CONNECTED = 2
   FAILED = 3
 
-  def __init__(self, config=None):
+  def __init__(self, config=None, on_connected_cb=None):
     self.config = config
+    self.on_connected_cb = on_connected_cb
     host = config.get("Server", "host")
     port = str(config.get("Server", "port"))
     self.connect_timeout = DEFAULT_CONNECT_TIMEOUT
@@ -113,6 +114,8 @@ class WebSocksClient():
     """
     self.state = WebSocksClient.CONNECTED
     logging.debug('Websocket connected!')
+    if self.on_connected_cb:
+      self.on_connected_cb()
 
   def _on_connection_close(self):
     """
