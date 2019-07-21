@@ -20,7 +20,7 @@ def color(string):
 
 class GraphPlot():
   def __init__(self, name, color, scale_min=0.0, scale_max=320.0):
-    self.color = color    # 1.0, 0.0, 0.0
+    self.color = color
     self.name = name
     self.line_width = 3
     self.values = []
@@ -38,8 +38,6 @@ class GraphPlot():
     if len(self.times) > 30 * 60 / 5:
       self.times.pop(0)
       self.values.pop(0)
-
-    #logging.debug("add_point: "+str(time)+" "+str(value))
 
   def draw(self, ctx, width, height):
     width -= 23
@@ -72,10 +70,6 @@ class GraphScale():
     self.x_values = []
     self.color = (0, 0, 0, 128)
     self.line_width = 1
-    self.title = None
-
-  def set_title(self, title):
-    self.title = title
 
   def draw(self, ctx, width, height):
     ctx.set_line_width(self.line_width)
@@ -85,10 +79,6 @@ class GraphScale():
       ctx.line_to(width, height - (y - self.scale_min) * (height / self.scale_tot))
       ctx.move_to(0, height - (y - self.scale_min) * (height / self.scale_tot))
       ctx.show_text(str(y))
-    if self.title:
-      ctx.move_to(width / 2.0 - 40, 16)
-      ctx.set_font_size(16)
-      ctx.show_text(str(self.title))
 
 
 class Graph(Clutter.Actor):

@@ -4,6 +4,7 @@
     "type": "ClutterStage",
     "width": 800,
     "height": 480,
+    "background-color": "#a8caba",
     "signals": [],
     "children": [
       {
@@ -30,7 +31,7 @@
                 "pivot-point-z": -400.0,
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 0.0,
-                "background-color": "white",
+                "background-color": "#63C7AF",
                 "children": [
                   {
                     "id": "side0-content",
@@ -38,7 +39,9 @@
                     "type": "ClutterActor",
                     "width": 800,
                     "height": 480,
-                    "layout-manager": { "type": "ClutterBinLayout" },
+                    "layout-manager": {
+                      "type": "ClutterBinLayout"
+                    },
                     "children": [
                       {
                         "id": "scroll-pane",
@@ -46,7 +49,7 @@
                         "width": 780,
                         "y": 80,
                         "x": 10,
-                        "background-color": "#EEE",
+                        "background-color": "#63C7AF",
                         "scroll-mode": 1,
                         "layout-manager": {
                           "type": "ClutterBoxLayout",
@@ -57,7 +60,7 @@
                             "id": "network-box",
                             "type": "ClutterActor",
                             "width": 780,
-                            "background-color": "#c9c3c3",
+                            "background-color": "#26322f",
                             "layout-manager": {
                               "type": "ClutterBoxLayout",
                               "orientation": 1
@@ -66,7 +69,7 @@
                               {
                                 "id": "network-header",
                                 "type": "ClutterActor",
-                                "height": 100,
+                                "height": 70,
                                 "width": 780,
                                 "layout-manager": {
                                   "type": "ClutterFixedLayout"
@@ -78,13 +81,13 @@
                                     "color": "black",
                                     "x": 120,
                                     "y": 28,
-                                    "font-description": "Sans 32"
+                                    "font-description": "Sans 16"
                                   },
                                   {
                                     "type": "MxIcon",
                                     "style-class": "network",
                                     "x": 30,
-                                    "y": 18,
+                                    "y": 10,
                                     "width": 64,
                                     "height": 64
                                   }
@@ -93,7 +96,7 @@
                               {
                                 "id": "network-body",
                                 "type": "ClutterActor",
-                                "background-color": "#FFF",
+                                "background-color": "#63C7AF",
                                 "width": 780,
                                 "height": 5,
                                 "layout-manager": {
@@ -120,7 +123,7 @@
                                     "text": "Local Hostname: ",
                                     "font-description": "Sans 16",
                                     "x": 120,
-                                    "y": 50
+                                    "y": 64
                                   },
                                   {
                                     "id": "local-hostname",
@@ -128,7 +131,7 @@
                                     "text": "Not set",
                                     "font-description": "Sans 16",
                                     "x": 400,
-                                    "y": 50
+                                    "y": 64
                                   },
                                   {
                                     "type": "ClutterText",
@@ -153,7 +156,7 @@
                             "id": "wifi-box",
                             "type": "ClutterActor",
                             "width": 780,
-                            "background-color": "#c9c3c3",
+                            "background-color": "#26322f",
                             "layout-manager": {
                               "type": "ClutterBoxLayout",
                               "orientation": 1
@@ -162,7 +165,7 @@
                               {
                                 "id": "wifi-header",
                                 "type": "ClutterActor",
-                                "height": 100,
+                                "height": 70,
                                 "width": 780,
                                 "layout-manager": {
                                   "type": "ClutterFixedLayout"
@@ -174,13 +177,13 @@
                                     "color": "black",
                                     "x": 120,
                                     "y": 28,
-                                    "font-description": "Sans 32"
+                                    "font-description": "Sans 16"
                                   },
                                   {
                                     "type": "MxIcon",
                                     "style-class": "wifi",
                                     "x": 30,
-                                    "y": 18,
+                                    "y": 10,
                                     "width": 64,
                                     "height": 64
                                   }
@@ -189,9 +192,9 @@
                               {
                                 "id": "wifi-body",
                                 "type": "ClutterActor",
-                                "background-color": "#FFF",
+                                "background-color": "#63C7AF",
                                 "width": 780,
-                                "min-height": 5,
+                                "height": 5,
                                 "layout-manager": {
                                   "type": "ClutterBoxLayout",
                                   "orientation": 1
@@ -202,7 +205,7 @@
                                     "type": "ClutterText",
                                     "text": "No Access Points found",
                                     "font-description": "Sans 32",
-                                    "height": 50,
+                                    "height": 64,
                                     "width": 1180,
                                     "margin-left": 100
                                   }
@@ -214,7 +217,7 @@
                             "id": "slicer-box",
                             "type": "ClutterActor",
                             "width": 780,
-                            "background-color": "#c9c3c3",
+                            "background-color": "#26322f",
                             "layout-manager": {
                               "type": "ClutterBoxLayout",
                               "orientation": 1
@@ -223,7 +226,7 @@
                               {
                                 "id": "slicer-header",
                                 "type": "ClutterActor",
-                                "height": 100,
+                                "height": 70,
                                 "width": 780,
                                 "layout-manager": {
                                   "type": "ClutterFixedLayout"
@@ -235,13 +238,13 @@
                                     "color": "black",
                                     "x": 120,
                                     "y": 30,
-                                    "font-description": "Sans 32"
+                                    "font-description": "Sans 16"
                                   },
                                   {
                                     "type": "MxIcon",
                                     "style-class": "slicer",
                                     "x": 30,
-                                    "y": 18,
+                                    "y": 10,
                                     "width": 64,
                                     "height": 64
                                   }
@@ -252,7 +255,7 @@
                                 "type": "ClutterActor",
                                 "width": 780,
                                 "height": 5,
-                                "background-color": "#FFF",
+                                "background-color": "#63C7AF",
                                 "layout-manager": {
                                   "type": "ClutterFixedLayout"
                                 },
@@ -295,7 +298,7 @@
                             "id": "printer-box",
                             "type": "ClutterActor",
                             "width": 780,
-                            "background-color": "#c9c3c3",
+                            "background-color": "#26322f",
                             "layout-manager": {
                               "type": "ClutterBoxLayout",
                               "orientation": 1
@@ -304,7 +307,7 @@
                               {
                                 "id": "printer-header",
                                 "type": "ClutterActor",
-                                "height": 100,
+                                "height": 70,
                                 "width": 780,
                                 "layout-manager": {
                                   "type": "ClutterFixedLayout"
@@ -316,13 +319,13 @@
                                     "color": "black",
                                     "x": 120,
                                     "y": 30,
-                                    "font-description": "Sans 32"
+                                    "font-description": "Sans 16"
                                   },
                                   {
                                     "type": "MxIcon",
                                     "style-class": "printer",
                                     "x": 30,
-                                    "y": 18,
+                                    "y": 10,
                                     "width": 64,
                                     "height": 64
                                   }
@@ -333,7 +336,7 @@
                                 "type": "ClutterActor",
                                 "width": 780,
                                 "height": 5,
-                                "background-color": "#FFF",
+                                "background-color": "#63C7AF",
                                 "layout-manager": {
                                   "type": "ClutterFixedLayout"
                                 },
@@ -358,8 +361,7 @@
                         "width": 800,
                         "height": 90,
                         "x": 0,
-                        "y": 0,
-                        "background-color": "#FFF"
+                        "y": 0
                       },
                       {
                         "id": "side0-btn-prev",
@@ -375,7 +377,7 @@
                         "id": "side0-btn-next",
                         "type": "MxButton",
                         "style-class": "temp",
-                        "x": 700,
+                        "x": 716,
                         "y": 15,
                         "width": 64,
                         "height": 64,
@@ -409,9 +411,10 @@
                             "id": "splash-status",
                             "type": "ClutterText",
                             "text": "Toggle initializing...",
-                            "color": "white",
+                            "color": "#63C7AF",
                             "x": 45,
-                            "y": 350
+                            "y": 364,
+                            "font-description": "Sans 8"
                           }
                         ]
                       },
@@ -419,7 +422,7 @@
                         "id": "side5-btn-next",
                         "type": "MxButton",
                         "style-class": "temp",
-                        "x": 700,
+                        "x": 716,
                         "y": 15,
                         "width": 64,
                         "height": 64,
@@ -447,37 +450,51 @@
                 "pivot-point-z": -400.0,
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 90.0,
-                "background-color": "white",
+                "background-color": "#63C7AF",
                 "visible": false,
                 "children": [
                   {
                     "id": "side1-content",
                     "type": "ClutterActor",
+                    "layout-manager": {
+                      "type": "ClutterFixedLayout"
+                    },
                     "children": [
+                      {
+                        "id": "graph-title",
+                        "type": "ClutterText",
+                        "text": "Temperature",
+                        "width": 300,
+                        "height": 100,
+                        "y": 30,
+                        "x": 364,
+                        "font-description": "Sans 16"
+                      },
                       {
                         "id": "graph",
                         "type": "ClutterActor",
-                        "width": 800,
-                        "height": 400,
-                        "y": 40
-                      },
-                      {
-                        "id": "heat-tool0",
-                        "type": "MxButton",
-                        "style-class": "heat",
-                        "is_toggle": true,
-                        "x": 284,
-                        "y": 400,
-                        "width": 64,
-                        "height": 64
+                        "width": 760,
+                        "height": 354,
+                        "y": 60,
+                        "x": 20
                       },
                       {
                         "id": "heat-bed",
                         "type": "MxButton",
                         "style-class": "heat",
                         "is_toggle": true,
-                        "x": 368,
-                        "y": 400,
+                        "x": 225,
+                        "y": 410,
+                        "width": 64,
+                        "height": 64
+                      },
+                      {
+                        "id": "heat-tool0",
+                        "type": "MxButton",
+                        "style-class": "heat",
+                        "is_toggle": true,
+                        "x": 358,
+                        "y": 410,
                         "width": 64,
                         "height": 64
                       },
@@ -486,8 +503,8 @@
                         "type": "MxButton",
                         "style-class": "heat",
                         "is_toggle": true,
-                        "x": 452,
-                        "y": 400,
+                        "x": 491,
+                        "y": 410,
                         "width": 64,
                         "height": 64
                       },
@@ -496,8 +513,8 @@
                         "type": "MxButton",
                         "style-class": "heat",
                         "is_toggle": true,
-                        "x": 452,
-                        "y": 400,
+                        "x": 624,
+                        "y": 410,
                         "width": 64,
                         "height": 64
                       },
@@ -547,11 +564,12 @@
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 180.0,
                 "visible": false,
-                "background-color": "white",
+                "background-color": "#63C7AF",
                 "children": [
                   {
                     "id": "side2-content",
                     "type": "ClutterActor",
+                    "background-color": "#63C7AF",
                     "children": [
                       {
                         "id": "content-flip",
@@ -576,7 +594,7 @@
                                 "type": "ClutterActor",
                                 "x": 300,
                                 "y": 360,
-                                "z-position": 150,
+                                "z-position": 164,
                                 "width": 1,
                                 "height": 1,
                                 "depth": 1,
@@ -598,7 +616,8 @@
                                       {
                                         "id": "plate",
                                         "type": "MashModel",
-                                        "rotation-angle-x": -90.0
+                                        "rotation-angle-x": -90.0,
+                                        "background-color": "#a8caba"
                                       },
                                       {
                                         "id": "model-flipper",
@@ -609,7 +628,8 @@
                                             "type": "MashModel",
                                             "rotation-angle-x": 90.0,
                                             "rotation-angle-y": 0.0,
-                                            "rotation-angle-z": 0.0
+                                            "rotation-angle-z": 0.0,
+                                            "background-color": "#55A94BFF"
                                           }
                                         ]
                                       }
@@ -650,7 +670,8 @@
                             "id": "lbl-stat",
                             "type": "ClutterText",
                             "x": 15,
-                            "y": 410
+                            "y": 410,
+                            "font-description": "Sans 16"
                           },
                           {
                             "id": "lbl-model",
@@ -658,12 +679,12 @@
                             "text": "Model",
                             "x": 530,
                             "y": 440,
-                            "width": 250,
+                            "width": 264,
                             "height": 25,
                             "x-align": 3,
                             "x-expand": true,
                             "line-alignment": 2,
-                            "font-description": "Sans 16"
+                            "font-description": "Sans 10"
                           },
                           {
                             "id": "progress-bar",
@@ -681,7 +702,8 @@
                             "x": 560,
                             "y": 395,
                             "width": 220,
-                            "height": 25
+                            "height": 25,
+                            "font-description": "Sans 10"
                           },
                           {
                             "id": "time-left",
@@ -691,7 +713,8 @@
                             "width": 220,
                             "height": 25,
                             "x-align": 3,
-                            "x-expand": true
+                            "x-expand": true,
+                            "font-description": "Sans 10"
                           },
                           {
                             "id": "btn-cancel",
@@ -768,7 +791,7 @@
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 270.0,
                 "visible": false,
-                "background-color": "white",
+                "background-color": "#63C7AF",
                 "children": [
                   {
                     "id": "side3-content",
@@ -783,15 +806,16 @@
                         "y": 80,
                         "width": 300,
                         "height": 300,
+                        "background-color": "#63C7AF",
                         "children": [
                           {
                             "id": "jog_x_minus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 70,
-                            "width": 70,
+                            "height": 64,
+                            "width": 64,
                             "x": 0,
-                            "y": 125,
+                            "y": 118,
                             "rotation-angle-z": 180.0,
                             "pivot-point": [0.5, 0.5]
                           },
@@ -799,9 +823,9 @@
                             "id": "jog_y_plus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 70,
-                            "width": 70,
-                            "x": 120,
+                            "height": 64,
+                            "width": 64,
+                            "x": 118,
                             "y": 0,
                             "rotation-angle-z": 270.0,
                             "pivot-point": [0.5, 0.5]
@@ -810,10 +834,10 @@
                             "id": "jog_x_plus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "width": 70,
-                            "height": 70,
-                            "x": 240,
-                            "y": 125,
+                            "width": 64,
+                            "height": 64,
+                            "x": 236,
+                            "y": 118,
                             "rotation-angle-z": 0.0,
                             "pivot-point": [0.5, 0.5]
                           },
@@ -821,10 +845,10 @@
                             "id": "jog_y_minus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 70,
-                            "width": 70,
-                            "x": 120,
-                            "y": 245,
+                            "height": 64,
+                            "width": 64,
+                            "x": 118,
+                            "y": 236,
                             "rotation-angle-z": 90.0,
                             "pivot-point": [0.5, 0.5]
                           },
@@ -832,51 +856,51 @@
                             "id": "jog_home",
                             "type": "MxButton",
                             "style-class": "jog_home",
-                            "height": 100,
-                            "width": 100,
-                            "x": 105,
-                            "y": 110
+                            "height": 64,
+                            "width": 64,
+                            "x": 118,
+                            "y": 118
                           }
                         ]
                       },
                       {
                         "id": "jogger-z",
                         "type": "ClutterActor",
-                        "x": 350,
+                        "x": 390,
                         "y": 80,
-                        "width": 70,
+                        "width": 64,
                         "height": 300,
                         "children": [
                           {
                             "id": "jog_z_plus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 70,
-                            "width": 70,
-                            "x": 120,
+                            "height": 64,
+                            "width": 64,
+                            "x": 0,
                             "y": 0,
                             "rotation-angle-z": 270.0,
-                            "pivot-point": [0.5, 0.5]
-                          },
-                          {
-                            "id": "jog_z_minus",
-                            "type": "MxButton",
-                            "style-class": "jog_arrow",
-                            "height": 70,
-                            "width": 70,
-                            "x": 120,
-                            "y": 245,
-                            "rotation-angle-z": 90.0,
                             "pivot-point": [0.5, 0.5]
                           },
                           {
                             "id": "jog_z_home",
                             "type": "MxButton",
                             "style-class": "jog_home_z",
-                            "height": 100,
-                            "width": 100,
-                            "x": 105,
-                            "y": 110
+                            "height": 70,
+                            "width": 70,
+                            "x": 0,
+                            "y": 118
+                          },
+                          {
+                            "id": "jog_z_minus",
+                            "type": "MxButton",
+                            "style-class": "jog_arrow",
+                            "height": 64,
+                            "width": 64,
+                            "x": 0,
+                            "y": 236,
+                            "rotation-angle-z": 90.0,
+                            "pivot-point": [0.5, 0.5]
                           }
                         ]
                       },
@@ -885,42 +909,42 @@
                         "type": "ClutterActor",
                         "x": 520,
                         "y": 80,
-                        "width": 70,
+                        "width": 64,
                         "height": 300,
                         "children": [
-                          {
-                            "id": "fan_on",
-                            "type": "MxButton",
-                            "style-class": "fan_on",
-                            "height": 70,
-                            "width": 70,
-                            "x": 120,
-                            "y": 0
-                          },
                           {
                             "id": "fan_off",
                             "type": "MxButton",
                             "style-class": "fan_off",
-                            "height": 70,
-                            "width": 70,
-                            "x": 120,
-                            "y": 245
+                            "height": 64,
+                            "width": 64,
+                            "x": 0,
+                            "y": 0
                           },
                           {
                             "id": "motors_off",
                             "type": "MxButton",
                             "style-class": "motors_off",
-                            "height": 70,
-                            "width": 70,
-                            "x": 120,
-                            "y": 130
+                            "height": 64,
+                            "width": 64,
+                            "x": 0,
+                            "y": 118
+                          },
+                          {
+                            "id": "fan_on",
+                            "type": "MxButton",
+                            "style-class": "fan_on",
+                            "height": 64,
+                            "width": 64,
+                            "x": 0,
+                            "y": 236
                           }
                         ]
                       },
                       {
                         "id": "jogger-e",
                         "type": "ClutterActor",
-                        "x": 435,
+                        "x": 635,
                         "y": 80,
                         "width": 70,
                         "height": 300,
@@ -929,22 +953,11 @@
                             "id": "jog_e_extrude",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 70,
-                            "width": 70,
-                            "x": 120,
+                            "height": 64,
+                            "width": 64,
+                            "x": 0,
                             "y": 0,
                             "rotation-angle-z": 270.0,
-                            "pivot-point": [0.5, 0.5]
-                          },
-                          {
-                            "id": "jog_e_retract",
-                            "type": "MxButton",
-                            "style-class": "jog_arrow",
-                            "height": 70,
-                            "width": 70,
-                            "x": 120,
-                            "y": 245,
-                            "rotation-angle-z": 90.0,
                             "pivot-point": [0.5, 0.5]
                           },
                           {
@@ -952,10 +965,21 @@
                             "type": "MxButton",
                             "style-class": "jog_home_e",
                             "is_toggle": true,
-                            "height": 100,
-                            "width": 100,
-                            "x": 105,
-                            "y": 110
+                            "height": 64,
+                            "width": 64,
+                            "x": 0,
+                            "y": 118
+                          },
+                          {
+                            "id": "jog_e_retract",
+                            "type": "MxButton",
+                            "style-class": "jog_arrow",
+                            "height": 64,
+                            "width": 64,
+                            "x": 0,
+                            "y": 236,
+                            "rotation-angle-z": 90.0,
+                            "pivot-point": [0.5, 0.5]
                           }
                         ]
                       },
@@ -963,13 +987,26 @@
                         "id": "travel-length",
                         "type": "ClutterText",
                         "text": "",
-                        "x": 480,
+                        "x": 392,
                         "y": 440,
                         "width": 300,
                         "height": 25,
                         "x-align": 3,
                         "x-expand": true,
                         "line-alignment": 2,
+                        "font-description": "Sans 16"
+                      },
+                      {
+                        "id": "text_xy",
+                        "type": "ClutterText",
+                        "text": "XY:",
+                        "x": 264,
+                        "y": 415,
+                        "width": 64,
+                        "height": 25,
+                        "x-align": 1,
+                        "x-expand": true,
+                        "line-alignment": 1,
                         "font-description": "Sans 16"
                       },
                       {
@@ -983,6 +1020,19 @@
                         "height": 64
                       },
                       {
+                        "id": "text_z",
+                        "type": "ClutterText",
+                        "text": "Z:",
+                        "x": 345,
+                        "y": 415,
+                        "width": 64,
+                        "height": 25,
+                        "x-align": 1,
+                        "x-expand": true,
+                        "line-alignment": 1,
+                        "font-description": "Sans 16"
+                      },
+                      {
                         "id": "travel_z",
                         "type": "MxButton",
                         "style-class": "travel_10",
@@ -991,6 +1041,19 @@
                         "y": 400,
                         "width": 64,
                         "height": 64
+                      },
+                      {
+                        "id": "text_e",
+                        "type": "ClutterText",
+                        "text": "E:",
+                        "x": 427,
+                        "y": 415,
+                        "width": 64,
+                        "height": 25,
+                        "x-align": 1,
+                        "x-expand": true,
+                        "line-alignment": 1,
+                        "font-description": "Sans 16"
                       },
                       {
                         "id": "travel_eh",
@@ -1017,7 +1080,7 @@
                     "id": "side3-btn-next",
                     "type": "MxButton",
                     "style-class": "settings",
-                    "x": 700,
+                    "x": 716,
                     "y": 15,
                     "width": 64,
                     "height": 64
@@ -1083,7 +1146,7 @@
                 "id": "txt",
                 "type": "ClutterText",
                 "font-description": "Sans 36",
-                "color": "#FFF",
+                "color": "#63C7AF",
                 "height": 100
               }
             ]
@@ -1103,7 +1166,7 @@
                 "id": "wifi-text",
                 "type": "ClutterText",
                 "font-description": "Sans 24",
-                "color": "#FFF",
+                "color": "#63C7AF",
                 "height": 100,
                 "text": "Password:",
                 "x": 120,
@@ -1121,7 +1184,7 @@
                 "id": "wifi-status",
                 "type": "ClutterText",
                 "font-description": "Sans 12",
-                "color": "#FFF",
+                "color": "#63C7AF",
                 "x": 120,
                 "y": 160
               },

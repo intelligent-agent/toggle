@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="128"
+   height="128"
+   viewBox="0 0 33.866667 33.866671"
+   version="1.1"
+   id="svg2063"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="network.svg">
+  <defs
+     id="defs2057">
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter8177"
+       x="-0.0091660563"
+       width="1.0183321"
+       y="-0.017367573"
+       height="1.0347351">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.15051579"
+         id="feGaussianBlur8179" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter8177-6-0-29"
+       x="-0.0091660563"
+       width="1.0183321"
+       y="-0.017367573"
+       height="1.0347351">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.15051579"
+         id="feGaussianBlur8179-2-9-3" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter8177-6-0-2-1"
+       x="-0.0091660563"
+       width="1.0183321"
+       y="-0.017367573"
+       height="1.0347351">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.15051579"
+         id="feGaussianBlur8179-2-9-6-9" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.1179796"
+     inkscape:cx="101.95893"
+     inkscape:cy="82.741479"
+     inkscape:document-units="mm"
+     inkscape:current-layer="g8171-9-3-1-6"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     units="px" />
+  <metadata
+     id="metadata2060">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-184.33546,-235.64246)">
+    <g
+       transform="matrix(0.48765359,0,0,0.48784441,-53.432946,-211.09256)"
+       style="display:inline;enable-background:new"
+       id="g8171-9-3-0">
+      <g
+         transform="translate(-30.383575,-3.625034e-6)"
+         style="display:inline;enable-background:new"
+         id="g8171-9-3-1-6">
+        <g
+           style="display:inline;enable-background:new"
+           id="g5696-1"
+           inkscape:export-filename="/home/elias/workspace/toggle/style/network_128.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90"
+           transform="matrix(0.65371935,0,0,0.65346365,459.86597,3557.6692)">
+          <path
+             inkscape:connector-curvature="0"
+             id="path4704-3"
+             d="m 95.537116,-3965.3933 v -16.8899 h 8.603834 8.60383 v -4.7446 -4.7446 H 101.14436 89.543946 v -2.2701 -2.2701 h 26.651444 26.65144 v -4.3814 -4.3814 h -7.99089 -7.99089 v -16.8898 -16.8899 h 19.34159 19.3416 v 16.8899 16.8898 h -8.28601 -8.28601 v 4.3814 4.3814 h 22.49708 22.49709 v 2.2701 2.2701 h -7.03765 -7.03766 l 0.0116,4.529 0.0116,4.5289 7.54821,0.012 7.54822,0.012 v 16.8897 16.8898 h -19.3416 -19.34159 v -16.8899 -16.8898 h 8.71734 8.71734 v -4.5403 -4.5403 h -27.446 -27.44599 v 4.7446 4.7446 h 7.67307 7.67308 v 16.8898 16.8899 h -19.3416 -19.341594 v -16.8899 z m 32.644614,0 v -10.8513 h -13.30302 -13.30302 v 10.8513 10.8512 h 13.30302 13.30302 z m 60.7831,-0.42 0.0114,-10.8399 H 175.67311 162.37 v 10.8513 10.8514 l 13.29167,-0.012 13.29167,-0.012 0.0114,-10.8399 z m -29.50057,-56.1519 v -10.8513 h -13.28032 -13.28032 v 10.8513 10.8513 h 13.28032 13.28032 z"
+             style="opacity:0.98000004;fill:#a8caba;fill-opacity:1" />
+          <rect
+             y="-4056.6377"
+             x="80.5"
+             height="128"
+             width="128"
+             id="rect5694-2"
+             style="fill:none;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

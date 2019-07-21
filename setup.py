@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import os
-from setuptools import setup, find_packages
+from setuptools import setup, find_packages, Command
 
 
 # Utility function to read the README file.
@@ -11,6 +11,25 @@ def read(fname):
   return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
+class GenerateStyles(Command):
+  user_options = []
+
+  def initialize_options(self):
+    """Abstract method that is required to be overwritten"""
+
+  def finalize_options(self):
+    """Abstract method that is required to be overwritten"""
+
+  def run(self):
+    import subprocess
+    bashCommand = "./style/Spitzy/convert.sh"
+    process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    bashCommand = "./style/Mixer/convert.sh"
+    process = subprocess.Popen(bashCommand, stdout=subprocess.PIPE)
+    output, error = process.communicate()
+
+
 # from toggle.__init__ import __url__
 import versioneer
 # yapf: disable
@@ -18,7 +37,7 @@ import versioneer
 setup(
     name='Toggle',
     version=versioneer.get_version(),
-    cmdclass=versioneer.get_cmdclass(),
+    cmdclass={**versioneer.get_cmdclass(), 'generate_styles': GenerateStyles},
     description='Embedded UI for 3D printers',
     author="Elias Bakken",
     author_email="elias@iagent.no",
@@ -118,6 +137,7 @@ setup(
         'style/Mixer/1_128.png',
         'style/Mixer/10_128.png',
         'style/Mixer/100_128.png',
+        'style/Mixer/logo_400.png',
         'style/Mixer/logo_600.png',
         'style/Mixer/logo_900.png',
         'style/Mixer/pointer_64.png',
@@ -132,44 +152,49 @@ setup(
         ]),
       ('/etc/toggle/style/Spitzy', [
         'style/Spitzy/style.css',
-        #'style/Spitzy/ui_800x480.json',
-        #'style/Spitzy/ui_1920x1080.json',
-        #'style/Spitzy/arrow_128.png',
-        #'style/Spitzy/arrow_disabled_128.png',
-        #'style/Spitzy/cancel_128.png',
-        #'style/Spitzy/cancel_disabled_128.png',
-        #'style/Spitzy/connected_128.png',
-        #'style/Spitzy/disconnected_128.png',
-        #'style/Spitzy/e.png',
-        #'style/Spitzy/h.png',
-        #'style/Spitzy/z.png',
-        #'style/Spitzy/heartbeat_128.png',
-        #'style/Spitzy/heat_128.png',
-        #'style/Spitzy/heated_128.png',
-        #'style/Spitzy/heating_128.png',
-        #'style/Spitzy/home.png',
-        #'style/Spitzy/jog_128.png',
-        #'style/Spitzy/loading.png',
-        #'style/Spitzy/pause_128.png',
-        #'style/Spitzy/pause_disabled_128.png',
-        #'style/Spitzy/play_128.png',
-        #'style/Spitzy/play_disabled_128.png',
-        #'style/Spitzy/print_128.png',
-        #'style/Spitzy/temperature_128.png',
-        #'style/Spitzy/travel_0.1_128.png',
-        #'style/Spitzy/travel_1_128.png',
-        #'style/Spitzy/travel_10_128.png',
-        #'style/Spitzy/travel_100_128.png',
-        #'style/Spitzy/Toggle_splash_900.png',
-        #'style/Spitzy/Toggle_splash_400.png',
-        #'style/Spitzy/pointer.png',
-        #'style/Spitzy/fan_128.png',
-        #'style/Spitzy/fandisable_128.png',
-        #'style/Spitzy/motorsoff_128.png',
-        #'style/Spitzy/settings_128.png',
-        #'style/Spitzy/network_128.png',
-        #'style/Spitzy/wifi_128.png',
-        #'style/Spitzy/slicer_128.png'
+        'style/Spitzy/ui_800x480.json',
+        'style/Spitzy/ui_1280x720.json',
+        'style/Spitzy/ui_1920x1080.json',
+        'style/Spitzy/arrow_128.png',
+        'style/Spitzy/arrow_disabled_128.png',
+        'style/Spitzy/cancel_128.png',
+        'style/Spitzy/cancel_disabled_128.png',
+        'style/Spitzy/connection_64.png',
+        'style/Spitzy/connection_disabled_64.png',
+        'style/Spitzy/e_128.png',
+        'style/Spitzy/h_128.png',
+        'style/Spitzy/z_128.png',
+        'style/Spitzy/heartbeat_64.png',
+        'style/Spitzy/heater_cold_128.png',
+        'style/Spitzy/heater_heating_128.png',
+        'style/Spitzy/heater_hot_128.png',
+        'style/Spitzy/heater_bed_cold_128.png',
+        'style/Spitzy/heater_bed_hot_128.png',
+        'style/Spitzy/heater_bed_heating_128.png',
+        'style/Spitzy/home_128.png',
+        'style/Spitzy/jog_128.png',
+        'style/Spitzy/loading_128.png',
+        'style/Spitzy/pause_128.png',
+        'style/Spitzy/pause_disabled_128.png',
+        'style/Spitzy/play_128.png',
+        'style/Spitzy/play_disabled_128.png',
+        'style/Spitzy/print_128.png',
+        'style/Spitzy/temperature_128.png',
+        'style/Spitzy/0.1_128.png',
+        'style/Spitzy/1_128.png',
+        'style/Spitzy/10_128.png',
+        'style/Spitzy/100_128.png',
+        'style/Spitzy/logo_400.png',
+        'style/Spitzy/logo_600.png',
+        'style/Spitzy/logo_900.png',
+        'style/Spitzy/pointer_64.png',
+        'style/Spitzy/fan_on_128.png',
+        'style/Spitzy/fan_off_128.png',
+        'style/Spitzy/motor_off_128.png',
+        'style/Spitzy/settings_128.png',
+        'style/Spitzy/network_128.png',
+        'style/Spitzy/wifi_128.png',
+        'style/Spitzy/slicer_128.png'
         ]),
       ('/etc/toggle', [
         'configs/default.cfg',
@@ -188,6 +213,6 @@ setup(
         'toggle-update = updater:perform_update',
         'toggle-version = version:get_version'
       ]
-    },
+    }
 )
 # yapf: enable

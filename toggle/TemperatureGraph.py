@@ -8,9 +8,9 @@ import logging
 class TemperatureGraph():
   def __init__(self, config):
     self.config = config
-
-    # Set up temperature graph
     self.temp = config.ui.get_object("graph")
+    self.title = config.ui.get_object("graph-title")
+    self.title.set_text("Temperature")
     self.graph = Graph(self.temp.get_width(), self.temp.get_height())
     self.temp.add_child(self.graph)
     self.temp.set_reactive(True)
@@ -84,7 +84,6 @@ class TemperatureGraph():
 
     # Add a scale to the plot
     scale = GraphScale(0, 320, [0, 50, 100, 150, 200, 250, 300])
-    scale.set_title("Temperature")
     self.graph.add_plot(scale)
 
     # set up temp label
@@ -193,4 +192,3 @@ class TemperatureGraph():
     if self.config.getboolean('System', 'use-filament-graph'):
       self.graph.hide()
       self.config.filament_graph.graph.show()
-      # self.config.filament_graph.graph.refresh()

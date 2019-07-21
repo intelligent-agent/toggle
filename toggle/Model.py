@@ -14,8 +14,7 @@ class Model(Mash.Model):
 
     self.config = config
     self.model = config.ui.get_object("model")
-    color_str = config.get("System", "model-color")
-    self.color = Clutter.Color.from_string(color_str)[1]
+    self.color = self.model.get_background_color()
     self.loader = config.ui.get_object("loader")
     self.loader.set_from_file(config.get("System", "loader"))
 

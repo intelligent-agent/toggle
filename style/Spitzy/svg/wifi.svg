@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="128"
+   height="128"
+   viewBox="0 0 33.866667 33.866671"
+   version="1.1"
+   id="svg2063"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="wifi.svg">
+  <defs
+     id="defs2057">
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter8177"
+       x="-0.0091660563"
+       width="1.0183321"
+       y="-0.017367573"
+       height="1.0347351">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.15051579"
+         id="feGaussianBlur8179" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter8177-6-0-29"
+       x="-0.0091660563"
+       width="1.0183321"
+       y="-0.017367573"
+       height="1.0347351">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.15051579"
+         id="feGaussianBlur8179-2-9-3" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter8177-6-0-2-1"
+       x="-0.0091660563"
+       width="1.0183321"
+       y="-0.017367573"
+       height="1.0347351">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.15051579"
+         id="feGaussianBlur8179-2-9-6-9" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.1179796"
+     inkscape:cx="101.95893"
+     inkscape:cy="82.741479"
+     inkscape:document-units="mm"
+     inkscape:current-layer="g8171-9-3-1-6"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     units="px" />
+  <metadata
+     id="metadata2060">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-184.33546,-235.64246)">
+    <g
+       transform="matrix(0.48765359,0,0,0.48784441,-53.432946,-211.09256)"
+       style="display:inline;enable-background:new"
+       id="g8171-9-3-0">
+      <g
+         transform="translate(-30.383575,-3.625034e-6)"
+         style="display:inline;enable-background:new"
+         id="g8171-9-3-1-6">
+        <g
+           style="display:inline;enable-background:new"
+           transform="matrix(0.6457035,0,0,0.64545094,462.96148,3216.1652)"
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="/home/elias/workspace/toggle/style/wifi_128.png"
+           id="g5703-2">
+          <path
+             transform="translate(-0.70710678,-2.1213)"
+             inkscape:connector-curvature="0"
+             id="path4840-7"
+             d="m 134.73559,-3469.5783 c -2.41036,-2.4103 -3.07159,-5.7414 -1.76559,-8.8943 1.30384,-3.1478 3.25972,-4.3597 7.0358,-4.3597 3.77607,0 5.73196,1.2119 7.0358,4.3597 2.25866,5.4529 -1.17006,10.6361 -7.0358,10.6361 -2.33714,0 -4.1165,-0.5881 -5.27021,-1.7418 z m -15.6333,-16.0547 c -2.45623,-1.2112 -3.9844,-5.4086 -2.95494,-8.1163 1.06559,-2.8028 5.73527,-6.5729 11.50895,-9.2919 6.96398,-3.2797 17.73502,-3.2797 24.699,0 5.77367,2.719 10.44336,6.4891 11.50895,9.2919 1.14553,3.013 -0.58717,7.0352 -3.56134,8.2671 -2.7853,1.1537 -3.82724,0.7713 -10.41044,-3.8209 -6.51082,-4.5416 -14.30502,-4.2612 -20.87142,0.7511 -4.58076,3.4966 -7.19025,4.2645 -9.91876,2.919 z m -15.63961,-17.1084 c -4.780707,-4.7807 -1.71061,-9.9225 10.38246,-17.3884 8.37091,-5.168 15.24911,-7.0114 26.16066,-7.0114 10.91155,0 17.78974,1.8434 26.16066,7.0114 9.76448,6.0283 13.27185,10.0089 12.28468,13.9421 -1.49519,5.9573 -7.14159,6.4929 -13.42976,1.2738 -15.06318,-12.5022 -34.96798,-12.5022 -50.03115,0 -4.68398,3.8876 -8.99917,4.7009 -11.52755,2.1725 z m -14.119562,-16.5597 c -3.747076,-3.7471 -3.087207,-6.7069 2.66781,-11.9667 6.683985,-6.1088 15.018612,-10.8831 25.060082,-14.3553 8.15486,-2.8198 8.77108,-2.8976 22.93479,-2.8976 14.1637,0 14.77992,0.078 22.93478,2.8976 10.04148,3.4722 18.3761,8.2465 25.06009,14.3553 5.70577,5.2147 6.40783,8.2267 2.76638,11.8682 -3.44666,3.4466 -5.34407,2.9266 -13.46842,-3.6907 -21.31659,-17.3626 -55.34707,-16.9067 -75.83532,1.0159 -5.838698,5.1076 -9.050926,5.8426 -12.120192,2.7733 z"
+             style="display:inline;fill:#a8caba;fill-opacity:1" />
+          <rect
+             style="fill:none;fill-opacity:1;stroke:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+             id="rect5700-6"
+             width="128"
+             height="128"
+             x="74.953316"
+             y="-3574.2932" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

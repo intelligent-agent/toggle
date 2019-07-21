@@ -4,7 +4,7 @@
     "type": "ClutterStage",
     "width": 800,
     "height": 480,
-    "background-color": "white",
+    "background-color": "#DDD",
     "signals": [],
     "children": [
       {
@@ -31,7 +31,7 @@
                 "pivot-point-z": -400.0,
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 0.0,
-                "background-color": "white",
+                "background-color": "#FFF",
                 "children": [
                   {
                     "id": "side0-content",
@@ -88,15 +88,15 @@
                                     "style-class": "network",
                                     "x": 30,
                                     "y": 10,
-                                    "width": 50,
-                                    "height": 50
+                                    "width": 64,
+                                    "height": 64
                                   }
                                 ]
                               },
                               {
                                 "id": "network-body",
                                 "type": "ClutterActor",
-                                "background-color": "#FFF",
+                                "background-color": "#EEE",
                                 "width": 780,
                                 "height": 5,
                                 "layout-manager": {
@@ -123,7 +123,7 @@
                                     "text": "Local Hostname: ",
                                     "font-description": "Sans 16",
                                     "x": 120,
-                                    "y": 50
+                                    "y": 64
                                   },
                                   {
                                     "id": "local-hostname",
@@ -131,7 +131,7 @@
                                     "text": "Not set",
                                     "font-description": "Sans 16",
                                     "x": 400,
-                                    "y": 50
+                                    "y": 64
                                   },
                                   {
                                     "type": "ClutterText",
@@ -184,15 +184,15 @@
                                     "style-class": "wifi",
                                     "x": 30,
                                     "y": 10,
-                                    "width": 50,
-                                    "height": 50
+                                    "width": 64,
+                                    "height": 64
                                   }
                                 ]
                               },
                               {
                                 "id": "wifi-body",
                                 "type": "ClutterActor",
-                                "background-color": "#FFF",
+                                "background-color": "#EEE",
                                 "width": 780,
                                 "height": 5,
                                 "layout-manager": {
@@ -205,7 +205,7 @@
                                     "type": "ClutterText",
                                     "text": "No Access Points found",
                                     "font-description": "Sans 32",
-                                    "height": 50,
+                                    "height": 64,
                                     "width": 1180,
                                     "margin-left": 100
                                   }
@@ -245,8 +245,8 @@
                                     "style-class": "slicer",
                                     "x": 30,
                                     "y": 10,
-                                    "width": 50,
-                                    "height": 50
+                                    "width": 64,
+                                    "height": 64
                                   }
                                 ]
                               },
@@ -255,7 +255,7 @@
                                 "type": "ClutterActor",
                                 "width": 780,
                                 "height": 5,
-                                "background-color": "#FFF",
+                                "background-color": "#EEE",
                                 "layout-manager": {
                                   "type": "ClutterFixedLayout"
                                 },
@@ -326,8 +326,8 @@
                                     "style-class": "printer",
                                     "x": 30,
                                     "y": 10,
-                                    "width": 50,
-                                    "height": 50
+                                    "width": 64,
+                                    "height": 64
                                   }
                                 ]
                               },
@@ -336,7 +336,7 @@
                                 "type": "ClutterActor",
                                 "width": 780,
                                 "height": 5,
-                                "background-color": "#FFF",
+                                "background-color": "#EEE",
                                 "layout-manager": {
                                   "type": "ClutterFixedLayout"
                                 },
@@ -361,8 +361,7 @@
                         "width": 800,
                         "height": 90,
                         "x": 0,
-                        "y": 0,
-                        "background-color": "#FFF"
+                        "y": 0
                       },
                       {
                         "id": "side0-btn-prev",
@@ -370,18 +369,18 @@
                         "style-class": "settings",
                         "x": 20,
                         "y": 15,
-                        "width": 50,
-                        "height": 50,
+                        "width": 64,
+                        "height": 64,
                         "visible": false
                       },
                       {
                         "id": "side0-btn-next",
                         "type": "MxButton",
                         "style-class": "temp",
-                        "x": 700,
+                        "x": 716,
                         "y": 15,
-                        "width": 50,
-                        "height": 50,
+                        "width": 64,
+                        "height": 64,
                         "visible": true
                       }
                     ]
@@ -412,9 +411,9 @@
                             "id": "splash-status",
                             "type": "ClutterText",
                             "text": "Toggle initializing...",
-                            "color": "white",
+                            "color": "#FFF",
                             "x": 45,
-                            "y": 350,
+                            "y": 364,
                             "font-description": "Sans 8"
                           }
                         ]
@@ -423,10 +422,10 @@
                         "id": "side5-btn-next",
                         "type": "MxButton",
                         "style-class": "temp",
-                        "x": 700,
+                        "x": 716,
                         "y": 15,
-                        "width": 50,
-                        "height": 50,
+                        "width": 64,
+                        "height": 64,
                         "opacity": 0
                       },
                       {
@@ -435,8 +434,8 @@
                         "style-class": "settings",
                         "x": 20,
                         "y": 15,
-                        "width": 50,
-                        "height": 50,
+                        "width": 64,
+                        "height": 64,
                         "opacity": 0
                       }
                     ]
@@ -451,61 +450,73 @@
                 "pivot-point-z": -400.0,
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 90.0,
-                "background-color": "white",
+                "background-color": "#FFF",
                 "visible": false,
                 "children": [
                   {
                     "id": "side1-content",
                     "type": "ClutterActor",
-                    "background-color": "#FFFFFFFF",
+                    "layout-manager": {
+                      "type": "ClutterFixedLayout"
+                    },
                     "children": [
+                      {
+                        "id": "graph-title",
+                        "type": "ClutterText",
+                        "text": "Temperature",
+                        "width": 300,
+                        "height": 100,
+                        "y": 30,
+                        "x": 364,
+                        "font-description": "Sans 16"
+                      },
                       {
                         "id": "graph",
                         "type": "ClutterActor",
-                        "width": 800,
-                        "height": 350,
+                        "width": 760,
+                        "height": 354,
                         "y": 60,
-                        "x": 10
-                      },
-                      {
-                        "id": "heat-tool0",
-                        "type": "MxButton",
-                        "style-class": "heat",
-                        "is_toggle": true,
-                        "x": 284,
-                        "y": 400,
-                        "width": 50,
-                        "height": 50
+                        "x": 20
                       },
                       {
                         "id": "heat-bed",
                         "type": "MxButton",
                         "style-class": "heat",
                         "is_toggle": true,
-                        "x": 368,
-                        "y": 400,
-                        "width": 50,
-                        "height": 50
+                        "x": 225,
+                        "y": 410,
+                        "width": 64,
+                        "height": 64
+                      },
+                      {
+                        "id": "heat-tool0",
+                        "type": "MxButton",
+                        "style-class": "heat",
+                        "is_toggle": true,
+                        "x": 358,
+                        "y": 410,
+                        "width": 64,
+                        "height": 64
                       },
                       {
                         "id": "heat-tool1",
                         "type": "MxButton",
                         "style-class": "heat",
                         "is_toggle": true,
-                        "x": 452,
-                        "y": 400,
-                        "width": 50,
-                        "height": 50
+                        "x": 491,
+                        "y": 410,
+                        "width": 64,
+                        "height": 64
                       },
                       {
                         "id": "heat-tool2",
                         "type": "MxButton",
                         "style-class": "heat",
                         "is_toggle": true,
-                        "x": 536,
-                        "y": 400,
-                        "width": 50,
-                        "height": 50
+                        "x": 624,
+                        "y": 410,
+                        "width": 64,
+                        "height": 64
                       },
                       {
                         "id": "lbl-temp",
@@ -529,8 +540,8 @@
                     "is_toggle": true,
                     "x": 20,
                     "y": 15,
-                    "height": 50,
-                    "width": 50
+                    "height": 64,
+                    "width": 64
                   },
                   {
                     "id": "side1-btn-next",
@@ -539,8 +550,8 @@
                     "is_toggle": true,
                     "x": 716,
                     "y": 15,
-                    "height": 50,
-                    "width": 50
+                    "height": 64,
+                    "width": 64
                   }
                 ]
               },
@@ -553,12 +564,12 @@
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 180.0,
                 "visible": false,
-                "background-color": "white",
+                "background-color": "#FFF",
                 "children": [
                   {
                     "id": "side2-content",
                     "type": "ClutterActor",
-                    "background-color": "white",
+                    "background-color": "#FFF",
                     "children": [
                       {
                         "id": "content-flip",
@@ -583,7 +594,7 @@
                                 "type": "ClutterActor",
                                 "x": 300,
                                 "y": 360,
-                                "z-position": 150,
+                                "z-position": 164,
                                 "width": 1,
                                 "height": 1,
                                 "depth": 1,
@@ -605,7 +616,8 @@
                                       {
                                         "id": "plate",
                                         "type": "MashModel",
-                                        "rotation-angle-x": -90.0
+                                        "rotation-angle-x": -90.0,
+                                        "background-color": "#DDD"
                                       },
                                       {
                                         "id": "model-flipper",
@@ -616,7 +628,8 @@
                                             "type": "MashModel",
                                             "rotation-angle-x": 90.0,
                                             "rotation-angle-y": 0.0,
-                                            "rotation-angle-z": 0.0
+                                            "rotation-angle-z": 0.0,
+                                            "background-color": "#55A94BFF"
                                           }
                                         ]
                                       }
@@ -627,8 +640,8 @@
                               {
                                 "id": "loader",
                                 "type": "ClutterTexture",
-                                "width": 50,
-                                "height": 50,
+                                "width": 64,
+                                "height": 64,
                                 "x": 268,
                                 "y": 200,
                                 "pivot-point": [0.5, 0.5],
@@ -646,8 +659,8 @@
                             "id": "btn-prev",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 50,
-                            "width": 50,
+                            "height": 64,
+                            "width": 64,
                             "x": 15,
                             "y": 208,
                             "rotation-angle-z": 180.0,
@@ -666,7 +679,7 @@
                             "text": "Model",
                             "x": 530,
                             "y": 440,
-                            "width": 250,
+                            "width": 264,
                             "height": 25,
                             "x-align": 3,
                             "x-expand": true,
@@ -711,8 +724,8 @@
                             "toggled": true,
                             "x": 284,
                             "y": 400,
-                            "width": 50,
-                            "height": 50
+                            "width": 64,
+                            "height": 64
                           },
                           {
                             "id": "btn-print",
@@ -721,8 +734,8 @@
                             "is_toggle": true,
                             "x": 368,
                             "y": 400,
-                            "width": 50,
-                            "height": 50
+                            "width": 64,
+                            "height": 64
                           },
                           {
                             "id": "btn-pause",
@@ -731,15 +744,15 @@
                             "is_toggle": true,
                             "x": 452,
                             "y": 400,
-                            "width": 50,
-                            "height": 50
+                            "width": 64,
+                            "height": 64
                           },
                           {
                             "id": "btn-next",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 50,
-                            "width": 50,
+                            "height": 64,
+                            "width": 64,
                             "x": 723,
                             "y": 208,
                             "rotation-angle-z": 0.0,
@@ -755,8 +768,8 @@
                     "style-class": "temp",
                     "x": 15,
                     "y": 15,
-                    "width": 50,
-                    "height": 50
+                    "width": 64,
+                    "height": 64
                   },
                   {
                     "id": "side2-btn-next",
@@ -764,8 +777,8 @@
                     "style-class": "jog",
                     "x": 720,
                     "y": 15,
-                    "width": 50,
-                    "height": 50
+                    "width": 64,
+                    "height": 64
                   }
                 ]
               },
@@ -778,7 +791,7 @@
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 270.0,
                 "visible": false,
-                "background-color": "white",
+                "background-color": "#FFF",
                 "children": [
                   {
                     "id": "side3-content",
@@ -793,16 +806,16 @@
                         "y": 80,
                         "width": 300,
                         "height": 300,
-                        "background-color": "white",
+                        "background-color": "#FFF",
                         "children": [
                           {
                             "id": "jog_x_minus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 50,
-                            "width": 50,
+                            "height": 64,
+                            "width": 64,
                             "x": 0,
-                            "y": 125,
+                            "y": 118,
                             "rotation-angle-z": 180.0,
                             "pivot-point": [0.5, 0.5]
                           },
@@ -810,9 +823,9 @@
                             "id": "jog_y_plus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 50,
-                            "width": 50,
-                            "x": 120,
+                            "height": 64,
+                            "width": 64,
+                            "x": 118,
                             "y": 0,
                             "rotation-angle-z": 270.0,
                             "pivot-point": [0.5, 0.5]
@@ -821,10 +834,10 @@
                             "id": "jog_x_plus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "width": 50,
-                            "height": 50,
-                            "x": 240,
-                            "y": 125,
+                            "width": 64,
+                            "height": 64,
+                            "x": 236,
+                            "y": 118,
                             "rotation-angle-z": 0.0,
                             "pivot-point": [0.5, 0.5]
                           },
@@ -832,10 +845,10 @@
                             "id": "jog_y_minus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 50,
-                            "width": 50,
-                            "x": 120,
-                            "y": 245,
+                            "height": 64,
+                            "width": 64,
+                            "x": 118,
+                            "y": 236,
                             "rotation-angle-z": 90.0,
                             "pivot-point": [0.5, 0.5]
                           },
@@ -843,41 +856,30 @@
                             "id": "jog_home",
                             "type": "MxButton",
                             "style-class": "jog_home",
-                            "height": 100,
-                            "width": 100,
-                            "x": 105,
-                            "y": 110
+                            "height": 64,
+                            "width": 64,
+                            "x": 118,
+                            "y": 118
                           }
                         ]
                       },
                       {
                         "id": "jogger-z",
                         "type": "ClutterActor",
-                        "x": 350,
+                        "x": 390,
                         "y": 80,
-                        "width": 70,
+                        "width": 64,
                         "height": 300,
                         "children": [
                           {
                             "id": "jog_z_plus",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 50,
-                            "width": 50,
-                            "x": 120,
+                            "height": 64,
+                            "width": 64,
+                            "x": 0,
                             "y": 0,
                             "rotation-angle-z": 270.0,
-                            "pivot-point": [0.5, 0.5]
-                          },
-                          {
-                            "id": "jog_z_minus",
-                            "type": "MxButton",
-                            "style-class": "jog_arrow",
-                            "height": 50,
-                            "width": 50,
-                            "x": 120,
-                            "y": 245,
-                            "rotation-angle-z": 90.0,
                             "pivot-point": [0.5, 0.5]
                           },
                           {
@@ -886,8 +888,19 @@
                             "style-class": "jog_home_z",
                             "height": 70,
                             "width": 70,
-                            "x": 105,
-                            "y": 110
+                            "x": 0,
+                            "y": 118
+                          },
+                          {
+                            "id": "jog_z_minus",
+                            "type": "MxButton",
+                            "style-class": "jog_arrow",
+                            "height": 64,
+                            "width": 64,
+                            "x": 0,
+                            "y": 236,
+                            "rotation-angle-z": 90.0,
+                            "pivot-point": [0.5, 0.5]
                           }
                         ]
                       },
@@ -896,42 +909,42 @@
                         "type": "ClutterActor",
                         "x": 520,
                         "y": 80,
-                        "width": 70,
+                        "width": 64,
                         "height": 300,
                         "children": [
+                          {
+                            "id": "fan_off",
+                            "type": "MxButton",
+                            "style-class": "fan_off",
+                            "height": 64,
+                            "width": 64,
+                            "x": 0,
+                            "y": 0
+                          },
                           {
                             "id": "motors_off",
                             "type": "MxButton",
                             "style-class": "motors_off",
-                            "height": 50,
-                            "width": 50,
-                            "x": 120,
-                            "y": 130
+                            "height": 64,
+                            "width": 64,
+                            "x": 0,
+                            "y": 118
                           },
                           {
                             "id": "fan_on",
                             "type": "MxButton",
                             "style-class": "fan_on",
-                            "height": 50,
-                            "width": 50,
-                            "x": 120,
-                            "y": 0
-                          },
-                          {
-                            "id": "fan_off",
-                            "type": "MxButton",
-                            "style-class": "fan_off",
-                            "height": 50,
-                            "width": 50,
-                            "x": 120,
-                            "y": 245
+                            "height": 64,
+                            "width": 64,
+                            "x": 0,
+                            "y": 236
                           }
                         ]
                       },
                       {
                         "id": "jogger-e",
                         "type": "ClutterActor",
-                        "x": 435,
+                        "x": 635,
                         "y": 80,
                         "width": 70,
                         "height": 300,
@@ -940,22 +953,11 @@
                             "id": "jog_e_extrude",
                             "type": "MxButton",
                             "style-class": "jog_arrow",
-                            "height": 50,
-                            "width": 50,
-                            "x": 120,
+                            "height": 64,
+                            "width": 64,
+                            "x": 0,
                             "y": 0,
                             "rotation-angle-z": 270.0,
-                            "pivot-point": [0.5, 0.5]
-                          },
-                          {
-                            "id": "jog_e_retract",
-                            "type": "MxButton",
-                            "style-class": "jog_arrow",
-                            "height": 50,
-                            "width": 50,
-                            "x": 120,
-                            "y": 245,
-                            "rotation-angle-z": 90.0,
                             "pivot-point": [0.5, 0.5]
                           },
                           {
@@ -963,10 +965,21 @@
                             "type": "MxButton",
                             "style-class": "jog_home_e",
                             "is_toggle": true,
-                            "height": 70,
-                            "width": 70,
-                            "x": 105,
-                            "y": 110
+                            "height": 64,
+                            "width": 64,
+                            "x": 0,
+                            "y": 118
+                          },
+                          {
+                            "id": "jog_e_retract",
+                            "type": "MxButton",
+                            "style-class": "jog_arrow",
+                            "height": 64,
+                            "width": 64,
+                            "x": 0,
+                            "y": 236,
+                            "rotation-angle-z": 90.0,
+                            "pivot-point": [0.5, 0.5]
                           }
                         ]
                       },
@@ -987,9 +1000,9 @@
                         "id": "text_xy",
                         "type": "ClutterText",
                         "text": "XY:",
-                        "x": 250,
+                        "x": 264,
                         "y": 415,
-                        "width": 50,
+                        "width": 64,
                         "height": 25,
                         "x-align": 1,
                         "x-expand": true,
@@ -1003,8 +1016,8 @@
                         "is_toggle": true,
                         "x": 284,
                         "y": 400,
-                        "width": 50,
-                        "height": 50
+                        "width": 64,
+                        "height": 64
                       },
                       {
                         "id": "text_z",
@@ -1012,7 +1025,7 @@
                         "text": "Z:",
                         "x": 345,
                         "y": 415,
-                        "width": 50,
+                        "width": 64,
                         "height": 25,
                         "x-align": 1,
                         "x-expand": true,
@@ -1026,8 +1039,8 @@
                         "is_toggle": true,
                         "x": 368,
                         "y": 400,
-                        "width": 50,
-                        "height": 50
+                        "width": 64,
+                        "height": 64
                       },
                       {
                         "id": "text_e",
@@ -1035,7 +1048,7 @@
                         "text": "E:",
                         "x": 427,
                         "y": 415,
-                        "width": 50,
+                        "width": 64,
                         "height": 25,
                         "x-align": 1,
                         "x-expand": true,
@@ -1049,8 +1062,8 @@
                         "is_toggle": true,
                         "x": 452,
                         "y": 400,
-                        "width": 50,
-                        "height": 50
+                        "width": 64,
+                        "height": 64
                       }
                     ]
                   },
@@ -1058,8 +1071,8 @@
                     "id": "side3-btn-prev",
                     "type": "MxButton",
                     "style-class": "print",
-                    "width": 50,
-                    "height": 50,
+                    "width": 64,
+                    "height": 64,
                     "x": 15,
                     "y": 15
                   },
@@ -1067,10 +1080,10 @@
                     "id": "side3-btn-next",
                     "type": "MxButton",
                     "style-class": "settings",
-                    "x": 700,
+                    "x": 716,
                     "y": 15,
-                    "width": 50,
-                    "height": 50
+                    "width": 64,
+                    "height": 64
                   }
                 ]
               }

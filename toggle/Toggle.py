@@ -79,19 +79,15 @@ class LoggerWriter:
 
 
 class Toggle:
+  CONFIG_BASE = "/etc/toggle"
+
   def __init__(self):
     from .__init__ import __version__
     logging.info("Initializing  Toggle {}".format(__version__))
 
-    file_path = os.path.join("/etc/toggle", "local.cfg")
-    if not os.path.exists(file_path):
-      logging.info(file_path + " does not exist, Creating one")
-      os.mknod(file_path)
-      os.chmod(file_path, 0o666)
-
-    # Parse the config files.
-    config = CascadingConfigParser(
-        ['/etc/toggle/default.cfg', '/etc/toggle/printer.cfg', '/etc/toggle/local.cfg'])
+    config_files = ['default.cfg', 'printer.cfg', 'local.cfg']
+    config_paths = [os.path.join(Toggle.CONFIG_BASE, f) for f in config_files]
+    config = CascadingConfigParser(config_paths)
 
     # Get loglevel from the Config file
     level = config.getint('System', 'loglevel')
@@ -103,6 +99,13 @@ class Toggle:
 
     Clutter.init(None)
 
+    config.file_base = Toggle.CONFIG_BASE
+
+    config.screen_width = config.getint("Screen", "width")
+    config.screen_height = config.getint("Screen", "height")
+    config.screen_rot = config.get("Screen", "rotation")
+    config.screen_full = config.getboolean("Screen", "fullscreen")
+
     config.style = StyleLoader(config)
     config.style.load_from_config()
     config.ui = config.style.ui
@@ -111,17 +114,13 @@ class Toggle:
     config.stage.connect("destroy", self.stop)
     config.stage.connect('key-press-event', self.key_press)
 
-    config.screen_width = config.getint("Screen", "width")
-    config.screen_height = config.getint("Screen", "height")
-    config.screen_rot = config.get("Screen", "rotation")
-    config.screen_full = config.getboolean("Screen", "fullscreen")
-
     config.tabs = CubeTabs(config.ui, 4)
     config.splash = Splash(config)
     config.splash.set_status("Starting Toggle {} ...".format(__version__))
     config.jog = Jog(config)
     config.temp_graph = TemperatureGraph(config)
-    config.filament_graph = FilamentGraph(config)
+    if config.getboolean('System', 'use-filament-graph'):
+      config.filament_graph = FilamentGraph(config)
     config.network = Network.get_manager(config)
     config.settings = Settings(config)
     config.rest_client = RestClient(config)
@@ -148,7 +147,6 @@ class Toggle:
 
     config.push_updates = Queue.Queue(10)
     self.config = config
-    config.plate.make_scale()
     config.stage.show()
 
   def on_connected_cb(self):

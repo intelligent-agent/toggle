@@ -4,7 +4,7 @@
     "type": "ClutterStage",
     "width": 1920,
     "height": 1080,
-    "background-color": "white",
+    "background-color": "#FFF",
     "signals": [],
     "children": [
       {
@@ -31,7 +31,7 @@
                 "pivot-point-z": -540.0,
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 0.0,
-                "background-color": "white",
+                "background-color": "#FFF",
                 "children": [
                   {
                     "id": "side0-content",
@@ -263,7 +263,7 @@
                                   {
                                     "type": "ClutterText",
                                     "text": "Layer height: ",
-                                    "x": 250,
+                                    "x": 100,
                                     "y": 20,
                                     "font-description": "Sans 32"
                                   },
@@ -271,14 +271,14 @@
                                     "id": "slicer-layer-height",
                                     "type": "ClutterText",
                                     "text": "Not set",
-                                    "x": 800,
+                                    "x": 900,
                                     "y": 20,
                                     "font-description": "Sans 32"
                                   },
                                   {
                                     "type": "ClutterText",
                                     "text": "Print temperature: ",
-                                    "x": 250,
+                                    "x": 100,
                                     "y": 80,
                                     "font-description": "Sans 32"
                                   },
@@ -287,7 +287,7 @@
                                     "type": "ClutterText",
                                     "text": "Not set",
                                     "font-description": "Sans 32",
-                                    "x": 800,
+                                    "x": 900,
                                     "y": 80
                                   }
                                 ]
@@ -307,7 +307,7 @@
                               {
                                 "id": "printer-header",
                                 "type": "ClutterActor",
-                                "height": 5,
+                                "height": 150,
                                 "width": 1900,
                                 "layout-manager": {
                                   "type": "ClutterFixedLayout"
@@ -317,14 +317,14 @@
                                     "type": "ClutterText",
                                     "text": "Printer",
                                     "color": "black",
-                                    "x": 120,
-                                    "y": 30,
-                                    "font-description": "Sans 32"
+                                    "x": 250,
+                                    "y": 45,
+                                    "font-description": "Sans 52"
                                   },
                                   {
                                     "type": "MxIcon",
                                     "style-class": "printer",
-                                    "x": 30,
+                                    "x": 100,
                                     "y": 18,
                                     "width": 128,
                                     "height": 128
@@ -334,7 +334,7 @@
                               {
                                 "id": "printer-body",
                                 "type": "ClutterActor",
-                                "width": 780,
+                                "width": 1900,
                                 "height": 5,
                                 "background-color": "#FFF",
                                 "layout-manager": {
@@ -412,7 +412,7 @@
                             "id": "splash-status",
                             "type": "ClutterText",
                             "text": "Toggle initializing...",
-                            "color": "white",
+                            "color": "#FFF",
                             "x": 100,
                             "y": 780,
                             "font-description": "Sans 32"
@@ -451,7 +451,7 @@
                 "pivot-point-z": -540.0,
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 90.0,
-                "background-color": "white",
+                "background-color": "#FFF",
                 "visible": false,
                 "children": [
                   {
@@ -459,6 +459,16 @@
                     "type": "ClutterActor",
                     "background-color": "#FFFFFFFF",
                     "children": [
+                      {
+                        "id": "graph-title",
+                        "type": "ClutterText",
+                        "text": "Temperature",
+                        "width": 500,
+                        "height": 100,
+                        "y": 75,
+                        "x": 750,
+                        "font-description": "Sans 32"
+                      },
                       {
                         "id": "graph",
                         "type": "ClutterActor",
@@ -552,12 +562,12 @@
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 180.0,
                 "visible": false,
-                "background-color": "white",
+                "background-color": "#FFF",
                 "children": [
                   {
                     "id": "side2-content",
                     "type": "ClutterActor",
-                    "background-color": "white",
+                    "background-color": "#FFF",
                     "children": [
                       {
                         "id": "content-flip",
@@ -604,7 +614,8 @@
                                       {
                                         "id": "plate",
                                         "type": "MashModel",
-                                        "rotation-angle-x": -90.0
+                                        "rotation-angle-x": -90.0,
+                                        "background-color": "#DDD"
                                       },
                                       {
                                         "id": "model-flipper",
@@ -615,7 +626,8 @@
                                             "type": "MashModel",
                                             "rotation-angle-x": 90.0,
                                             "rotation-angle-y": 0.0,
-                                            "rotation-angle-z": 0.0
+                                            "rotation-angle-z": 0.0,
+                                            "background-color": "#55A94BFF"
                                           }
                                         ]
                                       }
@@ -777,7 +789,7 @@
                 "pivot-point": [0.5, 0.0],
                 "rotation-angle-y": 270.0,
                 "visible": false,
-                "background-color": "white",
+                "background-color": "#FFF",
                 "children": [
                   {
                     "id": "side3-content",
@@ -792,7 +804,7 @@
                         "y": 160,
                         "width": 700,
                         "height": 700,
-                        "background-color": "white",
+                        "background-color": "#FFF",
                         "children": [
                           {
                             "id": "jog_x_minus",

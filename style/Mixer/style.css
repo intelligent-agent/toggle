@@ -10,158 +10,158 @@ MxButton:checked {
 }
 
 MxButton.mouse {
-  background-image: url("/etc/toggle/style/Mixer/pointer_64.png");
+  background-image: url("pointer_64.png");
   border-image: none;
 }
 
 MxButton.fan_on {
-  background-image: url("/etc/toggle/style/Mixer/fan_on_128.png");
+  background-image: url("fan_on_128.png");
   border-image: none;
 }
 MxButton.fan_off {
-  background-image: url("/etc/toggle/style/Mixer/fan_off_128.png");
+  background-image: url("fan_off_128.png");
   border-image: none;
 }
 
 MxButton.motors_off {
-  background-image: url("/etc/toggle/style/Mixer/motor_off_128.png");
+  background-image: url("motor_off_128.png");
   border-image: none;
 }
 
 MxButton.jog_arrow {
-  background-image: url("/etc/toggle/style/Mixer/arrow_128.png");
+  background-image: url("arrow_128.png");
   border-image: none;
 }
 MxButton.jog_arrow:checked {
-  background-image: url("/etc/toggle/style/Mixer/arrow_disabled_128.png");
+  background-image: url("arrow_disabled_128.png");
   border-image: none;
 }
 
 MxButton.jog_home {
-  background-image: url("/etc/toggle/style/Mixer/home_128.png");
+  background-image: url("home_128.png");
   border-image: none;
 }
 MxButton.jog_home_z {
-  background-image: url("/etc/toggle/style/Mixer/z_128.png");
+  background-image: url("z_128.png");
   border-image: none;
 }
 MxButton.jog_home_e {
-  background-image: url("/etc/toggle/style/Mixer/e_128.png");
+  background-image: url("e_128.png");
   border-image: none;
 }
 MxButton.jog_home_e:checked {
-  background-image: url("/etc/toggle/style/Mixer/h_128.png");
+  background-image: url("h_128.png");
   border-image: none;
 }
 
 MxButton.print {
-  background-image: url("/etc/toggle/style/Mixer/print_128.png");
+  background-image: url("print_128.png");
   border-image: none;
 }
 MxButton.jog {
-  background-image: url("/etc/toggle/style/Mixer/jog_128.png");
+  background-image: url("jog_128.png");
   border-image: none;
 }
 MxButton.temp {
-  background-image: url("/etc/toggle/style/Mixer/temperature_128.png");
+  background-image: url("temperature_128.png");
   border-image: none;
 }
 MxButton.settings {
-  background-image: url("/etc/toggle/style/Mixer/settings_128.png");
+  background-image: url("settings_128.png");
   border-image: none;
 }
 
 /* Printer operations */
 MxButton.cancel:checked {
-  background-image: url("/etc/toggle/style/Mixer/cancel_128.png");
+  background-image: url("cancel_128.png");
   border-image: none;
 }
 MxButton.cancel {
-  background-image: url("/etc/toggle/style/Mixer/cancel_disabled_128.png");
+  background-image: url("cancel_disabled_128.png");
   border-image: none;
 }
 
 MxButton.play:checked {
-  background-image: url("/etc/toggle/style/Mixer/play_128.png");
+  background-image: url("play_128.png");
   border-image: none;
 }
 MxButton.play {
-  background-image: url("/etc/toggle/style/Mixer/play_disabled_128.png");
+  background-image: url("play_disabled_128.png");
   border-image: none;
 }
 
 MxButton.pause:checked {
-  background-image: url("/etc/toggle/style/Mixer/pause_128.png");
+  background-image: url("pause_128.png");
   border-image: none;
 }
 MxButton.pause {
-  background-image: url("/etc/toggle/style/Mixer/pause_disabled_128.png");
+  background-image: url("pause_disabled_128.png");
   border-image: none;
 }
 
 /* Preheat operations */
 MxButton.cold {
-  background-image: url("/etc/toggle/style/Mixer/heater_cold_128.png");
+  background-image: url("heater_cold_128.png");
   border-image: none;
 }
 MxButton.heating {
-  background-image: url("/etc/toggle/style/Mixer/heater_heating_128.png");
+  background-image: url("heater_heating_128.png");
   border-image: none;
 }
 MxButton.hot {
-  background-image: url("/etc/toggle/style/Mixer/heater_hot_128.png");
+  background-image: url("heater_hot_128.png");
   border-image: none;
 }
 
 MxButton.cold_bed {
-  background-image: url("/etc/toggle/style/Mixer/heater_bed_cold_128.png");
+  background-image: url("heater_bed_cold_128.png");
   border-image: none;
 }
 MxButton.heating_bed {
-  background-image: url("/etc/toggle/style/Mixer/heater_bed_heating_128.png");
+  background-image: url("heater_bed_heating_128.png");
   border-image: none;
 }
 MxButton.hot_bed {
-  background-image: url("/etc/toggle/style/Mixer/heater_bed_hot_128.png");
+  background-image: url("heater_bed_hot_128.png");
   border-image: none;
 }
 
 /* Jog travel*/
 MxButton.travel_01 {
-  background-image: url("/etc/toggle/style/Mixer/0.1_128.png");
+  background-image: url("0.1_128.png");
   border-image: none;
 }
 
 MxButton.travel_1 {
-  background-image: url("/etc/toggle/style/Mixer/1_128.png");
+  background-image: url("1_128.png");
   border-image: none;
 }
 
 MxButton.travel_10 {
-  background-image: url("/etc/toggle/style/Mixer/10_128.png");
+  background-image: url("10_128.png");
   border-image: none;
 }
 
 MxButton.travel_100 {
-  background-image: url("/etc/toggle/style/Mixer/100_128.png");
+  background-image: url("100_128.png");
   border-image: none;
 }
 
 /* Icons */
 MxIcon.network {
-  background-image: url("/etc/toggle/style/Mixer/network_128.png");
+  background-image: url("network_128.png");
   border-image: none;
 }
 MxIcon.wifi {
-  background-image: url("/etc/toggle/style/Mixer/wifi_128.png");
+  background-image: url("wifi_128.png");
   border-image: none;
 }
 MxIcon.slicer {
-  background-image: url("/etc/toggle/style/Mixer/slicer_128.png");
+  background-image: url("slicer_128.png");
   border-image: none;
 }
 MxIcon.printer {
-  background-image: url("/etc/toggle/style/Mixer/print_128.png");
+  background-image: url("print_128.png");
   border-image: none;
 }
 
@@ -169,15 +169,15 @@ MxIcon.printer {
 
 /* Connection */
 MxButton.connection {
-  background-image: url("/etc/toggle/style/Mixer/connection_disabled_64.png");
+  background-image: url("connection_disabled_64.png");
   border-image: none;
 }
 MxButton.connection:checked {
-  background-image: url("/etc/toggle/style/Mixer/connection_64.png");
+  background-image: url("connection_64.png");
   border-image: none;
 }
 MxButton.printing:checked {
-  background-image: url("/etc/toggle/style/Mixer/running_64.png");
+  background-image: url("running_64.png");
   border-image: none;
 }
 MxButton.printing {
@@ -185,7 +185,7 @@ MxButton.printing {
   border-image: none;
 }
 MxButton.paused:checked {
-  background-image: url("/etc/toggle/style/Mixer/paused_64.png");
+  background-image: url("paused_64.png");
   border-image: none;
 }
 MxButton.paused {
@@ -193,7 +193,7 @@ MxButton.paused {
   border-image: none;
 }
 MxButton.heartbeat {
-  background-image: url("/etc/toggle/style/Mixer/heartbeat_64.png");
+  background-image: url("heartbeat_64.png");
   border-image: none;
 }
 

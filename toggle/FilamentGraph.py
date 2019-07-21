@@ -41,9 +41,9 @@ class FilamentGraph():
         # logging.debug(self.graphs[tool][source])
         self.graph.add_plot(self.graphs[tool][source])
 
-    # Add a scale to the plot
     scale = GraphScale(-165, 165, [-150, -100, -50, 0, 50, 100, 150])
-    scale.set_title("Filament")
+    self.title = config.ui.get_object("graph-title")
+    self.title.set_text("Filament drift")
     self.graph.add_plot(scale)
 
   def update_filaments(self, message):

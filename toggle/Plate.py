@@ -15,9 +15,9 @@ class Plate(Mash.Model):
     self.plate_data = Mash.Data()
     self.plate_data.load(0, config.get("System", "plate"))
     self.plate.set_data(self.plate_data)
-    color_str = config.get("System", "plate-color")
-    self.color = Clutter.Color.from_string(color_str)[1]
+    self.color = self.plate.get_background_color()
     self.plate.set_color(self.color)
+    self.scale_created = False
 
     # Position it
     (width, height) = self.plate.get_size()
@@ -41,6 +41,8 @@ class Plate(Mash.Model):
     self.recolor_points_to_scale()
 
   def add_point_to_bed(self, point):
+    if not self.scale_created:
+      self.make_scale()
     probe = Mash.Model.new_from_file(0, self.config.get("System", "probe-point"))
     probe.set_size(10, 10)
     (width, height) = probe.get_size()
@@ -116,6 +118,7 @@ class Plate(Mash.Model):
   def make_scale(self):
     for z in range(11):
       self.add_point_to_scale([150, z * 20 + 150, 0])
+    self.scale_created = True
 
   def recalculate_scale(self):
     cmax = max(self.probe_points, key=attrgetter('z')).z
