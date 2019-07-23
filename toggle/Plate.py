@@ -63,25 +63,19 @@ class Plate(Mash.Model):
     self.probe_points.append(probe)
 
   def add_point_to_scale(self, point):
-    #logging.debug("Adding point to scale")
     probe = Mash.Model.new_from_file(0, self.config.get("System", "probe-point"))
-    #probe.load_from_file(0, )
     probe.z = point[2]
-
     probe.set_size(30, 30)
     probe.set_x(point[0])
     probe.set_y(point[1])
-
     probe.set_rotation_angle(Clutter.RotateAxis.X_AXIS, 90.0)
     self.config.ui.get_object("side2-content").insert_child_above(probe)
-
     text = Clutter.Text.new_with_text("Sans 10", str(point[2]))
     text.set_x(point[0] - 50)
     text.set_y(point[1] - 10)
     self.config.ui.get_object("side2-content").insert_child_above(text)
     probe.text = text
     text.hide()
-
     self.scale_points.append(probe)
 
   def recolor_points_to_scale(self):

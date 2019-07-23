@@ -183,13 +183,4 @@ class TemperatureGraph():
       self.config.filament_graph.graph.show()
 
   def set_style_class(self, btn, style_class):
-    print("set style class")
-    png = {
-        "cold": "/heater_cold_128.png",
-        "heating": "/heater_heating_128.png",
-        "hot": "/heater_hot_128.png",
-        "heating_bed": "/heater_bed_heating_128.png",
-        "cold_bed": "/heater_bed_cold_128.png",
-        "hot_bed": "/heater_bed_hot_128.png"
-    }[style_class]
-    btn.set_from_file(self.config.style.img_path + png)
+    btn.set_from_file(self.config.style.style_to_filename(style_class))

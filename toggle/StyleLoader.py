@@ -54,3 +54,19 @@ class StyleLoader:
         1080: "logo_900.png",
         1920: "logo_900.png"
     }[width]
+
+  def style_to_filename(self, style_class):
+    return "{}/{}".format(
+        self.img_path, {
+            "arrow": "arrow_128.png",
+            "arrow_disabled": "arrow_disabled_128.png",
+            "cold": "heater_cold_128.png",
+            "heating": "heater_heating_128.png",
+            "hot": "heater_hot_128.png",
+            "heating_bed": "heater_bed_heating_128.png",
+            "cold_bed": "heater_bed_cold_128.png",
+            "hot_bed": "heater_bed_hot_128.png"
+        }[style_class])
+
+  def get_missing_model_filename(self):
+    return os.path.join(self.config.file_base, "models/missing-model.stl")

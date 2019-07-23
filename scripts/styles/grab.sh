@@ -5,10 +5,11 @@
 SCRIPT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 STYLE=$1
 SOURCE="$SCRIPT/$1"
-DEST=$(realpath "$2/$1")
+DEST=$(realpath "$SCRIPT/../../styles/$1")
 
 function usage {
-  echo "convert.sh <style name> <dest dir>"
+  echo "convert.sh <style name>"
+  echo "where style name: Plain, Dark, Mixer, Spitzy"
 }
 
 icons=( temperature arrow arrow_disabled cancel cancel_disabled \
@@ -84,6 +85,10 @@ function convert_ui {
 	cp "$SCRIPT/templates/style.css" $DEST
 }
 
+if [ "x$1" == "x" ]; then
+	usage
+	exit 1
+fi
 
 echo "Re-creating style"
 echo "Generating from ${SOURCE} to ${DEST}"

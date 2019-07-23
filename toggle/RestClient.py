@@ -79,12 +79,10 @@ class RestClient:
     r = requests.post(url, data=data, headers=self._headers)
 
   def select_file(self, filename):
-    print("Select file")
     url = "http://" + self._host + ":" + \
         str(self._port) + "/api/files/local/" + filename
     data = json.dumps({'command': 'select'})
     r = requests.post(url, data=data, headers=self._headers)
-    print(r.json)
 
   # Jog the printer
   def jog(self, amount):

@@ -33,10 +33,8 @@ class ModelLoader(Clutter.Actor):
     self.load_models()
 
   def load_models(self):
-    self.models = bidirectional_cycle([
-        f for f in listdir(self.path) if isfile(join(self.path, f)) and (".stl" in f or ".STL" in f)
-    ])
-
+    print("loading " + str(self.all_files))
+    self.models = bidirectional_cycle(self.all_files)
     # Load the first model
     if self.models.count() > 0:
       logging.debug("Found " + str(self.models.count()) + " models in " + self.path)
@@ -60,19 +58,20 @@ class ModelLoader(Clutter.Actor):
     logging.debug("Syncing models")
     self.locals = filter(listdir(self.path), '*.[Ss][Tt][Ll]')
     self.remotes = self.config.rest_client.get_list_of_files()
+    self.all_files = [f["display"] for f in self.remotes["files"]]
     if not self.remotes:
       return
-    remote_names = [f["name"] for f in self.remotes["files"] if f["type"] == "model"]
+    remote_models = [f["name"] for f in self.remotes["files"] if f["type"] in ("model")]
 
-    to_delete = list(set(self.locals) - set(remote_names))
-    to_download = list(set(remote_names) - set(self.locals))
+    to_delete = list(set(self.locals) - set(remote_models))
+    to_download = list(set(remote_models) - set(self.locals))
 
     if len(to_delete):
       logging.info("Deleting {} models".format(len(to_delete)))
     if len(to_download):
       logging.info("Downloading {} models".format(len(to_download)))
 
-    # Delete not present with OctoPrint
+    # Delete models that are not present with OctoPrint
     for model in to_delete:
       self.delete_model(model)
 
@@ -85,10 +84,8 @@ class ModelLoader(Clutter.Actor):
     name = f["name"]
     url = f["refs"]["download"]
     logging.debug("downloading " + url)
-
     model_path = join(self.path, name)
     logging.debug("saving to " + model_path)
-
     r = requests.get(url)
     if r.status_code == 200:
       logging.debug("Download OK")
@@ -98,7 +95,6 @@ class ModelLoader(Clutter.Actor):
           f.write(model)
       except IOError as e:
         logging.warning("ModelLoader: Unable to download file. Check permissions")
-
     else:
       logging.warning("Unable to download file. Got response: " + r.status_code)
 
@@ -111,11 +107,11 @@ class ModelLoader(Clutter.Actor):
       logging.error("ModelLoader: Unable to delete file. Check permissions")
 
   def tap_next(self, action, button, user_data):
-    if not button.get_toggled():
+    if button.is_clickable:
       self.tap(self.models.next())
 
   def tap_prev(self, action, button, user_data):
-    if not button.get_toggled():
+    if button.is_clickable:
       self.tap(self.models.prev())
 
   def get_model_filename(self):
@@ -140,12 +136,25 @@ class ModelLoader(Clutter.Actor):
     else:
       self.config.printer.set_model(filename.replace(".stl", ""))
       self.model_selected = True
-      self.model.select_none()
-      logging.warning("Missing STL: " + filename)
+      self.model.select_missing()
 
   def select_none(self):
     self.model.model.hide()
     self.model_selected = False
+
+  def is_model_selection_enabled(self, can_select_model):
+    self.btn_next = self.config.ui.get_object("btn-next")
+    self.btn_prev = self.config.ui.get_object("btn-prev")
+    if can_select_model and self.models.count() > 0:
+      self.btn_next.is_clickable = True
+      self.btn_prev.is_clickable = True
+      self.btn_next.set_from_file(self.config.style.style_to_filename("arrow"))
+      self.btn_prev.set_from_file(self.config.style.style_to_filename("arrow"))
+    else:
+      self.btn_next.is_clickable = False
+      self.btn_prev.is_clickable = False
+      self.btn_next.set_from_file(self.config.style.style_to_filename("arrow_disabled"))
+      self.btn_prev.set_from_file(self.config.style.style_to_filename("arrow_disabled"))
 
 
 """

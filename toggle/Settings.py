@@ -53,13 +53,13 @@ class Settings():
   # Finger pan action
   def finger_pan(self, action, actor, event):
     d = action.get_motion_delta(0)
-    if self.config.screen_rot == "0":
+    if self.config.screen_rot == 0:
       delta = d[2]
-    elif self.config.screen_rot == "90":
+    elif self.config.screen_rot == 90:
       delta = -d[1]
-    elif self.config.screen_rot == "180":
+    elif self.config.screen_rot == 180:
       delta = -d[2]
-    elif self.config.screen_rot == "270":
+    elif self.config.screen_rot == 270:
       delta = d[1]
 
     self.y += delta

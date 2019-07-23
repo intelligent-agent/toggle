@@ -119,16 +119,8 @@ class Printer:
       self.btn_cancel.set_toggled(False)
 
   def update_next_buttons(self):
-    if self.flags["operational"]:
-      if self.flags["printing"]:
-        self.btn_next.set_toggled(True)
-        self.btn_prev.set_toggled(True)
-      else:
-        self.btn_next.set_toggled(False)
-        self.btn_prev.set_toggled(False)
-    else:
-      self.btn_next.set_toggled(True)
-      self.btn_prev.set_toggled(True)
+    can_select_model = self.flags["operational"] and not self.flags["printing"]
+    self.config.loader.is_model_selection_enabled(can_select_model)
 
   # Update the current state of the printer.
   # This sets the flags shown in the bottom left corner.

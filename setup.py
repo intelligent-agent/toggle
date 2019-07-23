@@ -12,7 +12,8 @@ def get_data_files():
           ('/etc/toggle/styles/Dark', glob.glob("styles/Dark/*")),
           ('/etc/toggle', glob.glob("configs/*")),
           ('/etc/toggle/platforms', glob.glob("models/platforms/*")),
-          ('/etc/toggle/models', ['models/probe-point.stl']), ('./', ['README.md'])]
+          ('/etc/toggle/models', ['models/probe-point.stl', 'models/missing-model.stl']),
+          ('./', ['README.md'])]
 
 
 # yapf: disable
