@@ -3,7 +3,6 @@ import socket
 import os
 import uuid
 import logging
-from gi.repository import GObject
 
 
 class Network:

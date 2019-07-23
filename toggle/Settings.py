@@ -1,7 +1,6 @@
 # Settings-page
 
 import gi
-gi.require_version('Mx', '2.0')
 gi.require_version('Clutter', '1.0')
 import logging
 import os
@@ -176,12 +175,18 @@ class Settings():
       body.set_height(5)
       header.is_open = False
       header.body = body
+      for child in body.get_children():
+        child.props.visible = False
 
   def header_tap(self, tap, actor):
     if actor.is_open:
       actor.body.set_height(5)
+      for child in actor.body.get_children():
+        child.props.visible = False
       actor.is_open = False
     else:
       actor.body.set_height(-1)
       actor.is_open = True
+      for child in actor.body.get_children():
+        child.props.visible = True
     self.scroller_height = self.scroller.get_height()

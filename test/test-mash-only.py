@@ -2,7 +2,7 @@ import subprocess
 import logging
 import gi
 gi.require_version('Clutter', '1.0')
-gi.require_version('Mx', '1.0')
+gi.require_version('Mx', '2.0')
 gi.require_version('Mash', '0.3')
 from gi.repository import Clutter, Mx, Mash, Cogl, GObject
 
@@ -19,7 +19,7 @@ if __name__ == '__main__':
   model = Mash.Model()
   data = Mash.Data()
   model.set_data(data)
-  data.load(0, "/home/root/.octoprint/uploads/reel2.stl")
+  data.load(0, "../models/calibration-cube.stl")
   v1 = Clutter.Vertex()
   v2 = Clutter.Vertex()
   data.get_extents(v1, v2)
@@ -31,5 +31,6 @@ if __name__ == '__main__':
   color = Clutter.Color.from_string("#F00F")[1]
   model.set_color(color)
   model.set_progress(1)
-
-  p = model.get_pipeline()
+  stage.show()
+  Clutter.main()
+  #p = model.get_pipeline()

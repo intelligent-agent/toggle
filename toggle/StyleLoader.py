@@ -70,3 +70,7 @@ class StyleLoader:
 
   def get_missing_model_filename(self):
     return os.path.join(self.config.file_base, "models/missing-model.stl")
+
+  def get_plate_filename(self):
+    plate_name = self.style_type = self.config.get("Style", "plate")
+    return os.path.join(self.config.file_base, "platforms/", plate_name)

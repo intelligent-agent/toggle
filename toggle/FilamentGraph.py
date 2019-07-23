@@ -1,12 +1,6 @@
 from .Graph import Graph, GraphScale, GraphPlot
-
 from gi.repository import Clutter, Mx, Mash
-
 import logging
-
-
-def color_str(string):
-  return Clutter.color_from_string(string)[1]    # shortcut
 
 
 class FilamentGraph():

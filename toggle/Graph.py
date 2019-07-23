@@ -1,21 +1,14 @@
 #!/usr/bin/env python3
 # Temp graph
 
-#from gi.repository import Clutter, Mx, Mash, Toggle
-
 from gi.repository import Clutter, GLib
 import cairo
 import math
 import numpy as np
-
 import threading
 import time
 import random
 import logging
-
-
-def color(string):
-  return Clutter.color_from_string(string)[1]    # shortcut
 
 
 class GraphPlot():

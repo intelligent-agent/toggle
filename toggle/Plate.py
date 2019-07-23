@@ -12,8 +12,10 @@ class Plate(Mash.Model):
     self.config = config
     # I want to subclass this, but I'm uncertain how to..
     self.plate = self.config.ui.get_object("plate")
+    plate_file = config.style.get_plate_filename()
+    print(plate_file)
     self.plate_data = Mash.Data()
-    self.plate_data.load(0, config.get("System", "plate"))
+    self.plate_data.load(0, plate_file)
     self.plate.set_data(self.plate_data)
     self.color = self.plate.get_background_color()
     self.plate.set_color(self.color)

@@ -493,6 +493,7 @@
                         "id": "heat-bed",
                         "type": "ClutterTexture",
                         "filename": "heater_bed_cold_128.png",
+                        "reactive": true,
                         "x": 400,
                         "y": 590,
                         "width": 100,
@@ -502,6 +503,7 @@
                         "id": "heat-tool0",
                         "type": "ClutterTexture",
                         "filename": "heater_cold_128.png",
+                        "reactive": true,
                         "x": 550,
                         "y": 590,
                         "width": 100,
@@ -655,6 +657,7 @@
                       {
                         "id": "loader",
                         "type": "ClutterTexture",
+                        "filename": "loading_128.png",
                         "width": 100,
                         "height": 100,
                         "x": 590,
@@ -670,8 +673,9 @@
                     "children": [
                       {
                         "id": "btn-prev",
-                        "type": "MxButton",
-                        "style-class": "jog_arrow",
+                        "type": "ClutterTexture",
+                        "filename": "arrow_disabled_128.png",
+                        "reactive": true,
                         "height": 100,
                         "width": 100,
                         "x": 30,
@@ -766,8 +770,9 @@
                       },
                       {
                         "id": "btn-next",
-                        "type": "MxButton",
-                        "style-class": "jog_arrow",
+                        "type": "ClutterTexture",
+                        "filename": "arrow_disabled_128.png",
+                        "reactive": true,
                         "height": 100,
                         "width": 100,
                         "x": 1150,

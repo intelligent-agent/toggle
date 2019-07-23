@@ -1,6 +1,6 @@
-# Jog
+# The page on the cube tabs where you can jog and home.
 
-from gi.repository import Clutter, Mx, Mash
+from gi.repository import Clutter
 import logging
 
 
@@ -72,7 +72,7 @@ class Jog:
     self.config.rest_client.send_gcode("M107")
 
   def motors_off(self, btn, etc=None, other=None):
-    self.config.rest_client.send_gcode("M84")
+    self.config.rest_client.send_gcode("M18")
 
   def travel_xy(self, tap, btn=None, other=None):
     logging.debug("tavel_xy")

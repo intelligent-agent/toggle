@@ -667,8 +667,9 @@
                         "children": [
                           {
                             "id": "btn-prev",
-                            "type": "MxButton",
-                            "style-class": "jog_arrow",
+                            "type": "ClutterTexture",
+                            "filename": "arrow_disabled_128.png",
+                            "reactive": true,
                             "height": 128,
                             "width": 128,
                             "x": 15,
@@ -759,8 +760,9 @@
                           },
                           {
                             "id": "btn-next",
-                            "type": "MxButton",
-                            "style-class": "jog_arrow",
+                            "type": "ClutterTexture",
+                            "filename": "arrow_disabled_128.png",
+                            "reactive": true,
                             "height": 128,
                             "width": 128,
                             "x": 1777,
