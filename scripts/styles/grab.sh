@@ -1,4 +1,7 @@
 #!/bin/bash
+# This scipt grabs SVG icons from an Inkscape template and
+# converts the files to PNG icons for use in Toggle.
+
 SCRIPT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 STYLE=$1
 SOURCE="$SCRIPT/$1"
@@ -87,5 +90,6 @@ echo "Generating from ${SOURCE} to ${DEST}"
 
 get_colors
 convert_ui
-#create_images
-
+if [ "$STYLE" == "Dark" ] || [ "$STYLE" == "Plain" ]; then
+  create_images
+fi

@@ -133,7 +133,7 @@
     <linearGradient
        id="linearGradient3013"
        osb:paint="solid"
-       gradientTransform="matrix(0.00220681,0,0,0.00218919,-361.53461,8138.3462)">
+       gradientTransform="matrix(0.00220681,0,0,0.00218919,-2540.6698,16315.965)">
       <stop
          style="stop-color:#83dcc6;stop-opacity:1;"
          offset="0"
@@ -797,9 +797,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.66738902"
-     inkscape:cx="-425.13937"
-     inkscape:cy="3204.2537"
+     inkscape:zoom="0.28709459"
+     inkscape:cx="149.06733"
+     inkscape:cy="243.8342"
      inkscape:document-units="px"
      inkscape:current-layer="layer4"
      showgrid="false"
@@ -2116,6 +2116,180 @@
          x="-1101.048"
          y="3647.7058"
          id="tspan2407-7-4">Menu Header Text Color</tspan></text>
+    <g
+       style="display:inline;enable-background:new"
+       transform="translate(530.49733,6793.5553)"
+       id="g1938-9-7-7-6">
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="589.90753"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-70-56-5-8-6-5-7"
+         style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="845.90741"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-6-9-93-2-4-3-3-5"
+         style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="1101.9075"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-7-3-7-5-8-1-8-3"
+         style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="1357.9075"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-3-6-4-4-1-7-8-5"
+         style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="717.90741"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-2-0-5-7-0-5-3-6"
+         style="fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="973.90735"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-2-9-6-2-4-3-9-1-2"
+         style="fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="1229.9075"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-2-1-2-5-4-0-6-8-9"
+         style="fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="1485.9075"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-2-2-6-4-3-4-2-9-1"
+         style="fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;enable-background:new"
+       x="-1087.3359"
+       y="3991.125"
+       id="text2934-3-4-1-6-2"><tspan
+         sodipodi:role="line"
+         x="-1087.3359"
+         y="3991.125"
+         id="tspan2407-7-4-7">Splash text color</tspan></text>
+    <rect
+       style="display:inline;fill:url(#linearGradient3099);fill-opacity:1;stroke:none;stroke-width:2.74004936;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;enable-background:new"
+       id="splash-text-color"
+       width="835.99286"
+       height="65.011116"
+       x="-1002.5739"
+       y="4050.0063"
+       inkscape:label="#rect4685-3-8-1" />
+    <g
+       style="display:inline;enable-background:new"
+       transform="translate(518.18246,7049.7047)"
+       id="g1938-9-7-7-3">
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="589.90753"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-70-56-5-8-6-5-6"
+         style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="845.90741"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-6-9-93-2-4-3-3-0"
+         style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="1101.9075"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-7-3-7-5-8-1-8-6"
+         style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="1357.9075"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-3-6-4-4-1-7-8-2"
+         style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="717.90741"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-2-0-5-7-0-5-3-61"
+         style="fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="973.90735"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-2-9-6-2-4-3-9-1-8"
+         style="fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="1229.9075"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-2-1-2-5-4-0-6-8-7"
+         style="fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="1485.9075"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-2-2-6-4-3-4-2-9-9"
+         style="fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;enable-background:new"
+       x="-1099.6508"
+       y="4247.2744"
+       id="text2934-3-4-1-6-20"><tspan
+         sodipodi:role="line"
+         x="-1099.6508"
+         y="4247.2744"
+         id="tspan2407-7-4-2">Stage color</tspan></text>
+    <rect
+       style="display:inline;fill:url(#linearGradient3013);fill-opacity:1;stroke:none;stroke-width:2.74004936;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;enable-background:new"
+       id="stage-color"
+       width="835.99286"
+       height="65.011116"
+       x="-1014.8887"
+       y="4306.1558"
+       inkscape:label="#rect4685-3-8-1" />
   </g>
   <g
      inkscape:groupmode="layer"

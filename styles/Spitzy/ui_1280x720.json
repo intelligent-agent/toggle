@@ -83,8 +83,8 @@
                                     "font-description": "Sans 52"
                                   },
                                   {
-                                    "type": "MxIcon",
-                                    "style-class": "network",
+                                    "type": "ClutterTexture",
+                                    "filename": "network_128.png",
                                     "x": 100,
                                     "y": 40,
                                     "width": 72,
@@ -185,8 +185,8 @@
                                     "font-description": "Sans 52"
                                   },
                                   {
-                                    "type": "MxIcon",
-                                    "style-class": "wifi",
+                                    "type": "ClutterTexture",
+                                    "filename": "wifi_128.png",
                                     "x": 100,
                                     "y": 40,
                                     "width": 72,
@@ -247,8 +247,8 @@
                                     "font-description": "Sans 52"
                                   },
                                   {
-                                    "type": "MxIcon",
-                                    "style-class": "slicer",
+                                    "type": "ClutterTexture",
+                                    "filename": "slicer_128.png",
                                     "x": 100,
                                     "y": 40,
                                     "width": 72,
@@ -332,8 +332,8 @@
                                     "font-description": "Sans 52"
                                   },
                                   {
-                                    "type": "MxIcon",
-                                    "style-class": "printer",
+                                    "type": "ClutterTexture",
+                                    "filename": "printer_128.png",
                                     "x": 100,
                                     "y": 40,
                                     "width": 72,
@@ -491,9 +491,8 @@
                       },
                       {
                         "id": "heat-bed",
-                        "type": "MxButton",
-                        "style-class": "cold_bed",
-                        "is_toggle": true,
+                        "type": "ClutterTexture",
+                        "filename": "heater_bed_cold_128.png",
                         "x": 400,
                         "y": 590,
                         "width": 100,
@@ -501,9 +500,8 @@
                       },
                       {
                         "id": "heat-tool0",
-                        "type": "MxButton",
-                        "style-class": "cold",
-                        "is_toggle": true,
+                        "type": "ClutterTexture",
+                        "filename": "heater_cold_128.png",
                         "x": 550,
                         "y": 590,
                         "width": 100,
@@ -511,9 +509,9 @@
                       },
                       {
                         "id": "heat-tool1",
-                        "type": "MxButton",
-                        "style-class": "cold",
-                        "is_toggle": true,
+                        "type": "ClutterTexture",
+                        "filename": "heater_cold_128.png",
+                        "reactive": true,
                         "x": 700,
                         "y": 590,
                         "width": 100,
@@ -521,9 +519,9 @@
                       },
                       {
                         "id": "heat-tool2",
-                        "type": "MxButton",
-                        "style-class": "cold",
-                        "is_toggle": true,
+                        "type": "ClutterTexture",
+                        "filename": "heater_cold_128.png",
+                        "reactive": true,
                         "x": 850,
                         "y": 590,
                         "width": 100,

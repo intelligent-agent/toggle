@@ -1,7 +1,5 @@
 from .Graph import Graph, GraphScale, GraphPlot
-
 from gi.repository import Clutter
-
 import logging
 
 
@@ -9,16 +7,8 @@ class TemperatureGraph():
   def __init__(self, config):
     self.config = config
     self.temp = config.ui.get_object("graph")
-    self.title = config.ui.get_object("graph-title")
-    self.title.set_text("Temperature")
     self.graph = Graph(self.temp.get_width(), self.temp.get_height())
     self.temp.add_child(self.graph)
-    self.temp.set_reactive(True)
-
-    tap = Clutter.TapAction()
-    self.temp.add_action(tap)
-    tap.connect("tap", self.change_to_filament)
-
     self.temps = {
         "tool0": {
             "g_actual": GraphPlot("E", (1, 0, 0)),
@@ -193,6 +183,7 @@ class TemperatureGraph():
       self.config.filament_graph.graph.show()
 
   def set_style_class(self, btn, style_class):
+    print("set style class")
     png = {
         "cold": "/heater_cold_128.png",
         "heating": "/heater_heating_128.png",

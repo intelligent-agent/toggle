@@ -84,8 +84,8 @@
                                     "font-description": "Sans 16"
                                   },
                                   {
-                                    "type": "MxIcon",
-                                    "style-class": "network",
+                                    "type": "ClutterTexture",
+                                    "filename": "network_128.png",
                                     "x": 30,
                                     "y": 10,
                                     "width": 64,
@@ -187,8 +187,8 @@
                                     "font-description": "Sans 16"
                                   },
                                   {
-                                    "type": "MxIcon",
-                                    "style-class": "wifi",
+                                    "type": "ClutterTexture",
+                                    "filename": "wifi_128.png",
                                     "x": 30,
                                     "y": 10,
                                     "width": 64,
@@ -249,8 +249,8 @@
                                     "font-description": "Sans 16"
                                   },
                                   {
-                                    "type": "MxIcon",
-                                    "style-class": "slicer",
+                                    "type": "ClutterTexture",
+                                    "filename": "slicer_128.png",
                                     "x": 30,
                                     "y": 10,
                                     "width": 64,
@@ -335,8 +335,8 @@
                                     "font-description": "Sans 16"
                                   },
                                   {
-                                    "type": "MxIcon",
-                                    "style-class": "printer",
+                                    "type": "ClutterTexture",
+                                    "filename": "printer_128.png",
                                     "x": 30,
                                     "y": 10,
                                     "width": 64,
@@ -497,9 +497,9 @@
                       },
                       {
                         "id": "heat-bed",
-                        "type": "MxButton",
-                        "style-class": "cold_bed",
-                        "is_toggle": true,
+                        "type": "ClutterTexture",
+                        "filename": "heater_bed_cold_128.png",
+                        "reactive": true,
                         "x": 225,
                         "y": 410,
                         "width": 64,
@@ -507,9 +507,9 @@
                       },
                       {
                         "id": "heat-tool0",
-                        "type": "MxButton",
-                        "style-class": "cold",
-                        "is_toggle": true,
+                        "type": "ClutterTexture",
+                        "filename": "heater_cold_128.png",
+                        "reactive": true,
                         "x": 358,
                         "y": 410,
                         "width": 64,
@@ -517,9 +517,9 @@
                       },
                       {
                         "id": "heat-tool1",
-                        "type": "MxButton",
-                        "style-class": "cold",
-                        "is_toggle": true,
+                        "type": "ClutterTexture",
+                        "filename": "heater_cold_128.png",
+                        "reactive": true,
                         "x": 491,
                         "y": 410,
                         "width": 64,
@@ -527,9 +527,9 @@
                       },
                       {
                         "id": "heat-tool2",
-                        "type": "MxButton",
-                        "style-class": "cold",
-                        "is_toggle": true,
+                        "type": "ClutterTexture",
+                        "filename": "heater_cold_128.png",
+                        "reactive": true,
                         "x": 624,
                         "y": 410,
                         "width": 64,
