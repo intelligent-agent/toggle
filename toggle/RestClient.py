@@ -66,23 +66,18 @@ class RestClient:
     self.set_tool_temp(0, 0)
     self.set_tool_temp(1, 0)
 
-  #
   def set_bed_temp(self, temp):
     url = "http://" + self._host + ":" + \
         str(self._port) + "/api/printer/bed"
     data = json.dumps({'command': 'target', 'target': int(float(temp))})
     r = requests.post(url, data=data, headers=self._headers)
-    #print (r.json)
 
-  #
   def set_tool_temp(self, tool_nr, temp):
     url = "http://" + self._host + ":" + \
         str(self._port) + "/api/printer/tool"
     data = json.dumps({'command': 'target', 'targets': {'tool' + str(tool_nr): int(float(temp))}})
     r = requests.post(url, data=data, headers=self._headers)
-    #print (r.json)
 
-  # Select a model
   def select_file(self, filename):
     print("Select file")
     url = "http://" + self._host + ":" + \

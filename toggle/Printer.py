@@ -137,9 +137,9 @@ class Printer:
     #print self.config.loader.model_selected
     self.set_status(state["text"])
     self.flags = state["flags"]
-    self.connection.set_toggled(self.flags["operational"])
-    self.printing.set_toggled(self.flags["printing"])
-    self.paused.set_toggled(self.flags["paused"])
+    self.connection.visible = self.flags["operational"]
+    self.printing.visible = self.flags["printing"]
+    self.paused.visible = self.flags["paused"]
 
     self.update_print_button()
     self.update_cancel_button()

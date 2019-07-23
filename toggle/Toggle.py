@@ -103,7 +103,7 @@ class Toggle:
 
     config.screen_width = config.getint("Screen", "width")
     config.screen_height = config.getint("Screen", "height")
-    config.screen_rot = config.get("Screen", "rotation")
+    config.screen_rot = config.getint("Screen", "rotation")
     config.screen_full = config.getboolean("Screen", "fullscreen")
 
     config.style = StyleLoader(config)
@@ -162,14 +162,14 @@ class Toggle:
     # fbdev app
     #self.config.mouse_offset_x = 0
     #self.config.mouse_offset_y = 0
-    if self.config.screen_rot == "90":
+    if self.config.screen_rot == 90:
       self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 90.0)
       self.config.ui.get_object("all").set_position(self.config.screen_width, 0)
       #self.config.mouse_offset_x = self.config.screen_width
-    elif self.config.screen_rot == "270":
+    elif self.config.screen_rot == 270:
       self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, -90.0)
       self.config.ui.get_object("all").set_position(0, self.config.screen_height)
-    elif self.config.screen_rot == "180":
+    elif self.config.screen_rot == 180:
       self.config.ui.get_object("all").set_pivot_point(0.5, 0.5)
       self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 180.0)
 

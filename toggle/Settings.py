@@ -20,6 +20,7 @@ class Settings():
     pan.connect("pan", self.finger_pan)
 
     self.ap_font = config.ui.get_object("wifi-ssid").get_font_description()
+    self.ap_color = config.ui.get_object("wifi-ssid").get_color()
     self.ap_width = config.ui.get_object("wifi-ssid").get_width()
     self.ap_margin_left = config.ui.get_object("wifi-ssid").get_margin_left()
 
@@ -145,6 +146,7 @@ class Settings():
     actor = Clutter.Text()
     actor.set_selectable(False)
     actor.set_font_description(self.ap_font)
+    actor.set_color(self.ap_color)
     actor.set_width(self.ap_width)
     actor.set_margin_left(self.ap_margin_left)
     self.set_text(actor, ap)

@@ -122,73 +122,83 @@ class TemperatureGraph():
     for tool in self.temps:
       if self.temps[tool]["t_target"] > 0:
         self.temps[tool]["heating"] = True
-        diff = self.temps[tool]["t_target"] - \
-            self.temps[tool]["t_actual"]
+        diff = self.temps[tool]["t_target"] - self.temps[tool]["t_actual"]
         if abs(diff) < self.ok_range:
           self.temps[tool]["state"] = "heated"
           if tool == "bed":
-            self.temps[tool]["btn"].set_style_class("hot_bed")
+            self.set_style_class(self.temps[tool]["btn"], "hot_bed")
           else:
-            self.temps[tool]["btn"].set_style_class("hot")
+            self.set_style_class(self.temps[tool]["btn"], "hot")
         elif diff > 0:
           self.temps[tool]["state"] = "heating"
           if tool == "bed":
-            self.temps[tool]["btn"].set_style_class("heating_bed")
+            self.set_style_class(self.temps[tool]["btn"], "heating_bed")
           else:
-            self.temps[tool]["btn"].set_style_class("heating")
+            self.set_style_class(self.temps[tool]["btn"], "heating")
         else:
           self.temps[tool]["state"] = "cooling"
       else:
         if tool == "bed":
-          self.temps[tool]["btn"].set_style_class("cold_bed")
+          self.set_style_class(self.temps[tool]["btn"], "cold_bed")
         else:
-          self.temps[tool]["btn"].set_style_class("cold")
+          self.set_style_class(self.temps[tool]["btn"], "cold")
 
   def on_preheat_tool0(self, button, action):
     if self.temps["tool0"]["heating"]:
       self.config.rest_client.set_tool_temp(0, 0)
-      self.temps["tool0"]["btn"].set_style_class("cold")
+      self.set_style_class(self.temps["tool0"]["btn"], "cold")
       self.temps["tool0"]["heating"] = False
     else:
       new_temp = self.temps["tool0"]["t_preheat"]
       self.config.rest_client.set_tool_temp(0, new_temp)
-      self.temps["tool0"]["btn"].set_style_class("heating")
+      self.set_style_class(self.temps["tool0"]["btn"], "heating")
       self.temps["tool0"]["heating"] = True
 
   def on_preheat_tool1(self, button, action):
     if self.temps["tool1"]["heating"]:
       self.config.rest_client.set_tool_temp(1, 0)
-      self.temps["tool1"]["btn"].set_style_class("cold")
+      self.set_style_class(self.temps["tool1"]["btn"], "cold")
       self.temps["tool1"]["heating"] = False
     else:
       new_temp = self.temps["tool1"]["t_preheat"]
       self.config.rest_client.set_tool_temp(1, new_temp)
-      self.temps["tool1"]["btn"].set_style_class("heating")
+      self.set_style_class(self.temps["tool1"]["btn"], "heating")
       self.temps["tool1"]["heating"] = True
 
   def on_preheat_tool2(self, button, action):
     if self.temps["tool2"]["heating"]:
       self.config.rest_client.set_tool_temp(2, 0)
-      self.temps["tool2"]["btn"].set_style_class("cold")
+      self.set_style_class(self.temps["tool2"]["btn"], "cold")
       self.temps["tool2"]["heating"] = False
     else:
       new_temp = self.temps["tool2"]["t_preheat"]
       self.config.rest_client.set_tool_temp(2, new_temp)
-      self.temps["tool2"]["btn"].set_style_class("heating")
+      self.set_style_class(self.temps["tool2"]["btn"], "heating")
       self.temps["tool2"]["heating"] = True
 
   def on_preheat_bed(self, button, action):
     if self.temps["bed"]["heating"]:
       self.config.rest_client.set_bed_temp(0)
-      self.temps["bed"]["btn"].set_style_class("cold_bed")
+      self.set_style_class(self.temps["bed"]["btn"], "cold_bed")
       self.temps["bed"]["heating"] = False
     else:
       new_temp = self.temps["bed"]["t_preheat"]
       self.config.rest_client.set_bed_temp(new_temp)
-      self.temps["bed"]["btn"].set_style_class("heating_bed")
+      self.set_style_class(self.temps["bed"]["btn"], "heating_bed")
       self.temps["bed"]["heating"] = True
 
   def change_to_filament(self, button, action):
     if self.config.getboolean('System', 'use-filament-graph'):
       self.graph.hide()
       self.config.filament_graph.graph.show()
+
+  def set_style_class(self, btn, style_class):
+    png = {
+        "cold": "/heater_cold_128.png",
+        "heating": "/heater_heating_128.png",
+        "hot": "/heater_hot_128.png",
+        "heating_bed": "/heater_bed_heating_128.png",
+        "cold_bed": "/heater_bed_cold_128.png",
+        "hot_bed": "/heater_bed_hot_128.png"
+    }[style_class]
+    btn.set_from_file(self.config.style.img_path + png)

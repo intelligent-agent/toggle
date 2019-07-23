@@ -16,7 +16,7 @@ class Model(Mash.Model):
     self.model = config.ui.get_object("model")
     self.color = self.model.get_background_color()
     self.loader = config.ui.get_object("loader")
-    self.loader.set_from_file(config.get("System", "loader"))
+    self.loader.set_from_file(self.config.style.logo_file_path)
 
     self.model_data = Mash.Data()
     self.model.set_data(self.model_data)

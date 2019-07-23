@@ -4,8 +4,6 @@
 class Splash():
   def __init__(self, config):
     self.ui = config.ui
-    splash = config.ui.get_object("splash")
-    splash.set_from_file(config.style.logo_file_path)
     self.status = config.ui.get_object("splash-status")
 
   def set_status(self, status):

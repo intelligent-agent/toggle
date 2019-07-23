@@ -21,6 +21,7 @@ def test_style_loader(default_config):
     for res in resolutions:
       config['Screen']['width'] = res.split("x")[0]
       config['Screen']['height'] = res.split("x")[1]
+      config['Screen']['rotation'] = "0"
       config['Style']['style'] = style
       loader = StyleLoader(config)
       assert (loader.load_ui(loader.ui_file_path))

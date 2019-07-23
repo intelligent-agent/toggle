@@ -11,11 +11,17 @@ class StyleLoader:
   def __init__(self, config):
     self.config = config
     config.screen_width = config.getint("Screen", "width")
+    config.screen_height = config.getint("Screen", "height")
     self.style_type = self.config.get("Style", "style")
-    style_path = os.path.join(config.file_base, "style", self.style_type)
-    width = self.config.get("Screen", "width")
-    height = self.config.get("Screen", "height")
-    ui_file = "ui_" + width + "x" + height + ".json"
+    style_path = os.path.join(config.file_base, "styles", self.style_type)
+    self.img_path = style_path
+    if config.getint("Screen", "rotation") in [90, 270]:
+      width = config.screen_height
+      height = config.screen_width
+    else:
+      width = config.screen_width
+      height = config.screen_height
+    ui_file = "ui_{}x{}.json".format(width, height)
     self.ui_file_path = os.path.join(style_path, ui_file)
     style_file = "style.css"
     self.style_file_path = os.path.join(style_path, style_file)
@@ -40,4 +46,11 @@ class StyleLoader:
     return True
 
   def logo_for_screen_width(self, width):
-    return {800: "logo_400.png", 1280: "logo_600.png", 1920: "logo_900.png"}[width]
+    return {
+        480: "logo_400.png",
+        800: "logo_400.png",
+        720: "logo_600.png",
+        1280: "logo_600.png",
+        1080: "logo_900.png",
+        1920: "logo_900.png"
+    }[width]
