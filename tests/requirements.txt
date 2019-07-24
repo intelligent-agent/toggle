@@ -3,4 +3,3 @@ mock
 sympy
 requests
 requests-mock
-dbus-python
