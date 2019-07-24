@@ -1,12 +1,13 @@
 matrix:
   include:
     - language: python
-      python: 3.6
+      python:
+        - "3.6"
+      virtualenv:
+        system_site_packages: true
       install:
         - pip install -r tests/requirements.txt
         - pip install yapf==0.25.0
       script:
         - yapf --diff --exclude venv/ --exclude .git/ -r .
         - python3 -m pytest
-      virtualenv:
-        - system_site_packages: true
