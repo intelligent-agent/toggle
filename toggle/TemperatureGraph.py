@@ -7,6 +7,8 @@ class TemperatureGraph():
   def __init__(self, config):
     self.config = config
     self.temp = config.ui.get_object("graph")
+    tc = config.ui.get_object("graph-title").get_color()
+    self.graph_color = (tc.red, tc.green, tc.blue, tc.alpha)
     self.graph = Graph(self.temp.get_width(), self.temp.get_height())
     self.temp.add_child(self.graph)
     self.temps = {
@@ -72,8 +74,7 @@ class TemperatureGraph():
       tap.connect("tap", self.temps[tool]["func-name"])
       self.temps[tool]["btn"] = btn
 
-    # Add a scale to the plot
-    scale = GraphScale(0, 320, [0, 50, 100, 150, 200, 250, 300])
+    scale = GraphScale(self.graph_color, 0, 320, [0, 50, 100, 150, 200, 250, 300])
     self.graph.add_plot(scale)
 
     # set up temp label

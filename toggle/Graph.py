@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # Temp graph
-
+import gi
+gi.require_version('Clutter', '1.0')
 from gi.repository import Clutter, GLib
 import cairo
 import math
-import numpy as np
 import threading
 import time
-import random
+
 import logging
 
 
@@ -55,28 +55,30 @@ class GraphPlot():
 
 
 class GraphScale():
-  def __init__(self, scale_min, scale_max, lines):
+  def __init__(self, color, scale_min, scale_max, lines):
     self.scale_max = float(scale_max)
     self.scale_min = float(scale_min)
     self.scale_tot = float(abs(scale_max - scale_min))
     self.y_values = lines
     self.x_values = []
-    self.color = (0, 0, 0, 128)
+    self.color = color
     self.line_width = 1
+
+  def line_y_pos(self, height, y):
+    return height - (y - self.scale_min) * (height / self.scale_tot)
 
   def draw(self, ctx, width, height):
     ctx.set_line_width(self.line_width)
     ctx.set_source_rgba(*self.color)
     for y in self.y_values:
-      ctx.move_to(23, height - (y - self.scale_min) * (height / self.scale_tot))
-      ctx.line_to(width, height - (y - self.scale_min) * (height / self.scale_tot))
-      ctx.move_to(0, height - (y - self.scale_min) * (height / self.scale_tot))
+      line_y = self.line_y_pos(height, y)
+      ctx.move_to(23, line_y)
+      ctx.line_to(width, line_y)
+      ctx.move_to(0, line_y)
       ctx.show_text(str(y))
 
 
 class Graph(Clutter.Actor):
-  '''a horizontal item inside a row'''
-
   def __init__(self, width, height):
     super(Graph, self).__init__()
     self.set_size(width, height)
@@ -89,9 +91,7 @@ class Graph(Clutter.Actor):
     self.canvas.connect('draw', self.draw)
     self.line_width = 3
     self.refresh_millis = 100
-
     self.plots = []
-
     self.idle_resize_id = 0
     self.connect('notify::allocation', self.on_allocation)
     self.set_reactive(True)
@@ -106,7 +106,6 @@ class Graph(Clutter.Actor):
     self.canvas.set_size(*self.get_size())
     self.idle_resize_id = 0
 
-  # Add a datapoint
   def add_plot(self, plot):
     self.plots.append(plot)
 
@@ -123,55 +122,3 @@ class Graph(Clutter.Actor):
       ctx.new_sub_path()
       plot.draw(ctx, width, height - 10)
       ctx.stroke()
-
-
-def add_points(temp1, temp2, graph):
-  for i in range(20):
-    temp1.add_point(temp1.get_end_time() + 5, random.random() * 200 - 100)
-    graph.refresh()
-    time.sleep(0.3)
-
-
-if __name__ == '__main__':
-
-  def stage_key(element, event):
-    if event.keyval == Clutter.Escape:
-      clutter_quit()
-
-  def clutter_quit(*args):
-    Clutter.main_quit()
-
-  Clutter.init([])
-  stage = Clutter.Stage()
-  stage.set_size(800, 500)
-  stage.set_title('Clutter - Cairo content')
-  stage.set_background_color(color('white'))
-  stage.set_user_resizable(True)
-
-  # quit when the window gets closed
-  stage.connect('destroy', clutter_quit)
-
-  # close window on escape
-  stage.connect('key-press-event', stage_key)
-
-  graph = Graph(800, 500)
-  temp = GraphPlot("E", (1, 0, 0), -100, 100)
-  graph.add_plot(temp)
-  graph.refresh()
-
-  temp2 = GraphPlot("H", (0, 1, 0))
-  graph.add_plot(temp2)
-
-  scale = GraphScale(-110, 110, [-100, -50, 0, 50, 100])
-  graph.add_plot(scale)
-
-  t = threading.Thread(target=add_points, args=(temp, temp2, graph))
-  t.start()    # after 30 seconds, "hello, world" will be printed
-
-  stage.add_child(graph)
-
-  # bind the size of cairo_actor to the size of the stage
-  graph.add_constraint(Clutter.BindConstraint.new(stage, Clutter.BindCoordinate.SIZE, 0.0))
-
-  stage.show()
-  Clutter.main()

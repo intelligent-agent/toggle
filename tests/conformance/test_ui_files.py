@@ -11,7 +11,7 @@ from gi.repository import Clutter
 
 def test_style_loader(default_config):
   config = default_config
-  config.file_base = abspath(join(dirname(__file__), ".."))
+  config.file_base = abspath(join(dirname(__file__), "../.."))
   styles = ["Plain", "Mixer", "Spitzy"]
   resolutions = ["1920x1080", "1280x720", "800x480"]
 
