@@ -1,4 +1,7 @@
 import pytest
+
+pytest.importorskip("pyconnman")
+pytest.importorskip("NetworkManager")
 from toggle.Network import ConnMan, NetworkManager
 from dbus.mainloop.glib import DBusGMainLoop
 
