@@ -16,7 +16,7 @@ from .FilamentGraph import FilamentGraph
 from .TemperatureGraph import TemperatureGraph
 from .Graph import Graph, GraphScale, GraphPlot
 from .Message import Message
-from .Event import Event, PushUpdate, LocalUpdate
+from .Event import Event, PushUpdate
 from .RestClient import RestClient
 from .WebSocksClient import WebSocksClient
 from .CascadingConfigParser import CascadingConfigParser

@@ -10,7 +10,7 @@ import re
 from fnmatch import filter
 import requests
 from .Model import Model
-from .Event import PushUpdate, LocalUpdate
+from .Event import PushUpdate
 from threading import Thread
 import time
 """
