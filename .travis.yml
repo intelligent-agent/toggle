@@ -3,7 +3,7 @@ matrix:
     - language: python
       python: 3.6
       before_install:
-        - sudo apt install python-dbus
+        - sudo apt install python3-dbus
       install:
         - pip install -r tests/requirements.txt
         - pip install yapf==0.25.0
