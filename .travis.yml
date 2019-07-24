@@ -2,11 +2,10 @@ matrix:
   include:
     - language: python
       python:
-        - "3.5"
-      virtualenv:
-        system_site_packages: true
+        - "3.6"
       before_install:
-        - sudo apt install python-networkmanager
+        - sudo apt-get update
+        - sudo apt install libdbus-1-dev
       install:
         - pip install -r tests/requirements.txt
         - pip install yapf==0.25.0
