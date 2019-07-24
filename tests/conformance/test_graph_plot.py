@@ -1,5 +1,6 @@
 import pytest
 import random
+clutter = pytest.importorskip("gi.repository.Clutter")
 from toggle.Graph import Graph, GraphPlot, GraphScale
 import gi
 gi.require_version('Clutter', '1.0')
