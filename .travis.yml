@@ -5,6 +5,8 @@ matrix:
         - "3.5"
       virtualenv:
         system_site_packages: true
+      before_install:
+        - sudo apt install python3-networkmanager
       install:
         - pip install -r tests/requirements.txt
         - pip install yapf==0.25.0
