@@ -21,7 +21,8 @@ play_disabled print home settings network  slicer wifi printer \
 motor_off fan_on fan_off )
 small_icons=( heartbeat connection connection_disabled running paused pointer)
 colors=( background-color-side default-text-color plate-color model-color stage-color
-menu-header-color menu-header-text-color menu-body-text-color menu-body-color splash-text-color )
+menu-header-color menu-header-text-color menu-body-text-color menu-body-color \
+splash-text-color progress-bar-color)
 
 function clean {
     rm -f $DEST/*.png
@@ -95,6 +96,6 @@ echo "Generating from ${SOURCE} to ${DEST}"
 
 get_colors
 convert_ui
-if [ "$STYLE" == "Dark" ] || [ "$STYLE" == "Plain" ]; then
+if [ "$STYLE" == "Dark" ] || [ "$STYLE" == "Plain" ] || [ "$STYLE" == "Spitzy" ]; then
   create_images
 fi

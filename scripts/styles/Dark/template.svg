@@ -52,7 +52,8 @@
     </linearGradient>
     <linearGradient
        id="linearGradient2609"
-       osb:paint="solid">
+       osb:paint="solid"
+       gradientTransform="translate(2632.0181,-1791.0562)">
       <stop
          style="stop-color:#ff8a5b;stop-opacity:1;"
          offset="0"
@@ -70,7 +71,7 @@
     <linearGradient
        id="linearGradient3099"
        osb:paint="solid"
-       gradientTransform="matrix(0,1.5741901,0.95490726,0,-12175.835,-13136.556)">
+       gradientTransform="matrix(0,1.5741901,0.95490726,0,-6911.7988,-16718.668)">
       <stop
          style="stop-color:#fffdfd;stop-opacity:1;"
          offset="0"
@@ -79,7 +80,7 @@
     <linearGradient
        id="linearGradient3063"
        osb:paint="solid"
-       gradientTransform="translate(-1331.6148,-7430.4917)">
+       gradientTransform="translate(3932.4214,-11012.604)">
       <stop
          style="stop-color:#dd2fe0;stop-opacity:1;"
          offset="0"
@@ -88,7 +89,7 @@
     <linearGradient
        id="linearGradient3057"
        osb:paint="solid"
-       gradientTransform="translate(-2345.8145,554.48347)">
+       gradientTransform="translate(286.20362,-1236.5728)">
       <stop
          style="stop-color:#1b292b;stop-opacity:1;"
          offset="0"
@@ -106,7 +107,7 @@
     <linearGradient
        id="linearGradient3045"
        osb:paint="solid"
-       gradientTransform="matrix(0.17147144,0,0,0.17147144,677.71681,4355.639)">
+       gradientTransform="matrix(0.17147144,0,0,0.17147144,2304.0952,4578.5569)">
       <stop
          style="stop-color:#50ebdb;stop-opacity:1;"
          offset="0"
@@ -133,7 +134,7 @@
     <linearGradient
        id="linearGradient3013"
        osb:paint="solid"
-       gradientTransform="matrix(0.00220681,0,0,0.00218919,-2540.6698,16315.965)">
+       gradientTransform="matrix(0.00220681,0,0,0.00218919,5355.3845,10942.797)">
       <stop
          style="stop-color:#83dcc6;stop-opacity:1;"
          offset="0"
@@ -797,11 +798,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.28709459"
-     inkscape:cx="149.06733"
-     inkscape:cy="243.8342"
+     inkscape:zoom="0.155774"
+     inkscape:cx="-7.1286529"
+     inkscape:cy="1769.2627"
      inkscape:document-units="px"
-     inkscape:current-layer="layer4"
+     inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
      inkscape:window-width="1920"
@@ -1565,7 +1566,7 @@
        x="-963.8819"
        y="183.70052" />
     <g
-       transform="translate(540.87045,5626.5124)"
+       transform="translate(3172.8886,3835.4562)"
        id="g1938">
       <rect
          transform="scale(-1,1)"
@@ -1635,7 +1636,7 @@
     <g
        id="g1938-0"
        style="display:inline;enable-background:new"
-       transform="translate(540.87045,4729.541)">
+       transform="translate(3172.8886,2938.4848)">
       <rect
          transform="scale(-1,1)"
          y="-2777.8789"
@@ -1704,7 +1705,7 @@
     <g
        id="g1938-6"
        style="display:inline;enable-background:new"
-       transform="translate(540.87045,4949.1904)">
+       transform="translate(3172.8886,3158.1342)">
       <rect
          transform="scale(-1,1)"
          y="-2777.8789"
@@ -1773,7 +1774,7 @@
     <g
        id="g1938-5"
        style="display:inline;enable-background:new"
-       transform="translate(527.07333,5475.5537)">
+       transform="translate(3159.0914,3684.4975)">
       <rect
          transform="scale(-1,1)"
          y="-3092.9121"
@@ -1842,7 +1843,7 @@
     <g
        id="g1938-5-9"
        style="display:inline;enable-background:new"
-       transform="translate(527.07333,5707.4956)">
+       transform="translate(3159.0914,3916.4394)">
       <rect
          transform="scale(-1,1)"
          y="-3092.9121"
@@ -1910,57 +1911,57 @@
     </g>
     <text
        id="text2934-3-7-3-1-6"
-       y="2594.2297"
-       x="-1076.9628"
+       y="803.17352"
+       x="1555.0553"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;enable-background:new"
        xml:space="preserve"><tspan
-         y="2594.2297"
-         x="-1076.9628"
+         y="803.17352"
+         x="1555.0553"
          id="tspan2932-6-5-9-2-3"
          sodipodi:role="line">Model color</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;enable-background:new"
-       x="-1076.9628"
-       y="2830.0576"
+       x="1555.0553"
+       y="1039.0013"
        id="text2934-3"><tspan
          sodipodi:role="line"
          id="tspan2932-6"
-         x="-1076.9628"
-         y="2830.0576">Menu header color</tspan></text>
+         x="1555.0553"
+         y="1039.0013">Menu header color</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;enable-background:new"
-       x="-1076.9628"
-       y="1935.9591"
+       x="1555.0553"
+       y="144.90288"
        id="text2934-3-7"><tspan
          sodipodi:role="line"
          id="tspan2932-6-5"
-         x="-1076.9628"
-         y="1935.9591">Background color</tspan></text>
+         x="1555.0553"
+         y="144.90288">Background color</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;enable-background:new"
-       x="-1072.9199"
-       y="2162.6584"
+       x="1559.0981"
+       y="371.6022"
        id="text2934-3-7-3"><tspan
          sodipodi:role="line"
          id="tspan2932-6-5-9"
-         x="-1072.9199"
-         y="2162.6584">Text color</tspan></text>
+         x="1559.0981"
+         y="371.6022">Text color</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;enable-background:new"
-       x="-1076.9628"
-       y="2362.2881"
+       x="1555.0553"
+       y="571.23187"
        id="text2934-3-7-3-1"><tspan
          sodipodi:role="line"
          id="tspan2932-6-5-9-2"
-         x="-1076.9628"
-         y="2362.2881">Plate color</tspan></text>
+         x="1555.0553"
+         y="571.23187">Plate color</tspan></text>
     <g
        style="display:inline;enable-background:new"
-       transform="translate(540.87045,5888.7362)"
+       transform="translate(3172.8886,4097.68)"
        id="g1938-9">
       <rect
          transform="scale(-1,1)"
@@ -2030,16 +2031,16 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;enable-background:new"
-       x="-1078.5887"
-       y="3083.054"
+       x="1553.4293"
+       y="1291.9977"
        id="text2934-3-4"><tspan
          sodipodi:role="line"
-         x="-1078.5887"
-         y="3083.054"
+         x="1553.4293"
+         y="1291.9977"
          id="tspan2407">Menu body color</tspan></text>
     <g
        style="display:inline;enable-background:new"
-       transform="translate(516.78526,6450.136)"
+       transform="translate(3148.8034,4659.0798)"
        id="g1938-9-7-7">
       <rect
          transform="scale(-1,1)"
@@ -2109,16 +2110,16 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;enable-background:new"
-       x="-1101.048"
-       y="3647.7058"
+       x="1530.9701"
+       y="1856.6495"
        id="text2934-3-4-1-6"><tspan
          sodipodi:role="line"
-         x="-1101.048"
-         y="3647.7058"
+         x="1530.9701"
+         y="1856.6495"
          id="tspan2407-7-4">Menu Header Text Color</tspan></text>
     <g
        style="display:inline;enable-background:new"
-       transform="translate(530.49733,6793.5553)"
+       transform="translate(3162.5154,5002.4991)"
        id="g1938-9-7-7-6">
       <rect
          transform="scale(-1,1)"
@@ -2188,24 +2189,24 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;enable-background:new"
-       x="-1087.3359"
-       y="3991.125"
+       x="1544.6821"
+       y="2200.0688"
        id="text2934-3-4-1-6-2"><tspan
          sodipodi:role="line"
-         x="-1087.3359"
-         y="3991.125"
+         x="1544.6821"
+         y="2200.0688"
          id="tspan2407-7-4-7">Splash text color</tspan></text>
     <rect
        style="display:inline;fill:url(#linearGradient3099);fill-opacity:1;stroke:none;stroke-width:2.74004936;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;enable-background:new"
        id="splash-text-color"
        width="835.99286"
        height="65.011116"
-       x="-1002.5739"
-       y="4050.0063"
+       x="1629.4442"
+       y="2258.9502"
        inkscape:label="#rect4685-3-8-1" />
     <g
        style="display:inline;enable-background:new"
-       transform="translate(518.18246,7049.7047)"
+       transform="translate(3150.2006,5258.6485)"
        id="g1938-9-7-7-3">
       <rect
          transform="scale(-1,1)"
@@ -2275,21 +2276,100 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;enable-background:new"
-       x="-1099.6508"
-       y="4247.2744"
+       x="1532.3673"
+       y="2456.2183"
        id="text2934-3-4-1-6-20"><tspan
          sodipodi:role="line"
-         x="-1099.6508"
-         y="4247.2744"
+         x="1532.3673"
+         y="2456.2183"
          id="tspan2407-7-4-2">Stage color</tspan></text>
     <rect
        style="display:inline;fill:url(#linearGradient3013);fill-opacity:1;stroke:none;stroke-width:2.74004936;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;enable-background:new"
        id="stage-color"
        width="835.99286"
        height="65.011116"
-       x="-1014.8887"
-       y="4306.1558"
+       x="1617.1294"
+       y="2515.0996"
        inkscape:label="#rect4685-3-8-1" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;enable-background:new"
+       x="1528.9725"
+       y="2729.7461"
+       id="text2934-3-4-1-6-20-7"><tspan
+         sodipodi:role="line"
+         x="1528.9725"
+         y="2729.7461"
+         id="tspan2407-7-4-2-5">Progress bar color</tspan></text>
+    <g
+       style="display:inline;enable-background:new"
+       transform="translate(3132.2239,5516.9403)"
+       id="g1938-9-7-7-3-3">
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="589.90753"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-70-56-5-8-6-5-6-5"
+         style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="845.90741"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-6-9-93-2-4-3-3-0-6"
+         style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="1101.9075"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-7-3-7-5-8-1-8-6-2"
+         style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="1357.9075"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-3-6-4-4-1-7-8-2-9"
+         style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="717.90741"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-2-0-5-7-0-5-3-61-1"
+         style="fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="973.90735"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-2-9-6-2-4-3-9-1-8-2"
+         style="fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="1229.9075"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-2-1-2-5-4-0-6-8-7-7"
+         style="fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         transform="scale(-1,1)"
+         y="-2777.8789"
+         x="1485.9075"
+         height="127.99999"
+         width="127.99999"
+         id="rect2091-2-2-6-4-3-4-2-9-9-0"
+         style="fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -2662,8 +2742,8 @@
        id="menu-header-color"
        width="761.50922"
        height="59.218864"
-       x="-1025.4774"
-       y="342.6344"
+       x="1606.5406"
+       y="-1448.4219"
        inkscape:label="#rect4685" />
     <rect
        style="fill:none;fill-opacity:1;stroke:none;stroke-width:3.3833847;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
@@ -4947,44 +5027,44 @@
        id="background-color-side"
        width="767.97406"
        height="59.721611"
-       x="-977.61072"
-       y="-556.96533"
+       x="1654.4073"
+       y="-2348.0215"
        inkscape:label="#rect4685-3" />
     <rect
        style="display:inline;fill:url(#linearGradient3099);fill-opacity:1;stroke:none;stroke-width:2.74004936;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;enable-background:new"
        id="default-text-color"
        width="835.99286"
        height="65.011116"
-       x="-984.94244"
-       y="-344.68195"
+       x="1647.0757"
+       y="-2135.7383"
        inkscape:label="#rect4685-3-8" />
     <rect
        style="display:inline;fill:url(#linearGradient3013);fill-opacity:1;stroke:none;stroke-width:2.74004936;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;enable-background:new"
        id="plate-color"
        width="835.99286"
        height="65.011116"
-       x="-1029.4464"
-       y="-132.09821"
+       x="1602.5717"
+       y="-1923.1544"
        inkscape:label="#rect4685-3-8-5" />
     <rect
        style="display:inline;fill:url(#linearGradient3063);fill-opacity:1;stroke:none;stroke-width:2.74004936;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;enable-background:new"
        id="model-color"
        width="835.99286"
        height="65.011116"
-       x="-1026.4934"
-       y="103.91413"
+       x="1605.5247"
+       y="-1687.1421"
        inkscape:label="#rect4685-3-8-1" />
     <rect
        style="display:inline;fill:url(#linearGradient3045);fill-opacity:1;stroke:none;stroke-width:2.74004936;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;enable-background:new"
        id="menu-body-color"
        width="835.99286"
        height="65.011116"
-       x="-1021.8755"
-       y="594.96771"
+       x="1610.1426"
+       y="-1196.0885"
        inkscape:label="#rect4685-3-8-1" />
     <g
        style="display:inline;enable-background:new"
-       transform="translate(531.41927,3599.249)"
+       transform="translate(3163.4374,1808.1928)"
        id="g1938-9-7">
       <rect
          transform="scale(-1,1)"
@@ -5054,20 +5134,20 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;enable-background:new"
-       x="-1086.4139"
-       y="796.81891"
+       x="1545.6041"
+       y="-994.2373"
        id="text2934-3-4-1"><tspan
          sodipodi:role="line"
-         x="-1086.4139"
-         y="796.81891"
+         x="1545.6041"
+         y="-994.2373"
          id="tspan2407-7">Menu Body Text Color</tspan></text>
     <rect
        style="display:inline;fill:url(#linearGradient3063);fill-opacity:1;stroke:none;stroke-width:2.74004936;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;enable-background:new"
        id="menu-body-text-color"
        width="835.99286"
        height="65.011116"
-       x="-1031.3268"
-       y="853.11847"
+       x="1600.6913"
+       y="-937.93774"
        inkscape:label="#rect4685-3-8-1" />
     <g
        id="g4883-5"
@@ -6056,8 +6136,8 @@
        id="menu-header-text-color"
        width="835.99286"
        height="65.011116"
-       x="-1016.2859"
-       y="1158.9493"
+       x="1615.7322"
+       y="-632.10687"
        inkscape:label="#rect4685-3-8-1" />
     <g
        id="loading"
@@ -6096,6 +6176,14 @@
        height="143.55591"
        x="-1124.1462"
        y="-2362.3738" />
+    <rect
+       style="display:inline;fill:url(#linearGradient2609);fill-opacity:1;stroke:none;stroke-width:2.74004936;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;enable-background:new"
+       id="progress-bar-color"
+       width="835.99286"
+       height="65.011116"
+       x="1626.3784"
+       y="222.91801"
+       inkscape:label="#rect4685-3-8-1" />
   </g>
   <g
      inkscape:groupmode="layer"

@@ -682,30 +682,52 @@
                             "type": "ClutterText",
                             "x": 15,
                             "y": 900,
-                            "font-description": "Sans 32"
+                            "font-description": "Sans 32",
+                            "color": "#26322F"
                           },
                           {
                             "id": "lbl-model",
                             "type": "ClutterText",
                             "text": "Model",
                             "x": 1265,
-                            "y": 1000,
-                            "width": 700,
+                            "y": 890,
+                            "width": 640,
                             "height": 50,
                             "x-align": 3,
                             "x-expand": true,
                             "line-alignment": 2,
-                            "font-description": "Sans 32"
+                            "font-description": "Sans 32",
+                            "color": "#26322F"
                           },
                           {
-                            "id": "progress-bar",
-                            "type": "MxProgressBar",
+                            "id": "progress-bar-bg",
+                            "type": "ClutterActor",
                             "x": 1265,
                             "y": 940,
                             "width": 640,
                             "height": 50,
-                            "x-align": 3,
-                            "x-expand": true
+                            "background-color": "#26322F",
+                            "layout-manager": { "type": "ClutterFixedLayout" },
+                            "children": [
+                              {
+                                "id": "progress-bar-undone",
+                                "type": "ClutterActor",
+                                "x": 1,
+                                "y": 1,
+                                "width": 638,
+                                "height": 48,
+                                "background-color": "#83DCC6"
+                              },
+                              {
+                                "id": "progress-bar",
+                                "type": "ClutterActor",
+                                "x": 1,
+                                "y": 1,
+                                "width": 0,
+                                "height": 48,
+                                "background-color": "#FF8A5B"
+                              }
+                            ]
                           },
                           {
                             "id": "time-gone",
@@ -714,7 +736,8 @@
                             "y": 910,
                             "width": 220,
                             "height": 25,
-                            "font-description": "Sans 16"
+                            "font-description": "Sans 16",
+                            "color": "#26322F"
                           },
                           {
                             "id": "time-left",
@@ -725,7 +748,8 @@
                             "height": 25,
                             "x-align": 3,
                             "x-expand": true,
-                            "font-description": "Sans 16"
+                            "font-description": "Sans 16",
+                            "color": "#26322F"
                           },
                           {
                             "id": "btn-cancel",

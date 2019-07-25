@@ -706,15 +706,36 @@
                             "color": "default-text-color"
                           },
                           {
-                            "id": "progress-bar",
-                            "type": "MxProgressBar",
+                            "id": "progress-bar-bg",
+                            "type": "ClutterActor",
                             "x": 560,
                             "y": 410,
                             "width": 220,
                             "height": 25,
-                            "x-align": 3,
-                            "x-expand": true
+                            "background-color": "default-text-color",
+                            "layout-manager": { "type": "ClutterFixedLayout" },
+                            "children": [
+                              {
+                                "id": "progress-bar-undone",
+                                "type": "ClutterActor",
+                                "x": 1,
+                                "y": 1,
+                                "width": 218,
+                                "height": 23,
+                                "background-color": "background-color-side"
+                              },
+                              {
+                                "id": "progress-bar",
+                                "type": "ClutterActor",
+                                "x": 1,
+                                "y": 1,
+                                "width": 0,
+                                "height": 23,
+                                "background-color": "progress-bar-color"
+                              }
+                            ]
                           },
+
                           {
                             "id": "time-gone",
                             "type": "ClutterText",

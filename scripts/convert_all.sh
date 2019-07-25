@@ -8,4 +8,3 @@
 
 # Some styles have not yet been converted to the new setup
 ./styles/convert.sh Mixer ../styles
-./styles/convert.sh Spitzy ../styles

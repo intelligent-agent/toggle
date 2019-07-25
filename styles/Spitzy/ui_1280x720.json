@@ -706,14 +706,34 @@
                         "color": "#5D4157"
                       },
                       {
-                        "id": "progress-bar",
-                        "type": "MxProgressBar",
+                        "id": "progress-bar-bg",
+                        "type": "ClutterActor",
                         "x": 850,
                         "y": 660,
                         "width": 400,
                         "height": 30,
-                        "x-align": 3,
-                        "x-expand": true
+                        "background-color": "#5D4157",
+                        "layout-manager": { "type": "ClutterFixedLayout" },
+                        "children": [
+                          {
+                            "id": "progress-bar-undone",
+                            "type": "ClutterActor",
+                            "x": 1,
+                            "y": 1,
+                            "width": 398,
+                            "height": 38,
+                            "background-color": "#EBE3A9"
+                          },
+                          {
+                            "id": "progress-bar",
+                            "type": "ClutterActor",
+                            "x": 1,
+                            "y": 1,
+                            "width": 0,
+                            "height": 38,
+                            "background-color": "#A7C9B9"
+                          }
+                        ]
                       },
                       {
                         "id": "time-gone",

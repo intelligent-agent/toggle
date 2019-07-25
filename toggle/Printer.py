@@ -34,6 +34,7 @@ class Printer:
     tap_cancel.connect("tap", self.cancel_print, None)
 
     self.progress = self.config.ui.get_object("progress-bar")
+    self.progress_max = self.config.ui.get_object("progress-bar-undone").get_width()
     self.time_gone = self.config.ui.get_object("time-gone")
     self.time_left = self.config.ui.get_object("time-left")
 
@@ -147,9 +148,12 @@ class Printer:
     if self.flags["closedOrError"]:
       pass
 
+  def calculate_progress_width(self, completion):
+    return self.progress_max * completion
+
   def update_progress(self, progress):
     if progress["completion"]:
-      self.progress.set_progress(progress["completion"] / 100.0)
+      self.progress.set_width(self.calculate_progress_width(progress["completion"] / 100.0))
       self.config.loader.model.set_progress(progress["completion"] / 100.0)
     if progress['printTimeLeft']:
       left = self.format_time(progress['printTimeLeft'])
