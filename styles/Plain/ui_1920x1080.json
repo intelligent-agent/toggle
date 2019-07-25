@@ -423,7 +423,7 @@
                             "id": "splash-status",
                             "type": "ClutterText",
                             "text": "Toggle initializing...",
-                            "color": "splash-text",
+                            "color": "#FFFFFF",
                             "x": 100,
                             "y": 780,
                             "font-description": "Sans 32"
@@ -483,8 +483,9 @@
                       {
                         "id": "graph",
                         "type": "ClutterActor",
-                        "width": 1920,
+                        "width": 1900,
                         "height": 800,
+                        "x": 10,
                         "y": 80
                       },
                       {
@@ -1102,24 +1103,28 @@
                 "type": "ClutterTexture",
                 "height": 64,
                 "width": 64,
-                "filename": "connection_64.png",
-                "visible": false
+                "filename": "connection_64.png"
+              },
+              {
+                "id": "connection-disabled",
+                "type": "ClutterTexture",
+                "height": 64,
+                "width": 64,
+                "filename": "connection_disabled_64.png"
               },
               {
                 "id": "printing",
                 "type": "ClutterTexture",
                 "height": 64,
                 "width": 64,
-                "filename": "running_64.png",
-                "visible": false
+                "filename": "running_64.png"
               },
               {
                 "id": "paused",
                 "type": "ClutterTexture",
                 "height": 64,
                 "width": 64,
-                "filename": "paused_64.png",
-                "visible": false
+                "filename": "paused_64.png"
               },
               {
                 "id": "heartbeat",
@@ -1127,7 +1132,7 @@
                 "height": 64,
                 "width": 64,
                 "filename": "heartbeat_64.png",
-                "visible": false
+                "opacity": 0
               }
             ]
           },

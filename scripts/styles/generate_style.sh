@@ -2,16 +2,6 @@
 # This scipt grabs SVG icons from an Inkscape template and
 # converts the files to PNG icons for use in Toggle.
 
-SCRIPT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-STYLE=$1
-SOURCE="$SCRIPT/$1"
-DEST=$(realpath "$SCRIPT/../../styles/$1")
-
-function usage {
-  echo "convert.sh <style name>"
-  echo "where style name: Plain, Dark, Mixer, Spitzy"
-}
-
 icons=( temperature arrow arrow_disabled cancel cancel_disabled \
 heater_heating heater_hot heater_cold \
 heater_bed_heating heater_bed_hot heater_bed_cold \
@@ -63,7 +53,7 @@ function get_colors {
 		f=$replace
 		export_image
 		replacement_colors[$i]=$(convert $DEST/$replace\_$size.png -crop '1x1+1+1' txt:- | tail -n1 | awk -F "#" '{print substr($NF, 0, 6)}')
-    rm $DEST/$replace\_$size.png
+		rm $DEST/$replace\_$size.png
 	  i=$(($i+1))
 	done
 }
@@ -86,16 +76,41 @@ function convert_ui {
 	cp "$SCRIPT/templates/style.css" $DEST
 }
 
+
+function usage {
+  echo "generate_style.sh <style name>"
+  echo "where style name: Plain, Dark, Mixer, Spitzy"
+  echo "--ui generate ui layout files"
+  echo "--png generate PNG files from the SVG template"
+}
+
 if [ "x$1" == "x" ]; then
 	usage
 	exit 1
 fi
 
-echo "Re-creating style"
+SCRIPT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+STYLE=$1
+SOURCE="$SCRIPT/$1"
+DEST=$(realpath "$SCRIPT/../../styles/$1")
+
+
+echo "Re-create ui and PNGs"
 echo "Generating from ${SOURCE} to ${DEST}"
 
-get_colors
-convert_ui
-if [ "$STYLE" == "Dark" ] || [ "$STYLE" == "Plain" ] || [ "$STYLE" == "Spitzy" ]; then
-  create_images
-fi
+shift
+
+while test $# -gt 0
+do
+    case "$1" in
+        --ui) get_colors; convert_ui
+            ;;
+        --png) create_images
+            ;;
+        --*) echo "bad option $1"; usage
+            ;;
+        *) echo "argument $1"
+            ;;
+    esac
+    shift
+done

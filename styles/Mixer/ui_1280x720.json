@@ -721,7 +721,7 @@
                             "x": 1,
                             "y": 1,
                             "width": 398,
-                            "height": 38,
+                            "height": 28,
                             "background-color": "#83DCC6"
                           },
                           {
@@ -730,8 +730,8 @@
                             "x": 1,
                             "y": 1,
                             "width": 0,
-                            "height": 38,
-                            "background-color": "#FF8A5B"
+                            "height": 28,
+                            "background-color": "#C5FFF1"
                           }
                         ]
                       },
@@ -1103,31 +1103,38 @@
             "children": [
               {
                 "id": "connection",
-                "type": "MxButton",
+                "type": "ClutterTexture",
                 "height": 52,
                 "width": 52,
-                "style-class": "connection"
+                "filename": "connection_64.png"
+              },
+              {
+                "id": "connection-disabled",
+                "type": "ClutterTexture",
+                "height": 52,
+                "width": 52,
+                "filename": "connection_disabled_64.png"
               },
               {
                 "id": "printing",
-                "type": "MxButton",
+                "type": "ClutterTexture",
                 "height": 52,
                 "width": 52,
-                "style-class": "printing"
+                "filename": "running_64.png"
               },
               {
                 "id": "paused",
-                "type": "MxButton",
+                "type": "ClutterTexture",
                 "height": 52,
                 "width": 52,
-                "style-class": "paused"
+                "filename": "paused_64.png"
               },
               {
                 "id": "heartbeat",
-                "type": "MxButton",
+                "type": "ClutterTexture",
                 "height": 52,
                 "width": 52,
-                "style-class": "heartbeat",
+                "filename": "heartbeat_64.png",
                 "opacity": 0
               }
             ]

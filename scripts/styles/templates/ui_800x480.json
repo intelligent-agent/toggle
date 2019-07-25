@@ -427,7 +427,7 @@
                             "id": "splash-status",
                             "type": "ClutterText",
                             "text": "Toggle initializing...",
-                            "color": "default-text-color",
+                            "color": "splash-text-color",
                             "x": 45,
                             "y": 364,
                             "font-description": "Sans 16"
@@ -1148,31 +1148,38 @@
             "children": [
               {
                 "id": "connection",
-                "type": "MxButton",
+                "type": "ClutterTexture",
                 "height": 32,
                 "width": 32,
                 "style-class": "connection"
               },
               {
-                "id": "printing",
-                "type": "MxButton",
+                "id": "connection-disabled",
+                "type": "ClutterTexture",
                 "height": 32,
                 "width": 32,
-                "style-class": "printing"
+                "filename": "connection_disabled_64.png"
+              },
+              {
+                "id": "printing",
+                "type": "ClutterTexture",
+                "height": 32,
+                "width": 32,
+                "filename": "running_64.png"
               },
               {
                 "id": "paused",
-                "type": "MxButton",
+                "type": "ClutterTexture",
                 "height": 32,
                 "width": 32,
-                "style-class": "paused"
+                "filename": "paused_64.png"
               },
               {
                 "id": "heartbeat",
-                "type": "MxButton",
+                "type": "ClutterTexture",
                 "height": 32,
                 "width": 32,
-                "style-class": "heartbeat",
+                "filename": "heartbeat_64.png",
                 "opacity": 0
               }
             ]

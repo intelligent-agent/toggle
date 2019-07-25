@@ -4,10 +4,6 @@ import gi
 gi.require_version('Clutter', '1.0')
 from gi.repository import Clutter, GLib
 import cairo
-import math
-import threading
-import time
-
 import logging
 
 
@@ -22,6 +18,8 @@ class GraphPlot():
     self.scale_max = float(scale_max)
     self.scale_min = float(scale_min)
     self.scale_tot = float(abs(scale_max - scale_min))
+    self.height = 0
+    self.x_offset = 23
 
   def add_point(self, time, value):
     if value is None:
@@ -32,26 +30,27 @@ class GraphPlot():
       self.times.pop(0)
       self.values.pop(0)
 
+  def get_scaled_value(self, value):
+    return self.height - value - self.scale_min * (self.height / self.scale_tot)
+
   def draw(self, ctx, width, height):
-    width -= 23
+    self.height = height
     if len(self.times) == 0:
       return
     if len(self.times) == 1:
-      x_values = np.array([0, width])
-      y_values = height - (np.array(self.values) - self.scale_min) * (height / self.scale_tot)
-      y_values = [y_values[0], y_values[0]]
+      x_values = [0, width]
+      y_values = [self.get_scaled_value(self.values[0])] * 2
     else:
       pixel_interval = width / float(len(self.times) - 1)
-      x_values = np.arange(len(self.times)) * pixel_interval + 23
-      y_values = height - (np.array(self.values) - self.scale_min) * (height / self.scale_tot)
-
+      x_values = [val * pixel_interval for val in range(0, len(self.times))]
+      y_values = [self.get_scaled_value(val) for val in self.values]
     ctx.set_line_width(self.line_width)
     ctx.set_source_rgb(*self.color)
-
-    ctx.move_to(x_values[0], y_values[0])
+    self.xy_values = (x_values, y_values)
+    ctx.move_to(x_values[0] + self.x_offset, y_values[0])
     points = zip(x_values, y_values)
     for point in list(points)[1:]:
-      ctx.line_to(point[0], point[1])
+      ctx.line_to(point[0] + self.x_offset, point[1])
 
 
 class GraphScale():
@@ -60,7 +59,6 @@ class GraphScale():
     self.scale_min = float(scale_min)
     self.scale_tot = float(abs(scale_max - scale_min))
     self.y_values = lines
-    self.x_values = []
     self.color = color
     self.line_width = 1
 
@@ -116,7 +114,6 @@ class Graph(Clutter.Actor):
     # clear the previous frame
     ctx.set_operator(cairo.OPERATOR_CLEAR)
     ctx.paint()
-
     ctx.set_operator(cairo.OPERATOR_OVER)
     for plot in self.plots:
       ctx.new_sub_path()

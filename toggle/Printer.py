@@ -43,6 +43,7 @@ class Printer:
 
     self.heartbeat = self.config.ui.get_object("heartbeat")
     self.connection = self.config.ui.get_object("connection")
+    self.connection_disabled = self.config.ui.get_object("connection-disabled")
     self.printing = self.config.ui.get_object("printing")
     self.paused = self.config.ui.get_object("paused")
     #self.lbl_temp   = self.config.ui.get_object("lbl-temp")
@@ -130,9 +131,10 @@ class Printer:
     #print self.config.loader.model_selected
     self.set_status(state["text"])
     self.flags = state["flags"]
-    self.connection.visible = self.flags["operational"]
-    self.printing.visible = self.flags["printing"]
-    self.paused.visible = self.flags["paused"]
+    self.connection.set_property("visible", self.flags["operational"])
+    self.connection_disabled.set_property("visible", not self.flags["operational"])
+    self.printing.set_property("visible", self.flags["printing"])
+    self.paused.set_property("visible", self.flags["paused"])
 
     self.update_print_button()
     self.update_cancel_button()
