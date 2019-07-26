@@ -45,7 +45,7 @@ class ConnMan(Network):
     self.p = pyconnman
     try:
       self.manager = pyconnman.ConnManager()
-    except dbus.exceptions.DBusException as e:
+    except self.dbus.exceptions.DBusException as e:
       logging.warning("Connman not a known service on DBus")
       return
     self.technologies = self.manager.get_technologies()
@@ -116,7 +116,7 @@ class ConnMan(Network):
                                               self.wifi.SIGNAL_PROPERTY_CHANGED, ap)
             self.aps_by_path[path] = ap
           aps.append(ap)
-    except dbus.exceptions.DBusException:
+    except self.dbus.exceptions.DBusException:
       pass
     return aps
 
@@ -165,7 +165,7 @@ class ConnMan(Network):
                                     params['username'], params['password'], params['passphrase'],
                                     params['wpspin'])
       self.manager.register_agent(agent_path)
-    except dbus.exceptions.DBusException:
+    except self.dbus.exceptions.DBusException:
       print('Unable to complete:', sys.exc_info())
 
   def activate_connection(self, ap):
