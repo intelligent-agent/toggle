@@ -1,7 +1,6 @@
 # Settings-page
 
 import gi
-gi.require_version('Mx', '2.0')
 gi.require_version('Clutter', '1.0')
 import logging
 import os
@@ -20,6 +19,7 @@ class Settings():
     pan.connect("pan", self.finger_pan)
 
     self.ap_font = config.ui.get_object("wifi-ssid").get_font_description()
+    self.ap_color = config.ui.get_object("wifi-ssid").get_color()
     self.ap_width = config.ui.get_object("wifi-ssid").get_width()
     self.ap_margin_left = config.ui.get_object("wifi-ssid").get_margin_left()
 
@@ -52,13 +52,13 @@ class Settings():
   # Finger pan action
   def finger_pan(self, action, actor, event):
     d = action.get_motion_delta(0)
-    if self.config.screen_rot == "0":
+    if self.config.screen_rot == 0:
       delta = d[2]
-    elif self.config.screen_rot == "90":
+    elif self.config.screen_rot == 90:
       delta = -d[1]
-    elif self.config.screen_rot == "180":
+    elif self.config.screen_rot == 180:
       delta = -d[2]
-    elif self.config.screen_rot == "270":
+    elif self.config.screen_rot == 270:
       delta = d[1]
 
     self.y += delta
@@ -145,6 +145,7 @@ class Settings():
     actor = Clutter.Text()
     actor.set_selectable(False)
     actor.set_font_description(self.ap_font)
+    actor.set_color(self.ap_color)
     actor.set_width(self.ap_width)
     actor.set_margin_left(self.ap_margin_left)
     self.set_text(actor, ap)
@@ -174,12 +175,18 @@ class Settings():
       body.set_height(5)
       header.is_open = False
       header.body = body
+      for child in body.get_children():
+        child.props.visible = False
 
   def header_tap(self, tap, actor):
     if actor.is_open:
       actor.body.set_height(5)
+      for child in actor.body.get_children():
+        child.props.visible = False
       actor.is_open = False
     else:
       actor.body.set_height(-1)
       actor.is_open = True
+      for child in actor.body.get_children():
+        child.props.visible = True
     self.scroller_height = self.scroller.get_height()

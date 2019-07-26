@@ -1,8 +1,14 @@
 matrix:
   include:
     - language: python
-      python: 3.6
+      python:
+        - "3.6"
+      before_install:
+        - sudo apt-get update
+        - sudo apt install libdbus-1-dev
       install:
+        - pip install -r tests/requirements.txt
         - pip install yapf==0.25.0
       script:
         - yapf --diff --exclude venv/ --exclude .git/ -r .
+        - python3 -m pytest

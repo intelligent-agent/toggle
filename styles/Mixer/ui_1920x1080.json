@@ -1,0 +1,1293 @@
+[
+  {
+    "id": "stage",
+    "type": "ClutterStage",
+    "width": 1920,
+    "height": 1080,
+    "background-color": "#CAD7B2",
+    "signals": [],
+    "children": [
+      {
+        "id": "all",
+        "type": "ClutterActor",
+        "pivot-point": [0.0, 0.0],
+        "rotation-angle-z": 0.0,
+        "children": [
+          {
+            "id": "box",
+            "type": "ClutterActor",
+            "width": 1920,
+            "height": 1080,
+            "pivot-point-z": -540.0,
+            "pivot-point": [0.5, 0.5],
+            "rotation-angle-x": 0.0,
+            "layout-manager": { "type": "ClutterFixedLayout" },
+            "children": [
+              {
+                "id": "side0",
+                "type": "ClutterActor",
+                "width": 1920,
+                "height": 1080,
+                "pivot-point-z": -540.0,
+                "pivot-point": [0.5, 0.0],
+                "rotation-angle-y": 0.0,
+                "background-color": "#83DCC6",
+                "children": [
+                  {
+                    "id": "side0-content",
+                    "visible": false,
+                    "type": "ClutterActor",
+                    "width": 1920,
+                    "height": 1080,
+                    "layout-manager": {
+                      "type": "ClutterBinLayout"
+                    },
+                    "children": [
+                      {
+                        "id": "scroll-pane",
+                        "type": "ClutterScrollActor",
+                        "width": 1900,
+                        "y": 80,
+                        "x": 10,
+                        "scroll-mode": 1,
+                        "layout-manager": {
+                          "type": "ClutterBoxLayout",
+                          "orientation": 1
+                        },
+                        "children": [
+                          {
+                            "id": "network-box",
+                            "type": "ClutterActor",
+                            "width": 1900,
+                            "layout-manager": {
+                              "type": "ClutterBoxLayout",
+                              "orientation": 1
+                            },
+                            "children": [
+                              {
+                                "id": "network-header",
+                                "type": "ClutterActor",
+                                "background-color": "#26322F",
+                                "height": 150,
+                                "width": 1900,
+                                "layout-manager": {
+                                  "type": "ClutterFixedLayout"
+                                },
+                                "children": [
+                                  {
+                                    "type": "ClutterText",
+                                    "text": "Network",
+                                    "color": "#C5FFF1",
+                                    "x": 250,
+                                    "y": 45,
+                                    "font-description": "Sans 52"
+                                  },
+                                  {
+                                    "type": "ClutterTexture",
+                                    "filename": "network_128.png",
+                                    "x": 100,
+                                    "y": 15,
+                                    "width": 128,
+                                    "height": 128
+                                  }
+                                ]
+                              },
+                              {
+                                "id": "network-body",
+                                "type": "ClutterActor",
+                                "background-color": "#83DCC6",
+                                "width": 1900,
+                                "height": 5,
+                                "layout-manager": {
+                                  "type": "ClutterFixedLayout"
+                                },
+                                "children": [
+                                  {
+                                    "type": "ClutterText",
+                                    "text": "Remote Hostname: ",
+                                    "font-description": "Sans 32",
+                                    "color": "#26322F",
+                                    "x": 250,
+                                    "y": 20
+                                  },
+                                  {
+                                    "id": "remote-hostname",
+                                    "type": "ClutterText",
+                                    "text": "Not set",
+                                    "font-description": "Sans 32",
+                                    "color": "#26322F",
+                                    "x": 800,
+                                    "y": 20
+                                  },
+                                  {
+                                    "type": "ClutterText",
+                                    "text": "Local Hostname: ",
+                                    "font-description": "Sans 32",
+                                    "color": "#26322F",
+                                    "x": 250,
+                                    "y": 80
+                                  },
+                                  {
+                                    "id": "local-hostname",
+                                    "type": "ClutterText",
+                                    "text": "Not set",
+                                    "font-description": "Sans 32",
+                                    "color": "#26322F",
+                                    "x": 800,
+                                    "y": 80
+                                  },
+                                  {
+                                    "type": "ClutterText",
+                                    "text": "IP address: ",
+                                    "font-description": "Sans 32",
+                                    "color": "#26322F",
+                                    "x": 250,
+                                    "y": 140
+                                  },
+                                  {
+                                    "id": "local-ip",
+                                    "type": "ClutterText",
+                                    "text": "Not set",
+                                    "font-description": "Sans 32",
+                                    "color": "#26322F",
+                                    "x": 800,
+                                    "y": 140,
+                                    "margin-bottom": 20
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "id": "wifi-box",
+                            "type": "ClutterActor",
+                            "width": 1900,
+                            "layout-manager": {
+                              "type": "ClutterBoxLayout",
+                              "orientation": 1
+                            },
+                            "children": [
+                              {
+                                "id": "wifi-header",
+                                "type": "ClutterActor",
+                                "background-color": "#26322F",
+                                "height": 150,
+                                "width": 1900,
+                                "layout-manager": {
+                                  "type": "ClutterFixedLayout"
+                                },
+                                "children": [
+                                  {
+                                    "type": "ClutterText",
+                                    "text": "Wifi",
+                                    "x": 250,
+                                    "y": 45,
+                                    "font-description": "Sans 52",
+                                    "color": "#C5FFF1"
+                                  },
+                                  {
+                                    "type": "ClutterTexture",
+                                    "filename": "wifi_128.png",
+                                    "x": 100,
+                                    "y": 15,
+                                    "width": 128,
+                                    "height": 128
+                                  }
+                                ]
+                              },
+                              {
+                                "id": "wifi-body",
+                                "type": "ClutterActor",
+                                "background-color": "#83DCC6",
+                                "layout-manager": {
+                                  "type": "ClutterBoxLayout",
+                                  "orientation": 1
+                                },
+                                "width": 1900,
+                                "height": 5,
+                                "children": [
+                                  {
+                                    "id": "wifi-ssid",
+                                    "type": "ClutterText",
+                                    "text": "No Access Points found",
+                                    "color": "#26322F",
+                                    "font-description": "Sans 32",
+                                    "height": 50,
+                                    "width": 1820,
+                                    "margin-left": 250
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "id": "slicer-box",
+                            "type": "ClutterActor",
+                            "width": 1900,
+                            "layout-manager": {
+                              "type": "ClutterBoxLayout",
+                              "orientation": 1
+                            },
+                            "children": [
+                              {
+                                "id": "slicer-header",
+                                "type": "ClutterActor",
+                                "background-color": "#26322F",
+                                "height": 150,
+                                "width": 1900,
+                                "layout-manager": {
+                                  "type": "ClutterFixedLayout"
+                                },
+                                "children": [
+                                  {
+                                    "type": "ClutterText",
+                                    "text": "Slicer",
+                                    "color": "#C5FFF1",
+                                    "x": 250,
+                                    "y": 45,
+                                    "font-description": "Sans 52"
+                                  },
+                                  {
+                                    "type": "ClutterTexture",
+                                    "filename": "slicer_128.png",
+                                    "x": 100,
+                                    "y": 15,
+                                    "width": 128,
+                                    "height": 128
+                                  }
+                                ]
+                              },
+                              {
+                                "id": "slicer-body",
+                                "type": "ClutterActor",
+                                "width": 1900,
+                                "height": 5,
+                                "background-color": "#83DCC6",
+                                "layout-manager": {
+                                  "type": "ClutterFixedLayout"
+                                },
+                                "children": [
+                                  {
+                                    "type": "ClutterText",
+                                    "text": "Layer height: ",
+                                    "x": 250,
+                                    "y": 20,
+                                    "font-description": "Sans 32",
+                                    "color": "#26322F"
+                                  },
+                                  {
+                                    "id": "slicer-layer-height",
+                                    "type": "ClutterText",
+                                    "text": "Not set",
+                                    "x": 800,
+                                    "y": 20,
+                                    "font-description": "Sans 32",
+                                    "color": "#26322F"
+                                  },
+                                  {
+                                    "type": "ClutterText",
+                                    "text": "Print temperature: ",
+                                    "x": 250,
+                                    "y": 80,
+                                    "font-description": "Sans 32",
+                                    "color": "#26322F"
+                                  },
+                                  {
+                                    "id": "slicer-print-temp",
+                                    "type": "ClutterText",
+                                    "text": "Not set",
+                                    "x": 800,
+                                    "y": 80,
+                                    "font-description": "Sans 32",
+                                    "color": "#26322F"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "id": "printer-box",
+                            "type": "ClutterActor",
+                            "width": 1900,
+                            "layout-manager": {
+                              "type": "ClutterBoxLayout",
+                              "orientation": 1
+                            },
+                            "children": [
+                              {
+                                "id": "printer-header",
+                                "type": "ClutterActor",
+                                "height": 150,
+                                "width": 1900,
+                                "background-color": "#26322F",
+                                "layout-manager": {
+                                  "type": "ClutterFixedLayout"
+                                },
+                                "children": [
+                                  {
+                                    "type": "ClutterText",
+                                    "text": "Printer",
+                                    "color": "#C5FFF1",
+                                    "x": 250,
+                                    "y": 45,
+                                    "font-description": "Sans 52"
+                                  },
+                                  {
+                                    "type": "ClutterTexture",
+                                    "filename": "printer_128.png",
+                                    "x": 100,
+                                    "y": 18,
+                                    "width": 128,
+                                    "height": 128
+                                  }
+                                ]
+                              },
+                              {
+                                "id": "printer-body",
+                                "type": "ClutterActor",
+                                "width": 1900,
+                                "height": 5,
+                                "background-color": "#83DCC6",
+                                "layout-manager": {
+                                  "type": "ClutterFixedLayout"
+                                },
+                                "children": [
+                                  {
+                                    "id": "printer-calibrate-bed",
+                                    "type": "ClutterText",
+                                    "text": "Calibrate Bed",
+                                    "font-description": "Sans 32",
+                                    "color": "#26322F",
+                                    "x": 250,
+                                    "y": 20,
+                                    "margin-bottom": 20
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "id": "scroll-header",
+                        "type": "ClutterActor",
+                        "width": 1920,
+                        "height": 90
+                      },
+                      {
+                        "id": "side0-btn-prev",
+                        "type": "MxButton",
+                        "style-class": "settings",
+                        "x": 15,
+                        "y": 15,
+                        "width": 128,
+                        "height": 128,
+                        "visible": false
+                      },
+                      {
+                        "id": "side0-btn-next",
+                        "type": "MxButton",
+                        "style-class": "temp",
+                        "x": 1777,
+                        "y": 15,
+                        "width": 128,
+                        "height": 128,
+                        "visible": true
+                      }
+                    ]
+                  },
+                  {
+                    "id": "side5-content",
+                    "type": "ClutterActor",
+                    "width": 1920,
+                    "height": 1080,
+                    "layout-manager": {
+                      "type": "ClutterBinLayout"
+                    },
+                    "children": [
+                      {
+                        "id": "spash-holder",
+                        "type": "ClutterActor",
+                        "layout-manager": {
+                          "type": "ClutterFixedLayout"
+                        },
+                        "width": 900,
+                        "height": 900,
+                        "children": [
+                          {
+                            "id": "splash",
+                            "type": "ClutterTexture",
+                            "filename": "logo_900.png"
+                          },
+                          {
+                            "id": "splash-status",
+                            "type": "ClutterText",
+                            "text": "Toggle initializing...",
+                            "color": "#FFFFFF",
+                            "x": 100,
+                            "y": 780,
+                            "font-description": "Sans 32"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "side5-btn-next",
+                        "type": "MxButton",
+                        "style-class": "temp",
+                        "x": 1777,
+                        "y": 15,
+                        "width": 128,
+                        "height": 128,
+                        "opacity": 0
+                      },
+                      {
+                        "id": "side5-btn-prev",
+                        "type": "MxButton",
+                        "style-class": "settings",
+                        "x": 15,
+                        "y": 15,
+                        "width": 128,
+                        "height": 128,
+                        "opacity": 0
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "side1",
+                "type": "ClutterActor",
+                "width": 1920,
+                "height": 1080,
+                "pivot-point-z": -540.0,
+                "pivot-point": [0.5, 0.0],
+                "rotation-angle-y": 90.0,
+                "background-color": "#83DCC6",
+                "visible": false,
+                "children": [
+                  {
+                    "id": "side1-content",
+                    "type": "ClutterActor",
+                    "children": [
+                      {
+                        "id": "graph-title",
+                        "type": "ClutterText",
+                        "text": "Temperature",
+                        "color": "#26322F",
+                        "width": 500,
+                        "height": 100,
+                        "y": 75,
+                        "x": 750,
+                        "font-description": "Sans 32"
+                      },
+                      {
+                        "id": "graph",
+                        "type": "ClutterActor",
+                        "width": 1900,
+                        "height": 800,
+                        "x": 10,
+                        "y": 80
+                      },
+                      {
+                        "id": "heat-bed",
+                        "type": "ClutterTexture",
+                        "filename": "heater_bed_cold_128.png",
+                        "reactive": true,
+                        "x": 596,
+                        "y": 900,
+                        "width": 128,
+                        "height": 128
+                      },
+                      {
+                        "id": "heat-tool0",
+                        "type": "ClutterTexture",
+                        "filename": "heater_cold_128.png",
+                        "reactive": true,
+                        "x": 796,
+                        "y": 900,
+                        "width": 128,
+                        "height": 128
+                      },
+                      {
+                        "id": "heat-tool1",
+                        "type": "ClutterTexture",
+                        "filename": "heater_cold_128.png",
+                        "reactive": true,
+                        "x": 996,
+                        "y": 900,
+                        "width": 128,
+                        "height": 128
+                      },
+                      {
+                        "id": "heat-tool2",
+                        "type": "ClutterTexture",
+                        "filename": "heater_cold_128.png",
+                        "reactive": true,
+                        "x": 1196,
+                        "y": 900,
+                        "width": 128,
+                        "height": 128
+                      },
+                      {
+                        "id": "lbl-temp",
+                        "type": "ClutterText",
+                        "text": "Temperature",
+                        "x": 1205,
+                        "y": 1000,
+                        "width": 700,
+                        "height": 50,
+                        "x-align": 3,
+                        "x-expand": true,
+                        "line-alignment": 2,
+                        "font-description": "Sans 32",
+                        "color": "#26322F"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "side1-btn-prev",
+                    "type": "MxButton",
+                    "style-class": "settings",
+                    "is_toggle": true,
+                    "x": 15,
+                    "y": 15,
+                    "height": 128,
+                    "width": 128
+                  },
+                  {
+                    "id": "side1-btn-next",
+                    "type": "MxButton",
+                    "style-class": "print",
+                    "is_toggle": true,
+                    "x": 1777,
+                    "y": 15,
+                    "height": 128,
+                    "width": 128
+                  }
+                ]
+              },
+              {
+                "id": "side2",
+                "type": "ClutterActor",
+                "width": 1920,
+                "height": 1080,
+                "pivot-point-z": -540.0,
+                "pivot-point": [0.5, 0.0],
+                "rotation-angle-y": 180.0,
+                "visible": false,
+                "background-color": "#83DCC6",
+                "children": [
+                  {
+                    "id": "side2-content",
+                    "type": "ClutterActor",
+                    "children": [
+                      {
+                        "id": "content-flip",
+                        "type": "ClutterActor",
+                        "width": 1440,
+                        "height": 800,
+                        "pivot-point": [0.5, 0.5],
+                        "x": 340,
+                        "layout-manager": { "type": "ClutterFixedLayout" },
+                        "children": [
+                          {
+                            "id": "volume-viewport",
+                            "type": "ClutterActor",
+                            "width": 1440,
+                            "height": 540,
+                            "x": 100,
+                            "pivot-point": [0.5, 0.5],
+                            "layout-manager": { "type": "ClutterFixedLayout" },
+                            "children": [
+                              {
+                                "id": "spinner",
+                                "type": "ClutterActor",
+                                "x": 720,
+                                "y": 700,
+                                "z-position": 150,
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "children": [
+                                  {
+                                    "id": "volume-wrapper",
+                                    "type": "ClutterActor",
+                                    "pivot-point": [0.5, 0.5],
+                                    "pivot-point-z": 0.5,
+                                    "width": 1,
+                                    "height": 1,
+                                    "depth": 1,
+                                    "rotation-angle-x": 180.0,
+                                    "rotation-angle-y": 180.0,
+                                    "scale-x": 2.0,
+                                    "scale-y": 2.0,
+                                    "scale-z": 2.0,
+                                    "children": [
+                                      {
+                                        "id": "plate",
+                                        "type": "MashModel",
+                                        "rotation-angle-x": -90.0,
+                                        "background-color": "#C5FFF1"
+                                      },
+                                      {
+                                        "id": "model-flipper",
+                                        "type": "ClutterActor",
+                                        "children": [
+                                          {
+                                            "id": "model",
+                                            "type": "MashModel",
+                                            "rotation-angle-x": 90.0,
+                                            "rotation-angle-y": 0.0,
+                                            "rotation-angle-z": 0.0,
+                                            "background-color": "#FA8700"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "id": "loader",
+                                "type": "ClutterTexture",
+                                "filename": "loading_128.png",
+                                "width": 128,
+                                "height": 128,
+                                "x": 650,
+                                "y": 400,
+                                "pivot-point": [0.5, 0.5],
+                                "visible": false
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "id": "btn-bar",
+                        "type": "ClutterActor",
+                        "children": [
+                          {
+                            "id": "btn-prev",
+                            "type": "ClutterTexture",
+                            "filename": "arrow_disabled_128.png",
+                            "reactive": true,
+                            "height": 128,
+                            "width": 128,
+                            "x": 15,
+                            "y": 500,
+                            "rotation-angle-z": 180.0,
+                            "pivot-point": [0.5, 0.5]
+                          },
+                          {
+                            "id": "lbl-stat",
+                            "type": "ClutterText",
+                            "x": 15,
+                            "y": 900,
+                            "font-description": "Sans 32",
+                            "color": "#26322F"
+                          },
+                          {
+                            "id": "lbl-model",
+                            "type": "ClutterText",
+                            "text": "Model",
+                            "x": 1265,
+                            "y": 890,
+                            "width": 640,
+                            "height": 50,
+                            "x-align": 3,
+                            "x-expand": true,
+                            "line-alignment": 2,
+                            "font-description": "Sans 32",
+                            "color": "#26322F"
+                          },
+                          {
+                            "id": "progress-bar-bg",
+                            "type": "ClutterActor",
+                            "x": 1265,
+                            "y": 940,
+                            "width": 640,
+                            "height": 50,
+                            "background-color": "#26322F",
+                            "layout-manager": { "type": "ClutterFixedLayout" },
+                            "children": [
+                              {
+                                "id": "progress-bar-undone",
+                                "type": "ClutterActor",
+                                "x": 1,
+                                "y": 1,
+                                "width": 638,
+                                "height": 48,
+                                "background-color": "#83DCC6"
+                              },
+                              {
+                                "id": "progress-bar",
+                                "type": "ClutterActor",
+                                "x": 1,
+                                "y": 1,
+                                "width": 0,
+                                "height": 48,
+                                "background-color": "#C5FFF1"
+                              }
+                            ]
+                          },
+                          {
+                            "id": "time-gone",
+                            "type": "ClutterText",
+                            "x": 1265,
+                            "y": 910,
+                            "width": 220,
+                            "height": 25,
+                            "font-description": "Sans 16",
+                            "color": "#26322F"
+                          },
+                          {
+                            "id": "time-left",
+                            "type": "ClutterText",
+                            "x": 1680,
+                            "y": 910,
+                            "width": 220,
+                            "height": 25,
+                            "x-align": 3,
+                            "x-expand": true,
+                            "font-description": "Sans 16",
+                            "color": "#26322F"
+                          },
+                          {
+                            "id": "btn-cancel",
+                            "type": "MxButton",
+                            "style-class": "cancel",
+                            "is-toggle": true,
+                            "toggled": true,
+                            "x": 696,
+                            "y": 900,
+                            "width": 128,
+                            "height": 128
+                          },
+                          {
+                            "id": "btn-print",
+                            "type": "MxButton",
+                            "style-class": "play",
+                            "is_toggle": true,
+                            "x": 896,
+                            "y": 900,
+                            "width": 128,
+                            "height": 128
+                          },
+                          {
+                            "id": "btn-pause",
+                            "type": "MxButton",
+                            "style-class": "pause",
+                            "is_toggle": true,
+                            "x": 1096,
+                            "y": 900,
+                            "width": 128,
+                            "height": 128
+                          },
+                          {
+                            "id": "btn-next",
+                            "type": "ClutterTexture",
+                            "filename": "arrow_disabled_128.png",
+                            "reactive": true,
+                            "height": 128,
+                            "width": 128,
+                            "x": 1777,
+                            "y": 500,
+                            "rotation-angle-z": 0.0,
+                            "pivot-point": [0.5, 0.5]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "side2-btn-prev",
+                    "type": "MxButton",
+                    "style-class": "temp",
+                    "x": 15,
+                    "y": 15,
+                    "width": 128,
+                    "height": 128
+                  },
+                  {
+                    "id": "side2-btn-next",
+                    "type": "MxButton",
+                    "style-class": "jog",
+                    "x": 1777,
+                    "y": 15,
+                    "width": 128,
+                    "height": 128
+                  }
+                ]
+              },
+              {
+                "id": "side3",
+                "type": "ClutterActor",
+                "width": 1920,
+                "height": 1080,
+                "pivot-point-z": -540.0,
+                "pivot-point": [0.5, 0.0],
+                "rotation-angle-y": 270.0,
+                "visible": false,
+                "background-color": "#83DCC6",
+                "children": [
+                  {
+                    "id": "side3-content",
+                    "type": "ClutterActor",
+                    "width": 1920,
+                    "height": 1080,
+                    "children": [
+                      {
+                        "id": "jogger-xy",
+                        "type": "ClutterActor",
+                        "x": 120,
+                        "y": 160,
+                        "width": 700,
+                        "height": 700,
+                        "children": [
+                          {
+                            "id": "jog_x_minus",
+                            "type": "MxButton",
+                            "style-class": "jog_arrow",
+                            "height": 140,
+                            "width": 140,
+                            "x": 0,
+                            "y": 250,
+                            "rotation-angle-z": 180.0,
+                            "pivot-point": [0.5, 0.5]
+                          },
+                          {
+                            "id": "jog_y_plus",
+                            "type": "MxButton",
+                            "style-class": "jog_arrow",
+                            "height": 140,
+                            "width": 140,
+                            "x": 240,
+                            "y": 0,
+                            "rotation-angle-z": 270.0,
+                            "pivot-point": [0.5, 0.5]
+                          },
+                          {
+                            "id": "jog_x_plus",
+                            "type": "MxButton",
+                            "style-class": "jog_arrow",
+                            "width": 140,
+                            "height": 140,
+                            "x": 480,
+                            "y": 250,
+                            "rotation-angle-z": 0.0,
+                            "pivot-point": [0.5, 0.5]
+                          },
+                          {
+                            "id": "jog_y_minus",
+                            "type": "MxButton",
+                            "style-class": "jog_arrow",
+                            "height": 140,
+                            "width": 140,
+                            "x": 240,
+                            "y": 500,
+                            "rotation-angle-z": 90.0,
+                            "pivot-point": [0.5, 0.5]
+                          },
+                          {
+                            "id": "jog_home",
+                            "type": "MxButton",
+                            "style-class": "jog_home",
+                            "height": 200,
+                            "width": 200,
+                            "x": 205,
+                            "y": 220
+                          }
+                        ]
+                      },
+                      {
+                        "id": "jogger-z",
+                        "type": "ClutterActor",
+                        "x": 765,
+                        "y": 160,
+                        "width": 70,
+                        "height": 300,
+                        "children": [
+                          {
+                            "id": "jog_z_plus",
+                            "type": "MxButton",
+                            "style-class": "jog_arrow",
+                            "height": 140,
+                            "width": 140,
+                            "x": 120,
+                            "y": 0,
+                            "rotation-angle-z": 270.0,
+                            "pivot-point": [0.5, 0.5]
+                          },
+                          {
+                            "id": "jog_z_minus",
+                            "type": "MxButton",
+                            "style-class": "jog_arrow",
+                            "height": 140,
+                            "width": 140,
+                            "x": 120,
+                            "y": 500,
+                            "rotation-angle-z": 90.0,
+                            "pivot-point": [0.5, 0.5]
+                          },
+                          {
+                            "id": "jog_z_home",
+                            "type": "MxButton",
+                            "style-class": "jog_home_z",
+                            "height": 140,
+                            "width": 140,
+                            "x": 120,
+                            "y": 250
+                          }
+                        ]
+                      },
+                      {
+                        "id": "misc-control",
+                        "type": "ClutterActor",
+                        "x": 1100,
+                        "y": 160,
+                        "width": 70,
+                        "height": 300,
+                        "children": [
+                          {
+                            "id": "motors_off",
+                            "type": "MxButton",
+                            "style-class": "motors_off",
+                            "height": 140,
+                            "width": 140,
+                            "x": 120,
+                            "y": 0
+                          },
+                          {
+                            "id": "fan_on",
+                            "type": "MxButton",
+                            "style-class": "fan_on",
+                            "height": 140,
+                            "width": 140,
+                            "x": 120,
+                            "y": 250
+                          },
+                          {
+                            "id": "fan_off",
+                            "type": "MxButton",
+                            "style-class": "fan_off",
+                            "height": 140,
+                            "width": 140,
+                            "x": 120,
+                            "y": 500
+                          }
+                        ]
+                      },
+                      {
+                        "id": "jogger-e",
+                        "type": "ClutterActor",
+                        "x": 1400,
+                        "y": 160,
+                        "width": 130,
+                        "height": 300,
+                        "children": [
+                          {
+                            "id": "jog_e_extrude",
+                            "type": "MxButton",
+                            "style-class": "jog_arrow",
+                            "height": 140,
+                            "width": 140,
+                            "x": 120,
+                            "y": 0,
+                            "rotation-angle-z": 270.0,
+                            "pivot-point": [0.5, 0.5]
+                          },
+                          {
+                            "id": "jog_e_retract",
+                            "type": "MxButton",
+                            "style-class": "jog_arrow",
+                            "height": 140,
+                            "width": 140,
+                            "x": 120,
+                            "y": 500,
+                            "rotation-angle-z": 90.0,
+                            "pivot-point": [0.5, 0.5]
+                          },
+                          {
+                            "id": "jog_e_toggle",
+                            "type": "MxButton",
+                            "style-class": "jog_home_e",
+                            "is_toggle": true,
+                            "height": 140,
+                            "width": 140,
+                            "x": 120,
+                            "y": 250
+                          }
+                        ]
+                      },
+                      {
+                        "id": "travel-length",
+                        "type": "ClutterText",
+                        "text": "",
+                        "x": 1080,
+                        "y": 900,
+                        "width": 300,
+                        "height": 50,
+                        "x-align": 3,
+                        "x-expand": true,
+                        "line-alignment": 2,
+                        "font-description": "Sans 32"
+                      },
+                      {
+                        "id": "travel_xy",
+                        "type": "MxButton",
+                        "style-class": "travel_10",
+                        "is_toggle": true,
+                        "x": 696,
+                        "y": 900,
+                        "width": 128,
+                        "height": 128
+                      },
+                      {
+                        "id": "travel_z",
+                        "type": "MxButton",
+                        "style-class": "travel_10",
+                        "is_toggle": true,
+                        "x": 896,
+                        "y": 900,
+                        "width": 128,
+                        "height": 128
+                      },
+                      {
+                        "id": "travel_eh",
+                        "type": "MxButton",
+                        "style-class": "travel_10",
+                        "is_toggle": true,
+                        "x": 1096,
+                        "y": 900,
+                        "width": 128,
+                        "height": 128
+                      }
+                    ]
+                  },
+                  {
+                    "id": "side3-btn-prev",
+                    "type": "MxButton",
+                    "style-class": "print",
+                    "width": 128,
+                    "height": 128,
+                    "x": 15,
+                    "y": 15
+                  },
+                  {
+                    "id": "side3-btn-next",
+                    "type": "MxButton",
+                    "style-class": "settings",
+                    "width": 128,
+                    "height": 128,
+                    "x": 1777,
+                    "y": 15,
+                    "visible": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "state",
+            "type": "ClutterActor",
+            "width": 600,
+            "height": 64,
+            "x": 15,
+            "y": 1000,
+            "layout-manager": {
+              "type": "ClutterFlowLayout"
+            },
+            "children": [
+              {
+                "id": "connection",
+                "type": "ClutterTexture",
+                "height": 64,
+                "width": 64,
+                "filename": "connection_64.png"
+              },
+              {
+                "id": "connection-disabled",
+                "type": "ClutterTexture",
+                "height": 64,
+                "width": 64,
+                "filename": "connection_disabled_64.png"
+              },
+              {
+                "id": "printing",
+                "type": "ClutterTexture",
+                "height": 64,
+                "width": 64,
+                "filename": "running_64.png"
+              },
+              {
+                "id": "paused",
+                "type": "ClutterTexture",
+                "height": 64,
+                "width": 64,
+                "filename": "paused_64.png"
+              },
+              {
+                "id": "heartbeat",
+                "type": "ClutterTexture",
+                "height": 64,
+                "width": 64,
+                "filename": "heartbeat_64.png",
+                "opacity": 0
+              }
+            ]
+          },
+          {
+            "id": "msg",
+            "type": "ClutterActor",
+            "width": 1920,
+            "height": 1080,
+            "background-color": "#000C",
+            "opacity": 0,
+            "layout-manager": {
+              "type": "ClutterBinLayout"
+            },
+            "children": [
+              {
+                "id": "txt",
+                "type": "ClutterText",
+                "font-description": "Sans 36",
+                "color": "#FFF",
+                "height": 100
+              }
+            ]
+          },
+          {
+            "id": "wifi-overlay",
+            "type": "ClutterActor",
+            "width": 1920,
+            "height": 1080,
+            "background-color": "#000C",
+            "layout-manager": {
+              "type": "ClutterFixedLayout"
+            },
+            "visible": false,
+            "children": [
+              {
+                "id": "wifi-text",
+                "type": "ClutterText",
+                "font-description": "Sans 24",
+                "color": "#FFF",
+                "height": 100,
+                "text": "Password:",
+                "x": 120,
+                "y": 70
+              },
+              {
+                "id": "wifi-input",
+                "type": "MxEntry",
+                "height": 60,
+                "width": 1600,
+                "x": 120,
+                "y": 110
+              },
+              {
+                "id": "wifi-status",
+                "type": "ClutterText",
+                "font-description": "Sans 12",
+                "color": "#FFF",
+                "x": 120,
+                "y": 200
+              },
+              {
+                "id": "wifi-ok",
+                "type": "MxButton",
+                "label": "OK",
+                "x": 1550,
+                "y": 185
+              },
+              {
+                "id": "wifi-cancel",
+                "type": "MxButton",
+                "label": "Cancel",
+                "x": 1620,
+                "y": 185
+              },
+              {
+                "id": "keyboard",
+                "type": "ClutterActor",
+                "width": 1920,
+                "height": 720,
+                "y": 240,
+                "pivot-point-z": -400.0,
+                "pivot-point": [0.5, 0.5],
+                "rotation-angle-x": 0.0,
+                "layout-manager": {
+                  "type": "ClutterBoxLayout",
+                  "orientation": 1
+                },
+                "children": [
+                  {
+                    "id": "key-style",
+                    "type": "MxButton",
+                    "style-class": "keyboard_1080",
+                    "visible": false
+                  },
+                  {
+                    "id": "row-0",
+                    "type": "ClutterActor",
+                    "height": 200,
+                    "layout-manager": {
+                      "type": "ClutterBoxLayout",
+                      "orientation": 0,
+                      "spacing": 17
+                    }
+                  },
+                  {
+                    "id": "row-1",
+                    "type": "ClutterActor",
+                    "height": 200,
+                    "layout-manager": {
+                      "type": "ClutterBoxLayout",
+                      "orientation": 0,
+                      "spacing": 19
+                    }
+                  },
+                  {
+                    "id": "row-2",
+                    "type": "ClutterActor",
+                    "height": 200,
+                    "layout-manager": {
+                      "type": "ClutterBoxLayout",
+                      "orientation": 0,
+                      "spacing": 19
+                    }
+                  },
+                  {
+                    "id": "row-3",
+                    "height": 200,
+                    "type": "ClutterActor",
+                    "layout-manager": {
+                      "type": "ClutterBoxLayout",
+                      "orientation": 0,
+                      "spacing": 19
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "cursor",
+            "type": "ClutterActor",
+            "width": 48,
+            "height": 48,
+            "children": [
+              {
+                "id": "pointer",
+                "type": "MxButton",
+                "height": 48,
+                "width": 48,
+                "style-class": "mouse"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -2,27 +2,8 @@ import logging
 import os
 import time
 import json
-
 from gi.repository import GLib
-
 from threading import current_thread
-
-
-# A Local update, when added to the queue, is executed by adding it
-# with Clutter.threads_add_idle
-# NOTE: NOT IN USE
-class LocalUpdate:
-  def __init__(self, update_type, payload):
-    self.update_type = update_type
-    self.payload = payload
-
-  def execute(self, config):
-    self.config = config
-    if hasattr(self, self.update_type):
-      #logging.debug("Got LocalUpdate "+self.update_type+": "+str(self.payload))
-      getattr(self, self.update_type)()
-    else:
-      print("missing function " + str(self.update_type))
 
 
 # A Local update, when added to the queue, is executed by adding it

@@ -1,0 +1,7 @@
+pytest
+pytest-mock
+mock
+sympy
+requests
+requests-mock
+https://github.com/liamw9534/pyconnman/archive/master.tar.gz#egg=pyconnman

@@ -34,6 +34,7 @@ class Printer:
     tap_cancel.connect("tap", self.cancel_print, None)
 
     self.progress = self.config.ui.get_object("progress-bar")
+    self.progress_max = self.config.ui.get_object("progress-bar-undone").get_width()
     self.time_gone = self.config.ui.get_object("time-gone")
     self.time_left = self.config.ui.get_object("time-left")
 
@@ -42,6 +43,7 @@ class Printer:
 
     self.heartbeat = self.config.ui.get_object("heartbeat")
     self.connection = self.config.ui.get_object("connection")
+    self.connection_disabled = self.config.ui.get_object("connection-disabled")
     self.printing = self.config.ui.get_object("printing")
     self.paused = self.config.ui.get_object("paused")
     #self.lbl_temp   = self.config.ui.get_object("lbl-temp")
@@ -119,16 +121,8 @@ class Printer:
       self.btn_cancel.set_toggled(False)
 
   def update_next_buttons(self):
-    if self.flags["operational"]:
-      if self.flags["printing"]:
-        self.btn_next.set_toggled(True)
-        self.btn_prev.set_toggled(True)
-      else:
-        self.btn_next.set_toggled(False)
-        self.btn_prev.set_toggled(False)
-    else:
-      self.btn_next.set_toggled(True)
-      self.btn_prev.set_toggled(True)
+    can_select_model = self.flags["operational"] and not self.flags["printing"]
+    self.config.loader.is_model_selection_enabled(can_select_model)
 
   # Update the current state of the printer.
   # This sets the flags shown in the bottom left corner.
@@ -137,9 +131,10 @@ class Printer:
     #print self.config.loader.model_selected
     self.set_status(state["text"])
     self.flags = state["flags"]
-    self.connection.set_toggled(self.flags["operational"])
-    self.printing.set_toggled(self.flags["printing"])
-    self.paused.set_toggled(self.flags["paused"])
+    self.connection.set_property("visible", self.flags["operational"])
+    self.connection_disabled.set_property("visible", not self.flags["operational"])
+    self.printing.set_property("visible", self.flags["printing"])
+    self.paused.set_property("visible", self.flags["paused"])
 
     self.update_print_button()
     self.update_cancel_button()
@@ -155,9 +150,12 @@ class Printer:
     if self.flags["closedOrError"]:
       pass
 
+  def calculate_progress_width(self, completion):
+    return self.progress_max * completion
+
   def update_progress(self, progress):
     if progress["completion"]:
-      self.progress.set_progress(progress["completion"] / 100.0)
+      self.progress.set_width(self.calculate_progress_width(progress["completion"] / 100.0))
       self.config.loader.model.set_progress(progress["completion"] / 100.0)
     if progress['printTimeLeft']:
       left = self.format_time(progress['printTimeLeft'])

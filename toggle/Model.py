@@ -14,10 +14,8 @@ class Model(Mash.Model):
 
     self.config = config
     self.model = config.ui.get_object("model")
-    color_str = config.get("System", "model-color")
-    self.color = Clutter.Color.from_string(color_str)[1]
+    self.color = self.model.get_background_color()
     self.loader = config.ui.get_object("loader")
-    self.loader.set_from_file(config.get("System", "loader"))
 
     self.model_data = Mash.Data()
     self.model.set_data(self.model_data)
@@ -94,6 +92,27 @@ class Model(Mash.Model):
   def select_none(self):
     self.loader.hide()
     self.model.hide()
+
+  def select_missing(self):
+    self.model.hide()
+    path = self.config.style.get_missing_model_filename()
+    if not os.path.isfile(path):
+      logging.warning(path + " is not a file")
+    try:
+      self.model_data.load(0, path)
+      self.model.set_data(self.model_data)
+    except BaseException:
+      logging.warning("Unable to open model " + path)
+      raise
+      return
+    self.model_data.get_extents(self.v_min, self.v_max)
+    (self.width, self.height) = self.model.get_size()
+    self.depth = self.v_max.z - self.v_min.z
+    self.model.set_y(-0.01 - self.depth / 2.0)    # Prevent Z-fighting
+    self.model.set_x(-self.width / 2.0)
+    self.model.set_z_position(-self.height / 2.0)
+    self.set_progress(0)
+    self.model.show()
 
   def set_progress(self, progress):
     # TODO: progress now assumes that the model starts

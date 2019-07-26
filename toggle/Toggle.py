@@ -16,7 +16,7 @@ from .FilamentGraph import FilamentGraph
 from .TemperatureGraph import TemperatureGraph
 from .Graph import Graph, GraphScale, GraphPlot
 from .Message import Message
-from .Event import Event, PushUpdate, LocalUpdate
+from .Event import Event, PushUpdate
 from .RestClient import RestClient
 from .WebSocksClient import WebSocksClient
 from .CascadingConfigParser import CascadingConfigParser
@@ -25,6 +25,7 @@ from .ModelLoader import ModelLoader
 from .VolumeStage import VolumeStage
 from .Plate import Plate
 from .Model import Model
+from .StyleLoader import StyleLoader
 from threading import Thread, current_thread
 from gi.repository import GObject, Clutter, Mx
 from dbus.mainloop.glib import DBusGMainLoop
@@ -78,19 +79,15 @@ class LoggerWriter:
 
 
 class Toggle:
+  CONFIG_BASE = "/etc/toggle"
+
   def __init__(self):
     from .__init__ import __version__
     logging.info("Initializing  Toggle {}".format(__version__))
 
-    file_path = os.path.join("/etc/toggle", "local.cfg")
-    if not os.path.exists(file_path):
-      logging.info(file_path + " does not exist, Creating one")
-      os.mknod(file_path)
-      os.chmod(file_path, 0o666)
-
-    # Parse the config files.
-    config = CascadingConfigParser(
-        ['/etc/toggle/default.cfg', '/etc/toggle/printer.cfg', '/etc/toggle/local.cfg'])
+    config_files = ['default.cfg', 'printer.cfg', 'local.cfg']
+    config_paths = [os.path.join(Toggle.CONFIG_BASE, f) for f in config_files]
+    config = CascadingConfigParser(config_paths)
 
     # Get loglevel from the Config file
     level = config.getint('System', 'loglevel')
@@ -102,45 +99,36 @@ class Toggle:
 
     Clutter.init(None)
 
-    style = Mx.Style.get_default()
-    style.load_from_file(config.get("System", "stylesheet"))
+    config.file_base = Toggle.CONFIG_BASE
 
-    config.ui = Clutter.Script()
-    try:
-      config.ui.load_from_file(config.get("System", "ui"))
-    except BaseException:
-      print("Error loading UI")
-      import traceback
-      traceback.print_exc()
+    config.screen_width = config.getint("Screen", "width")
+    config.screen_height = config.getint("Screen", "height")
+    config.screen_rot = config.getint("Screen", "rotation")
+    config.screen_full = config.getboolean("Screen", "fullscreen")
+
+    config.style = StyleLoader(config)
+    config.style.load_from_config()
+    config.ui = config.style.ui
+
     config.stage = config.ui.get_object("stage")
     config.stage.connect("destroy", self.stop)
     config.stage.connect('key-press-event', self.key_press)
 
-    config.screen_width = config.getint("Screen", "width")
-    config.screen_height = config.getint("Screen", "height")
-    config.screen_rot = config.get("Screen", "rotation")
-    config.screen_full = config.getboolean("Screen", "fullscreen")
-
-    # Set up tabs
     config.tabs = CubeTabs(config.ui, 4)
     config.splash = Splash(config)
     config.splash.set_status("Starting Toggle {} ...".format(__version__))
     config.jog = Jog(config)
     config.temp_graph = TemperatureGraph(config)
-    config.filament_graph = FilamentGraph(config)
+    if config.getboolean('System', 'use-filament-graph'):
+      config.filament_graph = FilamentGraph(config)
     config.network = Network.get_manager(config)
     config.settings = Settings(config)
-
-    # Set up SockJS and REST clients
     config.rest_client = RestClient(config)
-
-    # Add other stuff
     config.volume_stage = VolumeStage(config)
     config.message = Message(config)
     config.printer = Printer(config)
     config.loader = ModelLoader(config)
     config.plate = Plate(config)
-
     config.socks_client = WebSocksClient(config, self.on_connected_cb)
 
     # mouse
@@ -159,7 +147,6 @@ class Toggle:
 
     config.push_updates = Queue.Queue(10)
     self.config = config
-    config.plate.make_scale()
     config.stage.show()
 
   def on_connected_cb(self):
@@ -175,14 +162,14 @@ class Toggle:
     # fbdev app
     #self.config.mouse_offset_x = 0
     #self.config.mouse_offset_y = 0
-    if self.config.screen_rot == "90":
+    if self.config.screen_rot == 90:
       self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 90.0)
       self.config.ui.get_object("all").set_position(self.config.screen_width, 0)
       #self.config.mouse_offset_x = self.config.screen_width
-    elif self.config.screen_rot == "270":
+    elif self.config.screen_rot == 270:
       self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, -90.0)
       self.config.ui.get_object("all").set_position(0, self.config.screen_height)
-    elif self.config.screen_rot == "180":
+    elif self.config.screen_rot == 180:
       self.config.ui.get_object("all").set_pivot_point(0.5, 0.5)
       self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 180.0)
 

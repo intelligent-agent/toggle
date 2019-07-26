@@ -3,7 +3,6 @@ import socket
 import os
 import uuid
 import logging
-from gi.repository import GObject
 
 
 class Network:
@@ -22,6 +21,8 @@ class Network:
     cmd = os.popen("systemctl | grep NetworkManager").read()
     if "active" in cmd:
       logging.debug("Using NetworkManager")
+      from .SecretAgent import SecretAgent
+      config.agent = SecretAgent(config)
       return NetworkManager(config)
     logging.warning("Neither NetworkManager nor Connman was found")
     return None
@@ -42,7 +43,11 @@ class ConnMan(Network):
     import dbus
     self.dbus = dbus
     self.p = pyconnman
-    self.manager = pyconnman.ConnManager()
+    try:
+      self.manager = pyconnman.ConnManager()
+    except dbus.exceptions.DBusException as e:
+      logging.warning("Connman not a known service on DBus")
+      return
     self.technologies = self.manager.get_technologies()
     self.wifi = None
     self.ethernet = None
@@ -174,7 +179,6 @@ class NetworkManager(Network):
   def __init__(self, config):
     Network.__init__(self)
     import NetworkManager as SystemNetworkManager
-    from .SecretAgent import SecretAgent
     self.nm = SystemNetworkManager
     self.devices = self.nm.NetworkManager.GetDevices()
     self.wifi = None
@@ -188,7 +192,6 @@ class NetworkManager(Network):
       if dev.DeviceType == SystemNetworkManager.NM_DEVICE_TYPE_ETHERNET:
         self.ethernet = dev
     self.aps_by_path = {}
-    self.agent = SecretAgent(config)
 
   def has_wifi_capabilities(self):
     return not not self.wifi
