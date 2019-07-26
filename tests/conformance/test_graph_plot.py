@@ -4,8 +4,8 @@ import sys
 sys.modules['gi'] = mock.MagicMock()
 sys.modules['gi.repository'] = mock.MagicMock()
 sys.modules['gi.repository.Clutter'] = mock.MagicMock()
+sys.modules['cairo'] = mock.MagicMock()
 
-#clutter = pytest.importorskip("gi.repository.Clutter")
 from toggle.Graph import Graph, GraphPlot, GraphScale
 
 
