@@ -656,6 +656,7 @@
                               {
                                 "id": "loader",
                                 "type": "ClutterTexture",
+                                "filename": "loading_128.png",
                                 "width": 64,
                                 "height": 64,
                                 "x": 268,
@@ -1151,7 +1152,7 @@
                 "type": "ClutterTexture",
                 "height": 32,
                 "width": 32,
-                "style-class": "connection"
+                "filename": "connection_64.png"
               },
               {
                 "id": "connection-disabled",
