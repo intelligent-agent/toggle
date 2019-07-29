@@ -1,18 +1,68 @@
 import pytest
 import mock
-from toggle.core.ModelLoader import ModelLoader
+import os
+from toggle.core.ModelLoader import ModelLoader, ModelFile
 
 
 def test_model_loader_sync(default_config):
-  default_config.style = mock.Mock()
-  default_config.style.file_base = ""
+  default_config.set("System", "model_folder", "./")
   default_config.rest_client = DummyRestClient()
   loader = ModelLoader(default_config)
   loader.sync_models()
-  assert (loader.models.count() == 8)
+  assert (loader.models.count() == 11)
+
+
+def test_file_model(default_config):
+  default_config.rest_client = DummyRestClient()
+  file = get_dummy_file()
+  if not os.path.isdir("./tmp-pytest"):
+    os.mkdir("./tmp-pytest")
+  default_config.set("System", "model_folder", "./tmp-pytest")
+  m = ModelFile(file, default_config)
+  m.add_stl_url("test")
+  assert (m.get_stl_name() == "Dolf-Lundgren.stl")
+  assert (m.get_name() == "Dolf-Lundgren.gco")
+  assert (m.has_stl())
+  assert (m.get_stl_hash() == file['links'][0]['hash'])
+  assert (m.is_local_machinecode())
+  assert (m.get_stl_path() == "./tmp-pytest/Dolf-Lundgren.stl")
+  if os.path.isfile("./tmp-pytest/Dolf-Lundgren.stl"):
+    os.remove("./tmp-pytest/Dolf-Lundgren.stl")
+  assert (m.download_stl())
+  assert (m.is_stl_available_locally() == True)
+  with open("./tmp-pytest/Dolf-Lundgren.stl") as f:
+    assert (f.read() == "Bruce Willis")
+  if os.path.isfile("./tmp-pytest/Dolf-Lundgren.stl"):
+    os.remove("./tmp-pytest/Dolf-Lundgren.stl")
+  if os.path.isdir("./tmp-pytest"):
+    os.rmdir("./tmp-pytest")
+
+
+def get_dummy_file():
+  return {
+      'display':
+          'Dolf-Lundgren.gco',
+      'hash':
+          '4d80ca23ce7ffa1ede4cf165dd00fc440741cf1c',
+      'links': [{
+          'hash': '23d9e81c835090eabe405b129f8dba531fe5883e',
+          'name': 'Dolf-Lundgren.stl',
+          'rel': 'model'
+      }],
+      'name':
+          'Dolf-Lundgren.gco',
+      'origin':
+          'local',
+      'type':
+          'machinecode',
+      'typePath': ['machinecode', 'gcode']
+  }
 
 
 class DummyRestClient:
+  def download_model(self, url):
+    return bytes(b"Bruce Willis")
+
   def get_list_of_files(self):
     return {
         'files': [
@@ -47,28 +97,6 @@ class DummyRestClient:
             {
                 'date': 1564177863,
                 'display': 'Effector-base_0.3mm_PLA_MK3_27m.gcode',
-                'gcodeAnalysis': {
-                    'dimensions': {
-                        'depth': 62.293,
-                        'height': 11.700000000000001,
-                        'width': 62.334
-                    },
-                    'estimatedPrintTime': 1896.8810937668425,
-                    'filament': {
-                        'tool0': {
-                            'length': 1803.3530900000535,
-                            'volume': 4.337572502332163
-                        }
-                    },
-                    'printingArea': {
-                        'maxX': 31.168,
-                        'maxY': 31.144,
-                        'maxZ': 12.05,
-                        'minX': -31.166,
-                        'minY': -31.149,
-                        'minZ': 0.35
-                    }
-                },
                 'hash': '7ff2c73315e5b6cace66ae7212b1fb7c4ccd4761',
                 'name': 'Effector-base_0.3mm_PLA_MK3_27m.gcode',
                 'origin': 'local',
@@ -86,28 +114,6 @@ class DummyRestClient:
             {
                 'date': 1564148857,
                 'display': 'FlowSupport_0.2mm_PLA_MK3S_47m.gcode',
-                'gcodeAnalysis': {
-                    'dimensions': {
-                        'depth': 128.559,
-                        'height': 16.0,
-                        'width': 156.312
-                    },
-                    'estimatedPrintTime': 1841.9913320970074,
-                    'filament': {
-                        'tool0': {
-                            'length': 2556.0312600001544,
-                            'volume': 6.147975662646172
-                        }
-                    },
-                    'printingArea': {
-                        'maxX': 156.312,
-                        'maxY': 125.559,
-                        'maxZ': 16.0,
-                        'minX': 0.0,
-                        'minY': -3.0,
-                        'minZ': 0.0
-                    }
-                },
                 'hash': '60f07248e6019a0be489accf74636ccd8d74acd6',
                 'name': 'FlowSupport_0.2mm_PLA_MK3S_47m.gcode',
                 'origin': 'local',
@@ -157,14 +163,6 @@ class DummyRestClient:
                     1564354511,
                 'display':
                     'calibration-cube.gco',
-                'gcodeAnalysis': {
-                    'filament': {
-                        'tool0': {
-                            'length': 622.4,
-                            'volume': 4.4
-                        }
-                    }
-                },
                 'hash':
                     '038e55f72e7cc685eefcac771df948807954243c',
                 'links': [{
@@ -193,40 +191,10 @@ class DummyRestClient:
             {
                 'date': 1564177884,
                 'display': 'NewEffector_0.2mm_PLA_MK3S_2h16m.gcode',
-                'gcodeAnalysis': {
-                    'dimensions': {
-                        'depth': 137.779,
-                        'height': 33.0,
-                        'width': 158.646
-                    },
-                    'estimatedPrintTime': 4568.441229889911,
-                    'filament': {
-                        'tool0': {
-                            'length': 6138.08521000173,
-                            'volume': 14.763825105306722
-                        }
-                    },
-                    'printingArea': {
-                        'maxX': 158.646,
-                        'maxY': 134.779,
-                        'maxZ': 33.0,
-                        'minX': 0.0,
-                        'minY': -3.0,
-                        'minZ': 0.0
-                    }
-                },
                 'hash': 'd819511a9c3c3c301bf882d98b94a9c1e205650f',
                 'name': 'NewEffector_0.2mm_PLA_MK3S_2h16m.gcode',
                 'origin': 'local',
                 'path': 'NewEffector_0.2mm_PLA_MK3S_2h16m.gcode',
-                'prints': {
-                    'failure': 1,
-                    'last': {
-                        'date': 1564178531.361719,
-                        'success': False
-                    },
-                    'success': 0
-                },
                 'refs': {
                     'download':
                         'http://kamikaze.local:5000/downloads/files/local/NewEffector_0.2mm_PLA_MK3S_2h16m.gcode',

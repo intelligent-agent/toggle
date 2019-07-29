@@ -39,7 +39,8 @@ class PushUpdate:
       self.config.temp_graph.update_temperatures(temp)
     self.config.printer.update_printer_state(self.payload["state"])
     filename = self.payload["job"]["file"]["name"]
-    self.config.loader.select_model_by_filename(filename)
+    if filename:
+      self.config.loader.select_model_by_filename(filename)
 
   def timelapse(self):
     pass

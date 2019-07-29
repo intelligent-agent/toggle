@@ -83,6 +83,7 @@ class RestClient:
         str(self._port) + "/api/files/local/" + filename
     data = json.dumps({'command': 'select'})
     r = requests.post(url, data=data, headers=self._headers)
+    return r.status_code == 204
 
   # Jog the printer
   def jog(self, amount):
@@ -127,6 +128,17 @@ class RestClient:
     logging.warning("Unable to contact OctoPrint by REST. "
                     "Check your API key (currently '" + self._api_key + "'")
     return {}
+
+  def download_model(self, url):
+    try:
+      r = requests.get(url)
+    except requests.ConnectionError as e:
+      return None
+    if r.status_code == 200:
+      logging.debug("Download OK")
+      return r.content
+    logging.warning("Unable to download file. Got response: " + r.status_code)
+    return None
 
   def _build_url(self, path):
     return "http://" + self._host + ":" + str(self._port) + path

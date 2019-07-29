@@ -24,18 +24,14 @@ class ModelLoader():
     self.model_selected = False
     self.models = bidirectional_cycle()
 
-  def sync_and_load_models(self):
-    self.sync_models()
-
   # Synchronize the files on this machine with the files from OctoPrint
   def sync_models(self):
     logging.debug("Syncing models in local folder with models in OctoPrint")
     self.remotes = self.config.rest_client.get_list_of_files()
     stls = {}
     for file in self.remotes['files']:
-      if file['type'] == 'machinecode':
-        model_file = ModelFile(file, self.model_path_base)
-        self.models.add(model_file)
+      model_file = ModelFile(file, self.config)
+      self.models.add(model_file)
       if file['type'] == 'model':
         stls[file['hash']] = file['refs']['download']
     stl_keys = stls.keys()
@@ -44,7 +40,8 @@ class ModelLoader():
         hash = model.get_stl_hash()
         if hash in stl_keys:
           model.add_stl_url(stls[hash])
-          model.download_stl()
+          if not model.is_stl_available_locally():
+            model.download_stl()
 
   def select_model_by_filename(self, filename):
     model = self.models.select_by_name(filename)
@@ -74,9 +71,10 @@ class ModelLoader():
 
 
 class ModelFile:
-  def __init__(self, model, model_path_base):
+  def __init__(self, model, config):
     self.model = model
-    self.model_path_base = model_path_base
+    self.config = config
+    self.model_path_base = config.get("System", "model_folder")
 
   def get_stl_name(self):
     return self.model['links'][0]['name']
@@ -101,25 +99,23 @@ class ModelFile:
   def add_stl_url(self, url):
     self.stl_url = url
 
-  def is_local(self):
-    return self.model['origin'] == 'local'
+  def is_local_machinecode(self):
+    return self.model['origin'] == 'local' and self.model['type'] == 'machinecode'
 
   def download_stl(self):
     url = self.stl_url
     logging.debug("downloading " + url)
     model_path = self.get_stl_path()
     logging.debug("saving to " + model_path)
-    r = requests.get(url)
-    if r.status_code == 200:
-      logging.debug("Download OK")
-      model = r.content
+    data = self.config.rest_client.download_model(url)
+    if data != None:
       try:
         with open(model_path, 'wb') as f:
-          f.write(model)
+          f.write(data)
       except IOError as e:
         logging.warning("ModelLoader: Unable to download file. Check permissions")
-    else:
-      logging.warning("Unable to download file. Got response: " + r.status_code)
+      return True
+    return False
 
 
 """
@@ -138,7 +134,7 @@ class bidirectional_cycle:
     if not self.has_locals:
       return None
     result = self._next()
-    while not result.is_local():
+    while not result.is_local_machinecode():
       result = self._next()
     return result
 
@@ -150,7 +146,7 @@ class bidirectional_cycle:
     if not self.has_locals:
       return None
     result = self._prev()
-    while not result.is_local():
+    while not result.is_local_machinecode():
       result = self._prev()
     return result
 
@@ -170,7 +166,7 @@ class bidirectional_cycle:
 
   def add(self, file):
     self.collection.append(file)
-    self.has_locals |= file.is_local()
+    self.has_locals |= file.is_local_machinecode()
 
   def __iter__(self):
     return iter(self.collection)
