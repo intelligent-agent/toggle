@@ -4,7 +4,7 @@ from gi.repository import Clutter
 import logging
 
 
-class Jog:
+class JogPage:
   def __init__(self, config=None):
     self.config = config
     self.jog_xy_amount = 10    # 10 mm default jog amount

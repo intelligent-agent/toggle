@@ -1,7 +1,7 @@
 import pytest
 
 pytest.importorskip("pyconnman")
-from toggle.Network import ConnMan
+from toggle.core.Network import ConnMan
 from dbus.mainloop.glib import DBusGMainLoop
 
 

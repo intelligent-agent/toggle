@@ -1,6 +1,6 @@
 import pytest
 from os.path import join, abspath, dirname
-from toggle.CascadingConfigParser import CascadingConfigParser
+from toggle.core.CascadingConfigParser import CascadingConfigParser
 
 
 @pytest.fixture(scope="session")

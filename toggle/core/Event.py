@@ -38,14 +38,11 @@ class PushUpdate:
     self.config.tabs.to_side_2()
 
   def history(self):
-    #print self.payload
     for temp in self.payload["temps"]:
       self.config.temp_graph.update_temperatures(temp)
     self.config.printer.update_printer_state(self.payload["state"])
     filename = self.payload["job"]["file"]["name"]
-    if filename:
-      filename = os.path.splitext(filename)[0] + ".stl"
-      self.config.loader.select_model(filename)
+    self.config.loader.select_model_by_filename(filename)
 
   def timelapse(self):
     pass
@@ -54,19 +51,7 @@ class PushUpdate:
     plugin_type = self.payload["data"]["type"]
     plugin_name = self.payload["plugin"]
     if plugin_type == "filament_sensor":
-      plugin_data = self.payload["data"]["data"]
-      self.config.filament_graph.update_filaments(plugin_data)
-
-      #logging.debug("filament sensor data")
-      #message = plugin_data["message"]
-      #time = int(plugin_data["time"])
-      #[filament_name, filament_value] = message.split(":")
-      # if filament_name in self.config.filament_graph.filament_sensors:
-      #  sensor = self.config.filament_sensors[filament_name]
-      #  sensor.add_point(time, float(filament_value))
-      #  self.config.filament_graph.refresh()
-      # else:
-      #  logging.info("Unknown extruder: "+str(filament_name))
+      logging.warning("filament sensor has been disabled")
     elif plugin_type == "alarm_filament_jam":
       self.config.message.display("Alarm: Filament Jam!")
     elif plugin_type == "display_message":
@@ -114,15 +99,13 @@ class Event:
   def __init__(self, config, evt_type, payload):
     self.config = config
     self.payload = payload
-    #print ("Got event"+str(evt_type)+" "+str(payload))
     if hasattr(self, evt_type):
       getattr(self, evt_type)()
     else:
       print("missing event function " + str(evt_type))
 
   def FileSelected(self):
-    filename = os.path.splitext(self.payload["filename"])[0] + ".stl"
-    self.config.loader.select_model(filename)
+    self.config.loader.select_model_by_filename(self.payload["filename"])
 
   def FileDeselected(self):
     logging.debug("Deselected " + self.payload["filename"])

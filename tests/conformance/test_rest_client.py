@@ -3,7 +3,7 @@ import requests
 import requests_mock
 import json
 
-from toggle.RestClient import RestClient
+from toggle.core.RestClient import RestClient
 
 
 def test_get_list_of_files(default_config):

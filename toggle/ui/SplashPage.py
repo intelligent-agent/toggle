@@ -1,7 +1,7 @@
 # Splash screen showing progress until connection has been established
 
 
-class Splash():
+class SplashPage():
   def __init__(self, config):
     self.ui = config.ui
     self.status = config.ui.get_object("splash-status")

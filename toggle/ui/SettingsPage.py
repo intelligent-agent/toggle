@@ -7,7 +7,7 @@ import os
 from gi.repository import Clutter, Mx
 
 
-class Settings():
+class SettingsPage():
   def __init__(self, config):
     self.ui = config.ui
     self.scroller = config.ui.get_object("scroll-pane")
