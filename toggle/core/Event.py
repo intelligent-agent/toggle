@@ -1,9 +1,6 @@
 import logging
 import os
-import time
 import json
-from gi.repository import GLib
-from threading import current_thread
 
 
 # A Local update, when added to the queue, is executed by adding it
