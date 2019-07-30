@@ -8,18 +8,23 @@ import time
 import sys
 
 
-class Printer:
+class PrintPage:
   def __init__(self, config):
     self.config = config
-
-    # Set up UI
-    # Print button
     self.btn_print = self.config.ui.get_object("btn-print")
     self.btn_pause = self.config.ui.get_object("btn-pause")
     self.btn_cancel = self.config.ui.get_object("btn-cancel")
 
     self.btn_next = self.config.ui.get_object("btn-next")
     self.btn_prev = self.config.ui.get_object("btn-prev")
+
+    tap_next = Clutter.TapAction()
+    self.btn_next.add_action(tap_next)
+    tap_next.connect("tap", self.tap_next, None)
+
+    tap_prev = Clutter.TapAction()
+    self.btn_prev.add_action(tap_prev)
+    tap_prev.connect("tap", self.tap_prev, None)
 
     tap_print = Clutter.TapAction()
     self.btn_print.add_action(tap_print)
@@ -73,6 +78,16 @@ class Printer:
     if self.flags["printing"] or self.flags["paused"]:
       self.config.rest_client.cancel_job()
 
+  def tap_next(self, action, button, user_data):
+    if button.is_clickable:
+      self.config.model.loader.show()
+      self.config.loader.select_next()
+
+  def tap_prev(self, action, button, user_data):
+    if button.is_clickable:
+      self.config.model.loader.show()
+      self.config.loader.select_prev()
+
   def set_status(self, status):
     self.lbl_stat.set_text(status)
 
@@ -122,7 +137,16 @@ class Printer:
 
   def update_next_buttons(self):
     can_select_model = self.flags["operational"] and not self.flags["printing"]
-    self.config.loader.is_model_selection_enabled(can_select_model)
+    if can_select_model and self.config.loader.models.count() > 0:
+      self.btn_next.is_clickable = True
+      self.btn_prev.is_clickable = True
+      self.btn_next.set_from_file(self.config.style.style_to_filename("arrow"))
+      self.btn_prev.set_from_file(self.config.style.style_to_filename("arrow"))
+    else:
+      self.btn_next.is_clickable = False
+      self.btn_prev.is_clickable = False
+      self.btn_next.set_from_file(self.config.style.style_to_filename("arrow_disabled"))
+      self.btn_prev.set_from_file(self.config.style.style_to_filename("arrow_disabled"))
 
   # Update the current state of the printer.
   # This sets the flags shown in the bottom left corner.
@@ -156,7 +180,7 @@ class Printer:
   def update_progress(self, progress):
     if progress["completion"]:
       self.progress.set_width(self.calculate_progress_width(progress["completion"] / 100.0))
-      self.config.loader.model.set_progress(progress["completion"] / 100.0)
+      self.config.model.set_progress(progress["completion"] / 100.0)
     if progress['printTimeLeft']:
       left = self.format_time(progress['printTimeLeft'])
       self.time_left.set_text(left)
@@ -168,10 +192,6 @@ class Printer:
     m, s = divmod(seconds, 60)
     h, m = divmod(m, 60)
     return "%d:%02d:%02d" % (h, m, s)
-
-  def start_connect_thread(self):
-    pass
-    # TODO
 
   def flash_heartbeat(self):
     self.heartbeat.set_opacity(255)

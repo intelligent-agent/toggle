@@ -11,12 +11,10 @@ from gi.repository import Clutter, Cogl, Mash
 class Model(Mash.Model):
   def __init__(self, config):
     super(Model, self).__init__()
-
     self.config = config
     self.model = config.ui.get_object("model")
     self.color = self.model.get_background_color()
     self.loader = config.ui.get_object("loader")
-
     self.model_data = Mash.Data()
     self.model.set_data(self.model_data)
     self.v_min = Clutter.Vertex()
@@ -62,15 +60,10 @@ class Model(Mash.Model):
   # data loading happen in a separate thread, so that the loading icon can be
   # shown uninterrupted. UI operations must then be separated out, since they
   # are required to run in the min thread.
-  def load_model(self, filename):
+  def load_model(self, path):
     self.model.hide()
-    self.filename = filename
-    path = self.config.get("System", "model_folder") + "/" + filename
-    if not os.path.isfile(path):
-      logging.warning(path + " is not a file")
     try:
       self.model_data.load(0, path)
-      #self.model.load_from_file(0, path)
       self.model.set_data(self.model_data)
     except BaseException:
       logging.warning("Unable to open model " + path)

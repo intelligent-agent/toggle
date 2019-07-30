@@ -4,7 +4,7 @@ from os.path import join, abspath, dirname
 
 clutter = pytest.importorskip("gi.repository.Clutter")
 
-from toggle.StyleLoader import StyleLoader
+from toggle.ui.StyleLoader import StyleLoader
 import gi
 gi.require_version('Clutter', '1.0')
 from gi.repository import Clutter

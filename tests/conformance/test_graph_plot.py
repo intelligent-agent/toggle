@@ -6,7 +6,7 @@ sys.modules['gi.repository'] = mock.MagicMock()
 sys.modules['gi.repository.Clutter'] = mock.MagicMock()
 sys.modules['cairo'] = mock.MagicMock()
 
-from toggle.Graph import Graph, GraphPlot, GraphScale
+from toggle.ui.Graph import Graph, GraphPlot, GraphScale
 
 
 def test_graph_plot(mocker):

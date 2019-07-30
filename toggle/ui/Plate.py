@@ -13,7 +13,6 @@ class Plate(Mash.Model):
     # I want to subclass this, but I'm uncertain how to..
     self.plate = self.config.ui.get_object("plate")
     plate_file = config.style.get_plate_filename()
-    print(plate_file)
     self.plate_data = Mash.Data()
     self.plate_data.load(0, plate_file)
     self.plate.set_data(self.plate_data)
@@ -31,7 +30,7 @@ class Plate(Mash.Model):
     self.plate.set_x(-width / 2.0)
     self.plate.set_z_position(height / 2.0)
 
-    self.plate.set_light_set(self.config.loader.model.light_set)
+    self.plate.set_light_set(self.config.model.light_set)
 
     self.probe_points = []
     self.scale_points = []

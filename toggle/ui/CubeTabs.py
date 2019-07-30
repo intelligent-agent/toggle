@@ -1,6 +1,4 @@
-from __future__ import print_function
 from gi.repository import Clutter
-import sys
 
 
 class CubeTabs():
@@ -64,22 +62,6 @@ class CubeTabs():
 
     self.preload = Clutter.Timeline.new(500)
     self.preload.connect("completed", self.preload_complete)
-
-  def gesture_begin(self, btn=None, other=None):
-    print("begin")
-    return True
-
-  def gesture_cancel(self, btn=None, other=None):
-    print("cancel")
-    return True
-
-  def gesture_progress(self, btn=None, other=None):
-    print("prgress")
-    return True
-
-  def gesture_end(self, btn=None, other=None):
-    print("end")
-    return True
 
   def btn_prev(self, btn=None, other=None):
     if self.tg.is_playing():
@@ -148,18 +130,3 @@ class CubeTabs():
 
   def add_pane_appear_callback(self, pane_nr, callback):
     self.appear_callbacks[pane_nr] = callback
-
-
-if __name__ == '__main__':
-  from gi.repository import Mx
-  Clutter.init(sys.argv)
-  style = Mx.Style.get_default()
-  ui = Clutter.Script()
-  ui.load_from_file("cube-ui.json")
-
-  _stage = ui.get_object("stage")
-  _stage.set_title("Cubic tabs")
-  tabs = CubeTabs(ui, 4)
-  _stage.connect("destroy", lambda w: Clutter.main_quit())
-  _stage.show_all()
-  Clutter.main()

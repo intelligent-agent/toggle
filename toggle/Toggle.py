@@ -7,25 +7,24 @@ gi.require_version('Mash', '0.3')
 gi.require_version('Cogl', '1.0')
 gi.require_version('Clutter', '1.0')
 
-from .Jog import Jog
-from .Network import Network, NetworkManager, ConnMan
-from .Settings import Settings
-from .Splash import Splash
-from .CubeTabs import CubeTabs
-from .FilamentGraph import FilamentGraph
-from .TemperatureGraph import TemperatureGraph
-from .Graph import Graph, GraphScale, GraphPlot
-from .Message import Message
-from .Event import Event, PushUpdate
-from .RestClient import RestClient
-from .WebSocksClient import WebSocksClient
-from .CascadingConfigParser import CascadingConfigParser
-from .Printer import Printer
-from .ModelLoader import ModelLoader
-from .VolumeStage import VolumeStage
-from .Plate import Plate
-from .Model import Model
-from .StyleLoader import StyleLoader
+from .core.CascadingConfigParser import CascadingConfigParser
+from .core.Network import Network, NetworkManager, ConnMan
+from .core.Event import Event, PushUpdate
+from .core.RestClient import RestClient
+from .core.WebSocksClient import WebSocksClient
+from .core.ModelLoader import ModelLoader
+from .ui.CubeTabs import CubeTabs
+from .ui.JogPage import JogPage
+from .ui.SettingsPage import SettingsPage
+from .ui.PrintPage import PrintPage
+from .ui.SplashPage import SplashPage
+from .ui.TemperaturePage import TemperaturePage
+from .ui.MessageBox import MessageBox
+from .ui.Graph import Graph, GraphScale, GraphPlot
+from .ui.VolumeStage import VolumeStage
+from .ui.Plate import Plate
+from .ui.Model import Model
+from .ui.StyleLoader import StyleLoader
 from threading import Thread, current_thread
 from gi.repository import GObject, Clutter, Mx
 from dbus.mainloop.glib import DBusGMainLoop
@@ -101,11 +100,6 @@ class Toggle:
 
     config.file_base = Toggle.CONFIG_BASE
 
-    config.screen_width = config.getint("Screen", "width")
-    config.screen_height = config.getint("Screen", "height")
-    config.screen_rot = config.getint("Screen", "rotation")
-    config.screen_full = config.getboolean("Screen", "fullscreen")
-
     config.style = StyleLoader(config)
     config.style.load_from_config()
     config.ui = config.style.ui
@@ -115,19 +109,18 @@ class Toggle:
     config.stage.connect('key-press-event', self.key_press)
 
     config.tabs = CubeTabs(config.ui, 4)
-    config.splash = Splash(config)
+    config.splash = SplashPage(config)
     config.splash.set_status("Starting Toggle {} ...".format(__version__))
-    config.jog = Jog(config)
-    config.temp_graph = TemperatureGraph(config)
-    if config.getboolean('System', 'use-filament-graph'):
-      config.filament_graph = FilamentGraph(config)
+    config.jog = JogPage(config)
+    config.temp_graph = TemperaturePage(config)
     config.network = Network.get_manager(config)
-    config.settings = Settings(config)
+    config.settings = SettingsPage(config)
     config.rest_client = RestClient(config)
     config.volume_stage = VolumeStage(config)
-    config.message = Message(config)
-    config.printer = Printer(config)
+    config.message = MessageBox(config)
+    config.printer = PrintPage(config)
     config.loader = ModelLoader(config)
+    config.model = Model(config)
     config.plate = Plate(config)
     config.socks_client = WebSocksClient(config, self.on_connected_cb)
 
@@ -150,31 +143,13 @@ class Toggle:
     config.stage.show()
 
   def on_connected_cb(self):
-    self.config.loader.sync_and_load_models()
+    self.config.loader.sync_models()
 
   def run(self):
     """
         Start the program. Can be called from
         this file or from a start-up script.
         """
-    # Flip and move the stage to the right location
-    # This has to be done in the application, since it is a
-    # fbdev app
-    #self.config.mouse_offset_x = 0
-    #self.config.mouse_offset_y = 0
-    if self.config.screen_rot == 90:
-      self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 90.0)
-      self.config.ui.get_object("all").set_position(self.config.screen_width, 0)
-      #self.config.mouse_offset_x = self.config.screen_width
-    elif self.config.screen_rot == 270:
-      self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, -90.0)
-      self.config.ui.get_object("all").set_position(0, self.config.screen_height)
-    elif self.config.screen_rot == 180:
-      self.config.ui.get_object("all").set_pivot_point(0.5, 0.5)
-      self.config.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 180.0)
-
-    if self.config.screen_full:
-      self.config.stage.set_fullscreen(True)
     """ Start the process """
     self.running = True
     # Start the processes
@@ -229,17 +204,12 @@ class Toggle:
       x, y = event.x, event.y
     else:
       x, y = event.get_coords()
-
-    # Swap axes
     if self.config.mouse_swap:
       x, y = y, x
-    # invert
     if self.config.mouse_invert_x:
       x = self.config.screen_height - x
     if self.config.mouse_invert_y:
       y = self.config.screen_width - y
-
-    #logging.debug("X: {}, Y: {}".format(x, y))
     self.cursor.set_position(x, y)
 
     return Clutter.EVENT_PROPAGATE

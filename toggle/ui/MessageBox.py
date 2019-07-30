@@ -4,7 +4,7 @@ import logging
 from threading import current_thread
 
 
-class Message:
+class MessageBox:
   def __init__(self, config):
     self.config = config
     self.ui = config.ui

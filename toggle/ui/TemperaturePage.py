@@ -3,7 +3,7 @@ from gi.repository import Clutter
 import logging
 
 
-class TemperatureGraph():
+class TemperaturePage():
   def __init__(self, config):
     self.config = config
     self.temp = config.ui.get_object("graph")
@@ -177,11 +177,6 @@ class TemperatureGraph():
       self.config.rest_client.set_bed_temp(new_temp)
       self.set_style_class(self.temps["bed"]["btn"], "heating_bed")
       self.temps["bed"]["heating"] = True
-
-  def change_to_filament(self, button, action):
-    if self.config.getboolean('System', 'use-filament-graph'):
-      self.graph.hide()
-      self.config.filament_graph.graph.show()
 
   def set_style_class(self, btn, style_class):
     btn.set_from_file(self.config.style.style_to_filename(style_class))
