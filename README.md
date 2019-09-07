@@ -60,3 +60,6 @@ libmx-1.0-2 (1.4.7-1 and others)
 
 On Debian Buster, libmx is no longer maintained, so it needs to be installed from source:
 https://github.com/eliasbakken/mx
+
+Also needed is Mash, install from this repository:
+https://github.com/eliasbakken/mash
