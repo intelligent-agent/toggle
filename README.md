@@ -27,39 +27,39 @@ Here is the wiki page: http://wiki.thing-printer.com/index.php?title=Toggle
 
 - Toggle is Python3 compatible.
 - Code is formatted using YAPF, check the setup.cfg for style.
-- Travis is set up to check formatting only for now. Use yapf3.
+- Travis is set up to check formatting. Use yapf3.
 
 **Install Toggle**
 
+Required Packages
+
 ```
-apt install python-setuptools python-gi
+apt install python3-setuptools python3-gi python3-pip python3-dev libdbus-1-dev libglib2.0-dev python3-cairo python3-gi-cairo
+pip3 install wheel
 ```
+
+Install actual program
 
 ```
 git clone https://github.com/intelligent-agent/toggle
 cd toggle
-pip3 install -e . -r requirements
+git checkout dev
+pip3 install -e . -r requirements.txt
+python3 setup.py install_data
 ```
 
-## Other packages for a Debian Stretch desktop:
+## Other packages for a Debian Stretch/Buster desktop:
 
 Standard packages in Stretch:
 libinput-1.2.2-1
 Cogl-1.22.0-2
 Clutter-1.26.0-2
+
+On Debian Stretch and older:
 libmx-1.0-2 (1.4.7-1 and others)
 
-**Mash (with STL-import)**
-Note: Disable compiling the examples and
-use the right --library format for the g-ir-scanner
+On Debian Buster, libmx is no longer maintained, so it needs to be installed from source:
+https://github.com/eliasbakken/mx
 
-```
-cd /usr/src/
-git clone https://github.com/eliasbakken/mash.git
-cd /usr/src/mash
-./autogen.sh --prefix=/usr --libdir=/usr/lib/arm-linux-gnueabihf/ --enable-introspection
-sed -i 's/SUBDIRS = mash examples docs/SUBDIRS = mash docs/' Makefile
-sed -i 's/--library=libmash-@MASH_API_VERSION@.la/--library=mash-@MASH_API_VERSION@/ --library-path=/usr/src/mash/mash/.libs/' mash/Makefile.am
-make
-make install
-```
+Also needed is Mash, install from this repository:
+https://github.com/eliasbakken/mash
