@@ -103,11 +103,11 @@ class Event:
       print("missing event function " + str(evt_type))
 
   def FileSelected(self):
-    self.config.loader.select_model_by_filename(self.payload["filename"])
+    self.config.loader.select_model_by_filename(self.payload["name"])
 
   def FileDeselected(self):
-    logging.debug("Deselected " + self.payload["filename"])
-    filename = os.path.splitext(self.payload["filename"])[0] + ".stl"
+    logging.debug("Deselected " + self.payload["name"])
+    filename = os.path.splitext(self.payload["name"])[0] + ".stl"
     # config.loader.select_model(filename)
 
   def UpdatedFiles(self):
