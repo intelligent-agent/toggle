@@ -108,6 +108,8 @@ class Toggle:
     config.stage.connect("destroy", self.stop)
     config.stage.connect('key-press-event', self.key_press)
 
+    config.style.do_screen_rotation()
+
     config.tabs = CubeTabs(config.ui, 4)
     config.splash = SplashPage(config)
     config.splash.set_status("Starting Toggle {} ...".format(__version__))

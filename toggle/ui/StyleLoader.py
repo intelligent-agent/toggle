@@ -33,7 +33,6 @@ class StyleLoader:
   def load_from_config(self):
     self.load_style(self.style_file_path)
     self.load_ui(self.ui_file_path)
-    self.do_screen_rotation()
 
   def load_style(self, filename):
     self.style = Mx.Style.get_default()
