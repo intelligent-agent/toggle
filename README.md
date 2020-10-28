@@ -66,8 +66,11 @@ https://github.com/eliasbakken/mash
 
 
 ## Running Toggle
-The default css style seems to be missing. To circumvent that: 
+The default css style seems to be missing. To circumvent that:
+```
 export MX_RC_FILE=/etc/toggle/styles/Plain/style.css  
-
-To Run toggle once it's installed: 
-toggle
+```
+To Run toggle once it's installed:
+```
+CLUTTER_BACKEND=<wayland|x11|eglnative> toggle
+```
