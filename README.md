@@ -8,18 +8,22 @@ _/      _/_/      _/_/_/    _/_/_/  _/    _/_/_/
                 _/_/      _/_/
 ```
 
-[![Build Status](https://travis-ci.org/intelligent-agent/toggle.svg?branch=dev)](https://travis-ci.org/intelligent-agent/toggle)
+[![Build Status](https://travis-ci.org/intelligent-agent/toggle.svg)](https://travis-ci.org/intelligent-agent/toggle)
 
 Toggle is a 3D-printer front end for use with embedded devices.
-It's a perfect fit for the BeagleBone Black/Replicape/Manga Screen combo.
 
-The program is built on a windowless BeagleBone Black (egl-null) using Clutter,
+It's a perfect fit for the Recore + Manga Screen 2 combo or the older
+BeagleBone Black/Replicape/Manga Screen combo.
+
+For BeagleBone, the program is built on a windowless (egl-null) platform using Clutter,
 Cogl, Mash and Mx with introspection for Python bindings.
+
+For Recore, Toggle runs on Wayland (Weston).
 
 This makes it fast while keeping a nice Python structure on top for gluing the
 code together.
 
-This also runs on Ubuntu/Debian desktops for development.
+Toggle also runs on Ubuntu/Debian desktops with X/Wayland for development.
 
 Here is the wiki page: http://wiki.thing-printer.com/index.php?title=Toggle
 
@@ -43,7 +47,6 @@ Install actual program
 ```
 git clone https://github.com/intelligent-agent/toggle
 cd toggle
-git checkout dev
 pip3 install -e . -r requirements.txt
 python3 setup.py install_data
 ```
