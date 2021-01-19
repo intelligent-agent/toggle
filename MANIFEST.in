@@ -1,6 +1,0 @@
-include configs/*.cfg
-include README.md
-include models/*.stl
-include models/platforms/*.stl
-include style/*
-include systemd/*

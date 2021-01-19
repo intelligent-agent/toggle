@@ -1,0 +1,248 @@
+[
+  {
+    "id": "stage",
+    "type": "ClutterStage",
+    "width": 800,
+    "height": 480,
+    "signals": [],
+    "children": [
+      {
+        "id": "box",
+        "type": "ClutterActor",
+        "width": 800,
+        "height": 480,
+        "pivot-point-z": -400,
+        "pivot-point": [0.5, 0],
+
+        "layout-manager": { "type": "ClutterFixedLayout" },
+        "children": [
+          {
+            "id": "side0",
+            "type": "ClutterActor",
+            "width": 800,
+            "height": 480,
+            "pivot-point-z": -400,
+            "pivot-point": [0.5, 0],
+            "rotation-angle-y": 0.0,
+            "background-color": "red",
+            "children": [
+              {
+                "id": "side0-btn-prev",
+                "type": "MxButton",
+                "label": "<<",
+                "style-class": "main",
+                "x": 20,
+                "y": 15
+              },
+              {
+                "id": "side0-btn-next",
+                "type": "MxButton",
+                "label": ">>",
+                "style-class": "main",
+                "x": 700,
+                "y": 15
+              },
+              {
+                "id": "side0-txt",
+                "type": "ClutterText",
+                "text": "Side 0",
+                "x": 340,
+                "y": 200,
+                "font-description": "Sans 36"
+              }
+            ]
+          },
+          {
+            "id": "side1",
+            "type": "ClutterActor",
+            "width": 800,
+            "height": 480,
+            "pivot-point-z": -400,
+            "pivot-point": [0.5, 0],
+            "rotation-angle-y": 90.0,
+            "background-color": "yellow",
+            "children": [
+              {
+                "id": "side1-btn-prev",
+                "type": "MxButton",
+                "label": "<<",
+                "style-class": "main",
+                "x": 20,
+                "y": 15
+              },
+              {
+                "id": "side1-btn-next",
+                "type": "MxButton",
+                "label": ">>",
+                "style-class": "main",
+                "x": 700,
+                "y": 15
+              },
+              {
+                "id": "side1-txt",
+                "type": "ClutterText",
+                "text": "Side 1",
+                "x": 340,
+                "y": 200,
+                "font-description": "Sans 36"
+              }
+            ]
+          },
+          {
+            "id": "side2",
+            "type": "ClutterActor",
+            "width": 800,
+            "height": 480,
+            "pivot-point-z": -400,
+            "pivot-point": [0.5, 0],
+            "rotation-angle-y": 180.0,
+            "background-color": "blue",
+            "children": [
+              {
+                "id": "side2-btn-prev",
+                "type": "MxButton",
+                "label": "<<",
+                "style-class": "main",
+                "x": 20,
+                "y": 15
+              },
+              {
+                "id": "side2-btn-next",
+                "type": "MxButton",
+                "label": ">>",
+                "style-class": "main",
+                "x": 700,
+                "y": 15
+              },
+              {
+                "id": "side2-txt",
+                "type": "ClutterText",
+                "text": "Side 2",
+                "x": 340,
+                "y": 200,
+                "font-description": "Sans 36"
+              }
+            ]
+          },
+          {
+            "id": "side3",
+            "type": "ClutterActor",
+            "width": 800,
+            "height": 480,
+            "pivot-point-z": -400,
+            "pivot-point": [0.5, 0],
+            "rotation-angle-y": 270.0,
+            "background-color": "green",
+            "children": [
+              {
+                "id": "side3-btn-prev",
+                "type": "MxButton",
+                "label": "<<",
+                "style-class": "main",
+                "x": 20,
+                "y": 15
+              },
+              {
+                "id": "side3-btn-next",
+                "type": "MxButton",
+                "label": ">>",
+                "style-class": "main",
+                "x": 700,
+                "y": 15
+              },
+              {
+                "id": "side3-txt",
+                "type": "ClutterText",
+                "text": "Side 3",
+                "x": 340,
+                "y": 200,
+                "font-description": "Sans 36"
+              }
+            ]
+          },
+          {
+            "id": "side4",
+            "type": "ClutterActor",
+            "width": 800,
+            "height": 480,
+            "pivot-point-z": -400,
+            "pivot-point": [0.5, 0],
+            "rotation-angle-y": 270.0,
+            "background-color": "green",
+            "children": [
+              {
+                "id": "side4-btn-prev",
+                "type": "MxButton",
+                "label": "<<",
+                "style-class": "main",
+                "x": 20,
+                "y": 15
+              },
+              {
+                "id": "side4-btn-next",
+                "type": "MxButton",
+                "label": ">>",
+                "style-class": "main",
+                "x": 700,
+                "y": 15
+              },
+              {
+                "id": "side4-txt",
+                "type": "ClutterText",
+                "text": "Side 4",
+                "x": 340,
+                "y": 200,
+                "font-description": "Sans 36"
+              }
+            ]
+          },
+          {
+            "id": "side5",
+            "type": "ClutterActor",
+            "width": 800,
+            "height": 480,
+            "pivot-point-z": -400,
+            "pivot-point": [0.5, 0],
+            "rotation-angle-y": 270.0,
+            "background-color": "green",
+            "children": [
+              {
+                "id": "side5-btn-prev",
+                "type": "MxButton",
+                "label": "<<",
+                "style-class": "main",
+                "x": 20,
+                "y": 15
+              },
+              {
+                "id": "side5-btn-next",
+                "type": "MxButton",
+                "label": ">>",
+                "style-class": "main",
+                "x": 700,
+                "y": 15
+              },
+              {
+                "id": "side5-txt",
+                "type": "ClutterText",
+                "text": "Side 5",
+                "x": 340,
+                "y": 200,
+                "font-description": "Sans 36"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "ClutterTimeline",
+    "duration": 4000,
+    "markers": [
+      { "name": "one", "time": 1000 },
+      { "name": "two", "time": 2000 },
+      { "name": "three", "time": 3000 }
+    ]
+  }
+]
