@@ -172,9 +172,10 @@ class WebSocksClient():
 if __name__ == '__main__':
 
   def main():
-    logging.basicConfig(level=logging.DEBUG,
-                        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-                        datefmt='%m-%d %H:%M')
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+        datefmt='%m-%d %H:%M')
 
     settings = {'Server': {'host': 'localhost', 'port': 5000}}
     client = WebSocksClient(settings)
