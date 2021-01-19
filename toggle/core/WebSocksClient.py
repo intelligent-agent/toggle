@@ -153,8 +153,8 @@ class WebSocksClient():
         self.ioloop.start()
         if self.state != WebSocksClient.CLOSED:
           time.sleep(1)
-    self.config.splash.set_status("Unable to connect to {}".format(
-        self.config.get("Server", "host")))
+    self.config.splash.set_status("Unable to connect to {}".format(self.config.get(
+        "Server", "host")))
     self.config.splash.enable_next()
 
   def start(self):
@@ -172,10 +172,9 @@ class WebSocksClient():
 if __name__ == '__main__':
 
   def main():
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-        datefmt='%m-%d %H:%M')
+    logging.basicConfig(level=logging.DEBUG,
+                        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+                        datefmt='%m-%d %H:%M')
 
     settings = {'Server': {'host': 'localhost', 'port': 5000}}
     client = WebSocksClient(settings)

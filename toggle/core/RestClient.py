@@ -23,9 +23,9 @@ class RestClient:
     data = json.dumps({'user': user, 'pass': password})
     r = requests.post(url, data=data, headers={'Content-Type': 'application/json'})
     if r.status_code == 200:
-        return r.json()["session"]
+      return r.json()["session"]
     else:
-        return "INVALID-SESSION"
+      return "INVALID-SESSION"
 
   def start_job(self):
     logging.debug("Starting job")
