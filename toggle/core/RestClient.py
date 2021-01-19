@@ -15,6 +15,18 @@ class RestClient:
     self._api_key = config.get("OctoPrint", "authentication")
     self._headers = {'Content-Type': 'application/json', 'X-Api-Key': self._api_key}
 
+  def login(self):
+    logging.debug("Login")
+    url = "http://" + self._host + ":" + str(self._port) + "/api/login"
+    user = self.config.get("OctoPrint", "user")
+    password = self.config.get("OctoPrint", "password")
+    data = json.dumps({'user': user, 'pass': password})
+    r = requests.post(url, data=data, headers={'Content-Type': 'application/json'})
+    if r.status_code == 200:
+        return r.json()["session"]
+    else:
+        return "INVALID-SESSION"
+
   def start_job(self):
     logging.debug("Starting job")
     url = "http://" + self._host + ":" + str(self._port) + "/api/job"

@@ -56,10 +56,11 @@ class WebSocksClient():
     self.state = WebSocksClient.CONNECTING
     self._ws_connection = websocket.websocket_connect(self.url, callback=self._connect_callback)
 
-  def authenticate(self, apikey):
+  def authenticate(self):
     user = self.config.get("OctoPrint", "user")
-    logging.debug("Authenticating with " + user + ":" + apikey)
-    msg = '{ "auth" : "' + str(user) + ':' + str(apikey) + '" }'
+    session = self.config.rest_client.login()
+    logging.debug("Authenticating with " + user + ":" + session)
+    msg = '{ "auth" : "' + str(user) + ':' + str(session) + '" }'
     logging.info("Sending message " + msg)
     self._ws_connection.write_message(msg)
 
@@ -104,8 +105,7 @@ class WebSocksClient():
     data = json.loads(msg)
     if 'connected' in data:
       logging.debug("SockJS: Socket connected")
-      apik = self.config.get("OctoPrint", "apikey")
-      self.authenticate(apik)
+      self.authenticate()
     self.parse_msg(data)
 
   def _on_connection_success(self):
