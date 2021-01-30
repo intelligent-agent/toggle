@@ -18,3 +18,17 @@ def test_select_tool(default_config):
     m.post('http://localhost:5000/api/printer/tool')
     testRestclient = RestClient(default_config)
     assert (testRestclient.select_tool(0))
+
+
+def test_login_ok(default_config):
+  with requests_mock.Mocker(real_http=True) as m:
+    m.post('http://localhost:5000/api/login', json={"session": "pizza"})
+    client = RestClient(default_config)
+    assert client.login() == "pizza"
+
+
+def test_login_status_code_403(default_config):
+  with requests_mock.Mocker(real_http=True) as m:
+    m.post('http://localhost:5000/api/login', status_code=403)
+    client = RestClient(default_config)
+    assert client.login() == "INVALID-SESSION"
