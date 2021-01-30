@@ -47,7 +47,7 @@ Install actual program
 ```
 git clone https://github.com/intelligent-agent/toggle
 cd toggle
-pip3 install -e . -r requirements.txt
+pip3 install -r requirements.txt
 python3 setup.py install_data
 ```
 
@@ -77,3 +77,14 @@ To Run toggle once it's installed:
 ```
 CLUTTER_BACKEND=<wayland|x11|eglnative> toggle
 ```
+
+## Contributing
+Make sure all tests pass before creating a pull-request
+To test locally, run:
+```
+pytest
+```
+and also make sure the formatting is correct
+```
+yapf3 --diff -e venv -e .git -e build -r .
+ ```

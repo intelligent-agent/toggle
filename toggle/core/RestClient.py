@@ -16,7 +16,7 @@ class RestClient:
     self._headers = {'Content-Type': 'application/json', 'X-Api-Key': self._api_key}
 
   def login(self):
-    logging.debug("Login")
+    logging.debug("Rest login")
     url = "http://" + self._host + ":" + str(self._port) + "/api/login"
     user = self.config.get("OctoPrint", "user")
     password = self.config.get("OctoPrint", "password")
@@ -25,6 +25,7 @@ class RestClient:
     if r.status_code == 200:
       return r.json()["session"]
     else:
+      logging.warning("Authentication failed! Check username and password + CORS")
       return "INVALID-SESSION"
 
   def start_job(self):
@@ -61,7 +62,8 @@ class RestClient:
         str(self._port) + "/api/printer/command"
     data = json.dumps({'command': cmd})
     r = requests.post(url, data=data, headers=self._headers)
-    print(r.json)
+    if r.status_code != 204:
+      logging.warning(f"send_gcode returned satus code: {r.status_code}")
 
   def start_preheat(self):
     logging.debug("Starting preheat")
@@ -134,12 +136,12 @@ class RestClient:
       r = requests.get(self._build_url("/api/files"), headers=self._headers)
     except requests.ConnectionError as e:
       logging.warning("Connection error")
-      return {}
+      return {'files': []}
     if r.status_code in [200, 204]:
       return r.json()
     logging.warning("Unable to contact OctoPrint by REST. "
                     "Check your API key (currently '" + self._api_key + "'")
-    return {}
+    return {'files': []}
 
   def download_model(self, url):
     try:

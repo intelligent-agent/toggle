@@ -9,7 +9,7 @@ sys.modules['cairo'] = mock.MagicMock()
 from toggle.ui.Graph import Graph, GraphPlot, GraphScale
 
 
-def test_graph_plot(mocker):
+def test_graph_plot():
   ctx = mock.Mock()
   plot = GraphPlot("H", (0, 1, 0))
   plot.add_point(0, 4)

@@ -28,8 +28,13 @@ class VolumeStage(Clutter.Actor):
     self.clicked = False
     self.scale = 1.2
 
-    cm = Cogl.Matrix()
-    m = Clutter.matrix_init_from_array(cm, [-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1])
+    if hasattr(Clutter, 'Matrix'):
+      m = Clutter.Matrix.alloc()
+      m.init_from_array([-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1])
+    else:
+      cm = Cogl.Matrix()
+      m = Clutter.matrix_init_from_array(cm, [-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1])
+
     self.ui.get_object("content-flip").set_transform(m)
 
     zoom = Clutter.ZoomAction()

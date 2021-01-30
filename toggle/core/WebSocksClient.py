@@ -34,11 +34,12 @@ class WebSocksClient():
   CLOSED = 0
   CONNECTING = 1
   CONNECTED = 2
-  FAILED = 3
+  AUTHENTICATED = 3
+  FAILED = 4
 
-  def __init__(self, config=None, on_connected_cb=None):
+  def __init__(self, config=None, on_auth_cb=None):
     self.config = config
-    self.on_connected_cb = on_connected_cb
+    self.on_auth_cb = on_auth_cb
     host = config.get("Server", "host")
     port = str(config.get("Server", "port"))
     self.connect_timeout = DEFAULT_CONNECT_TIMEOUT
@@ -59,10 +60,12 @@ class WebSocksClient():
   def authenticate(self):
     user = self.config.get("OctoPrint", "user")
     session = self.config.rest_client.login()
+    if session != "INVALID-SESSION":
+      self.on_auth_cb()
     logging.debug("Authenticating with " + user + ":" + session)
     msg = '{ "auth" : "' + str(user) + ':' + str(session) + '" }'
     logging.info("Sending message " + msg)
-    self._ws_connection.write_message(msg)
+    ret = self._ws_connection.write_message(msg)
 
   def send(self, data):
     """
@@ -103,6 +106,7 @@ class WebSocksClient():
       :param str msg: server message.
     """
     data = json.loads(msg)
+    #logging.debug(msg)
     if 'connected' in data:
       logging.debug("SockJS: Socket connected")
       self.authenticate()
@@ -114,8 +118,6 @@ class WebSocksClient():
     """
     self.state = WebSocksClient.CONNECTED
     logging.debug('Websocket connected!')
-    if self.on_connected_cb:
-      self.on_connected_cb()
 
   def _on_connection_close(self):
     """

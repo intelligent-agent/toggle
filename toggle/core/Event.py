@@ -48,20 +48,25 @@ class PushUpdate:
   def plugin(self):
     plugin_type = self.payload["data"]["type"]
     plugin_name = self.payload["plugin"]
-    if plugin_type == "filament_sensor":
-      logging.warning("filament sensor has been disabled")
-    elif plugin_type == "alarm_filament_jam":
-      self.config.message.display("Alarm: Filament Jam!")
-    elif plugin_type == "display_message":
-      message = plugin_data["message"]
-      self.config.message.display(message)
-    elif plugin_type == "bed_probe_point":
-      point = json.loads(plugin_data["message"])
-      self.config.plate.add_probe_point(point)
-      self.config.loader.select_none()
-    elif plugin_type == "bed_probe_reset":
-      self.config.plate.remove_probe_points()
-      self.config.loader.model.show()
+    if plugin_name == "redeem":
+      if plugin_type == "filament_sensor":
+        logging.warning("filament sensor has been disabled")
+      elif plugin_type == "alarm_filament_jam":
+        self.config.message.display("Alarm: Filament Jam!")
+      elif plugin_type == "display_message":
+        message = plugin_data["message"]
+        self.config.message.display(message)
+      elif plugin_type == "bed_probe_point":
+        point = json.loads(plugin_data["message"])
+        self.config.plate.add_probe_point(point)
+        self.config.loader.select_none()
+      elif plugin_type == "bed_probe_reset":
+        self.config.plate.remove_probe_points()
+        self.config.loader.model.show()
+    elif plugin_name == "klipper":
+      if plugin_type == "status":
+        status = self.payload["data"]["title"]
+        logging.debug(f"Kipper status: {status}")
     else:
       logging.debug("Unknown plugin type: " + str(plugin_type))
 
@@ -128,6 +133,9 @@ class Event:
 
   def ClientClosed(self):
     logging.debug("Client Closed")
+
+  def ClientAuthed(self):
+    logging.debug("Client Authenticated")
 
   def SlicingStarted(self):
     self.config.message.display("Starting slicing!")

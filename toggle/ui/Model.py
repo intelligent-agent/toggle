@@ -45,8 +45,12 @@ class Model(Mash.Model):
     vp.add_child(self.light_directional)
     vp.add_child(self.light_point)
 
-    cm = Cogl.Matrix()
-    m = Clutter.matrix_init_from_array(cm, [1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1])
+    if hasattr(Clutter, 'Matrix'):
+      m = Clutter.Matrix.alloc()
+      m.init_from_array([1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1])
+    else:
+      cm = Cogl.Matrix()
+      m = Clutter.matrix_init_from_array(cm, [1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1])
     config.ui.get_object("model-flipper").set_transform(m)
 
     self.model.connect("show", self.model_loaded)
