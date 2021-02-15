@@ -120,7 +120,7 @@ class Event:
 
   def Upload(self):
     logging.debug("Upload evt")
-    self.config.loader.load_models()
+    self.config.loader.sync_models()
 
   def Disconnected(self):
     logging.debug("Printer Disconnected")
