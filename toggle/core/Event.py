@@ -65,7 +65,7 @@ class PushUpdate:
         self.config.loader.model.show()
     elif plugin_name == "klipper":
       if plugin_type == "status":
-        status = self.payload["data"]["title"]
+        status = self.payload["data"]["payload"]
         logging.debug(f"Kipper status: {status}")
     else:
       logging.debug("Unknown plugin type: " + str(plugin_type))
