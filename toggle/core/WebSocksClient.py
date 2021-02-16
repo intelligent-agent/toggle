@@ -169,27 +169,3 @@ class WebSocksClient():
     self.close_conn()
     self.ioloop.stop()
     self.thread.join()
-
-
-if __name__ == '__main__':
-
-  def main():
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-        datefmt='%m-%d %H:%M')
-
-    settings = {'Server': {'host': 'localhost', 'port': 5000}}
-    client = WebSocksClient(settings)
-
-    def work():
-      for i in range(10):
-        print(i)
-        time.sleep(1)
-
-    client.start()
-    threading.Thread(target=work).start()
-    time.sleep(10)
-    client.stop()
-
-  main()
