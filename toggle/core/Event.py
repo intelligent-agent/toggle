@@ -46,9 +46,9 @@ class PushUpdate:
     pass
 
   def plugin(self):
-    plugin_type = self.payload["data"]["type"]
     plugin_name = self.payload["plugin"]
     if plugin_name == "redeem":
+      plugin_type = self.payload["data"]["type"]
       if plugin_type == "filament_sensor":
         logging.warning("filament sensor has been disabled")
       elif plugin_type == "alarm_filament_jam":
@@ -64,11 +64,12 @@ class PushUpdate:
         self.config.plate.remove_probe_points()
         self.config.loader.model.show()
     elif plugin_name == "klipper":
+      plugin_type = self.payload["data"]["type"]
       if plugin_type == "status":
         status = self.payload["data"]["payload"]
         logging.debug(f"Kipper status: {status}")
     else:
-      logging.debug("Unknown plugin type: " + str(plugin_type))
+      logging.debug("Unknown plugin: " + str(plugin_name))
 
   def current(self):
     self.config.printer.update_printer_state(self.payload["state"])
