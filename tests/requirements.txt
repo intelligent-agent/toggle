@@ -4,4 +4,5 @@ mock
 sympy
 requests
 requests-mock
+tornado
 https://github.com/liamw9534/pyconnman/archive/master.tar.gz#egg=pyconnman
