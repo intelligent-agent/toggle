@@ -45,6 +45,11 @@ class CascadingConfigParser(configparser.ConfigParser):
         ts = max(ts, os.path.getmtime(config_file))
     return ts
 
+  def reload(self):
+    for config_file in self.config_files:
+      if os.path.isfile(config_file):
+        self.read_file(open(config_file))
+
   def check_file_valid(self, filename):
     default = configparser.ConfigParser()
     default.read_file(open(os.path.join(self.config_location, "default.cfg")))

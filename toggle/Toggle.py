@@ -124,7 +124,7 @@ class Toggle:
     config.loader = ModelLoader(config)
     config.model = Model(config)
     config.plate = Plate(config)
-    config.socks_client = WebSocksClient(config, self.on_auth_cb)
+    config.socks_client = WebSocksClient(config, self.on_connected_cb)
 
     # mouse
     use_mouse = int(config.get('Input', 'mouse'))
@@ -144,7 +144,33 @@ class Toggle:
     self.config = config
     config.stage.show()
 
-  def on_auth_cb(self):
+  def on_connected_cb(self):
+    self.config.splash.set_status("Authenticating...")
+    authenticated = False
+    api_key_ok = False
+    while not authenticated:
+      session = self.config.rest_client.login()
+      if session != "INVALID-SESSION":
+        authenticated = True
+      else:
+        time.sleep(1)
+        self.config.reload()
+
+    self.config.splash.set_status("Checking API key...")
+    while not api_key_ok:
+      if self.config.rest_client.connection_ok():
+        api_key_ok = True
+      else:
+        time.sleep(1)
+        self.config.reload()
+        self.config.rest_client.load_parameters()
+
+    user = self.config.get("OctoPrint", "user")
+    logging.debug("Authenticating with " + user + ":" + session)
+    msg = '{ "auth" : "' + str(user) + ':' + str(session) + '" }'
+    logging.debug("Sending message " + msg)
+    self.config.socks_client.send(msg)
+    self.config.splash.set_status("Authenticated!")
     self.config.loader.sync_models()
 
   def run(self):
