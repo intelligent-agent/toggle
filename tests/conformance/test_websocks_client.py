@@ -10,7 +10,7 @@ from toggle.core.WebSocksClient import WebSocksClient
 
 def test_websocks_client_ok(default_config):
 
-  client = WebSocksClient(default_config)
+  client = WebSocksClient(default_config, None)
 
   def work():
     pass

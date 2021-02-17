@@ -20,11 +20,6 @@ import asyncio
 
 from .Event import PushUpdate
 
-APPLICATION_JSON = 'application/json'
-
-DEFAULT_CONNECT_TIMEOUT = 60
-DEFAULT_REQUEST_TIMEOUT = 60
-
 
 class WebSocksClient():
   """
@@ -37,18 +32,13 @@ class WebSocksClient():
   AUTHENTICATED = 3
   FAILED = 4
 
-  def __init__(self, config=None, on_auth_cb=None):
+  def __init__(self, config, on_connected_cb):
     self.config = config
-    self.on_auth_cb = on_auth_cb
+    self.on_connected_cb = on_connected_cb
     host = config.get("Server", "host")
     port = str(config.get("Server", "port"))
-    self.connect_timeout = DEFAULT_CONNECT_TIMEOUT
-    try:
-      self.request_timeout = self.config.getint("OctoPrint", "timeout")
-    except:
-      self.request_timeout = DEFAULT_REQUEST_TIMEOUT
+    self.request_timeout = self.config.getint("OctoPrint", "timeout")
     self.url = '/'.join(["ws://{}:{}".format(host, port), 'sockjs', 'websocket'])
-
     self.max_reconnects = 10
     self.state = WebSocksClient.CLOSED
 
@@ -57,22 +47,12 @@ class WebSocksClient():
     self.state = WebSocksClient.CONNECTING
     self._ws_connection = websocket.websocket_connect(self.url, callback=self._connect_callback)
 
-  def authenticate(self):
-    user = self.config.get("OctoPrint", "user")
-    session = self.config.rest_client.login()
-    if session != "INVALID-SESSION":
-      self.on_auth_cb()
-    logging.debug("Authenticating with " + user + ":" + session)
-    msg = '{ "auth" : "' + str(user) + ':' + str(session) + '" }'
-    logging.info("Sending message " + msg)
-    ret = self._ws_connection.write_message(msg)
-
   def send(self, data):
     """
     Send message to the server
       :param str data: message.
     """
-    logging.info("Sending message " + data)
+    logging.debug("Sending message " + data)
     yield self._ws_connection.write_message(data)
 
   def close_conn(self):
@@ -106,10 +86,9 @@ class WebSocksClient():
       :param str msg: server message.
     """
     data = json.loads(msg)
-    #logging.debug(msg)
     if 'connected' in data:
       logging.debug("SockJS: Socket connected")
-      self.authenticate()
+      self.on_connected_cb()
     self.parse_msg(data)
 
   def _on_connection_success(self):

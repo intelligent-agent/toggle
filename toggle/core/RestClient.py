@@ -9,14 +9,16 @@ import logging
 class RestClient:
   def __init__(self, config):
     self.config = config
-    self._host = config.get("Server", "host")
-    self._port = config.get("Server", "port")
     self._prefix = "/api"
-    self._api_key = config.get("OctoPrint", "authentication")
+    self.load_parameters()
+
+  def load_parameters(self):
+    self._host = self.config.get("Server", "host")
+    self._port = self.config.get("Server", "port")
+    self._api_key = self.config.get("OctoPrint", "authentication")
     self._headers = {'Content-Type': 'application/json', 'X-Api-Key': self._api_key}
 
   def login(self):
-    logging.debug("Rest login")
     url = "http://" + self._host + ":" + str(self._port) + "/api/login"
     user = self.config.get("OctoPrint", "user")
     password = self.config.get("OctoPrint", "password")
@@ -27,6 +29,10 @@ class RestClient:
     else:
       logging.warning("Authentication failed! Check username and password + CORS")
       return "INVALID-SESSION"
+
+  def connection_ok(self):
+    r = requests.get(self._build_url("/api/version"), headers=self._headers)
+    return r.status_code == 200
 
   def start_job(self):
     logging.debug("Starting job")
