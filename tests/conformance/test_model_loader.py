@@ -10,6 +10,8 @@ def test_model_loader_sync(default_config):
   loader = ModelLoader(default_config)
   loader.sync_models()
   assert (loader.models.count() == 11)
+  for name in ["Bruce-Willis.stl", "Dolf-Lundgren.stl"]:
+    os.remove(name)
 
 
 def test_file_model(default_config):
@@ -73,7 +75,7 @@ class DummyRestClient:
                     '4d80ca23ce7ffa1ede4cf165dd00fc440741cf1c',
                 'links': [{
                     'hash': '23d9e81c835090eabe405b129f8dba531fe5883e',
-                    'name': 'Motor-bottom-back.stl',
+                    'name': 'Dolf-Lundgren.stl',
                     'rel': 'model'
                 }],
                 'name':
@@ -167,7 +169,7 @@ class DummyRestClient:
                     '038e55f72e7cc685eefcac771df948807954243c',
                 'links': [{
                     'hash': 'ffead561c4a9bcfb4d2808dad1b7e31b81ddca25',
-                    'name': 'calibration-cube.stl',
+                    'name': 'Bruce-Willis.stl',
                     'rel': 'model'
                 }],
                 'name':
@@ -230,7 +232,7 @@ class DummyRestClient:
                 'date':
                     1564354472,
                 'display':
-                    'calibration-cube.stl',
+                    'Bruce-Willis.stl',
                 'hash':
                     'ffead561c4a9bcfb4d2808dad1b7e31b81ddca25',
                 'links': [{
@@ -239,11 +241,11 @@ class DummyRestClient:
                     'rel': 'machinecode'
                 }],
                 'name':
-                    'calibration-cube.stl',
+                    'Bruce-Willis.stl',
                 'origin':
                     'local',
                 'path':
-                    'calibration-cube.stl',
+                    'Bruce-Willis.stl',
                 'refs': {
                     'download':
                         'http://kamikaze.local:5000/downloads/files/local/calibration-cube.stl',

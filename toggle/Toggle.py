@@ -127,19 +127,6 @@ class Toggle:
     config.socks_client = WebSocksClient(config, self.on_connected_cb)
 
     # mouse
-    use_mouse = int(config.get('Input', 'mouse'))
-    self.cursor = config.ui.get_object("cursor")
-    if use_mouse:
-      config.stage.connect("motion-event", self.mouse_move)
-      logging.info("Mouse is active")
-    else:
-      config.stage.connect("touch-event", self.mouse_move)
-      logging.info("Mouse is not active, using touch instead")
-      self.cursor.set_opacity(0)
-    config.mouse_invert_x = config.getboolean('Input', 'mouse_invert_x')
-    config.mouse_invert_y = config.getboolean('Input', 'mouse_invert_y')
-    config.mouse_swap = config.getboolean('Input', 'mouse_swap_xy')
-
     config.push_updates = Queue.Queue(10)
     self.config = config
     config.stage.show()
@@ -226,21 +213,6 @@ class Toggle:
         self.config.stage.set_fullscreen(True)
     elif event.unicode_value == "q":
       self.stop(None)
-
-  def mouse_move(self, actor, event):
-    if hasattr(event, "x"):
-      x, y = event.x, event.y
-    else:
-      x, y = event.get_coords()
-    if self.config.mouse_swap:
-      x, y = y, x
-    if self.config.mouse_invert_x:
-      x = self.config.screen_height - x
-    if self.config.mouse_invert_y:
-      y = self.config.screen_width - y
-    self.cursor.set_position(x, y)
-
-    return Clutter.EVENT_PROPAGATE
 
 
 def main():

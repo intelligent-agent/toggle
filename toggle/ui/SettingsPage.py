@@ -11,12 +11,12 @@ class SettingsPage():
   def __init__(self, config):
     self.ui = config.ui
     self.scroller = config.ui.get_object("scroll-pane")
-    self.scroller.set_reactive(True)
-    self.header_y = config.ui.get_object("scroll-header").get_height()
-    self.scroller.connect("scroll-event", self.on_scroll_event)
-    pan = Clutter.PanAction()
-    self.scroller.add_action(pan)
-    pan.connect("pan", self.finger_pan)
+    #self.scroller.set_reactive(True)
+    self.header_y = 100
+    #self.scroller.connect("scroll-event", self.on_scroll_event)
+    #pan = Clutter.PanAction()
+    #self.scroller.add_action(pan)
+    #pan.connect("pan", self.finger_pan)
 
     self.ap_font = config.ui.get_object("wifi-ssid").get_font_description()
     self.ap_color = config.ui.get_object("wifi-ssid").get_color()
@@ -172,7 +172,6 @@ class SettingsPage():
       header.add_action(tap)
       tap.connect("tap", self.header_tap)
       body = self.config.ui.get_object(box + "-body")
-      body.set_height(5)
       header.is_open = False
       header.body = body
       for child in body.get_children():
@@ -180,13 +179,9 @@ class SettingsPage():
 
   def header_tap(self, tap, actor):
     if actor.is_open:
-      actor.body.set_height(5)
-      for child in actor.body.get_children():
-        child.props.visible = False
+      actor.body.hide()
       actor.is_open = False
     else:
-      actor.body.set_height(-1)
       actor.is_open = True
-      for child in actor.body.get_children():
-        child.props.visible = True
+      actor.body.show()
     self.scroller_height = self.scroller.get_height()

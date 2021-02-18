@@ -1,0 +1,1013 @@
+[{
+  "id": "stage",
+  "type": "ClutterStage",
+  "background-color": "#8B8B8B",
+  "user-resizable": true,
+  "layout-manager": {
+    "type": "ClutterBinLayout"
+  },
+  "children": [{
+      "id": "box",
+      "type": "ClutterActor",
+      "x-expand": true,
+      "y-expand": true,
+      "pivot-point-z": -540.0,
+      "pivot-point": [0.5, 0.5],
+      "rotation-angle-x": 0.0,
+      "layout-manager": {
+        "type": "ClutterBinLayout"
+      },
+      "children": [{
+          "id": "side0",
+          "type": "ClutterActor",
+          "x-expand": true,
+          "y-expand": true,
+          "pivot-point-z": -540.0,
+          "pivot-point": [0.5, 0.0],
+          "rotation-angle-y": 0.0,
+          "background-color": "#FFFFFF",
+          "layout-manager": {
+            "type": "ClutterBinLayout"
+          },
+          "children": [{
+            "id": "side0-content",
+            "visible": false,
+            "type": "ClutterActor",
+            "x-expand": true,
+            "y-expand": true,
+            "layout-manager": {
+              "type": "ClutterBinLayout"
+            },
+            "children": [{
+                "id": "scroll-pane",
+                "type": "ClutterScrollActor",
+                "reactive": true,
+                "x-expand": true,
+                "margin-top": 100,
+                "margin-left": 20,
+                "margin-right": 20,
+                "margin-bottom": 20,
+                "scroll-mode": 2,
+                "layout-manager": {
+                  "type": "ClutterBoxLayout",
+                  "orientation": 1
+                },
+                "children": [{
+                    "id": "network-box",
+                    "type": "ClutterActor",
+                    "x-expand": true,
+                    "layout-manager": {
+                      "type": "ClutterBoxLayout",
+                      "orientation": 1
+                    },
+                    "children": [{
+                        "id": "network-header",
+                        "type": "ClutterActor",
+                        "background-color": "#26322F",
+                        "x-expand": true,
+                        "margin-bottom": 5,
+                        "layout-manager": {
+                          "type": "ClutterBoxLayout"
+                        },
+                        "children": [{
+                            "type": "ClutterTexture",
+                            "filename": "network_128.png",
+                            "margin-left": 100,
+                            "margin-top": 40
+                          },
+                          {
+                            "type": "ClutterText",
+                            "text": "Network",
+                            "color": "#C5FFF1",
+                            "font-description": "Sans 52",
+                            "margin-left": 20
+                          }
+                        ]
+                      },
+                      {
+                        "id": "network-body",
+                        "type": "ClutterActor",
+                        "background-color": "#83DCC6",
+                        "visible": false,
+                        "layout-manager": {
+                          "type": "ClutterFixedLayout"
+                        },
+                        "children": [{
+                            "type": "ClutterText",
+                            "text": "Remote Hostname: ",
+                            "font-description": "Sans 32",
+                            "color": "#26322F",
+                            "x": 100,
+                            "y": 20
+                          },
+                          {
+                            "id": "remote-hostname",
+                            "type": "ClutterText",
+                            "text": "Not set",
+                            "font-description": "Sans 32",
+                            "color": "#26322F",
+                            "x": 700,
+                            "y": 20
+                          },
+                          {
+                            "type": "ClutterText",
+                            "text": "Local Hostname: ",
+                            "font-description": "Sans 32",
+                            "color": "#26322F",
+                            "x": 100,
+                            "y": 80
+                          },
+                          {
+                            "id": "local-hostname",
+                            "type": "ClutterText",
+                            "text": "Not set",
+                            "font-description": "Sans 32",
+                            "color": "#26322F",
+                            "x": 700,
+                            "y": 80
+                          },
+                          {
+                            "type": "ClutterText",
+                            "text": "IP address: ",
+                            "font-description": "Sans 32",
+                            "color": "#26322F",
+                            "x": 100,
+                            "y": 140
+                          },
+                          {
+                            "id": "local-ip",
+                            "type": "ClutterText",
+                            "text": "Not set",
+                            "font-description": "Sans 32",
+                            "color": "#26322F",
+                            "x": 700,
+                            "y": 140
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "wifi-box",
+                    "type": "ClutterActor",
+                    "x-expand": true,
+                    "layout-manager": {
+                      "type": "ClutterBoxLayout",
+                      "orientation": 1
+                    },
+                    "children": [{
+                        "id": "wifi-header",
+                        "type": "ClutterActor",
+                        "background-color": "#26322F",
+                        "x-expand": true,
+                        "height": 150,
+                        "layout-manager": {
+                          "type": "ClutterFixedLayout"
+                        },
+                        "children": [{
+                            "type": "ClutterText",
+                            "text": "Wifi",
+                            "color": "#C5FFF1",
+                            "x": 250,
+                            "y": 45,
+                            "font-description": "Sans 52"
+                          },
+                          {
+                            "type": "ClutterTexture",
+                            "filename": "wifi_128.png",
+                            "x": 100,
+                            "y": 40,
+                            "width": 72,
+                            "height": 72
+                          }
+                        ]
+                      },
+                      {
+                        "id": "wifi-body",
+                        "type": "ClutterActor",
+                        "x-expand": true,
+                        "background-color": "#83DCC6",
+                        "height": 5,
+                        "layout-manager": {
+                          "type": "ClutterBoxLayout",
+                          "orientation": 1
+                        },
+                        "children": [{
+                          "id": "wifi-ssid",
+                          "type": "ClutterText",
+                          "text": "No Access Points found",
+                          "font-description": "Sans 32",
+                          "color": "#26322F",
+                          "height": 50,
+                          "margin-left": 100
+                        }]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "slicer-box",
+                    "type": "ClutterActor",
+                    "width": 1280,
+                    "layout-manager": {
+                      "type": "ClutterBoxLayout",
+                      "orientation": 1
+                    },
+                    "children": [{
+                        "id": "slicer-header",
+                        "type": "ClutterActor",
+                        "height": 150,
+                        "width": 1280,
+                        "background-color": "#26322F",
+                        "layout-manager": {
+                          "type": "ClutterFixedLayout"
+                        },
+                        "children": [{
+                            "type": "ClutterText",
+                            "text": "Slicer",
+                            "color": "#C5FFF1",
+                            "x": 250,
+                            "y": 45,
+                            "font-description": "Sans 52"
+                          },
+                          {
+                            "type": "ClutterTexture",
+                            "filename": "slicer_128.png",
+                            "x": 100,
+                            "y": 40,
+                            "width": 72,
+                            "height": 72
+                          }
+                        ]
+                      },
+                      {
+                        "id": "slicer-body",
+                        "type": "ClutterActor",
+                        "width": 1280,
+                        "height": 5,
+                        "background-color": "#83DCC6",
+                        "layout-manager": {
+                          "type": "ClutterFixedLayout"
+                        },
+                        "children": [{
+                            "type": "ClutterText",
+                            "text": "Layer height: ",
+                            "x": 100,
+                            "y": 20,
+                            "font-description": "Sans 32",
+                            "color": "#26322F"
+                          },
+                          {
+                            "id": "slicer-layer-height",
+                            "type": "ClutterText",
+                            "text": "Not set",
+                            "x": 700,
+                            "y": 20,
+                            "color": "#26322F",
+                            "font-description": "Sans 32"
+                          },
+                          {
+                            "type": "ClutterText",
+                            "text": "Print temperature: ",
+                            "x": 100,
+                            "y": 80,
+                            "color": "#26322F",
+                            "font-description": "Sans 32"
+                          },
+                          {
+                            "id": "slicer-print-temp",
+                            "type": "ClutterText",
+                            "text": "Not set",
+                            "color": "#26322F",
+                            "font-description": "Sans 32",
+                            "x": 700,
+                            "y": 80
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "printer-box",
+                    "type": "ClutterActor",
+                    "width": 1280,
+                    "layout-manager": {
+                      "type": "ClutterBoxLayout",
+                      "orientation": 1
+                    },
+                    "children": [{
+                        "id": "printer-header",
+                        "type": "ClutterActor",
+                        "height": 150,
+                        "width": 1280,
+                        "background-color": "#26322F",
+                        "layout-manager": {
+                          "type": "ClutterFixedLayout"
+                        },
+                        "children": [{
+                            "type": "ClutterText",
+                            "text": "Printer",
+                            "color": "#C5FFF1",
+                            "x": 250,
+                            "y": 30,
+                            "font-description": "Sans 52"
+                          },
+                          {
+                            "type": "ClutterTexture",
+                            "filename": "printer_128.png",
+                            "x": 100,
+                            "y": 40,
+                            "width": 72,
+                            "height": 72
+                          }
+                        ]
+                      },
+                      {
+                        "id": "printer-body",
+                        "type": "ClutterActor",
+                        "width": 1280,
+                        "height": 5,
+                        "background-color": "#83DCC6",
+                        "layout-manager": {
+                          "type": "ClutterFixedLayout"
+                        },
+                        "children": [{
+                          "id": "printer-calibrate-bed",
+                          "type": "ClutterText",
+                          "text": "Calibrate Bed",
+                          "font-description": "Sans 32",
+                          "color": "#26322F",
+                          "x": 120,
+                          "y": 20
+                        }]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "ClutterActor",
+                "y-expand": true,
+                "x-expand": true,
+                "y-align": 1,
+                "margin-top": 20,
+                "margin-left": 20,
+                "margin-right": 20,
+                "layout-manager": {
+                  "type": "ClutterBoxLayout",
+                  "orientation": 0
+                },
+                "children": [{
+                    "id": "side0-btn-prev",
+                    "type": "ClutterTexture",
+                    "filename": "jog_128.png",
+                    "reactive": true
+                  },
+                  {
+                    "type": "ClutterActor",
+                    "x-expand": true
+                  },
+                  {
+                    "id": "side0-btn-next",
+                    "type": "ClutterTexture",
+                    "filename": "temperature_128.png",
+                    "reactive": true
+                  }
+                ]
+              }
+            ]
+          }]
+        },
+        {
+          "id": "side1",
+          "type": "ClutterActor",
+          "pivot-point-z": -540.0,
+          "pivot-point": [0.5, 0.0],
+          "rotation-angle-y": 90.0,
+          "background-color": "#83DCC6",
+          "visible": false,
+          "layout-manager": {
+            "type": "ClutterBinLayout"
+          },
+          "children": [{
+              "id": "side1-content",
+              "type": "ClutterActor",
+              "x-expand": true,
+              "y-expand": true,
+              "margin-top": 20,
+              "margin-bottom": 20,
+              "margin-left": 20,
+              "margin-right": 20,
+              "layout-manager": {
+                "type": "ClutterBoxLayout",
+                "orientation": 1
+              },
+              "children": [{
+                  "id": "graph-title",
+                  "margin-top": 20,
+                  "type": "ClutterText",
+                  "text": "Temperature",
+                  "color": "#26322F",
+                  "font-description": "Sans 24"
+                },
+                {
+                  "id": "graph",
+                  "type": "ClutterActor",
+                  "x-expand": true,
+                  "y-expand": true,
+                  "layout-manager": {
+                    "type": "ClutterBinLayout"
+                  }
+                },
+                {
+                  "type": "ClutterActor",
+                  "layout-manager": {
+                    "type": "ClutterBoxLayout"
+                  },
+                  "children": [{
+                      "id": "heat-bed",
+                      "type": "ClutterTexture",
+                      "filename": "heater_bed_cold_128.png",
+                      "reactive": true
+                    },
+                    {
+                      "id": "heat-tool0",
+                      "type": "ClutterTexture",
+                      "filename": "heater_cold_128.png",
+                      "reactive": true
+                    },
+                    {
+                      "id": "heat-tool1",
+                      "type": "ClutterTexture",
+                      "filename": "heater_cold_128.png",
+                      "reactive": true
+                    },
+                    {
+                      "id": "heat-tool2",
+                      "type": "ClutterTexture",
+                      "filename": "heater_cold_128.png",
+                      "reactive": true
+                    },
+                    {
+                      "id": "lbl-temp",
+                      "type": "ClutterText",
+                      "text": "No data",
+                      "color": "#26322F",
+                      "x-align": 3,
+                      "x-expand": true,
+                      "line-alignment": 2,
+                      "font-description": "Sans 16"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "ClutterActor",
+              "x-expand": true,
+              "y-expand": true,
+              "y-align": 1,
+              "margin-top": 20,
+              "margin-left": 20,
+              "margin-right": 20,
+              "layout-manager": {
+                "type": "ClutterBoxLayout",
+                "orientation": 0
+              },
+              "children": [{
+                  "id": "side1-btn-prev",
+                  "type": "ClutterTexture",
+                  "filename": "settings_128.png",
+                  "reactive": true
+                },
+                {
+                  "type": "ClutterActor",
+                  "x-expand": true
+                },
+                {
+                  "id": "side1-btn-next",
+                  "type": "ClutterTexture",
+                  "filename": "print_128.png",
+                  "reactive": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "side2",
+          "type": "ClutterActor",
+          "x-expand": true,
+          "y-expand": true,
+          "pivot-point-z": -540.0,
+          "pivot-point": [0.5, 0.0],
+          "rotation-angle-y": 180.0,
+          "visible": false,
+          "background-color": "#83DCC6",
+          "layout-manager": {
+            "type": "ClutterBinLayout"
+          },
+          "children": [{
+              "id": "side2-content",
+              "type": "ClutterActor",
+              "layout-manager": {
+                "type": "ClutterBinLayout"
+              },
+              "children": [{
+                  "id": "volume-viewport",
+                  "x-expand": true,
+                  "y-expand": true,
+                  "type": "ClutterActor",
+                  "pivot-point": [0.5, 0.5],
+                  "layout-manager": {
+                    "type": "ClutterBinLayout"
+                  },
+                  "children": [{
+                    "id": "spinner",
+                    "type": "ClutterActor",
+                    "z-position": 150,
+                    "width": 1,
+                    "height": 1,
+                    "depth": 1,
+                    "children": [{
+                      "id": "volume-wrapper",
+                      "type": "ClutterActor",
+                      "pivot-point": [0.5, 0.5],
+                      "pivot-point-z": 0.5,
+                      "width": 1,
+                      "height": 1,
+                      "depth": 1,
+                      "rotation-angle-x": 180.0,
+                      "rotation-angle-y": 180.0,
+                      "scale-x": 1.3,
+                      "scale-y": 1.3,
+                      "scale-z": 1.3,
+                      "children": [{
+                          "id": "plate",
+                          "type": "MashModel",
+                          "rotation-angle-x": -90.0,
+                          "background-color": "#C5FFF1"
+                        },
+                        {
+                          "id": "model-flipper",
+                          "type": "ClutterActor",
+                          "children": [{
+                            "id": "model",
+                            "type": "MashModel",
+                            "rotation-angle-x": 90.0,
+                            "rotation-angle-y": 0.0,
+                            "rotation-angle-z": 0.0,
+                            "background-color": "#FA8700"
+                          }]
+                        }
+                      ]
+                    }]
+                  }]
+                },
+                {
+                  "id": "loader",
+                  "type": "ClutterTexture",
+                  "filename": "loading_128.png",
+                  "width": 100,
+                  "height": 100,
+                  "x": 590,
+                  "y": 310,
+                  "pivot-point": [0.5, 0.5],
+                  "visible": false
+                }
+              ]
+            },
+            {
+              "type": "ClutterActor",
+              "margin-top": 20,
+              "margin-bottom": 20,
+              "margin-left": 20,
+              "margin-right": 20,
+              "layout-manager": {
+                "type": "ClutterBoxLayout",
+                "orientation": 1
+              },
+              "children": [{
+                  "type": "ClutterActor",
+                  "x-expand": true,
+                  "y-expand": true,
+                  "y-align": 1,
+                  "layout-manager": {
+                    "type": "ClutterBoxLayout"
+                  },
+                  "children": [{
+                      "id": "side2-btn-prev",
+                      "type": "ClutterTexture",
+                      "filename": "temperature_128.png",
+                      "reactive": true
+                    },
+                    {
+                      "type": "ClutterActor",
+                      "x-expand": true
+                    },
+                    {
+                      "id": "side2-btn-next",
+                      "type": "ClutterTexture",
+                      "filename": "jog_128.png",
+                      "reactive": true
+                    }
+                  ]
+                },
+                {
+                  "type": "ClutterActor",
+                  "x-expand": true,
+                  "y-expand": true,
+                  "margin-left": 20,
+                  "margin-right": 20,
+                  "y-align": 1,
+                  "layout-manager": {
+                    "type": "ClutterBoxLayout",
+                    "orientation": 0
+                  },
+                  "children": [{
+                      "id": "btn-prev",
+                      "type": "ClutterTexture",
+                      "filename": "arrow_disabled_128.png",
+                      "reactive": true,
+                      "rotation-angle-z": 180.0,
+                      "pivot-point": [0.5, 0.5]
+                    },
+                    {
+                      "type": "ClutterActor",
+                      "x-expand": true
+                    },
+                    {
+                      "id": "btn-next",
+                      "type": "ClutterTexture",
+                      "filename": "arrow_disabled_128.png",
+                      "reactive": true
+                    }
+                  ]
+                },
+                {
+                  "type": "ClutterActor",
+                  "x-expand": true,
+                  "layout-manager": {
+                    "type": "ClutterBoxLayout"
+                  },
+                  "children": [{
+                      "id": "lbl-stat",
+                      "type": "ClutterText",
+                      "font-description": "Sans 24",
+                      "color": "#26322F",
+                      "margin-bottom": 50,
+                      "x-expand": true
+                    },
+                    {
+                      "type": "ClutterActor",
+                      "x-expand": true,
+                      "x-align": 2,
+                      "layout-manager": {
+                        "type": "ClutterBoxLayout"
+                      },
+                      "children": [{
+                          "id": "btn-cancel",
+                          "type": "ClutterTexture",
+                          "filename": "cancel_128.png"
+                        },
+                        {
+                          "id": "btn-print",
+                          "type": "ClutterTexture",
+                          "filename": "play_128.png"
+                        },
+                        {
+                          "id": "btn-pause",
+                          "type": "ClutterTexture",
+                          "filename": "pause_128.png"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "ClutterActor",
+                      "margin-left": 20,
+                      "x-expand": true,
+                      "layout-manager": {
+                        "type": "ClutterBoxLayout",
+                        "orientation": 1
+                      },
+                      "children": [{
+                          "id": "lbl-model",
+                          "type": "ClutterText",
+                          "text": "Model",
+                          "x-align": 3,
+                          "x-expand": true,
+                          "font-description": "Sans 16",
+                          "color": "#26322F"
+                        },
+                        {
+                          "type": "ClutterActor",
+                          "layout-manager": {
+                            "type": "ClutterBoxLayout"
+                          },
+                          "children": [{
+                              "id": "time-gone",
+                              "type": "ClutterText",
+                              "text": "Passed",
+                              "font-description": "Sans 16",
+                              "color": "#26322F"
+                            },
+                            {
+                              "id": "time-left",
+                              "type": "ClutterText",
+                              "text": "Remaining",
+                              "x-align": 3,
+                              "x-expand": true,
+                              "font-description": "Sans 16",
+                              "color": "#26322F"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "progress-bar-bg",
+                          "type": "ClutterActor",
+                          "height": 30,
+                          "background-color": "#26322F",
+                          "layout-manager": {
+                            "type": "ClutterBinLayout"
+                          },
+                          "children": [{
+                              "id": "progress-bar-undone",
+                              "type": "ClutterActor",
+                              "height": 28,
+                              "x-expand": true,
+                              "background-color": "#83DCC6"
+                            },
+                            {
+                              "id": "progress-bar",
+                              "type": "ClutterActor",
+                              "x": 1,
+                              "y": 1,
+                              "width": 0,
+                              "height": 28,
+                              "background-color": "#C5FFF1"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "side3",
+          "type": "ClutterActor",
+          "x-expand": true,
+          "y-expand": true,
+          "pivot-point-z": -540.0,
+          "pivot-point": [0.5, 0.0],
+          "rotation-angle-y": 270.0,
+          "visible": false,
+          "background-color": "#83DCC6",
+          "layout-manager": {
+            "type": "ClutterBinLayout"
+          },
+          "children": [{
+              "id": "side3-content"
+            }
+          ]
+        },
+        {
+          "id": "side5",
+          "type": "ClutterActor",
+          "layout-manager": {
+            "type": "ClutterBoxLayout",
+            "orientation": 0
+          },
+          "children": [{
+              "id": "side5-btn-next",
+              "type": "ClutterTexture",
+              "filename": "temperature_128.png",
+              "reactive": true,
+              "y-expand": true,
+              "y-align": 1,
+              "margin-left": 20
+            },
+            {
+              "id": "spash-holder",
+              "type": "ClutterActor",
+              "x-expand": true,
+              "y-expand": true,
+              "layout-manager": {
+                "type": "ClutterBinLayout"
+              },
+              "children": [{
+                  "id": "splash",
+                  "type": "ClutterTexture",
+                  "filename": "logo_600.png"
+                },
+                {
+                  "id": "splash-status",
+                  "type": "ClutterText",
+                  "text": "Toggle initializing...",
+                  "color": "#FFFFFF",
+                  "font-description": "Sans 16",
+                  "y-expand": true,
+                  "y-align": 3,
+                  "margin-bottom": 50
+                }
+              ]
+            },
+            {
+              "id": "side5-btn-prev",
+              "type": "ClutterTexture",
+              "filename": "settings_128.png",
+              "reactive": true,
+              "y-expand": true,
+              "y-align": 1,
+              "margin-right": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "state",
+      "type": "ClutterActor",
+      "x-expand": true,
+      "layout-manager": {
+        "type": "ClutterBoxLayout",
+        "orientation": 1
+      },
+      "children": [{
+          "id": "state-filler",
+          "type": "ClutterActor",
+          "y-expand": true
+        },
+        {
+          "id": "bar",
+          "type": "ClutterActor",
+          "margin-bottom": 20,
+          "margin-left": 20,
+          "x-expand": true,
+          "x-align": 1,
+          "children": [{
+              "id": "connection",
+              "type": "ClutterTexture",
+              "filename": "connection_64.png"
+            },
+            {
+              "id": "connection-disabled",
+              "type": "ClutterTexture",
+              "filename": "connection_disabled_64.png",
+              "visible": false
+            },
+            {
+              "id": "printing",
+              "type": "ClutterTexture",
+              "filename": "running_64.png",
+              "visible": false
+            },
+            {
+              "id": "paused",
+              "type": "ClutterTexture",
+              "filename": "paused_64.png",
+              "visible": false
+            },
+            {
+              "id": "heartbeat",
+              "type": "ClutterTexture",
+              "filename": "heartbeat_64.png",
+              "visible": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "msg",
+      "type": "ClutterActor",
+      "x-expand": true,
+      "y-expand": true,
+      "background-color": "#000C",
+      "opacity": 0,
+      "layout-manager": {
+        "type": "ClutterBinLayout"
+      },
+      "children": [{
+        "id": "txt",
+        "type": "ClutterText",
+        "font-description": "Sans 36",
+        "color": "#FFF",
+        "height": 100,
+        "text": "test"
+      }]
+    },
+    {
+      "id": "wifi-overlay",
+      "type": "ClutterActor",
+      "width": 1280,
+      "height": 720,
+      "background-color": "#000C",
+      "layout-manager": {
+        "type": "ClutterFixedLayout"
+      },
+      "visible": false,
+      "children": [{
+          "id": "wifi-text",
+          "type": "ClutterText",
+          "font-description": "Sans 24",
+          "color": "#001",
+          "height": 100,
+          "text": "Password:",
+          "x": 120,
+          "y": 70
+        },
+        {
+          "id": "wifi-input",
+          "type": "ClutterActor",
+          "height": 60,
+          "width": 1000,
+          "x": 120,
+          "y": 110
+        },
+        {
+          "id": "wifi-status",
+          "type": "ClutterText",
+          "font-description": "Sans 12",
+          "color": "#001",
+          "x": 120,
+          "y": 200
+        },
+        {
+          "id": "wifi-ok",
+          "type": "ClutterTexture",
+          "x": 920,
+          "y": 185
+        },
+        {
+          "id": "wifi-cancel",
+          "type": "ClutterTexture",
+          "x": 986,
+          "y": 185
+        },
+        {
+          "id": "keyboard",
+          "type": "ClutterActor",
+          "width": 1280,
+          "height": 480,
+          "y": 240,
+          "pivot-point-z": -400.0,
+          "pivot-point": [0.5, 0.5],
+          "rotation-angle-x": 0.0,
+          "layout-manager": {
+            "type": "ClutterBoxLayout",
+            "orientation": 1
+          },
+          "children": [{
+              "id": "key-style",
+              "type": "ClutterTexture",
+              "visible": false
+            },
+            {
+              "id": "row-0",
+              "type": "ClutterActor",
+              "height": 110,
+              "layout-manager": {
+                "type": "ClutterBoxLayout",
+                "orientation": 0,
+                "spacing": 17
+              }
+            },
+            {
+              "id": "row-1",
+              "type": "ClutterActor",
+              "height": 110,
+              "layout-manager": {
+                "type": "ClutterBoxLayout",
+                "orientation": 0,
+                "spacing": 19
+              }
+            },
+            {
+              "id": "row-2",
+              "type": "ClutterActor",
+              "height": 110,
+              "layout-manager": {
+                "type": "ClutterBoxLayout",
+                "orientation": 0,
+                "spacing": 19
+              }
+            },
+            {
+              "id": "row-3",
+              "height": 110,
+              "type": "ClutterActor",
+              "layout-manager": {
+                "type": "ClutterBoxLayout",
+                "orientation": 0,
+                "spacing": 19
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}]

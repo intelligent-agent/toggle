@@ -1,0 +1,257 @@
+{
+  "id": "side3-content",
+  "type": "ClutterActor",
+  "margin-top": 20,
+  "margin-bottom": 20,
+  "margin-left": 20,
+  "margin-right": 20,
+  "layout-manager": {
+    "type": "ClutterGridLayout",
+    "orientation": 1
+  },
+  "children": [{
+      "type": "ClutterActor",
+      "layout::top-attach": 0,
+      "layout::left-attach": 0,
+      "layout::width": 3,
+      "y-expand": true,
+      "layout-manager": {
+        "type": "ClutterBoxLayout"
+      },
+      "children": [{
+          "id": "side3-btn-prev",
+          "type": "ClutterTexture",
+          "filename": "temperature_128.png",
+          "reactive": true,
+          "keep-aspect-ratio": true
+        },
+        {
+          "type": "ClutterActor",
+          "x-expand": true
+        },
+        {
+          "id": "side3-btn-next",
+          "type": "ClutterTexture",
+          "filename": "print_128.png",
+          "reactive": true,
+          "keep-aspect-ratio": true
+        }
+      ]
+    },
+    {
+      "type": "ClutterActor",
+      "height": 20,
+      "layout::top-attach": 1,
+      "layout::left-attach": 0,
+      "layout::width": 3,
+      "y-expand": true
+    },
+    {
+      "type": "ClutterActor",
+      "layout::top-attach": 2,
+      "layout::left-attach": 0,
+      "layout::width": 3,
+      "layout::height": 3,
+      "x-expand": true,
+      "y-expand": true,
+      "layout-manager": {
+        "type": "ClutterBinLayout"
+      },
+      "children": [{
+        "type": "ClutterActor",
+        "x-expand": true,
+        "y-expand": true,
+        "layout-manager": {
+          "type": "ClutterGridLayout",
+          "column-spacing": 20,
+          "row-spacing": 20
+        },
+        "children": [{
+            "type": "ClutterActor",
+            "layout::left-attach": 0,
+            "layout::top-attach": 0,
+            "layout::height": 3,
+            "x-expand": true,
+            "y-expand": true
+          }, {
+            "id": "jog_x_minus",
+            "type": "ClutterTexture",
+            "filename": "arrow_128.png",
+            "keep-aspect-ratio": true,
+            "layout::left-attach": 1,
+            "layout::top-attach": 1
+          },
+          {
+            "id": "jog_y_minus",
+            "type": "ClutterTexture",
+            "filename": "arrow_128.png",
+            "keep-aspect-ratio": true,
+            "layout::left-attach": 2,
+            "layout::top-attach": 0
+          },
+          {
+            "id": "jog_home",
+            "type": "ClutterTexture",
+            "filename": "home_128.png",
+            "keep-aspect-ratio": true,
+            "layout::left-attach": 2,
+            "layout::top-attach": 1
+          },
+          {
+            "id": "jog_x_plus",
+            "type": "ClutterTexture",
+            "filename": "arrow_128.png",
+            "keep-aspect-ratio": true,
+            "layout::left-attach": 2,
+            "layout::top-attach": 2
+          },
+          {
+            "id": "jog_y_plus",
+            "type": "ClutterTexture",
+            "filename": "arrow_128.png",
+            "keep-aspect-ratio": true,
+            "layout::left-attach": 3,
+            "layout::top-attach": 1
+          },
+          {
+            "type": "ClutterActor",
+            "layout::left-attach": 5,
+            "layout::top-attach": 0,
+            "layout::height": 3,
+            "x-expand": true,
+            "y-expand": true
+          },
+          {
+            "id": "jog_z_plus",
+            "type": "ClutterTexture",
+            "filename": "arrow_128.png",
+            "keep-aspect-ratio": true,
+            "layout::left-attach": 6,
+            "layout::top-attach": 0
+          },
+          {
+            "id": "jog_z_home",
+            "type": "ClutterTexture",
+            "filename": "z_128.png",
+            "keep-aspect-ratio": true,
+            "layout::left-attach": 6,
+            "layout::top-attach": 1
+          },
+          {
+            "id": "jog_z_minus",
+            "type": "ClutterTexture",
+            "filename": "arrow_128.png",
+            "keep-aspect-ratio": true,
+            "layout::left-attach": 6,
+            "layout::top-attach": 2
+          },
+          {
+            "id": "jog_e_extrude",
+            "type": "ClutterTexture",
+            "filename": "arrow_128.png",
+            "keep-aspect-ratio": true,
+            "layout::left-attach": 7,
+            "layout::top-attach": 0
+          },
+          {
+            "id": "jog_e_toggle",
+            "type": "ClutterTexture",
+            "filename": "e_128.png",
+            "keep-aspect-ratio": true,
+            "layout::left-attach": 7,
+            "layout::top-attach": 1
+          },
+          {
+            "id": "jog_e_retract",
+            "type": "ClutterTexture",
+            "filename": "arrow_128.png",
+            "keep-aspect-ratio": true,
+            "layout::left-attach": 7,
+            "layout::top-attach": 2
+          },
+          {
+            "id": "fan_on",
+            "type": "ClutterTexture",
+            "filename": "fan_on_128.png",
+            "keep-aspect-ratio": true,
+            "layout::left-attach": 8,
+            "layout::top-attach": 0
+          },
+          {
+            "id": "fan_off",
+            "type": "ClutterTexture",
+            "filename": "fan_off_128.png",
+            "keep-aspect-ratio": true,
+            "layout::left-attach": 8,
+            "layout::top-attach": 1
+          },
+          {
+            "id": "motors_off",
+            "type": "ClutterTexture",
+            "filename": "motor_off_128.png",
+            "keep-aspect-ratio": true,
+            "layout::left-attach": 8,
+            "layout::top-attach": 2
+          },
+          {
+            "type": "ClutterActor",
+            "layout::left-attach": 9,
+            "layout::top-attach": 0,
+            "layout::height": 3,
+            "x-expand": true,
+            "y-expand": true
+          }
+        ]
+      }]
+    },
+    {
+      "type": "ClutterActor",
+      "layout::top-attach": 5,
+      "layout::left-attach": 0,
+      "layout::width": 3,
+      "height": 20,
+      "y-expand": true
+    },
+    {
+      "type": "ClutterActor",
+      "layout::top-attach": 6,
+      "layout::left-attach": 0,
+      "layout::width": 3,
+      "y-expand": true,
+      "layout-manager": {
+        "type": "ClutterBoxLayout"
+      },
+      "children": [{
+          "type": "ClutterActor",
+          "x-expand": true
+        },
+        {
+          "id": "travel_xy",
+          "type": "ClutterTexture",
+          "filename": "0.1_128.png",
+          "keep-aspect-ratio": true
+        },
+        {
+          "id": "travel_z",
+          "type": "ClutterTexture",
+          "filename": "1_128.png",
+          "keep-aspect-ratio": true
+        },
+        {
+          "id": "travel_eh",
+          "type": "ClutterTexture",
+          "filename": "10_128.png",
+          "keep-aspect-ratio": true
+        },
+        {
+          "type": "ClutterTexture",
+          "filename": "100_128.png",
+          "keep-aspect-ratio": true
+        }, {
+          "type": "ClutterActor",
+          "x-expand": true
+        }
+      ]
+    }
+  ]
+}

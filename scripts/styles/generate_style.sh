@@ -20,7 +20,7 @@ function clean {
 
 function export_image {
 		echo "Exporting $f"
-		inkscape $SOURCE/template.svg -z --export-id=$f  --export-png=$DEST/$f\_$size.png -j 1>/dev/null
+		inkscape $SOURCE/template.svg --export-id=$f  --export-filename=$DEST/$f\_$size.png -j 1>/dev/null
 }
 
 function create_images {
@@ -41,7 +41,7 @@ function create_images {
 	for size in "${sizes[@]}"
 	do
 	    export_image
-      inkscape $SOURCE/template.svg -w$size -h$size --export-id=$f  --export-png=$DEST/$f\_$size.png -j 1>/dev/null
+      inkscape $SOURCE/template.svg -w$size -h$size --export-id=$f  -export-filename=$DEST/$f\_$size.png -j 1>/dev/null
 	done
 }
 
@@ -59,7 +59,7 @@ function get_colors {
 }
 
 function convert_ui {
-	ui_files=( ui_800x480.json ui_1280x720.json ui_1920x1080.json)
+	ui_files=( ui_fluid.json ui_fluid_jog.json)
 	for FILE in "${ui_files[@]}"
 	do
 	  echo "Converting $FILE"

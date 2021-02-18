@@ -1,0 +1,252 @@
+[{
+  "id": "stage",
+  "type": "ClutterStage",
+  "width": 640,
+  "height": 480,
+  "user-resizable": true,
+  "background-color": "white",
+  "layout-manager": {
+    "type": "ClutterBinLayout"
+  },
+  "children": [{
+    "type": "ClutterActor",
+    "margin-top": 20,
+    "margin-bottom": 20,
+    "margin-left": 20,
+    "margin-right": 20,
+    "layout-manager": {
+      "type": "ClutterGridLayout",
+      "orientation": 1
+    },
+    "children": [{
+        "type": "ClutterActor",
+        "layout::top-attach": 0,
+        "layout::left-attach": 0,
+        "layout::width": 3,
+        "y-expand": true,
+        "background-color": "orange",
+        "layout-manager": {
+          "type": "ClutterBoxLayout"
+        },
+        "children": [{
+            "type": "ClutterTexture",
+            "filename": "style/arrow-left.png",
+            "keep-aspect-ratio": true
+          },
+          {
+            "type": "ClutterActor",
+            "x-expand": true
+          },
+          {
+            "type": "ClutterTexture",
+            "filename": "style/arrow-left.png",
+            "keep-aspect-ratio": true
+          }
+        ]
+      },
+      {
+        "type": "ClutterActor",
+        "background-color": "blue",
+        "height": 20,
+        "layout::top-attach": 1,
+        "layout::left-attach": 0,
+        "layout::width": 3,
+        "y-expand": true
+      },
+      {
+        "type": "ClutterActor",
+        "background-color": "red",
+        "layout::top-attach": 2,
+        "layout::left-attach": 0,
+        "layout::width": 3,
+        "layout::height": 3,
+        "x-expand": true,
+        "y-expand": true,
+        "layout-manager": {
+          "type": "ClutterBinLayout"
+        },
+        "children": [{
+          "type": "ClutterActor",
+          "x-expand": true,
+          "y-expand": true,
+          "background-color": "purple",
+          "layout-manager": {
+            "type": "ClutterGridLayout",
+            "column-spacing": 20,
+            "row-spacing": 20
+          },
+          "children": [{
+              "type": "ClutterActor",
+              "layout::left-attach": 0,
+              "layout::top-attach": 0,
+              "layout::height": 3,
+              "x-expand": true,
+              "y-expand": true
+            }, {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "keep-aspect-ratio": true,
+              "layout::left-attach": 1,
+              "layout::top-attach": 1
+            },
+            {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "keep-aspect-ratio": true,
+              "layout::left-attach": 2,
+              "layout::top-attach": 0
+            },
+            {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "keep-aspect-ratio": true,
+              "layout::left-attach": 2,
+              "layout::top-attach": 1
+            },
+            {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "keep-aspect-ratio": true,
+              "layout::left-attach": 2,
+              "layout::top-attach": 2
+            },
+            {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "keep-aspect-ratio": true,
+              "layout::left-attach": 3,
+              "layout::top-attach": 1
+            },
+            {
+              "type": "ClutterActor",
+              "layout::left-attach": 5,
+              "layout::top-attach": 0,
+              "layout::height": 3,
+              "x-expand": true,
+              "y-expand": true
+            },
+            {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "keep-aspect-ratio": true,
+              "layout::left-attach": 6,
+              "layout::top-attach": 0
+            },
+            {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "keep-aspect-ratio": true,
+              "layout::left-attach": 6,
+              "layout::top-attach": 1
+            },
+            {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "keep-aspect-ratio": true,
+              "layout::left-attach": 6,
+              "layout::top-attach": 2
+            },
+            {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "keep-aspect-ratio": true,
+              "layout::left-attach": 7,
+              "layout::top-attach": 0
+            },
+            {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "keep-aspect-ratio": true,
+              "layout::left-attach": 7,
+              "layout::top-attach": 1
+            },
+            {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "keep-aspect-ratio": true,
+              "layout::left-attach": 7,
+              "layout::top-attach": 2
+            },
+            {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "keep-aspect-ratio": true,
+              "layout::left-attach": 8,
+              "layout::top-attach": 0
+            },
+            {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "keep-aspect-ratio": true,
+              "layout::left-attach": 8,
+              "layout::top-attach": 1
+            },
+            {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "keep-aspect-ratio": true,
+              "layout::left-attach": 8,
+              "layout::top-attach": 2
+            },
+            {
+              "type": "ClutterActor",
+              "layout::left-attach": 9,
+              "layout::top-attach": 0,
+              "layout::height": 3,
+              "x-expand": true,
+              "y-expand": true
+            }
+          ]
+        }]
+      },
+      {
+        "type": "ClutterActor",
+        "background-color": "blue",
+        "layout::top-attach": 5,
+        "layout::left-attach": 0,
+        "layout::width": 3,
+        "height": 20,
+        "y-expand": true
+      },
+      {
+        "type": "ClutterActor",
+        "background-color": "orange",
+        "layout::top-attach": 6,
+        "layout::left-attach": 0,
+        "layout::width": 3,
+        "y-expand": true,
+        "layout-manager": {
+          "type": "ClutterBoxLayout"
+        },
+        "children": [{
+            "type": "ClutterActor",
+            "x-expand": true
+          },
+          {
+            "type": "ClutterTexture",
+            "filename": "style/arrow-left.png",
+            "keep-aspect-ratio": true
+          },
+          {
+            "type": "ClutterTexture",
+            "filename": "style/arrow-left.png",
+            "keep-aspect-ratio": true
+          },
+          {
+            "type": "ClutterTexture",
+            "filename": "style/arrow-left.png",
+            "keep-aspect-ratio": true
+          },
+          {
+            "type": "ClutterTexture",
+            "filename": "style/arrow-left.png",
+            "keep-aspect-ratio": true
+          }, {
+            "type": "ClutterActor",
+            "x-expand": true
+          }
+        ]
+      }
+    ]
+  }]
+}]

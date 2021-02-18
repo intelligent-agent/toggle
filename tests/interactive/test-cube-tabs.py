@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import gi
 gi.require_version('Mx', '2.0')
 gi.require_version('Clutter', '1.0')
@@ -13,5 +15,5 @@ _stage = ui.get_object("stage")
 _stage.set_title("Cubic tabs")
 tabs = CubeTabs(ui, 4)
 _stage.connect("destroy", lambda w: Clutter.main_quit())
-_stage.show_all()
+_stage.show()
 Clutter.main()

@@ -1,0 +1,194 @@
+[{
+  "id": "stage",
+  "type": "ClutterStage",
+  "width": 640,
+  "height": 480,
+  "user-resizable": true,
+  "background-color": "blue",
+  "layout-manager": {
+    "type": "ClutterBoxLayout",
+    "orientation": 1
+  },
+  "children": [{
+      "type": "ClutterActor",
+      "height": 50,
+      "x-expand": true,
+      "layout-manager": {
+        "type": "ClutterBoxLayout"
+      }
+    },
+    {
+      "type": "ClutterActor",
+      "x-expand": true,
+      "layout-manager": {
+        "type": "ClutterBoxLayout"
+      },
+      "children": [{
+          "type": "ClutterActor",
+          "background-color": "red",
+          "x-expand": true,
+          "x-align": 0,
+          "layout-manager": {
+            "type": "ClutterBoxLayout",
+            "orientation": 1
+          },
+          "children": [{
+            "type": "ClutterActor",
+            "y-expand": true
+          }, {
+            "type": "ClutterTexture",
+            "filename": "style/arrow-left.png",
+            "x-align": 0,
+            "y-align": 2
+          }, {
+            "type": "ClutterActor",
+            "y-expand": true
+          }]
+        },
+        {
+          "type": "ClutterActor",
+          "background-color": "white",
+          "y-expand": true,
+          "layout-manager": {
+            "type": "ClutterBoxLayout",
+            "orientation": 1
+          },
+          "children": [{
+              "type": "ClutterActor",
+              "y-expand": true
+            },
+            {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "x-align": 0,
+              "y-align": 0
+            }, {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "x-align": 3,
+              "y-align": 2
+            }, {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "x-align": 3,
+              "y-align": 0
+            }, {
+              "type": "ClutterActor",
+              "y-expand": true
+            }
+          ]
+        },
+        {
+          "type": "ClutterActor",
+          "background-color": "red",
+          "x-expand": true,
+          "y-expand": true,
+          "layout-manager": {
+            "type": "ClutterBoxLayout",
+            "orientation": 1
+          },
+          "children": [{
+            "type": "ClutterActor",
+            "y-expand": true
+          }, {
+            "type": "ClutterTexture",
+            "filename": "style/arrow-left.png",
+            "x-align": 3,
+            "y-align": 2
+          }, {
+            "type": "ClutterActor",
+            "y-expand": true
+          }]
+        }, {
+          "type": "ClutterActor",
+          "background-color": "white",
+          "x-expand": true,
+          "y-expand": true,
+          "layout-manager": {
+            "type": "ClutterBoxLayout",
+            "orientation": 1
+          },
+          "children": [{
+            "type": "ClutterActor",
+            "background-color": "orange",
+            "width": 128,
+            "height": 128,
+            "x-align": 2
+          }]
+        }, {
+          "type": "ClutterActor",
+          "background-color": "red",
+          "x-expand": true,
+          "y-expand": true,
+          "layout-manager": {
+            "type": "ClutterBoxLayout",
+            "orientation": 1
+          },
+          "children": [{
+              "type": "ClutterActor",
+              "y-expand": true
+            },
+            {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "x-align": 0,
+              "y-align": 0
+            }, {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "x-align": 3,
+              "y-align": 2
+            }, {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "x-align": 3,
+              "y-align": 0
+            }, {
+              "type": "ClutterActor",
+              "y-expand": true
+            }]
+        }, {
+          "type": "ClutterActor",
+          "background-color": "white",
+          "x-expand": true,
+          "y-expand": true,
+          "layout-manager": {
+            "type": "ClutterBoxLayout",
+            "orientation": 1
+          },
+          "children": [{
+              "type": "ClutterActor",
+              "y-expand": true
+            },
+            {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "x-align": 0,
+              "y-align": 0
+            }, {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "x-align": 3,
+              "y-align": 2
+            }, {
+              "type": "ClutterTexture",
+              "filename": "style/arrow-left.png",
+              "x-align": 3,
+              "y-align": 0
+            }, {
+              "type": "ClutterActor",
+              "y-expand": true
+            }]
+        }
+      ]
+    },
+    {
+      "type": "ClutterActor",
+      "height": 50,
+      "x-expand": true,
+      "layout-manager": {
+        "type": "ClutterBoxLayout"
+      }
+    }
+  ]
+}]

@@ -1,8 +1,7 @@
 import gi
-gi.require_version('Mx', '2.0')
 gi.require_version('Clutter', '1.0')
 gi.require_version('Mash', '0.3')
-from gi.repository import Clutter, Mx, Mash
+from gi.repository import Clutter, Mash
 import logging
 import os
 
@@ -17,26 +16,18 @@ class StyleLoader:
     self.style_type = self.config.get("Style", "style")
     style_path = os.path.join(config.file_base, "styles", self.style_type)
     self.img_path = style_path
-    if config.screen_rot in [90, 270]:
-      width = config.screen_height
-      height = config.screen_width
-    else:
-      width = config.screen_width
-      height = config.screen_height
-    ui_file = "ui_{}x{}.json".format(width, height)
+    width = config.screen_width
+    height = config.screen_height
+    ui_file = "ui_fluid.json"
     self.ui_file_path = os.path.join(style_path, ui_file)
-    style_file = "style.css"
-    self.style_file_path = os.path.join(style_path, style_file)
+    jog_file = "ui_fluid_jog.json"
+    self.ui_file_path_jogger = os.path.join(style_path, jog_file)
     logo_file_name = self.logo_for_screen_width(config.screen_width)
     self.logo_file_path = os.path.join(style_path, logo_file_name)
 
   def load_from_config(self):
-    self.load_style(self.style_file_path)
     self.load_ui(self.ui_file_path)
-
-  def load_style(self, filename):
-    self.style = Mx.Style.get_default()
-    self.style.load_from_file(filename)
+    self.ui.load_from_file(self.ui_file_path_jogger)
 
   def load_ui(self, filename):
     self.ui = Clutter.Script()

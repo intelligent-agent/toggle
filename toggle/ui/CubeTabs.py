@@ -105,7 +105,7 @@ class CubeTabs():
 
   # Runs after the side 0 to 2 transition is done
   def intro_completed(self, one):
-    self.ui.get_object("side5-content").hide()
+    self.ui.get_object("side5").hide()
     self.ui.get_object("side0-content").show()
     self.ui.get_object("side0-btn-next").show()
     self.ui.get_object("side0-btn-prev").show()

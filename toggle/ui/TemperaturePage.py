@@ -7,9 +7,10 @@ class TemperaturePage():
   def __init__(self, config):
     self.config = config
     self.temp = config.ui.get_object("graph")
+    self.temp.connect("allocation-changed", self.on_allocation)
     tc = config.ui.get_object("graph-title").get_color()
     self.graph_color = (tc.red, tc.green, tc.blue, tc.alpha)
-    self.graph = Graph(self.temp.get_width(), self.temp.get_height())
+    self.graph = Graph()
     self.temp.add_child(self.graph)
     self.temps = {
         "tool0": {
@@ -80,6 +81,9 @@ class TemperaturePage():
     # set up temp label
     self.lbl_temp = self.config.ui.get_object("lbl-temp")
     self.ok_range = 4.0
+
+  def on_allocation(self, actor, other, third):
+    self.graph.refresh()
 
   def update_temperatures(self, temp):
     time = temp['time']

@@ -22,6 +22,7 @@ class JogPage:
     for name in buttons:
       if hasattr(self, name):
         btn = config.ui.get_object(name)
+        btn.set_reactive(True)
         func = getattr(self, name)
         tap = Clutter.TapAction()
         btn.add_action(tap)

@@ -116,24 +116,32 @@ class PrintPage:
       self.btn_pause.set_toggled(False)
       self.btn_cancel.set_toggled(False)
 
+  def set_button_enabled(self, button, is_enabled):
+    filename = button.props.filename
+    name = filename.split("_")[0]
+    if is_enabled:
+      button.props.filename = f"{name}_128.png"
+    else:
+      button.props.filename = f"{name}_disabled_128.png"
+
   def update_print_button(self):
     if (self.flags["operational"] and self.config.loader.model_selected
         and (not self.flags["printing"] or self.flags["paused"])):
-      self.btn_print.set_toggled(True)
+      self.set_button_enabled(self.btn_print, True)
     else:
-      self.btn_print.set_toggled(False)
+      self.set_button_enabled(self.btn_print, False)
 
   def update_pause_button(self):
     if self.flags["printing"]:
-      self.btn_pause.set_toggled(True)
+      self.set_button_enabled(self.btn_pause, True)
     else:
-      self.btn_pause.set_toggled(False)
+      self.set_button_enabled(self.btn_pause, False)
 
   def update_cancel_button(self):
     if self.flags["printing"] or self.flags["paused"]:
-      self.btn_cancel.set_toggled(True)
+      self.set_button_enabled(self.btn_cancel, True)
     else:
-      self.btn_cancel.set_toggled(False)
+      self.set_button_enabled(self.btn_cancel, False)
 
   def update_next_buttons(self):
     can_select_model = self.flags["operational"] and not self.flags["printing"]

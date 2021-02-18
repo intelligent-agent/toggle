@@ -77,13 +77,10 @@ class GraphScale():
 
 
 class Graph(Clutter.Actor):
-  def __init__(self, width, height):
+  def __init__(self):
     super(Graph, self).__init__()
-    self.set_size(width, height)
-    self.set_margin_top(0)
-    self.set_margin_right(0)
-    self.set_margin_bottom(0)
-    self.set_margin_left(0)
+    self.set_x_expand(True)
+    self.set_y_expand(True)
     self.canvas = Clutter.Canvas()
     self.set_content(self.canvas)
     self.canvas.connect('draw', self.draw)
@@ -111,7 +108,6 @@ class Graph(Clutter.Actor):
     self.on_allocation("")
 
   def draw(self, canvas, ctx, width, height):
-    # clear the previous frame
     ctx.set_operator(cairo.OPERATOR_CLEAR)
     ctx.paint()
     ctx.set_operator(cairo.OPERATOR_OVER)
