@@ -53,7 +53,7 @@ class WebSocksClient():
       :param str data: message.
     """
     logging.debug("Sending message " + data)
-    yield self._ws_connection.write_message(data)
+    self._ws_connection.write_message(data)
 
   def close_conn(self):
     """
