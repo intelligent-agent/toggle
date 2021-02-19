@@ -1,0 +1,324 @@
+{
+  "id": "side0-content",
+  "background-color": "black",
+  "visible": true,
+  "type": "ClutterActor",
+  "x-expand": true,
+  "y-expand": true,
+  "margin-left": 20,
+  "margin-right": 20,
+  "margin-top": 20,
+  "margin-bottom": 20,
+  "layout-manager": {
+    "type": "ClutterBinLayout"
+  },
+  "children": [{
+    "type": "ClutterActor",
+    "layout-manager": {
+      "type": "ClutterGridLayout",
+      "orientation": 1
+    },
+    "children": [{
+        "type": "ClutterActor",
+        "layout::top-attach": 0,
+        "layout::left-attach": 0,
+        "layout::width": 3,
+        "min-height": 60,
+        "layout-manager": {
+          "type": "ClutterBoxLayout"
+        },
+        "children": [{
+            "id": "side0-btn-prev",
+            "type": "ClutterTexture",
+            "filename": "jog_128.png",
+            "reactive": true,
+            "keep-aspect-ratio": true
+          },
+          {
+            "type": "ClutterActor",
+            "x-expand": true
+          },
+          {
+            "id": "side0-btn-next",
+            "type": "ClutterTexture",
+            "filename": "temperature_128.png",
+            "reactive": true,
+            "keep-aspect-ratio": true
+          }
+        ]
+      },
+      {
+        "type": "ClutterActor",
+        "layout::top-attach": 2,
+        "layout::left-attach": 0,
+        "layout::width": 3,
+        "layout::height": 3,
+        "x-expand": true,
+        "background-color": "#83DCC6",
+        "layout-manager": {
+          "type": "ClutterBinLayout"
+        },
+        "children": [{
+          "id": "scroll-pane",
+          "type": "ClutterScrollActor",
+          "reactive": true,
+          "x-expand": true,
+          "scroll-mode": 2,
+          "layout-manager": {
+            "type": "ClutterGridLayout",
+            "orientation": 1
+          },
+          "children": [{
+              "id": "network-header",
+              "type": "ClutterActor",
+              "background-color": "#26322F",
+              "x-expand": true,
+              "margin-bottom": 5,
+              "layout-manager": {
+                "type": "ClutterBoxLayout"
+              },
+              "children": [{
+                  "type": "ClutterTexture",
+                  "filename": "network_128.png",
+                  "keep-aspect-ratio": true,
+                  "margin-left": 20
+                },
+                {
+                  "type": "ClutterText",
+                  "text": "Network",
+                  "color": "#C5FFF1",
+                  "font-description": "Sans 32",
+                  "margin-left": 20
+                }
+              ]
+            },
+            {
+              "id": "network-body",
+              "type": "ClutterActor",
+              "background-color": "#83DCC6",
+              "visible": true,
+              "margin-left": 20,
+              "margin-right": 20,
+              "margin-bottom": 5,
+              "layout-manager": {
+                "type": "ClutterGridLayout"
+              },
+              "children": [{
+                  "type": "ClutterText",
+                  "text": "Remote Hostname: ",
+                  "font-description": "Sans 32",
+                  "color": "#26322F",
+                  "layout::top-attach": 0,
+                  "layout::left-attach": 0
+                },
+                {
+                  "id": "remote-hostname",
+                  "type": "ClutterText",
+                  "text": "Not set",
+                  "font-description": "Sans 32",
+                  "color": "#26322F",
+                  "layout::top-attach": 0,
+                  "layout::left-attach": 1
+                },
+                {
+                  "type": "ClutterText",
+                  "text": "Local Hostname: ",
+                  "font-description": "Sans 32",
+                  "color": "#26322F",
+                  "layout::top-attach": 1,
+                  "layout::left-attach": 0
+                },
+                {
+                  "id": "local-hostname",
+                  "type": "ClutterText",
+                  "text": "Not set",
+                  "font-description": "Sans 32",
+                  "color": "#26322F",
+                  "layout::top-attach": 1,
+                  "layout::left-attach": 1
+                },
+                {
+                  "type": "ClutterText",
+                  "text": "IP address: ",
+                  "font-description": "Sans 32",
+                  "color": "#26322F",
+                  "layout::top-attach": 2,
+                  "layout::left-attach": 0
+                },
+                {
+                  "id": "local-ip",
+                  "type": "ClutterText",
+                  "text": "Not set",
+                  "font-description": "Sans 32",
+                  "color": "#26322F",
+                  "layout::top-attach": 2,
+                  "layout::left-attach": 1
+                }
+              ]
+            },
+            {
+              "id": "wifi-header",
+              "type": "ClutterActor",
+              "background-color": "#26322F",
+              "x-expand": true,
+              "margin-bottom": 5,
+              "layout-manager": {
+                "type": "ClutterBoxLayout"
+              },
+              "children": [{
+                "type": "ClutterTexture",
+                "filename": "wifi_128.png",
+                "keep-aspect-ratio": true,
+                "margin-left": 20
+              }, {
+                "type": "ClutterText",
+                "text": "Wifi",
+                "color": "#C5FFF1",
+                "font-description": "Sans 32",
+                "margin-left": 20
+              }]
+            },
+            {
+              "id": "wifi-body",
+              "type": "ClutterActor",
+              "x-expand": true,
+              "background-color": "#83DCC6",
+              "visible": true,
+              "margin-left": 20,
+              "margin-right": 20,
+              "margin-bottom": 5,
+              "layout-manager": {
+                "type": "ClutterGridLayout"
+              },
+              "children": [{
+                "id": "wifi-ssid",
+                "type": "ClutterText",
+                "text": "No Access Points found",
+                "font-description": "Sans 32",
+                "color": "#26322F"
+              }]
+            },
+            {
+              "id": "slicer-header",
+              "type": "ClutterActor",
+              "x-expand": true,
+              "margin-bottom": 5,
+              "background-color": "#26322F",
+              "layout-manager": {
+                "type": "ClutterBoxLayout"
+              },
+              "children": [{
+                "type": "ClutterTexture",
+                "filename": "slicer_128.png",
+                "keep-aspect-ratio": true,
+                "margin-left": 20
+              }, {
+                "type": "ClutterText",
+                "text": "Slicer",
+                "color": "#C5FFF1",
+                "font-description": "Sans 32",
+                "margin-left": 20
+              }]
+            },
+            {
+              "id": "slicer-body",
+              "type": "ClutterActor",
+              "visible": true,
+              "margin-left": 20,
+              "margin-right": 20,
+              "margin-bottom": 5,
+              "background-color": "#83DCC6",
+              "layout-manager": {
+                "type": "ClutterGridLayout"
+              },
+              "children": [{
+                  "type": "ClutterText",
+                  "text": "Layer height: ",
+                  "font-description": "Sans 32",
+                  "color": "#26322F",
+                  "layout::top-attach": 0,
+                  "layout::left-attach": 0
+                },
+                {
+                  "id": "slicer-layer-height",
+                  "type": "ClutterText",
+                  "text": "Not set",
+                  "color": "#26322F",
+                  "font-description": "Sans 32",
+                  "layout::top-attach": 0,
+                  "layout::left-attach": 1
+                },
+                {
+                  "type": "ClutterText",
+                  "text": "Print temperature: ",
+                  "color": "#26322F",
+                  "font-description": "Sans 32",
+                  "layout::top-attach": 1,
+                  "layout::left-attach": 0
+                },
+                {
+                  "id": "slicer-print-temp",
+                  "type": "ClutterText",
+                  "text": "Not set",
+                  "color": "#26322F",
+                  "font-description": "Sans 32",
+                  "layout::top-attach": 1,
+                  "layout::left-attach": 1
+                }
+              ]
+            },
+            {
+              "id": "printer-header",
+              "type": "ClutterActor",
+              "x-expand": true,
+              "margin-bottom": 5,
+              "background-color": "#26322F",
+              "layout-manager": {
+                "type": "ClutterBoxLayout"
+              },
+              "children": [{
+                "type": "ClutterTexture",
+                "filename": "printer_128.png",
+                "keep-aspect-ratio": true,
+                "margin-left": 20
+              }, {
+                "type": "ClutterText",
+                "text": "Printer",
+                "color": "#C5FFF1",
+                "font-description": "Sans 32",
+                "margin-left": 20
+              }]
+            },
+            {
+              "id": "printer-body",
+              "type": "ClutterActor",
+              "x-expand": true,
+              "visible": true,
+              "margin-left": 20,
+              "margin-right": 20,
+              "margin-bottom": 5,
+              "background-color": "#83DCC6",
+              "layout-manager": {
+                "type": "ClutterGridLayout"
+              },
+              "children": [{
+                "id": "printer-calibrate-bed",
+                "type": "ClutterText",
+                "text": "Calibrate Bed",
+                "font-description": "Sans 32",
+                "color": "#26322F"
+              }]
+            }
+          ]
+        }]
+      },{
+        "type": "ClutterActor",
+        "height": 20,
+        "layout::top-attach": 1,
+        "layout::left-attach": 0,
+        "layout::width": 3,
+        "y-expand": true
+      }
+    ]
+  }]
+}
