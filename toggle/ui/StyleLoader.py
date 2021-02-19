@@ -18,16 +18,19 @@ class StyleLoader:
     self.img_path = style_path
     width = config.screen_width
     height = config.screen_height
+    logo_file_name = self.logo_for_screen_width(config.screen_width)
+    self.logo_file_path = os.path.join(style_path, logo_file_name)
     ui_file = "ui_fluid.json"
     self.ui_file_path = os.path.join(style_path, ui_file)
     jog_file = "ui_fluid_jog.json"
     self.ui_file_path_jogger = os.path.join(style_path, jog_file)
-    logo_file_name = self.logo_for_screen_width(config.screen_width)
-    self.logo_file_path = os.path.join(style_path, logo_file_name)
+    settings_file = "ui_fluid_settings.json"
+    self.ui_file_path_settings = os.path.join(style_path, settings_file)
 
   def load_from_config(self):
     self.load_ui(self.ui_file_path)
     self.ui.load_from_file(self.ui_file_path_jogger)
+    self.ui.load_from_file(self.ui_file_path_settings)
 
   def load_ui(self, filename):
     self.ui = Clutter.Script()

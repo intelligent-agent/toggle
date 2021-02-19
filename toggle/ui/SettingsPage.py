@@ -174,8 +174,7 @@ class SettingsPage():
       body = self.config.ui.get_object(box + "-body")
       header.is_open = False
       header.body = body
-      for child in body.get_children():
-        child.props.visible = False
+      body.hide()
 
   def header_tap(self, tap, actor):
     if actor.is_open:

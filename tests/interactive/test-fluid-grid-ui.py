@@ -10,7 +10,8 @@ index = 0
 if __name__ == '__main__':
   Clutter.init()
   ui = Clutter.Script()
-  ui.load_from_file("ui-fluid-grid.json")
+  ui.add_search_paths("styles")
+  ui.load_from_file("ui_fluid_settings.json")
 
   def key_press(actor, event):
     global index
@@ -26,8 +27,11 @@ if __name__ == '__main__':
       _stage.set_size(sizes[index][0], sizes[index][1])
       index = (index + 1) % 3
 
-  _stage = ui.get_object("stage")
+  _stage = Clutter.Stage()
+  _stage.add_child(ui.get_object("side0-content"))
   _stage.set_title("Test fluid ui")
+  _stage.set_user_resizable(True)
+  _stage.set_layout_manager(Clutter.BinLayout())
   _stage.connect("destroy", lambda w: Clutter.main_quit())
   _stage.connect('key-press-event', key_press)
 
