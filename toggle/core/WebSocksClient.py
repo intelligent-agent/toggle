@@ -41,6 +41,8 @@ class WebSocksClient():
     self.url = '/'.join(["ws://{}:{}".format(host, port), 'sockjs', 'websocket'])
     self.max_reconnects = 10
     self.state = WebSocksClient.CLOSED
+    self._ws_connection = None
+    self.ioloop = None
 
   def connect(self):
     logging.debug("Connecting to " + self.url)
@@ -124,19 +126,18 @@ class WebSocksClient():
 
   def run(self):
     asyncio.set_event_loop(asyncio.new_event_loop())
+    host = self.config.get("Server", "host")
     for i in range(self.request_timeout):
       if self.running:
-        self.config.splash.set_status("Connecting to {} ({})".format(
-            self.config.get("Server", "host"), i))
+        self.config.push_updates.put(PushUpdate("set_status", f"Connecting to {host} ({i})"))
         logging.debug("Websocket connection attempt " + str(i))
         self.connect()
         self.ioloop = ioloop.IOLoop.instance()
         self.ioloop.start()
         if self.state != WebSocksClient.CLOSED:
           time.sleep(1)
-    self.config.splash.set_status("Unable to connect to {}".format(
-        self.config.get("Server", "host")))
-    self.config.splash.enable_next()
+    self.config.push_updates.put(PushUpdate("set_status", f"Unable to connect to {host}"))
+    self.config.push_updates.put(PushUpdate("tabs_enable_next", None))
 
   def start(self):
     self.running = True
@@ -146,5 +147,6 @@ class WebSocksClient():
   def stop(self):
     self.running = False
     self.close_conn()
-    self.ioloop.stop()
+    if self.ioloop:
+      self.ioloop.stop()
     self.thread.join()

@@ -145,7 +145,7 @@ class Toggle:
     config.stage.show()
 
   def on_connected_cb(self):
-    self.config.splash.set_status("Authenticating...")
+    self.config.push_updates.put(PushUpdate("set_status", "Authenticating..."))
     authenticated = False
     api_key_ok = False
     while not authenticated:
@@ -156,7 +156,7 @@ class Toggle:
         time.sleep(1)
         self.config.reload()
 
-    self.config.splash.set_status("Checking API key...")
+    self.config.push_updates.put(PushUpdate("set_status", "Checking API key..."))
     while not api_key_ok:
       if self.config.rest_client.connection_ok():
         api_key_ok = True
@@ -170,7 +170,7 @@ class Toggle:
     msg = '{ "auth" : "' + str(user) + ':' + str(session) + '" }'
     logging.debug("Sending message " + msg)
     self.config.socks_client.send(msg)
-    self.config.splash.set_status("Authenticated!")
+    self.config.push_updates.put(PushUpdate("set_status", "Authenticated"))
     self.config.loader.sync_models()
 
   def run(self):
