@@ -34,6 +34,12 @@ class PushUpdate:
     self.config.splash.set_status("Connected!")
     self.config.tabs.to_side_2()
 
+  def set_status(self):
+    self.config.splash.set_status(self.payload)
+
+  def tabs_enable_next(self):
+      self.config.splash.enable_next()
+
   def history(self):
     for temp in self.payload["temps"]:
       self.config.temp_graph.update_temperatures(temp)
