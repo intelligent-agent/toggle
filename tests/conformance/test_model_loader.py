@@ -10,6 +10,8 @@ def test_model_loader_sync(default_config):
   loader = ModelLoader(default_config)
   loader.sync_models()
   assert (loader.models.count() == 11)
+  os.remove("Bruce-Willis.stl")
+  os.remove("Dolf-Lundgren.stl")
 
 
 def test_file_model(default_config):
@@ -68,25 +70,25 @@ class DummyRestClient:
         'files': [
             {
                 'display':
-                    'Motor-bottom-back.gco',
+                    'Bruce-Willis.gco',
                 'hash':
                     '4d80ca23ce7ffa1ede4cf165dd00fc440741cf1c',
                 'links': [{
                     'hash': '23d9e81c835090eabe405b129f8dba531fe5883e',
-                    'name': 'Motor-bottom-back.stl',
+                    'name': 'Bruce-Willis.stl',
                     'rel': 'model'
                 }],
                 'name':
-                    'Motor-bottom-back.gco',
+                    'Bruce-Willis.gco',
                 'origin':
                     'local',
                 'path':
-                    'Motor-bottom-back.gco',
+                    'Bruce-Willis.gco',
                 'refs': {
                     'download':
-                        'http://kamikaze.local:5000/downloads/files/local/Motor-bottom-back.gco',
+                        'http://kamikaze.local:5000/downloads/files/local/Bruce-Willis.gco',
                     'resource':
-                        'http://kamikaze.local:5000/api/files/local/Motor-bottom-back.gco'
+                        'http://kamikaze.local:5000/api/files/local/Bruce-Willis.gco'
                 },
                 'size':
                     3065879,
@@ -132,25 +134,25 @@ class DummyRestClient:
                 'date':
                     1564353110,
                 'display':
-                    'Motor-bottom-back.stl',
+                    'Bruce-Willis.stl',
                 'hash':
                     '23d9e81c835090eabe405b129f8dba531fe5883e',
                 'links': [{
                     'hash': '4d80ca23ce7ffa1ede4cf165dd00fc440741cf1c',
-                    'name': 'Motor-bottom-back.gco',
+                    'name': 'Bruce-Willis.gco',
                     'rel': 'machinecode'
                 }],
                 'name':
-                    'Motor-bottom-back.stl',
+                    'Bruce-Willis.stl',
                 'origin':
                     'local',
                 'path':
-                    'Motor-bottom-back.stl',
+                    'Bruce-Willis.stl',
                 'refs': {
                     'download':
-                        'http://kamikaze.local:5000/downloads/files/local/Motor-bottom-back.stl',
+                        'http://kamikaze.local:5000/downloads/files/local/Bruce-Willis.stl',
                     'resource':
-                        'http://kamikaze.local:5000/api/files/local/Motor-bottom-back.stl'
+                        'http://kamikaze.local:5000/api/files/local/Bruce-Willis.stl'
                 },
                 'size':
                     205084,
@@ -162,25 +164,25 @@ class DummyRestClient:
                 'date':
                     1564354511,
                 'display':
-                    'calibration-cube.gco',
+                    'Dolf-Lundgren.gco',
                 'hash':
                     '038e55f72e7cc685eefcac771df948807954243c',
                 'links': [{
                     'hash': 'ffead561c4a9bcfb4d2808dad1b7e31b81ddca25',
-                    'name': 'calibration-cube.stl',
+                    'name': 'Dolf-Lundgren.stl',
                     'rel': 'model'
                 }],
                 'name':
-                    'calibration-cube.gco',
+                    'Dolf-Lundgren.gco',
                 'origin':
                     'local',
                 'path':
-                    'calibration-cube.gco',
+                    'Dolf-Lundgren.gco',
                 'refs': {
                     'download':
-                        'http://kamikaze.local:5000/downloads/files/local/calibration-cube.gco',
+                        'http://kamikaze.local:5000/downloads/files/local/Dolf-Lundgren.gco',
                     'resource':
-                        'http://kamikaze.local:5000/api/files/local/calibration-cube.gco'
+                        'http://kamikaze.local:5000/api/files/local/Dolf-Lundgren.gco'
                 },
                 'size':
                     89289,
@@ -230,25 +232,25 @@ class DummyRestClient:
                 'date':
                     1564354472,
                 'display':
-                    'calibration-cube.stl',
+                    'Dolf-Lundgren.stl',
                 'hash':
                     'ffead561c4a9bcfb4d2808dad1b7e31b81ddca25',
                 'links': [{
                     'hash': '038e55f72e7cc685eefcac771df948807954243c',
-                    'name': 'calibration-cube.gco',
+                    'name': 'Dolf-Lundgren.gco',
                     'rel': 'machinecode'
                 }],
                 'name':
-                    'calibration-cube.stl',
+                    'Dolf-Lundgren.stl',
                 'origin':
                     'local',
                 'path':
-                    'calibration-cube.stl',
+                    'Dolf-Lundgren.stl',
                 'refs': {
                     'download':
-                        'http://kamikaze.local:5000/downloads/files/local/calibration-cube.stl',
+                        'http://kamikaze.local:5000/downloads/files/local/Dolf-Lundgren.stl',
                     'resource':
-                        'http://kamikaze.local:5000/api/files/local/calibration-cube.stl'
+                        'http://kamikaze.local:5000/api/files/local/Dolf-Lundgren.stl'
                 },
                 'size':
                     684,
