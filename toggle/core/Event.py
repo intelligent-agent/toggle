@@ -38,7 +38,7 @@ class PushUpdate:
     self.config.splash.set_status(self.payload)
 
   def tabs_enable_next(self):
-      self.config.splash.enable_next()
+    self.config.splash.enable_next()
 
   def history(self):
     for temp in self.payload["temps"]:

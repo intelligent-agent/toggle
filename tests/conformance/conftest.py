@@ -9,6 +9,7 @@ def default_config():
   config_dir = join(dirname(__file__), "../../configs/")
   config = CascadingConfigParser([abspath(config_dir + "default.cfg")])
   config.splash = mock.Mock()
+  config.push_updates = mock.Mock()
   return config
 
 

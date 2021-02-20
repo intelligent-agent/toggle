@@ -156,8 +156,7 @@ class Toggle:
         time.sleep(1)
         self.config.reload()
 
-    self.config.push_updates.put(
-        PushUpdate("set_status", "Checking API key..."))
+    self.config.push_updates.put(PushUpdate("set_status", "Checking API key..."))
     while not api_key_ok:
       if self.config.rest_client.connection_ok():
         api_key_ok = True
