@@ -687,7 +687,7 @@
                         "id": "lbl-stat",
                         "type": "ClutterText",
                         "x": 30,
-                        "y": 570,
+                        "y": 590,
                         "font-description": "Sans 32",
                         "color": "default-text-color"
                       },
@@ -696,7 +696,7 @@
                         "type": "ClutterText",
                         "text": "Model",
                         "x": 850,
-                        "y": 570,
+                        "y": 590,
                         "width": 400,
                         "height": 30,
                         "x-align": 3,

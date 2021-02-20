@@ -20,7 +20,7 @@ function clean {
 
 function export_image {
 		echo "Exporting $f"
-		inkscape $SOURCE/template.svg -z --export-id=$f  --export-png=$DEST/$f\_$size.png -j 1>/dev/null
+		inkscape $SOURCE/template.svg --export-id=$f  --export-filename=$DEST/$f\_$size.png -j 1>/dev/null
 }
 
 function create_images {
@@ -41,7 +41,7 @@ function create_images {
 	for size in "${sizes[@]}"
 	do
 	    export_image
-      inkscape $SOURCE/template.svg -w$size -h$size --export-id=$f  --export-png=$DEST/$f\_$size.png -j 1>/dev/null
+      inkscape $SOURCE/template.svg -w$size -h$size --export-id=$f  --export-filename=$DEST/$f\_$size.png -j 1>/dev/null
 	done
 }
 
@@ -107,7 +107,7 @@ do
             ;;
         --png) create_images
             ;;
-        --*) echo "bad option $1"; usage
+        --*) echo "bad option $1"; usage; exit 1
             ;;
         *) echo "argument $1"
             ;;
