@@ -124,20 +124,27 @@ class WebSocksClient():
       logging.warning("Unable to parse message from Octoprint " + str(e))
       logging.warning("messsage was " + str(msg))
 
+  def _set_status(self, msg):
+    self.config.push_updates.put(PushUpdate("set_status", msg))
+
+  def _enable_next(self):
+    self.config.push_updates.put(PushUpdate("tabs_enable_next", None))
+
   def run(self):
     asyncio.set_event_loop(asyncio.new_event_loop())
     host = self.config.get("Server", "host")
     for i in range(self.request_timeout):
       if self.running:
-        self.config.push_updates.put(PushUpdate("set_status", f"Connecting to {host} ({i})"))
+        asyncio.get_event_loop().call_soon(self._set_status, f"Connecting to {host} ({i})")
         logging.debug("Websocket connection attempt " + str(i))
         self.connect()
         self.ioloop = ioloop.IOLoop.instance()
         self.ioloop.start()
         if self.state != WebSocksClient.CLOSED:
           time.sleep(1)
-    self.config.push_updates.put(PushUpdate("set_status", f"Unable to connect to {host}"))
-    self.config.push_updates.put(PushUpdate("tabs_enable_next", None))
+    if self.running:
+      asyncio.get_event_loop().call_soon(self._set_status, f"Unable to connect to {host}")
+      ioloop.IOLoop.current().run_sync(self._enable_next)
 
   def start(self):
     self.running = True
