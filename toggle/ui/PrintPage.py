@@ -92,7 +92,7 @@ class PrintPage:
     self.lbl_stat.set_text(status)
 
   def set_model(self, model):
-    self.lbl_model.set_text(model)
+    self.lbl_model.set_text(model[0:40])
 
   def set_printing(self, is_printing):
     if is_printing:
@@ -151,7 +151,6 @@ class PrintPage:
   # Update the current state of the printer.
   # This sets the flags shown in the bottom left corner.
   def update_printer_state(self, state):
-    # logging.debug(state)
     #print self.config.loader.model_selected
     self.set_status(state["text"])
     self.flags = state["flags"]
