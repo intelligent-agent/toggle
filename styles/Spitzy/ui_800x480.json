@@ -45,12 +45,11 @@
                     "children": [
                       {
                         "id": "scroll-pane",
-                        "type": "ClutterScrollActor",
+                        "type": "ClutterActor",
                         "width": 780,
                         "y": 80,
                         "x": 10,
                         "background-color": "scroll-pane-color",
-                        "scroll-mode": 1,
                         "layout-manager": {
                           "type": "ClutterBoxLayout",
                           "orientation": 1
@@ -81,7 +80,7 @@
                                     "color": "#A7C9B9",
                                     "x": 120,
                                     "y": 28,
-                                    "font-description": "Sans 16"
+                                    "font-description": "Sans 16px"
                                   },
                                   {
                                     "type": "ClutterTexture",
@@ -106,7 +105,7 @@
                                   {
                                     "type": "ClutterText",
                                     "text": "Remote Hostname: ",
-                                    "font-description": "Sans 16",
+                                    "font-description": "Sans 16px",
                                     "color": "#6D7073",
                                     "x": 120,
                                     "y": 10
@@ -116,14 +115,14 @@
                                     "type": "ClutterText",
                                     "text": "Not set",
                                     "color": "#6D7073",
-                                    "font-description": "Sans 16",
+                                    "font-description": "Sans 16px",
                                     "x": 400,
                                     "y": 10
                                   },
                                   {
                                     "type": "ClutterText",
                                     "text": "Local Hostname: ",
-                                    "font-description": "Sans 16",
+                                    "font-description": "Sans 16px",
                                     "color": "#6D7073",
                                     "x": 120,
                                     "y": 50
@@ -132,7 +131,7 @@
                                     "id": "local-hostname",
                                     "type": "ClutterText",
                                     "text": "Not set",
-                                    "font-description": "Sans 16",
+                                    "font-description": "Sans 16px",
                                     "color": "#6D7073",
                                     "x": 400,
                                     "y": 50
@@ -140,7 +139,7 @@
                                   {
                                     "type": "ClutterText",
                                     "text": "IP Address: ",
-                                    "font-description": "Sans 16",
+                                    "font-description": "Sans 16px",
                                     "color": "#6D7073",
                                     "x": 120,
                                     "y": 90
@@ -149,7 +148,7 @@
                                     "id": "local-ip",
                                     "type": "ClutterText",
                                     "text": "Not set",
-                                    "font-description": "Sans 16",
+                                    "font-description": "Sans 16px",
                                     "color": "#6D7073",
                                     "x": 400,
                                     "y": 90,
@@ -184,7 +183,7 @@
                                     "color": "#A7C9B9",
                                     "x": 120,
                                     "y": 28,
-                                    "font-description": "Sans 16"
+                                    "font-description": "Sans 16px"
                                   },
                                   {
                                     "type": "ClutterTexture",
@@ -211,7 +210,7 @@
                                     "id": "wifi-ssid",
                                     "type": "ClutterText",
                                     "text": "No Access Points found",
-                                    "font-description": "Sans 32",
+                                    "font-description": "Sans 32px",
                                     "color": "#6D7073",
                                     "height": 64,
                                     "width": 1180,
@@ -246,7 +245,7 @@
                                     "color": "#A7C9B9",
                                     "x": 120,
                                     "y": 30,
-                                    "font-description": "Sans 16"
+                                    "font-description": "Sans 16px"
                                   },
                                   {
                                     "type": "ClutterTexture",
@@ -273,7 +272,7 @@
                                     "text": "Layer height: ",
                                     "x": 120,
                                     "y": 10,
-                                    "font-description": "Sans 16",
+                                    "font-description": "Sans 16px",
                                     "color": "#6D7073"
                                   },
                                   {
@@ -283,7 +282,7 @@
                                     "color": "#6D7073",
                                     "x": 400,
                                     "y": 10,
-                                    "font-description": "Sans 16"
+                                    "font-description": "Sans 16px"
                                   },
                                   {
                                     "type": "ClutterText",
@@ -291,14 +290,14 @@
                                     "color": "#6D7073",
                                     "x": 120,
                                     "y": 50,
-                                    "font-description": "Sans 16"
+                                    "font-description": "Sans 16px"
                                   },
                                   {
                                     "id": "slicer-print-temp",
                                     "type": "ClutterText",
                                     "text": "Not set",
                                     "color": "#6D7073",
-                                    "font-description": "Sans 16",
+                                    "font-description": "Sans 16px",
                                     "x": 400,
                                     "y": 50,
                                     "margin-bottom": 10
@@ -332,7 +331,7 @@
                                     "color": "#A7C9B9",
                                     "x": 120,
                                     "y": 30,
-                                    "font-description": "Sans 16"
+                                    "font-description": "Sans 16px"
                                   },
                                   {
                                     "type": "ClutterTexture",
@@ -359,7 +358,7 @@
                                     "type": "ClutterText",
                                     "text": "Calibrate Bed",
                                     "color": "#6D7073",
-                                    "font-description": "Sans 16",
+                                    "font-description": "Sans 16px",
                                     "x": 120,
                                     "y": 10,
                                     "margin-bottom": 10
@@ -430,7 +429,7 @@
                             "color": "#FFFFFF",
                             "x": 45,
                             "y": 364,
-                            "font-description": "Sans 16"
+                            "font-description": "Sans 16px"
                           }
                         ]
                       },
@@ -485,7 +484,7 @@
                         "height": 100,
                         "y": 30,
                         "x": 364,
-                        "font-description": "Sans 16"
+                        "font-description": "Sans 16px"
                       },
                       {
                         "id": "graph",
@@ -546,7 +545,7 @@
                         "x-align": 3,
                         "x-expand": true,
                         "line-alignment": 2,
-                        "font-description": "Sans 16"
+                        "font-description": "Sans 16px"
                       }
                     ]
                   },
@@ -689,21 +688,21 @@
                             "type": "ClutterText",
                             "x": 15,
                             "y": 410,
-                            "font-description": "Sans 16",
+                            "font-description": "Sans 16px",
                             "color": "#5D4157"
                           },
                           {
                             "id": "lbl-model",
                             "type": "ClutterText",
                             "text": "Model",
-                            "x": 530,
+                            "x": 510,
                             "y": 440,
                             "width": 264,
                             "height": 25,
                             "x-align": 3,
                             "x-expand": true,
                             "line-alignment": 2,
-                            "font-description": "Sans 10",
+                            "font-description": "Sans 10px",
                             "color": "#5D4157"
                           },
                           {
@@ -744,7 +743,7 @@
                             "y": 395,
                             "width": 220,
                             "height": 25,
-                            "font-description": "Sans 10",
+                            "font-description": "Sans 10px",
                             "color": "#5D4157"
                           },
                           {
@@ -756,7 +755,7 @@
                             "height": 25,
                             "x-align": 3,
                             "x-expand": true,
-                            "font-description": "Sans 10",
+                            "font-description": "Sans 10px",
                             "color": "#5D4157"
                           },
                           {
@@ -1037,7 +1036,7 @@
                         "x-align": 3,
                         "x-expand": true,
                         "line-alignment": 2,
-                        "font-description": "Sans 16",
+                        "font-description": "Sans 16px",
                         "color": "#5D4157"
                       },
                       {
@@ -1051,7 +1050,7 @@
                         "x-align": 1,
                         "x-expand": true,
                         "line-alignment": 1,
-                        "font-description": "Sans 16",
+                        "font-description": "Sans 16px",
                         "color": "#5D4157"
                       },
                       {
@@ -1075,7 +1074,7 @@
                         "x-align": 1,
                         "x-expand": true,
                         "line-alignment": 1,
-                        "font-description": "Sans 16",
+                        "font-description": "Sans 16px",
                         "color": "#5D4157"
                       },
                       {
@@ -1099,7 +1098,7 @@
                         "x-align": 1,
                         "x-expand": true,
                         "line-alignment": 1,
-                        "font-description": "Sans 16",
+                        "font-description": "Sans 16px",
                         "color": "#5D4157"
                       },
                       {
@@ -1199,7 +1198,7 @@
               {
                 "id": "txt",
                 "type": "ClutterText",
-                "font-description": "Sans 36",
+                "font-description": "Sans 36px",
                 "color": "#FFF",
                 "height": 100
               }
@@ -1219,7 +1218,7 @@
               {
                 "id": "wifi-text",
                 "type": "ClutterText",
-                "font-description": "Sans 24",
+                "font-description": "Sans 24px",
                 "color": "#FFF",
                 "height": 100,
                 "text": "Password:",
@@ -1237,7 +1236,7 @@
               {
                 "id": "wifi-status",
                 "type": "ClutterText",
-                "font-description": "Sans 12",
+                "font-description": "Sans 12px",
                 "color": "#FFF",
                 "x": 120,
                 "y": 160

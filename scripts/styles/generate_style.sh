@@ -10,8 +10,8 @@ play_disabled print home settings network  slicer wifi printer \
 0.1 0.1_disabled 1 1_disabled 10 10_disabled 100 100_disabled loading e h z \
 motor_off fan_on fan_off )
 small_icons=( heartbeat connection connection_disabled running paused pointer)
-colors=( background-color-side default-text-color plate-color model-color stage-color
-menu-header-color menu-header-text-color menu-body-text-color menu-body-color \
+colors=( background-color-side default-text-color plate-color model-color stage-color \
+menu-header-color menu-header-text-color menu-body-text-color menu-body-color menu-header-color \
 splash-text-color progress-bar-color)
 
 function clean {
@@ -20,7 +20,7 @@ function clean {
 
 function export_image {
 		echo "Exporting $f"
-		inkscape $SOURCE/template.svg -z --export-id=$f  --export-png=$DEST/$f\_$size.png -j 1>/dev/null
+		inkscape $SOURCE/template.svg --export-id=$f  --export-filename=$DEST/$f\_$size.png -j 1>/dev/null
 }
 
 function create_images {
@@ -40,8 +40,9 @@ function create_images {
 	sizes=( 400 600 900 )
 	for size in "${sizes[@]}"
 	do
-	    export_image
-      inkscape $SOURCE/template.svg -w$size -h$size --export-id=$f  --export-png=$DEST/$f\_$size.png -j 1>/dev/null
+	  export_image
+	  echo $size
+      inkscape $SOURCE/template.svg -w ${size} -h ${size} --export-id=$f  --export-filename=$DEST/$f\_$size.png -j 1>/dev/null
 	done
 }
 

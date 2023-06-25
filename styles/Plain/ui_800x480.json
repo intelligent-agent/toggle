@@ -49,7 +49,7 @@
                         "width": 780,
                         "y": 80,
                         "x": 10,
-                        "background-color": "#F9F8F9",
+                        "background-color": "scroll-pane-color",
                         "layout-manager": {
                           "type": "ClutterBoxLayout",
                           "orientation": 1
@@ -695,7 +695,7 @@
                             "id": "lbl-model",
                             "type": "ClutterText",
                             "text": "Model",
-                            "x": 530,
+                            "x": 510,
                             "y": 440,
                             "width": 264,
                             "height": 25,
