@@ -54,7 +54,7 @@ function get_colors {
 		f=$replace
 		export_image
 		replacement_colors[$i]=$(convert $DEST/$replace\_$size.png -crop '1x1+1+1' txt:- | tail -n1 | awk -F "#" '{print substr($NF, 0, 6)}')
-		rm $DEST/$replace\_$size.png
+		rm -f $DEST/$replace\_$size.png
 	  i=$(($i+1))
 	done
 }
@@ -80,7 +80,7 @@ function convert_ui {
 
 function usage {
   echo "generate_style.sh <style name>"
-  echo "where style name: Plain, Dark, Mixer, Spitzy"
+  echo "where style name: Plain, Dark, Mixer, Spitzy, Black"
   echo "--ui generate ui layout files"
   echo "--png generate PNG files from the SVG template"
 }

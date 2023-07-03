@@ -10,6 +10,7 @@ def get_data_files():
           ('/etc/toggle/styles/Mixer', glob.glob("styles/Mixer/*")),
           ('/etc/toggle/styles/Spitzy', glob.glob("styles/Spitzy/*")),
           ('/etc/toggle/styles/Dark', glob.glob("styles/Dark/*")),
+          ('/etc/toggle/styles/Black', glob.glob("styles/Black/*")),
           ('/etc/toggle', glob.glob("configs/*")),
           ('/etc/toggle/platforms', glob.glob("models/platforms/*")),
           ('/etc/toggle/models', ['models/probe-point.stl', 'models/missing-model.stl']),

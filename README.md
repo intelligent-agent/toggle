@@ -78,6 +78,11 @@ To Run toggle once it's installed:
 CLUTTER_BACKEND=<wayland|x11|eglnative> toggle
 ```
 
+## (Re)creating styles
+```
+./scripts/generate_all_styles.sh
+```
+
 ## Contributing
 Make sure all tests pass before creating a pull-request
 To test locally, run:
