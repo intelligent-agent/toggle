@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import glob
-import os
 import shutil
+import pathlib
 
 def get_data_files():
   return [('/etc/toggle/styles/Plain', glob.glob("styles/Plain/*")),
@@ -15,6 +15,7 @@ def get_data_files():
 
 if __name__ == "__main__":
   for location, files in get_data_files():
+    pathlib.Path(location).mkdir(parents=True, exist_ok=True)
     for file in files:
       print(location, file)
       shutil.copy(file, location)
