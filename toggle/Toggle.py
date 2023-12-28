@@ -108,14 +108,12 @@ class Toggle:
     config.stage.connect("destroy", self.stop)
     config.stage.connect('key-press-event', self.key_press)
 
-    config.style.do_screen_rotation()
-
     config.tabs = CubeTabs(config.ui, 4)
     config.splash = SplashPage(config)
     config.splash.set_status("Starting Toggle {} ...".format(__version__))
     config.jog = JogPage(config)
     config.temp_graph = TemperaturePage(config)
-    config.network = Network.get_manager(config)
+    #config.network = Network.get_manager(config)
     config.settings = SettingsPage(config)
     config.rest_client = RestClient(config)
     config.volume_stage = VolumeStage(config)

@@ -12,17 +12,12 @@ class StyleLoader:
     self.config = config
     config.screen_width = config.getint("Screen", "width")
     config.screen_height = config.getint("Screen", "height")
-    config.screen_rot = config.getint("Screen", "rotation")
     config.screen_full = config.getboolean("Screen", "fullscreen")
     self.style_type = self.config.get("Style", "style")
     style_path = os.path.join(config.file_base, "styles", self.style_type)
     self.img_path = style_path
-    if config.screen_rot in [90, 270]:
-      width = config.screen_height
-      height = config.screen_width
-    else:
-      width = config.screen_width
-      height = config.screen_height
+    width = config.screen_width
+    height = config.screen_height
     ui_file = "ui_{}x{}.json".format(width, height)
     self.ui_file_path = os.path.join(style_path, ui_file)
     style_file = "style.css"
@@ -46,22 +41,6 @@ class StyleLoader:
       logging.warning(e)
       return False
     return True
-
-  def do_screen_rotation(self):
-    # Flip and move the stage to the right location
-    # This has to be done in the application, since it is a
-    # fbdev app
-    if self.config.screen_rot == 90:
-      self.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 90.0)
-      self.ui.get_object("all").set_position(self.config.screen_width, 0)
-    elif self.config.screen_rot == 270:
-      self.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, -90.0)
-      self.ui.get_object("all").set_position(0, self.config.screen_height)
-    elif self.config.screen_rot == 180:
-      self.ui.get_object("all").set_pivot_point(0.5, 0.5)
-      self.ui.get_object("all").set_rotation_angle(Clutter.RotateAxis.Z_AXIS, 180.0)
-    if self.config.screen_full:
-      self.config.stage.set_fullscreen(True)
 
   def logo_for_screen_width(self, width):
     return {
