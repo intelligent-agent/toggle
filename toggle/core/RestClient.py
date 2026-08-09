@@ -18,11 +18,29 @@ class RestClient:
     self._headers = {'Content-Type': 'application/json', 'X-Api-Key': self._api_key}
 
   def login(self):
-    url = self._build_url("login")
+    # OctoPrint protects /api/login with a double-submit CSRF cookie:
+    # a GET to any page sets a csrf_token_* cookie, and the same value
+    # must be echoed back as X-CSRF-Token on the POST, or it's
+    # rejected with 400 "CSRF validation failed" regardless of
+    # credentials. Use a Session so the cookie set here is
+    # automatically resent (under its real, port-suffixed name) below.
     user = self.config.get("OctoPrint", "user")
     password = self.config.get("OctoPrint", "password")
     data = json.dumps({'user': user, 'pass': password})
-    r = requests.post(url, data=data, headers={'Content-Type': 'application/json'})
+    session = requests.Session()
+    try:
+      session.get(f"http://{self._host}:{self._port}/")
+    except requests.ConnectionError:
+      logging.warning("Authentication failed! Check username and password + CORS")
+      return "INVALID-SESSION"
+    csrf_token = next(
+      (v for k, v in session.cookies.items() if k.startswith("csrf_token")),
+      None
+    )
+    headers = {'Content-Type': 'application/json'}
+    if csrf_token:
+      headers['X-CSRF-Token'] = csrf_token
+    r = session.post(self._build_url("login"), data=data, headers=headers)
     if r.status_code == 200:
       return r.json()["session"]
     else:
