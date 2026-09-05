@@ -16,6 +16,9 @@ class RestClient:
     self._port = self.config.get("Server", "port")
     self._api_key = self.config.get("OctoPrint", "authentication")
     self._headers = {'Content-Type': 'application/json', 'X-Api-Key': self._api_key}
+    # Whoever the session turned out to belong to - autologin decides it,
+    # not the config, so the socket auth must use this rather than "user".
+    self.session_user = None
 
   # What default.cfg ships until toggle-runfirst fills local.cfg in.
   PLACEHOLDER = "REPLACE_ME"
@@ -39,21 +42,33 @@ class RestClient:
             and bool(password) and password != self.PLACEHOLDER)
 
   def login(self):
-    # OctoPrint protects /api/login with a double-submit CSRF cookie:
-    # a GET to any page sets a csrf_token_* cookie, and the same value
-    # must be echoed back as X-CSRF-Token on the POST, or it's
-    # rejected with 400 "CSRF validation failed" regardless of
-    # credentials. Use a Session so the cookie set here is
-    # automatically resent (under its real, port-suffixed name) below.
-    user = self.config.get("OctoPrint", "user")
-    password = self.config.get("OctoPrint", "password")
-    data = json.dumps({'user': user, 'pass': password})
+    """A session for the push socket, without credentials where possible.
+
+    OctoPrint is configured with accessControl.autologinLocal, so a request that
+    arrives from this machine is already logged in as accessControl.autologinAs
+    by the time it is handled. A passive login just asks who that turned out to
+    be and returns the session the socket auth needs - no password, no API key,
+    nothing to keep in step with OctoPrint's password hashing.
+
+    That last part is not hypothetical. toggle-runfirst wrote its user's password
+    as sha512(password + salt), OctoPrint 1.11 stores argon2id, and the two never
+    matched: the toggle user existed, in the right group, with a hash that could
+    not authenticate. Not sending a password removes the whole class of that.
+
+    The GET is doing two jobs: it collects the double-submit CSRF cookie that
+    /api/login demands, and it is the request autologin acts on. Use a Session so
+    the cookie it sets is resent on the POST below.
+
+    Falls back to user and password, for an OctoPrint without autologin
+    configured - but only once those are real, see credentials_ready().
+    """
     session = requests.Session()
     try:
       session.get(f"http://{self._host}:{self._port}/")
     except requests.ConnectionError:
-      logging.warning("Authentication failed! Check username and password + CORS")
+      logging.warning("Cannot reach OctoPrint at %s:%s", self._host, self._port)
       return "INVALID-SESSION"
+
     csrf_token = next(
       (v for k, v in session.cookies.items() if k.startswith("csrf_token")),
       None
@@ -61,12 +76,36 @@ class RestClient:
     headers = {'Content-Type': 'application/json'}
     if csrf_token:
       headers['X-CSRF-Token'] = csrf_token
-    r = session.post(self._build_url("login"), data=data, headers=headers)
-    if r.status_code == 200:
-      return r.json()["session"]
-    else:
-      logging.warning("Authentication failed! Check username and password + CORS")
+
+    # Passive first, and unconditionally: it sends no credentials, so it cannot
+    # fail an authentication attempt and cannot count against OctoPrint's brute
+    # force protection.
+    try:
+      r = session.post(self._build_url("login"),
+                       data=json.dumps({"passive": True}), headers=headers)
+      if r.status_code == 200:
+        d = r.json()
+        if d.get("session") and d.get("name"):
+          self.session_user = d["name"]
+          logging.info("Logged in as %s (%s)",
+                       d["name"], d.get("_login_mechanism", "passive"))
+          return d["session"]
+    except (requests.RequestException, ValueError) as e:
+      logging.warning("Passive login failed (%s), trying credentials", e)
+
+    if not self.credentials_ready():
       return "INVALID-SESSION"
+
+    user = self.config.get("OctoPrint", "user")
+    password = self.config.get("OctoPrint", "password")
+    r = session.post(self._build_url("login"),
+                     data=json.dumps({'user': user, 'pass': password}),
+                     headers=headers)
+    if r.status_code == 200:
+      self.session_user = user
+      return r.json()["session"]
+    logging.warning("Authentication failed! Check username and password + CORS")
+    return "INVALID-SESSION"
 
   def connection_ok(self):
     r = requests.get(self._build_url("version"), headers=self._headers)

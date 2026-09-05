@@ -62,12 +62,41 @@ def test_credentials_ready_once_provisioned():
 # returns INVALID-SESSION from the ConnectionError, and neither test reaches the
 # POST it is about. That made test_login_ok fail outright and, worse, made
 # test_login_status_code_403 pass without ever exercising a 403.
-def test_login_ok(default_config):
+def test_login_passive_when_octoprint_autologs_us_in():
+  # The autologin case: OctoPrint has already decided who we are by the time the
+  # request lands, so the passive POST comes back with a name and a session and
+  # no credentials are ever sent. The name matters - the push socket rejects an
+  # auth message naming anyone but the session's own user.
+  with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')
+    m.post('http://localhost:5000/api/login',
+           json={"name": "toggle", "session": "pizza",
+                 "_login_mechanism": "autologin"})
+    client = RestClient(_config_with("REPLACE_ME", ""))
+    assert client.login() == "pizza"
+    assert client.session_user == "toggle"
+
+
+def test_login_falls_back_to_credentials():
+  # No name in the reply, so the passive attempt did not authenticate anyone and
+  # login() should try the configured user and password instead.
   with requests_mock.Mocker(real_http=True) as m:
     m.get('http://localhost:5000/')
     m.post('http://localhost:5000/api/login', json={"session": "pizza"})
-    client = RestClient(default_config)
+    client = RestClient(_config_with("s3cret", "an-api-key"))
     assert client.login() == "pizza"
+    assert client.session_user == "toggle"
+
+
+def test_login_does_not_send_credentials_before_provisioning():
+  # A board still sitting at OctoPrint's setup wizard: the passive attempt says
+  # nothing useful and there is nothing to fall back to, so no credential login
+  # is attempted at all.
+  with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')
+    m.post('http://localhost:5000/api/login', json={"session": "pizza"})
+    client = RestClient(_config_with("REPLACE_ME", ""))
+    assert client.login() == "INVALID-SESSION"
 
 
 def test_login_status_code_403(default_config):

@@ -155,14 +155,17 @@ class Toggle:
     # credentials do arrive.
     delay = 1
     while not authenticated:
-      if self.config.rest_client.credentials_ready():
-        session = self.config.rest_client.login()
-        if session != "INVALID-SESSION":
-          authenticated = True
-          continue
-      else:
-        self.config.push_updates.put(
-          PushUpdate("set_status", "Waiting for OctoPrint setup..."))
+      session = self.config.rest_client.login()
+      if session != "INVALID-SESSION":
+        authenticated = True
+        continue
+      # login() tries a passive login before it tries credentials, so reaching
+      # here without credentials means OctoPrint has neither autologin
+      # configured nor a user for us yet - which is a wait, not a fault.
+      self.config.push_updates.put(PushUpdate(
+        "set_status",
+        "Authenticating..." if self.config.rest_client.credentials_ready()
+        else "Waiting for OctoPrint setup..."))
       time.sleep(delay)
       delay = min(delay * 2, 30)
       self.config.reload()
@@ -179,7 +182,11 @@ class Toggle:
         self.config.reload()
         self.config.rest_client.load_parameters()
 
-    user = self.config.get("OctoPrint", "user")
+    # Whoever the session actually belongs to. With autologin that is decided
+    # by OctoPrint's accessControl.autologinAs, not by our config, and the
+    # socket rejects an auth message naming anyone else.
+    user = (getattr(self.config.rest_client, "session_user", None)
+            or self.config.get("OctoPrint", "user"))
     logging.debug("Authenticating with " + user + ":" + session)
     msg = '{ "auth" : "' + str(user) + ':' + str(session) + '" }'
     logging.debug("Sending message " + msg)
