@@ -26,8 +26,45 @@ def test_select_tool(default_config):
     assert (testRestclient.select_tool(0))
 
 
+def _config_with(password, apikey):
+  """A config as toggle-runfirst leaves it, rather than as the image ships it."""
+  import mock
+  from os.path import join, abspath, dirname
+  from toggle.core.CascadingConfigParser import CascadingConfigParser
+  cfg = CascadingConfigParser(
+    [abspath(join(dirname(__file__), "../../configs/default.cfg"))])
+  cfg.splash = mock.Mock()
+  cfg.push_updates = mock.Mock()
+  cfg.set("OctoPrint", "password", password)
+  cfg.set("OctoPrint", "authentication", apikey)
+  return cfg
+
+
+def test_credentials_not_ready_on_a_fresh_image(default_config):
+  # default.cfg ships REPLACE_ME, which is what a board sitting at OctoPrint's
+  # setup wizard looks like. No login should be attempted from that state.
+  assert RestClient(default_config).credentials_ready() is False
+
+
+def test_credentials_not_ready_with_an_empty_api_key():
+  # What local.cfg actually contains before toggle-runfirst runs: a user, and
+  # an authentication line with nothing after it.
+  assert RestClient(_config_with("REPLACE_ME", "")).credentials_ready() is False
+
+
+def test_credentials_ready_once_provisioned():
+  assert RestClient(_config_with("s3cret", "an-api-key")).credentials_ready() is True
+
+
+# login() fetches / first, to pick up the double-submit CSRF cookie that
+# OctoPrint requires on /api/login. Both of these tests have to mock that GET:
+# without it the request fails against a localhost nobody is serving, login()
+# returns INVALID-SESSION from the ConnectionError, and neither test reaches the
+# POST it is about. That made test_login_ok fail outright and, worse, made
+# test_login_status_code_403 pass without ever exercising a 403.
 def test_login_ok(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')
     m.post('http://localhost:5000/api/login', json={"session": "pizza"})
     client = RestClient(default_config)
     assert client.login() == "pizza"
@@ -35,6 +72,7 @@ def test_login_ok(default_config):
 
 def test_login_status_code_403(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')
     m.post('http://localhost:5000/api/login', status_code=403)
     client = RestClient(default_config)
     assert client.login() == "INVALID-SESSION"

@@ -146,13 +146,29 @@ class Toggle:
     self.config.push_updates.put(PushUpdate("set_status", "Authenticating..."))
     authenticated = False
     api_key_ok = False
+    # Back off, and do not knock at all until there is something to knock with.
+    #
+    # This used to retry once a second forever. On a board whose OctoPrint has
+    # not been set up that is a login attempt per second with a placeholder
+    # password, which trips OctoPrint's brute force protection and gets the
+    # endpoint blocked for everyone - including toggle itself once its real
+    # credentials do arrive.
+    delay = 1
     while not authenticated:
-      session = self.config.rest_client.login()
-      if session != "INVALID-SESSION":
-        authenticated = True
+      if self.config.rest_client.credentials_ready():
+        session = self.config.rest_client.login()
+        if session != "INVALID-SESSION":
+          authenticated = True
+          continue
       else:
-        time.sleep(1)
-        self.config.reload()
+        self.config.push_updates.put(
+          PushUpdate("set_status", "Waiting for OctoPrint setup..."))
+      time.sleep(delay)
+      delay = min(delay * 2, 30)
+      self.config.reload()
+      # Re-read the API key too, not just the config: toggle-runfirst writes it
+      # while this loop is running, and the client caches it in its headers.
+      self.config.rest_client.load_parameters()
 
     self.config.push_updates.put(PushUpdate("set_status", "Checking API key..."))
     while not api_key_ok:

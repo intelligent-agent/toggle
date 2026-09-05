@@ -17,6 +17,27 @@ class RestClient:
     self._api_key = self.config.get("OctoPrint", "authentication")
     self._headers = {'Content-Type': 'application/json', 'X-Api-Key': self._api_key}
 
+  # What default.cfg ships until toggle-runfirst fills local.cfg in.
+  PLACEHOLDER = "REPLACE_ME"
+
+  def credentials_ready(self):
+    """False while OctoPrint has not been set up yet.
+
+    A fresh image ships default.cfg's placeholders and an empty API key. Those
+    cannot be filled in until OctoPrint's setup wizard has created the first
+    user, because only then can toggle-runfirst add ours - and the wizard waits
+    on a human.
+
+    Posting a login in the meantime cannot succeed, and posting one every second
+    is worse than useless: OctoPrint's brute force protection starts answering
+    429, and it then refuses the real login too, once it finally arrives. Seen
+    on a bench board that had been sitting at the wizard - the endpoint had to
+    be freed by restarting OctoPrint before a valid key would work.
+    """
+    password = self.config.get("OctoPrint", "password")
+    return (bool(self._api_key) and self._api_key != self.PLACEHOLDER
+            and bool(password) and password != self.PLACEHOLDER)
+
   def login(self):
     # OctoPrint protects /api/login with a double-submit CSRF cookie:
     # a GET to any page sets a csrf_token_* cookie, and the same value
