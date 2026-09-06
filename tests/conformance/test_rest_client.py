@@ -9,11 +9,13 @@ from toggle.core.RestClient import RestClient
 @requests_mock.Mocker(kw='mock')
 def test_connection_ok(default_config, **kwargs):
   kwargs['mock'].get('http://localhost:5000/api/version')
+  kwargs['mock'].get('http://localhost:5000/')
   assert RestClient(default_config).connection_ok() == True
 
 
 def test_get_list_of_files(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')  # primes the session (autologin)
     m.get('http://localhost:5000/api/files', json={})
     testRestclient = RestClient(default_config)
     assert (testRestclient.get_list_of_files() == {})
@@ -21,6 +23,7 @@ def test_get_list_of_files(default_config):
 
 def test_select_tool(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')  # primes the session (autologin)
     m.post('http://localhost:5000/api/printer/tool')
     testRestclient = RestClient(default_config)
     assert (testRestclient.select_tool(0))
@@ -109,6 +112,7 @@ def test_login_status_code_403(default_config):
 
 def test_start_job(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')  # primes the session (autologin)
     m.post('http://localhost:5000/api/job', status_code=204)
     client = RestClient(default_config)
     assert client.start_job()
@@ -116,6 +120,7 @@ def test_start_job(default_config):
 
 def test_pause_job(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')  # primes the session (autologin)
     m.post('http://localhost:5000/api/job', status_code=204)
     client = RestClient(default_config)
     assert client.pause_job()
@@ -123,6 +128,7 @@ def test_pause_job(default_config):
 
 def test_cancel_job(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')  # primes the session (autologin)
     m.post('http://localhost:5000/api/job', status_code=204)
     client = RestClient(default_config)
     assert client.cancel_job()
@@ -130,6 +136,7 @@ def test_cancel_job(default_config):
 
 def test_resume_job(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')  # primes the session (autologin)
     m.post('http://localhost:5000/api/job', status_code=204)
     client = RestClient(default_config)
     assert client.resume_job()
@@ -137,6 +144,7 @@ def test_resume_job(default_config):
 
 def test_send_gcode(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')  # primes the session (autologin)
     m.post('http://localhost:5000/api/printer/command', status_code=204)
     client = RestClient(default_config)
     assert client.send_gcode("G0 X0")
@@ -144,6 +152,7 @@ def test_send_gcode(default_config):
 
 def test_set_bed_temp(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')  # primes the session (autologin)
     m.post('http://localhost:5000/api/printer/bed', status_code=204)
     client = RestClient(default_config)
     assert client.set_bed_temp(42)
@@ -151,6 +160,7 @@ def test_set_bed_temp(default_config):
 
 def test_set_tool_temp(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')  # primes the session (autologin)
     m.post('http://localhost:5000/api/printer/tool', status_code=204)
     client = RestClient(default_config)
     assert client.set_tool_temp(0, 42)
@@ -158,6 +168,7 @@ def test_set_tool_temp(default_config):
 
 def test_select_file(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')  # primes the session (autologin)
     m.post('http://localhost:5000/api/files/local/Dolf-Lundgren', status_code=204)
     client = RestClient(default_config)
     assert client.select_file("Dolf-Lundgren")
@@ -165,6 +176,7 @@ def test_select_file(default_config):
 
 def test_jog(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')  # primes the session (autologin)
     m.post('http://localhost:5000/api/printer/printhead', status_code=204)
     client = RestClient(default_config)
     assert client.jog({"X": 42})
@@ -173,6 +185,7 @@ def test_jog(default_config):
 
 def test_home(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')  # primes the session (autologin)
     m.post('http://localhost:5000/api/printer/printhead', status_code=204)
     client = RestClient(default_config)
     assert client.home("X")
@@ -180,6 +193,7 @@ def test_home(default_config):
 
 def test_extrude(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')  # primes the session (autologin)
     m.post('http://localhost:5000/api/printer/tool', status_code=204)
     client = RestClient(default_config)
     assert client.extrude(7)
@@ -187,6 +201,7 @@ def test_extrude(default_config):
 
 def test_select_tool(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')  # primes the session (autologin)
     m.post('http://localhost:5000/api/printer/tool', status_code=204)
     client = RestClient(default_config)
     assert client.select_tool(0)
@@ -201,6 +216,36 @@ def test_download_model(default_config):
 
 def test_get_slicers(default_config):
   with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')  # primes the session (autologin)
     m.post('http://localhost:5000/api/slicing', json={"arnhold-slicer": {}})
     client = RestClient(default_config)
     assert client.get_slicers()["arnhold-slicer"] == {}
+
+
+def test_post_carries_the_csrf_token():
+  # Under session auth OctoPrint rejects a POST without the double-submit token
+  # with 400 "CSRF validation failed", before the handler is reached. Under
+  # API-key auth it did not, which is why this never came up until autologin.
+  with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')
+    m.post('http://localhost:5000/api/job', status_code=204)
+    client = RestClient(_config_with("REPLACE_ME", ""))
+    client._prime()
+    # Set on the jar rather than via Set-Cookie: requests_mock intercepts at the
+    # adapter, so a mocked response's cookies never reach the session. Storing
+    # them is requests' job; what is being tested here is that the header is
+    # built from whatever is in the jar.
+    client._session.cookies.set('csrf_token_P5000', 'tok')
+    assert client.start_job() is True
+    assert m.last_request.headers.get('X-CSRF-Token') == 'tok'
+
+
+def test_no_api_key_header_when_unset():
+  # An empty key is a BAD credential to OctoPrint, not an absent one: it answers
+  # 403 instead of falling through to autologin.
+  with requests_mock.Mocker(real_http=True) as m:
+    m.get('http://localhost:5000/')
+    m.get('http://localhost:5000/api/version', status_code=200)
+    client = RestClient(_config_with("REPLACE_ME", ""))
+    assert client.connection_ok() is True
+    assert 'X-Api-Key' not in m.last_request.headers
